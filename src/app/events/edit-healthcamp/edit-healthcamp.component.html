@@ -1,0 +1,363 @@
+<app-menubar></app-menubar>
+
+<ng-template [ngIf]="displayName === 'editform'">
+
+<form [formGroup]="campForm" (ngSubmit)="onSubmit()">
+    <div class="back-button d-flex align-items-center">
+        <button mat-icon-button (click)="goBack()">
+            <mat-icon  aria-label="Back">arrow_back</mat-icon>
+        </button>
+        <span class="back-label" >Back</span>
+      </div>
+<mat-card class="overflow-hidden">
+    <div class="row m-r-0 p-24 d-flex">
+        <div class="col-lg-6">
+
+    <mat-card-header>
+        <mat-card-title class="f-s-30 f-w-900 p-24">Add Event</mat-card-title>
+
+        <!-- <mat-card-subtitle style="color:#000" class="f-w-400 m-20">More Fields Will Come</mat-card-subtitle> -->
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="row p-24">
+                <!-- <div class="row"> -->
+                    <!-- <div class="col-lg-12"> -->
+
+                            <div class="col-lg-12">
+                                <div class="row align-items-baseline">
+                                    <div class="col-md-4">
+                                        <mat-label>Event Name </mat-label>
+                                    </div>
+                                    <div class="col-md-6 h-20">
+
+                                        <app-inputs
+                                        [parentForm]="campForm"
+                                        controlName="HealthCampName"
+                                        type="email"
+                                        [minLength]="3"
+                                        [validationMessages]="{
+                                            required: 'Username is required.',
+                                            minlength: 'Username should be at least 3 characters long.'
+                                        }"
+                                        class="w-100"
+
+                                        ></app-inputs>
+                                    </div>
+                                </div>
+                                <div class="row align-items-baseline">
+                                    <div class="col-md-4">
+                                      <mat-label>Event Type</mat-label>
+                                    </div>
+                                    <div class="col-md-6 p-0">
+                                      <mat-form-field appearance="outline" class="w-100" [ngClass]="{'error-border': campForm.get('Event')?.invalid && campForm.get('submitted')?.value}">
+                                        <mat-select placeholder="Select Event Type" formControlName="Event" (selectionChange)="onEventChange($event.value)">
+                                          <mat-option *ngFor="let Event of EventType" [value]="Event">{{ Event }}</mat-option>
+                                        </mat-select>
+
+                                      </mat-form-field>
+                                    </div>
+                                  </div>
+
+                                  <div class="row align-items-baseline" *ngIf="isOtherSelected">
+                                    <div class="col-md-4">
+                                      <mat-label>Others</mat-label>
+                                    </div>
+                                    <div class="col-md-6 h-20">
+                                      <app-inputs
+                                        [parentForm]="campForm"
+                                        controlName="Others"
+                                        type="text"
+                                        [minLength]="3"
+                                        [required]="true"
+
+                                        class="w-100"
+                                        [placeholder]="'Enter Others'"
+                                      ></app-inputs>
+                                    </div>
+                                  </div>
+
+                                  <div class="row align-items-baseline" *ngIf="isHealthAssessmentSelected">
+                                    <div class="col-md-4">
+                                      <mat-label>Health Assessment  Type</mat-label>
+                                    </div>
+                                    <div class="col-md-6 p-0">
+                                      <mat-form-field appearance="outline" class="w-100">
+                                        <mat-select placeholder="Select type of assessment" formControlName="HealthCampType">
+                                          <mat-option *ngFor="let group of healthassement" [value]="group">{{ group }}</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                  </div>
+
+                                <div class="row align-items-baseline">
+                                    <div class="col-md-4">
+                                        <mat-label>Country</mat-label>
+                                    </div>
+
+                                    <div class="col-md-6 p-0">
+
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <mat-select placeholder="Country" formControlName="Country">
+                                                  <mat-option *ngFor="let country of CountryList" [value]="country">{{ country }}</mat-option>
+                                                </mat-select>
+                                              </mat-form-field>
+
+                                    </div>
+                                </div>
+                                <div class="row align-items-baseline">
+                                    <div class="col-md-4">
+                                        <mat-label>Enterprise Group</mat-label>
+                                    </div>
+                                    <div class="col-md-6 p-0">
+
+
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-select placeholder="Select Enterprise Group" formControlName="EnterpriseGroupName" (selectionChange)="onEnterpriseGroupSelectionChange($event)">
+                                              <mat-option *ngFor="let group of enterpriseGroups" [value]="group.id">{{ group.Group_Name }}</mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row align-items-baseline">
+                                    <div class="col-md-4">
+                                        <mat-label>School Name</mat-label>
+                                    </div>
+                                    <div class="col-md-6 p-0">
+
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-select placeholder="Select Enterprise Name" formControlName ="EnterpriseName" (selectionChange)="onEnterprisenameSelectionChange($event)">
+                                                <mat-option *ngFor="let group of enterpriseNames" [value]="group.id">{{ group.name }}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row align-items-baseline">
+                                    <div class="col-md-4">
+                                        <mat-label>School Adress </mat-label>
+                                    </div>
+                                    <div class="col-md-6 h-20">
+
+                                        <app-inputs
+                                        [parentForm]="campForm"
+                                        controlName="Schooladress"
+                                        type="email"
+                                        [minLength]="3"
+                                        [validationMessages]="{
+                                            required: 'Username is required.',
+                                            minlength: 'Username should be at least 3 characters long.'
+                                        }"
+                                        class="w-100"
+
+                                        ></app-inputs>
+                                    </div>
+                                </div>
+
+
+                            </div>
+        </div>
+
+
+        </mat-card-content>
+        </div>
+        <div class="col-lg-6">
+        <mat-card-header>
+            <mat-card-title class="f-s-30 f-w-900 p-24" >Schedule Event</mat-card-title>
+
+            <!-- <mat-card-subtitle style="color:#000" class="f-w-400 m-20">More Fields Will Come</mat-card-subtitle> -->
+        </mat-card-header>
+        <mat-card-content>
+        <div class="row p-24 align-items-baseline">
+            <div class="col-lg-12">
+
+
+            <!-- <div class="row">
+                <div class="col-md-4">
+                    <mat-label>Classes</mat-label>
+                </div>
+                <div class="col-md-6">
+
+                    <app-inputs
+                    [parentForm]="campForm"
+                    controlName="ClassandSections"
+                    type="Classes"
+                    [minLength]="3"
+                    [validationMessages]="{
+                        required: 'Username is required.',
+                        minlength: 'Username should be at least 3 characters long.'
+                    }"
+                    class="w-100"
+
+                    ></app-inputs>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-label>Number Of Students</mat-label>
+                </div>
+                <div class="col-md-6">
+
+                    <app-inputs
+                    [parentForm]="campForm"
+                    controlName="Number_of_Participant"
+                    type="Classes"
+                    [minLength]="3"
+                    [validationMessages]="{
+                        required: 'Username is required.',
+                        minlength: 'Username should be at least 3 characters long.'
+                    }"
+                    class="w-100"
+
+                    ></app-inputs>
+                </div>
+            </div> -->
+            <div class="row align-items-baseline">
+                <div class="col-md-4">
+                    <mat-label>Event Adress </mat-label>
+                </div>
+                <div class="col-md-6 h-20">
+
+                    <app-inputs
+                    [parentForm]="campForm"
+                    controlName="Eventadress"
+                    type="email"
+                    [minLength]="3"
+                    [validationMessages]="{
+                        required: 'Username is required.',
+                        minlength: 'Username should be at least 3 characters long.'
+                    }"
+                    class="w-100"
+
+                    ></app-inputs>
+                </div>
+            </div>
+            <div class="row align-items-baseline">
+                <div class="col-md-4">
+                    <mat-label>Start Date</mat-label>
+                </div>
+                <div class="col-md-6 p-0 w-100">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <input matInput [matDatepicker]="startPicker" placeholder="DD/MM/YYYY" formControlName="StartDate">
+                        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #startPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row align-items-baseline">
+                <div class="col-md-4">
+                    <mat-label>End Date</mat-label>
+                </div>
+                <div class="col-md-6 p-0 w-100">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <input matInput [matDatepicker]="endPicker" placeholder="DD/MM/YYYY"  formControlName="EndDate">
+                        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #endPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row align-items-baseline">
+                <div class="col-md-4">
+                    <mat-label>Description</mat-label>
+                </div>
+                <div class="col-md-6 p-0">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <textarea matInput formControlName="Discription" placeholder="Write something here" rows="4"></textarea>
+                        <!-- <mat-icon matSuffix>message</mat-icon> -->
+                    </mat-form-field>
+
+                </div>
+            </div>
+
+        </div>
+        </div>
+        </mat-card-content>
+        </div>
+    </div>
+    <mat-card-footer align="center">
+        <div class="row d-flex justify-content-center" >
+            <div class='col-lg-4'>
+               <app-button label="Cancel"  [buttonColor]="'#FFFFFF'" [textColor]="'#8F1402'" (click)="goBack()" type="submit" [buttonWidth]="'30%'"></app-button>
+            </div>
+            <div class="col-lg-4">
+               <app-button label="Update Schedule"  [buttonColor]="'#8F1402'" type="submit" [buttonWidth]="'30%'"  ></app-button>
+
+            </div>
+        </div>
+    </mat-card-footer>
+
+</mat-card>
+</form>
+</ng-template>
+<ng-template [ngIf]="displayName === 'classes'">
+    <div class="back-button d-flex align-items-center">
+        <button mat-icon-button (click)="goBack()">
+            <mat-icon  aria-label="Back">arrow_back</mat-icon>
+        </button>
+        <span class="back-label" >Back</span>
+    </div>
+    <mat-card>
+    <form [formGroup]="campForm" (ngSubmit)="classandsectionpost()">
+
+        <mat-card-header>
+          <mat-card-title class="f-s-24 f-w-900">Select Participants</mat-card-title>
+        </mat-card-header>
+    <mat-card-content>
+        <div class="row p-24 ">
+            <div class="col-lg-12">
+
+
+            <div class="row">
+                <div class="col-md-2">
+                    <mat-label>Classes</mat-label>
+                </div>
+                <div class="col-md-4 p-0">
+
+                    <mat-chip-set>
+                        <mat-chip *ngFor="let chip of classsectionname.value" [removable]="true" (removed)="removeChip(chip)">
+                          {{ chip }}
+                          <mat-icon matChipRemove>cancel</mat-icon>
+                        </mat-chip>
+                      </mat-chip-set>
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-select [formControl]="classsectionname" placeholder="clasess" multiple (selectionChange)="onEnterpriseclassSelectionChange($event)">
+                          <mat-option *ngFor="let class of classsections" [value]="class">{{ class }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 p-0">
+                    <mat-label>Number Of Students</mat-label>
+                </div>
+                <div class="col-md-4">
+
+                    <app-inputs
+                    [parentForm]="campForm"
+                    controlName="Number_of_Participant"
+                    type="Classes"
+                    [minLength]="3"
+                    [validationMessages]="{
+                        required: 'Username is required.',
+                        minlength: 'Username should be at least 3 characters long.'
+                    }"
+                    class="w-100"
+
+                    ></app-inputs>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="spinner-overlay" *ngIf="showSpinner">
+            <mat-spinner></mat-spinner>
+        </div>
+        <div class="row p-l-10">
+            <div class="col-md-12 justify-content-center d-flex">
+              <p class="text-center">
+                <app-button label="Save & Next" [buttonColor]="'#8F1402'" buttoncolor="primary" type="submit" [buttonWidth]="'100%'"></app-button>
+              </p>
+            </div>
+          </div>
+    </mat-card-content>
+    </form>
+</mat-card>
+</ng-template>

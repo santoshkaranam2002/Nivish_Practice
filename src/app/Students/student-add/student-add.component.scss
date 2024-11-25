@@ -1,0 +1,24 @@
+.action{
+    margin-left: 45%;
+}
+.mat-card-header {
+    position: relative;
+    z-index: 1;
+  }
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: #000;
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.add-student-form-min-height{
+  min-height: 60vh;
+}
+.my-radio-button {
+  --mdc-radio-selected-hover-icon-color: #8F1402;
+  --mdc-radio-selected-pressed-icon-color:#8F1402;
+  --mdc-radio-selected-icon-color: #8F1402;
+}
+.error-message{
+  color: #8F1402;
+}

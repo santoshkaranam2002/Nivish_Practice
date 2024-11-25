@@ -1,0 +1,58 @@
+<app-menubar></app-menubar>
+<div class="row m-r-0 p-l-40">
+  <app-breadcrumb [breadcrumbs]="breadcrumbs"class="m-b-12 m-t-12 p-12"></app-breadcrumb>
+</div>
+  <div>
+    <a class="sideh text-decoration-none f-s-14 f-w-500 align-items-center d-flex p-l-40 p-t-20 cursor-pointer" (click) ="goBack()">
+      <span class="material-symbols-outlined m-r-10" >
+        arrow_back
+      </span>Back EnterPrise Groups</a>
+  </div>
+
+  <div class="row m-r-0 align-item-center p-30">
+    <div class="col-md-12">
+      <mat-card class="table-box">
+        <app-spinner [showSpinner]="spinnerLoading"
+        imageUrl="Nivish Loading.png"
+        loadingHeading="{{ groupName }} is Loading ..."></app-spinner>
+        <div class="d-flex justify-content-between p-24">
+          <div class="col-9">
+            <acpl-title class="m-l-20" [heading]="groupName"></acpl-title>
+          </div>
+          <div *ngIf="status" class="country-card-content boxforchips">
+            <ng-container *ngIf="status">
+              <mat-chip class="m-b-10" *ngFor="let option of status.split(','); let i = index" [removable]="true" (removed)="removeOption(i)">
+                {{ option.trim() }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+            </ng-container>
+          </div>
+          <span class="material-symbols-outlined" matTooltip="Filter" matTooltipPosition="above" (click)="toggleFilterPopup()">
+            filter_alt
+          </span>
+        </div>  
+        <div *ngIf="!spinnerLoading" class=" text-captailise">
+          
+        <custom-table *ngIf="orders && orders.length > 0"
+        [tableData]="orders"
+            [tableColumns]="ordersTableColumns"
+            [isFilterable]="true"
+            [isPageable]="true"
+            [showButton]="true"
+            buttonLabel="Add School"
+            buttonIcon="domain"
+            (buttonClick)="openSchoolForm()"
+            [showCheckboxes]="false"
+            [paginationSizes]="[5,10]"
+            [defaultPageSize]="10"
+            (sort)="sortData($event)"
+            (rowAction)="handleRowAction($event)"
+            (rowClick)="onRowClicked($event)"
+          class="w-100">
+          
+      </custom-table>
+    
+      </div>
+      </mat-card>
+    </div>
+  </div>

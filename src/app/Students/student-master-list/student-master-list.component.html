@@ -1,0 +1,174 @@
+  <div class="container">
+    <app-menubar></app-menubar>
+    <div class="row m-r-0 p-l-40">
+      <app-breadcrumb [breadcrumbs]="breadcrumbs" class="m-b-12 m-t-12 p-12"></app-breadcrumb>
+    </div>
+    <app-spinner [showSpinner]="spinnerLoading"
+        imageUrl="Nivish Loading.png"
+        loadingHeading="Student Master is Loading ..."></app-spinner>
+    <div class="row m-r-0 align-item-center p-l-30 p-r-12">
+      <div class="col-md-12">
+        <mat-card class="table-box">
+          <!-- <app-breadcrumb [breadcrumbs]="breadcrumbItems" (breadcrumbClick)="onBreadcrumbClick($event)"></app-breadcrumb> -->
+          <ng-template [ngIf]="displayName==='Country'">
+            <div class="row m-t-20 m-r-0">
+              <div class="w-100">
+                <div class="col-md-12">
+                  <app-heading class="m-l-20" [heading]="'Student Master List'" ></app-heading>
+                  <!-- <app-timeline class="d-flex justify-content-center" [steps]="timelineSteps"></app-timeline> -->
+                </div>
+                <div class="country-card-content p-24 m-l-32 m-r-20 m-b-20 m-t-20" style="background-color: #fcfcfc;">
+                  <mat-card-content>
+                    <div class="row">
+                      <mat-card-title class="f-s-24" >Country</mat-card-title>
+                    </div>
+                    <div class="row justify-content-center d-flex sm-w-25">
+                      <div class="col-md-5">
+                        <img src="../../../assets/images/rotational-globe.gif" class="w-100">
+                        <!-- <img src="../../../assets/images/svgs/studentcountry.svg" class="w-25"> -->
+                      </div>
+                      <div class="col-md-7 align-items-center d-flex">
+                        <mat-radio-group [(ngModel)]="radioOptions" name="radioButtons" (change)="onRadioButtonChange($event)">
+                          <div class="row f-s-20 f-w-400">
+                            <div class="col-md-12" *ngFor="let country of countryNames">
+                              <mat-radio-button [value]="country.option" class="my-radio-button">{{ country.option }}</mat-radio-button>
+                            </div>
+                          </div>
+                        </mat-radio-group>
+                      </div>
+                      <div class="row d-flex d-block w-100 rd">
+                        <div class='col-md-12'>
+                            <app-button label="Next" [buttonColor]="'#8F1402'"  (click)="epGroup()" [buttonWidth]="'100%'" class="float-right"></app-button>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template [ngIf]="displayName==='Enterprise Groups'">
+            <div class="row m-t-20 m-r-0">
+              <div class="w-100">
+                <div class="col-md-12">
+                  <app-heading class="m-l-20" [heading]="'Student Master List'"></app-heading>
+                  <!-- <app-timeline class="d-flex justify-content-center" [steps]="timelineSteps"></app-timeline> -->
+                </div>
+                <div class="country-card-content p-24 m-l-32 m-r-20 m-b-20 m-t-20" style="background-color: #fcfcfc;">
+                  <form (ngSubmit)="egroupSubmit()">
+                    <mat-card-content>
+                      <div class="row">
+                        <mat-card-title class="f-s-24" >Enterprise Groups</mat-card-title>
+                      </div>
+                      <div class="row justify-content-center d-flex sm-w-25">
+                        <div class="col-md-5 d-flex justify-content-center align-items-center">
+                          <img class="w-50" src="../../../assets/images/svgs/enterprisegroup.svg">
+                        </div>
+                        <div class="col-md-7 sml-box-max-height" id="scrollbar">
+                          <input 
+                            type="text" 
+                            placeholder="Search Group Names" 
+                            [(ngModel)]="groupSearchQuery" 
+                            (input)="filterGroupNames()"
+                            [ngModelOptions]="{standalone: true}"
+                            class="form-control mb-3 search-input"
+
+                          />
+                        
+                        
+                          <mat-radio-group [(ngModel)]="radioEGroup" name="radioButtons" (change)="onRadioButtonChangeEgroup($event)">
+                            <div class="row f-s-20 f-w-400">
+                              <div class="col-md-12" *ngFor="let group of filteredGroupNames; let i = index">
+                                <div class="row" *ngIf="i % 3 === 0">
+                                  <div class="col-md-4" *ngFor="let group of filteredGroupNames.slice(i, i + 3)">
+                                    <mat-radio-button [id]="'radio_' + group.id" [value]="group.id" class="my-radio-button">{{ group.option }}</mat-radio-button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </mat-radio-group>
+                        </div>
+                        
+                        <div class="row d-flex d-block w-100 rd">
+                          <div class='col-md-12 justify-content-between'>
+                              <app-button label="Next" [buttonColor]="'#8F1402'" type="submit" [buttonWidth]="'100%'" class="float-right p-l-64" ></app-button>
+                              <app-button label="Back" [buttonColor]="'#fff'" [textColor]="'#8F1402'" type="button" [buttonWidth]="'100%'" class="float-right " (click)="entireprisename()"></app-button>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-card-content>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template [ngIf]="displayName==='Schools'">
+            <div class="row m-t-20 m-r-0">
+              <div class="w-100">
+                <div class="col-md-12">
+                  <app-heading class="m-l-20" [heading]="'Student Master List'"></app-heading>
+                  <!-- <app-timeline class="d-flex justify-content-center" [steps]="timelineSteps"></app-timeline> -->
+                </div>
+                <div class="country-card-content p-24 m-l-32 m-r-20 m-b-20 m-t-20" style="background-color: #fcfcfc;">
+                  <form (ngSubmit)="enameSubmit()">
+                    <mat-card-content>
+                      <div class="row">
+                        <mat-card-title class="f-s-24">Schools</mat-card-title>
+                      </div>
+                      <div class="row justify-content-center d-flex sm-w-25">
+                        <div class="col-md-5 d-flex justify-content-center align-items-center">
+                          <img class="w-50" src="../../../assets/images/svgs/enterprisegroup.svg">
+                        </div>
+                        <div class="col-md-7 sml-box-max-height" id="scrollbar">
+                          <input 
+                            type="text" 
+                            placeholder="Search School Names" 
+                            [(ngModel)]="schoolSearchQuery" 
+                            (input)="filterSchoolNames()"
+                            [ngModelOptions]="{standalone: true}"
+                            class="form-control mb-3 search-input"
+                          />
+                          <p *ngIf="filteredEnterpriseNames.length === 0 && schoolSearchQuery.trim()">No matching results for "{{ schoolSearchQuery }}"</p>
+                        
+                          <mat-radio-group [(ngModel)]="selectedEnterprise" name="enterpriseOptions" (change)="onEnterpriseSelectionChange()">
+                            <div class="row f-s-20 f-w-400">
+                              <div class="col-md-12" *ngFor="let enterprise of filteredEnterpriseNames; let i = index">
+                                <div class="row" *ngIf="i % 3 === 0">
+                                  <div class="col-md-4" *ngFor="let enterprise of filteredEnterpriseNames.slice(i, i + 3)">
+                                    <mat-radio-button 
+                                      [id]="'radio_' + enterprise.id" 
+                                      [value]="enterprise.id" 
+                                      class="my-radio-button">
+                                      {{ enterprise.option }}
+                                    </mat-radio-button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </mat-radio-group>
+                        </div>
+                        
+                        <div class="row d-flex d-block w-100 rd">
+                          <div class='col-md-12'>
+                            <app-button label="Next" [buttonColor]="'#8F1402'" type="submit" [buttonWidth]="'100%'" class="float-right p-l-64"></app-button>
+                            <app-button label="Back" [buttonColor]="'#fff'" [textColor]="'#8F1402'" type="button" [buttonWidth]="'100%'" class="float-right" (click)="epGroup()"></app-button>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-card-content>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template [ngIf]="displayName==='stTable'">
+            <app-student-table></app-student-table>
+          </ng-template>
+
+        </mat-card>
+      </div>
+    </div>
+</div>

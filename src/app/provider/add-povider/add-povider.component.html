@@ -1,0 +1,109 @@
+<div class="container  text-captailise">
+    <div class="row m-r-0">
+        <div class="col-md-12 d-flex p-l-20">
+           <!-- <h2 mat-dialog-title class="f-s-32 f-w-900">{{ data?.title }}</h2> -->
+        </div>
+    </div>
+
+    <form [formGroup]="popupForm" (ngSubmit)="onSubmit()">
+    <mat-dialog-content class="p-b-0">
+        <div class="row d-flex p-l-20 m-t-32 row align-items-baseline">
+            <div class="col-md-4">
+                <mat-label class="f-s-20 f-w-500 sideh">Provider Name</mat-label>
+            </div>
+            <div class="col-md-8">
+                <app-inputs
+                [parentForm]="popupForm"
+                controlName="ProviderName"
+                placeholder="Provider Name"
+                type="text"
+                [required]="true"
+                [validationMessages]="{ required: 'Provider Name is required', minlength: 'Minimum length should be 3' }"
+                class="w-100"
+
+              ></app-inputs>
+            </div>
+        </div>
+        <div class="row d-flex p-l-20 m-t-24 row align-items-baseline">
+            <div class="col-md-4">
+                <mat-label class="f-s-20 f-w-500 sideh">Email</mat-label>
+
+            </div>
+            <div class="col-md-8">
+                <app-inputs
+                [parentForm]="popupForm"
+                controlName="Email"
+                placeholder="Email"
+                type="text"
+                [required]="true"
+                [validationMessages]="{ required: 'Email is required', minlength: 'Minimum length should be 3' }"
+                class="w-100"
+
+              ></app-inputs>
+            </div>
+        </div>
+        <div class="row d-flex p-l-20 m-t-24 row align-items-baseline">
+            <div class="col-md-4">
+                <mat-label class="f-s-20 f-w-500 sideh">Mobile</mat-label>
+
+            </div>
+            <div class="col-md-8">
+                <app-inputs
+                [parentForm]="popupForm"
+                controlName="Mobile"
+                placeholder="Mobile"
+                type="text"
+                [required]="true"
+                [validationMessages]="{ required: 'Mobile is required', minlength: 'Minimum length should be 3' }"
+                class="w-100"
+                (input)="onInputChange($event)"
+              ></app-inputs>
+            </div>
+        </div>
+        <div class="row d-flex p-l-20 m-t-24 row align-items-baseline">
+            <div class="col-md-4">
+                <mat-label class="f-s-20 f-w-500 sideh">Service Location</mat-label>
+
+            </div>
+            <div class="col-md-8 p">
+                <app-inputs
+                [parentForm]="popupForm"
+                controlName="ServiceLocation"
+                placeholder="Service Location"
+                type="text"
+                [required]="true"
+                [validationMessages]="{ required: 'Service Location is required', minlength: 'Minimum length should be 3' }"
+                class="w-100"
+
+              ></app-inputs>
+            </div>
+        </div>
+        <div class="row d-flex align-items-baseline p-l-20 m-t-24">
+            <div class="col-md-4">
+                <mat-label class="f-s-20 f-w-500 sideh">Date Of Birth</mat-label>
+
+            </div>
+            <div class="col-md-8 p-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <input matInput [matDatepicker]="endPicker" placeholder="DD/MMM/YYYY" formControlName="dateofbirth">
+                    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endPicker></mat-datepicker>
+                    <mat-error *ngIf="popupForm.get('dateofbirth')?.hasError('required') && popupForm.get('submitted')?.value">
+                    Date of birth is required
+                  </mat-error>
+                </mat-form-field>
+            
+            </div>
+          </div>
+
+    </mat-dialog-content>
+        <mat-dialog-actions class="p-l-28 m-b-20">
+            <div class='col-md-6'>
+                <app-button label="Cancel" type="button" [buttonColor]="'#fff'" [textColor]="'#8F1402'"  [buttonWidth]="'50%'" (click)="close()"></app-button>
+            </div>
+            <div class='col-md-6'>
+                <app-button [label]="buttonLabel"  buttoncolor="primary" [buttonColor]="'#8F1402'"  type="submit" [buttonWidth]="'50%'" ></app-button>
+            </div>
+        </mat-dialog-actions>
+    </form>
+    </div>

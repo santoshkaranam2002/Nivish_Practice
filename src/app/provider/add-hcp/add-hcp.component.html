@@ -1,0 +1,46 @@
+<app-menubar></app-menubar>
+<div class="back-button d-flex align-items-center m-t-18">
+    <button mat-icon-button (click)="goBack()">
+        <mat-icon  aria-label="Back">arrow_back</mat-icon>
+    </button>
+    <span class="back-label" >Back</span>
+  </div>
+  
+<div class="row m-r-0">
+    <div class='col-md-12 justify-content-end d-flex m-t-32'>
+        <app-button label="Add Provider" icon="add" [buttonColor]="'#8F1402'" buttoncolor="primary" (click)="addhcp()" type="submit"></app-button>
+    </div>
+</div>
+
+
+<form [formGroup]="campForm" (ngSubmit)="onSubmit()">
+    <div class="row m-r-0">
+        <div class="col-md-8 d-flex justify-content-center">
+            <mat-label class="f-s-20 f-w-700 ">Choose A Provider</mat-label>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center m-t-28">
+            <mat-form-field appearance="outline" class="w-50">
+              <mat-select
+              placeholder="Select Providers"
+              formControlName="provider"
+              (selectionChange)="onProviderChange($event)"
+            >
+              <mat-option *ngFor="let provider of providernames" [value]="provider">
+                {{ provider.name }} <!-- Display only the name -->
+              </mat-option>
+            </mat-select>
+              </mat-form-field>
+              <mat-error *ngIf="campForm.get('provider')?.hasError('required') && campForm.get('submitted')?.value">
+                  provider is required
+            </mat-error>
+          </div>
+    </div>
+</form>
+<div class="row m-r-0 p-l-10">
+    <div class="col-md-12 justify-content-center d-flex m-t-32">
+      <p class="text-center">
+        <app-button label="Next" type="button" [buttonColor]="'#fff'" [textColor]="'#8F1402'"  buttoncolor="primary" (click)="hcp()"  [buttonWidth]="'100%'"></app-button>
+
+      </p>
+    </div>
+  </div>

@@ -1,0 +1,74 @@
+// .mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs > .mat-mdc-tab-header .mat-mdc-tab{
+//     flex-grow: 0 !important;
+// }
+:host ::ng-deep .mat-mdc-tab-labels{
+  justify-content: space-between !important;
+ 
+}
+#tabGroup{
+  justify-content: space-between;
+}
+.error-message{
+  color: #8F1402;
+}
+.custom-file-button {
+    background-color: #8F1402;
+    color: white;
+    border: 1px solid #8F1402 !important;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+img{
+    width: 95%;
+    height: 95%;
+}
+
+.textareadesc{
+    height: 377px;
+    width: 800px;
+}
+
+// .mat-tab-group {
+//     display: flex;
+//     flex-direction: column;
+//   }
+
+  
+  .upload-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .custom-file-button {
+    display: block;
+    margin: 0 auto 10px auto;
+  }
+
+  .box-text {
+    font-size: 16px;
+    color: #555555;
+    text-align: center;
+  }
+  
+  .image-box {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #cccccc;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    margin-left: 23px;
+  }
+ 
+
+  
+  
+  

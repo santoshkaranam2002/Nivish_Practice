@@ -1,0 +1,15 @@
+<div class="container w-100">
+    <div class="w-100">
+      <custom-table [tableData]="orders"
+                [tableColumns]="ordersTableColumns"
+                [isFilterable]="true"
+                [isPageable]="true"
+                [paginationSizes]="[5,10,15,20]"
+                [defaultPageSize]="10"
+                (sort)="sortData($event)"
+                (rowAction)="handleRowAction($event)"
+              class="w-100">
+      </custom-table>
+    </div>
+  </div>
+  

@@ -1,0 +1,1056 @@
+<div class="main-container">
+  <div class="section" style="display: flex;" >
+    <div class="scroll-bar">
+      <div class="scroll-content">
+          <div class="persona">
+              <div class="circle"[ngClass]="{'highlighted': sectionCompletion.presonal}">
+          <img src="assets/images/pers (2).png" style="margin-left: 10px;" ></div></div>
+          <p (click)="presonal ()" [ngClass]="{'underline': sectionCompletion.presonal}" style="width:100%;cursor: pointer;">Personal Information</p><br>
+          <div class="persona">
+            <div class="circle"[ngClass]="{'highlighted': sectionCompletion.identification}">
+        <img src="assets/images/lice.png" style="margin-left: 10px;" ></div></div>
+        <p (click)="identification ()" [ngClass]="{'underline': sectionCompletion.identification}" style="width:100%;cursor: pointer;">Identification Details</p><br>  
+          <div class="licens">
+              <div class="circle"[ngClass]="{'highlighted': sectionCompletion.License}">
+          <img src="assets/images/lice.png" style="margin-left: 10px;"></div></div>
+          <p (click)="sidebarLicense()" [ngClass]="{'underline':sectionCompletion.License}" style="cursor: pointer;" >License Details</p><br>
+          <div class="educat">
+              <div class="circle" [ngClass]="{'highlighted': sectionCompletion.Education}">
+          <img src="assets/images/edu.png" style="margin-left: 10px;" ></div></div>
+          <p (click)="sidebarEductaion()" [ngClass]="{'underline': sectionCompletion.Education}" style="cursor: pointer;">Education</p><br>
+          <div class="notes">
+            <div class="circle" [ngClass]="{'highlighted': sectionCompletion.Note}">
+              <img src="assets/images/consent.png" style="margin-left: 10px;">
+            </div>
+          </div>
+          <p (click)="Note()" [ngClass]="{'underline': sectionCompletion.Note}" style="cursor: pointer;">Consent</p>
+        </div>
+      </div>
+
+      <ng-template [ngIf]="displayName==='Education'">
+        <div class="sec">
+          <div class="card-container" >
+            <div style="display: flex;justify-content: space-between;">
+
+            <h1 class="base">Education</h1>
+            <div class="profile" *ngIf="studentPhoto">
+
+              <label >
+                <img *ngIf="studentPhotoImageUrl" [src]="studentPhotoImageUrl" alt="Selected Student Photo"  class="imageicon">
+                <div *ngIf="!studentPhotoImageUrl" class="box-text">
+                  <img src="assets/images/imageupload.png" alt="Upload Icon" class="upload-profile">
+                </div>
+              </label>
+            </div>
+            </div>
+            <ng-container *ngIf="addEducationmessage !== ''" >
+              <div style="color: red; margin-top: 10px;margin-left: 6%;">{{addEducationmessage }}</div>
+            </ng-container>
+            <div>
+              <button type="submit" class="btn btn-primary"   style="margin-top: 50px;margin-left: 40px; color: #8F1402;background: none;border: none; " (click)="openEducation()"  *ngIf="!dataloading" >+ Add Education</button>
+            </div>
+            <div class="Education">
+              <ng-container *ngIf="EducationData?.Result">
+              <ng-container *ngFor="let Education of EducationData.Result" >
+                <div class="card p-4" style="border: #f4efef solid ; border-radius: 10px;">
+                  <div>
+                    <!-- <button type="button" class="btn-close" ></button> -->
+                    <div  class="cardhead" >{{ Education.Name_of_institute.toUpperCase() }}</div>
+                    <div class="cardlicense" style="font-weight: 500;"> Type of Degree&nbsp;-&nbsp;{{ Education.Type_of_degree }}</div>
+                    <div class="cardlicense">{{Education.Country}}</div>
+                    <!-- <div class="cardlicense">{{Education.Filed_of_study}}</div> -->
+                   
+                  <div class="cardlicense">{{ formatDateString(Education.from_Date) }}&nbsp;-&nbsp;{{ formatDateString(Education.to_Date) }}</div>
+                    
+                    <div class="cardlicense">
+                      <a [href]="Education.Upload_certificate" target="_blank" title="Click to view certificate">
+                        <ng-container *ngIf="isPDF(Education.Upload_certificate); else imageTemplate">
+                          <img src="assets/images/pdf.png" alt="PDF Icon" class="imageborder">
+                        </ng-container>
+                        <ng-template #imageTemplate>
+                          <img [src]="Education.Upload_certificate" alt="Certificate Image" class="imageborder">
+                        </ng-template>
+                        <!-- {{ displayPartialUrl(Education.Upload_certificate) }} -->
+                      </a>
+                    </div>
+                                       
+                    <div class="iconUpd"><i (click)="openUpdateEductaionForm(Education.id)" class="fas fa-edit" ></i></div>
+                  </div>
+                </div>
+
+              </ng-container>
+              <div>
+                <button  type="button"
+                class="btn btn-primary"
+                style="margin-top: 20px;margin-left: 40px; color: #8F1402;background: none;border: none;"
+                (click)="openEducation()"> + Add More</button>
+               </div>
+              </ng-container>
+            </div>
+          </div>
+          <div class="row" style="text-align: end;">
+            <span class="col">
+              <button type="button" class="btn btn-secondary custom-button btn-previous" (click)="License()">Previous</button>
+            </span>
+            <span class="col">
+              <button type="submit" class="btn btn-primary custom-button btn-next" (click)="Note()">Next</button>
+            </span>
+          </div>
+        </div>
+        <div *ngIf="showEducation" class="popup-container_1 fall-in-from-top">
+          <div class="sub" >
+            <form #educationForm="ngForm" (ngSubmit)="educationPost(educationForm)">
+            <div style="display: flex;">
+              <h1 class="Details" style="margin-left: 200px;font-weight: 700;">Education</h1>
+              
+              <span mat-dialog-close class="material-symbols-outlined pointercursor" (click)="closeEducation()" style="margin-left: 200px;">
+                close
+              </span>
+            </div>
+            <div class="scrollable-content_1">
+            <label for="NameofInstitute">Name of Institute</label><br>
+            <input type="text" id="NameofInstitute" name="NameofInstitute" placeholder="Type here"  style="margin-bottom: 20px;" class="rounded-input"[(ngModel)]="nameofinstitute" required><br>
+            <label for="Type of Degree">Type of Degree</label><br>
+            <input type="text" id="Type of Degree" name="Type of Degree" placeholder="Type here" style="margin-bottom: 20px;" class="rounded-input"[(ngModel)]="TypeofDegree" required><br>
+            <label for="field">Field of Study</label><br>
+            <input type="text" id="field" name="field" placeholder="Type here" style="margin-bottom: 20px;" class="rounded-input"[(ngModel)]="FieldofStudy" required><br>
+            <label for="Country"  class="subh" style="margin-top: 00px;">Country</label><br>
+            <select name="Country" id="Country" class="form-control rounded" [(ngModel)]="SelectedCountryId" (ngModelChange)="onCountryChange($event)" style="width: 100%; background: #f9f9f9;" class="rounded-input" required>
+              <option [value]="country" *ngFor="let country of CountryList; let i = index">{{ country }}</option>
+            </select>
+            <div class="row date-row">
+              <div class="col">
+                <label for="fromDate">From Date</label>
+                <!-- <input
+                      type="date"
+                      id="fromDate"
+                      [(ngModel)]="FromDate"
+                      class="rounded-input"
+                      name="issuedDate"
+                      [max]="getsFormattedMaxDate()"
+                      required
+                    /> -->
+                    <mat-form-field appearance="outline" class="w-100">
+                      <input matInput [matDatepicker]="startPicker" placeholder="DD/MMM/YYYY" name="FromDate"  [(ngModel)]="FromDate">
+                      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                      <mat-datepicker #startPicker></mat-datepicker>
+                  </mat-form-field>
+              </div>
+              <div class="col">
+                <label for="toDate">To Date</label>
+                <!-- <input type="date" id="toDate" name="toDate" [min]="geteduDate()" placeholder="To" class="rounded-input" [(ngModel)]="ToDate" required> -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput [matDatepicker]="startPickers" placeholder="DD/MMM/YYYY" name="ToDate"  [(ngModel)]="ToDate">
+                  <mat-datepicker-toggle matSuffix [for]="startPickers"></mat-datepicker-toggle>
+                  <mat-datepicker #startPickers></mat-datepicker>
+              </mat-form-field>
+              </div>
+            </div>
+            
+            <label for="file">Qualification Proof</label>
+            <!-- <div class="e">
+              <input type="file" id="file" name="file" (change)="onFileSelected($event)" required>
+            </div> -->
+            <ng-container *ngIf="errorEducationDoc !== ''">
+              <div style="color: red; margin-top: 10px;">{{ errorEducationDoc }}</div>
+            </ng-container>
+            <div class="custom-file-upload"  style="margin-bottom:10px;margin-top:10px" style="display: flex;">
+              <input type="file" id="file" name="providerEductaionUploadDoc" accept="image/*,application/pdf*" value="providerEductaionUploadDoc" (change)="ondocumentUploads($event)" style="display: none;" >
+              <label for="file" class="uploadButton"><p></p>Upload</label>
+              <div class="image-path">{{providerEductaionUploadDoc?.name ||"No File Choosen" }}</div> 
+            </div>
+            <div class="savebutton">
+              <button type="submit"    style=" width: 110px; height: 40px; border-radius: 8px;  background-color: #8F1402; margin-top: 20px; margin-left: 200px; color: #FFFFFF;" >Save</button>
+            </div>
+            </div>
+          </form> 
+        </div>
+      </div>
+      <div *ngIf="showEducationupdForm" class="popup-container_1 fall-in-from-top">
+        <div class="sub" >
+          <form  (ngSubmit)="educationupd(EducationId)">
+
+          
+          <div style="display: flex;">
+            <h1 class="Details" style="margin-left: 200px;font-weight: 700;">Education</h1>
+            
+            <span mat-dialog-close class="material-symbols-outlined pointercursor" (click)="closeEducationupd()" style="margin-left: 200px;">
+              close
+            </span>
+          </div>
+          <div class="scrollable-content_1">
+          <label for="NameofInstitute">Name of Institute</label><br>
+          <input type="text" id="NameofInstitute" name="NameofInstitute" placeholder="Type here"  style="margin-bottom: 20px;" class="rounded-input"[(ngModel)]="nameofinstitutepro" required><br>
+          <label for="Type of Degree">Type of Degree</label><br>
+          <input type="text" id="Type of Degree" name="Type of Degree" placeholder="Type here" style="margin-bottom: 20px;" class="rounded-input"[(ngModel)]="TypeofDegreePro" required><br>
+          <label for="field">Field of Study</label><br>
+          <input type="text" id="field" name="field" placeholder="Type here" style="margin-bottom: 20px;" class="rounded-input"[(ngModel)]="FieldofStudyPro" required><br>
+          <label for="Country"  class="subh" style="margin-top: 00px;">Country</label><br>
+          <select name="Country" id="Country" class="form-control rounded" [(ngModel)]="SelectedCountryIdPro" (ngModelChange)="onCountryChange($event)" style="width: 100%; background: #f9f9f9;" required>
+            <option [value]="country" *ngFor="let country of CountryList; let i = index">{{ country }}</option>
+          </select>
+          <div class="row date-row">
+            <div class="col">
+              <label for="fromDate">From Date</label>
+              <!-- <input type="date" id="fromDate" name="FromDatePro" placeholder="From" class="rounded-input" [(ngModel)]="FromDatePro" required> -->
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [matDatepicker]="startPicker" placeholder="DD/MMM/YYYY" name="FromDate"  [(ngModel)]="FromDatePro">
+                <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                <mat-datepicker #startPicker></mat-datepicker>
+            </mat-form-field>
+            </div>
+            <div class="col">
+              <label for="toDate">To Date</label>
+              <!-- <input type="date" id="toDate" name="ToDatePro" [min]="geteduUpdDate()" placeholder="To" class="rounded-input" [(ngModel)]="ToDatePro" required> -->
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [matDatepicker]="startPickers" placeholder="DD/MMM/YYYY" name="ToDatePro"  [(ngModel)]="ToDatePro">
+                <mat-datepicker-toggle matSuffix [for]="startPickers"></mat-datepicker-toggle>
+                <mat-datepicker #startPickers></mat-datepicker>
+            </mat-form-field>
+            </div>
+          </div>
+          
+          <!-- <div *ngIf="Education.Upload_certificate">
+            <label for="currentCertificate">Current Certificate</label><br>
+            <a [href]="Education.Upload_certificate" target="_blank">
+              <img [src]="Education.Upload_certificate" alt="Current Certificate" class="imageborder">
+            </a>
+          </div> -->
+          
+          
+        
+          <label for="file">Qualification Proof</label>
+          <!-- <div class="e">
+            <input type="file" id="file" name="file" (change)="onFileSelected($event)" required>
+          </div> -->
+          <div class="custom-file-upload"  style="margin-bottom:10px;margin-top:10px" style="display: flex;">
+            <input type="file" id="file" name="providerEductaionUpload" accept="image/*,application/pdf" value="providerEductaionUpload" (change)="ondocumentUploads($event)" style="display: none;" >
+            <label for="file" class="uploadButton"><p></p>Upload</label>
+            <div class="image-path">{{providerEductaionUpload?.name ||providerEductaionUploadName||"No File Choosen" }}</div> 
+          </div>
+          <div class="savebutton">
+            <button type="submit"    style=" width: 110px; height: 40px; border-radius: 8px;  background-color: #8F1402; margin-top: 20px; margin-left: 200px; color: #FFFFFF;" >Save</button>
+          </div>
+          </div>
+        </form> 
+      </div>
+    </div>
+    </ng-template>
+    <ng-template [ngIf]="displayName==='Identification'&& userdetails">
+      <div class="sub">
+        <div class="container">
+          <form (ngSubmit)="identificationUpdate(identificationForm)" #identificationForm="ngForm">
+            <div class="card-container" >
+              <div style="display: flex;justify-content: space-between;">
+                <h1 class="base" >Identification Details</h1>
+                <div class="profile" *ngIf="studentPhoto">
+  
+                  <label>
+                    <img *ngIf="studentPhotoImageUrl" [src]="studentPhotoImageUrl" alt="Selected Student Photo"  class="imageicon">
+                    <div *ngIf="!studentPhotoImageUrl" class="box-text">
+                      <img src="assets/images/imageupload.png" alt="Upload Icon" class="upload-profile">
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <div class="information">
+              <ng-container *ngIf="errorText !== ''||personpicError">
+                <div style="color: red; margin-top: 10px;margin-left: 100px;">{{ errorText || personpicError }}</div>
+              </ng-container>
+              <div  class="field">
+                <br>
+                <label for="Nationality">Nationality</label><br>
+                <select id="Nationality" name="Nationality" [(ngModel)]="newprovidenationality" (ngModelChange)="onCountryChange($event)"style="margin-bottom:10px;margin-top:10px" class="rounded-input" required>
+                  <option [value]="country" *ngFor="let country of CountryList; let i = index">{{ country }}</option>
+
+                </select>
+
+               
+                <label for="EmiratesID">Emirates ID</label><br>
+                <input type="text" id="EmiratesID" name="newprovideemiratesid" (keypress)="onKeyPress($event)" [(ngModel)]="newprovideemiratesid" placeholder="Type here"class="rounded-input" style="margin-bottom:10px;margin-top:10px" required><br>
+                <label for="Passport">Passport #</label><br>
+                <input type="text" maxlength="20" id="Passport" name="Passport" [(ngModel)]="newprovidePassport" class="rounded-input" placeholder="Type here" style="margin-bottom:10px;margin-top:10px"  required>
+              </div>
+            </div>
+            </div>
+            <div class="row" style="text-align: end;">
+              <span class="col">
+                <button type="button" class="btn btn-secondary custom-button btn-previous" (click)="presonal()">Previous</button>
+              </span>
+              <span class="col">
+                <button type="submit" class="btn btn-primary custom-button btn-next" >Next</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template [ngIf]="displayName==='License'">
+      <div class="sec">
+        <form #licenseExp="ngForm" (ngSubmit)="licenseExpPost(licenseExp)">
+      
+        
+        <div class="card-container" >
+          <div style="display: flex;justify-content: space-between;">
+
+          <h1 class="base">License Details</h1>
+          <div class="profile" *ngIf="studentPhoto">
+
+            <label >
+              <img *ngIf="studentPhotoImageUrl" [src]="studentPhotoImageUrl" alt="Selected Student Photo"  class="imageicon">
+              <div *ngIf="!studentPhotoImageUrl" class="box-text">
+                <img src="assets/images/imageupload.png" alt="Upload Icon" class="upload-profile">
+              </div>
+            </label>
+          </div>
+          </div>
+          <ng-container *ngIf="errorLicense !== ''|| addLicnesemessage !== ''" >
+            <div style="color: red; margin-top: 10px;margin-left: 6%;">{{ errorLicense || addLicnesemessage }}</div>
+          </ng-container>
+           
+
+            <p style="color: #000000;font-weight: 600;">Total Experience</p>
+            <div class="row" style="margin-left: 40px;font-weight: 500;" >
+              <div class="col" style="margin-right: -330px;">
+                <label for="years" style="font-size: small;">Years</label><br>
+                <input type="text" id="Years" name="Years" placeholder="type here....." style="max-width: 120px; margin-bottom: 20px;" class="rounded-input" [(ngModel)]="Years" required>
+              </div>
+              <div class="col">
+                <label for="Months" style="font-size: small;">Months</label><br>
+                <input type="text" id="Months" name="Months" placeholder="type here....." style="max-width: 120px;margin-bottom: 20px;" class="rounded-input" [(ngModel)]="Months" required>
+              </div>
+            </div>
+            <div class="row" style="margin-left: 40px;font-weight: 500;" >
+            <div class="col" style="margin-right: -330px;">
+              <label for="Sub-Contracted" style="font-size: small;">Sub-Contracted From</label><br>
+              <input type="text" id="Sub-Contracted" name="sbForm" placeholder="type here....." style="max-width: 120px; margin-bottom: 20px;" class="rounded-input" [(ngModel)]="sbForm" required>
+            </div>
+          </div>
+            <p style="font-weight: 500;">License Details</p>
+            <div>
+              <button
+              type="button"
+              class="btn btn-primary"
+              style="margin-top: 20px;margin-left: 40px; color: #8F1402;background: none;border: none;"
+              (click)="openLicense()"
+              *ngIf="!dataLoaded"
+            >
+              + Add Details
+            </button>
+             </div>
+            <div class="license">
+              <ng-container *ngIf="licenseData?.Result">
+              <ng-container *ngFor="let license of licenseData.Result" >
+                <div class="card p-4" style="border: #f4efef solid ; border-radius: 10px;">
+                  <div>
+                    <!-- <button type="button" mat-dialog-close class="material-symbols-outlined pointercursor float-right"> 
+                      close
+                    </button> -->
+                    <div class="cardhead">{{ license.Specialization   }} </div>
+
+                    <div class="cardhead">{{ license.License_Authority }} {{ license.License_Authority_others ? ' - ' + license.License_Authority_others : '' }}</div>
+
+                    <!-- <div class="cardlicense">{{ license.License_Authority }}</div> -->
+                    <div class="cardlicense">{{ license.Country?.Country }}</div>
+                    <div class="cardnum">{{ license.License_Number }}</div>
+                    <div class="cardlicense">{{ license.State }}<span *ngIf="license.State && license.Country">, </span>{{ license.Country }}</div>
+                    <div class="cardlicense">
+                      {{ formatDateString(license.Issued_Date) }}&nbsp;-&nbsp;
+                      <span *ngIf="license.Life_long_till; else validateTill">
+                        Life Long
+                      </span>
+                      <ng-template #validateTill>
+                        {{ formatDateString(license.Validate_till) }}
+                      </ng-template>
+                    </div>                    
+                    <!-- <div class="cardlicense">{{ license.License_Authority_others }}</div> -->
+                    <!-- <div class="cardlicense">{{ license.License_Number }}</div> -->
+                    <!-- <div class="cardlicense">{{ license.Country}}</div>
+                    <div class="cardlicense">{{ license.State}}</div> -->
+                    <div class="cardlicense">
+                      <a [href]="license.Upload_certificate" target="_blank" title="Click to view certificate">
+                        
+                        <ng-container *ngIf="isPDF(license.Upload_certificate); else image">
+                          <img src="assets/images/pdf.png" alt="PDF Icon" class="imageborder">
+                        </ng-container>
+                        <ng-template #image>
+                          <img [src]="license.Upload_certificate" alt="Certificate Image" class="imageborder">
+                        </ng-template>
+                        <!-- {{ displayPartialUrl(license.Upload_certificate) }} -->
+                      </a>
+                    </div>
+                     <div class="iconUpd"><i (click)="openUpdateForm(license.id)" class="fas fa-edit" ></i></div>
+                  </div>
+                </div>
+               
+                </ng-container>
+                <div style="margin-bottom: 20px;">
+                  <button  type="button"
+                  class="btn btn-primary"
+                  style="margin-top: 10px;margin-left: 40px; color: #8F1402;background: none;border: none;"
+                  (click)="openLicense()"> + Add More</button>
+                 </div>
+              </ng-container>
+            </div>
+          </div>
+          <div class="row" style="text-align: end;">
+            <span class="col">
+              <button type="button" class="btn btn-secondary custom-button btn-previous" (click)="identification()">Previous</button>
+            </span>
+            <span class="col">
+              <button type="submit" class="btn btn-primary custom-button btn-next" >Next</button>
+            </span>
+          </div>
+        </form>
+          <div *ngIf="showLicense" class="popup-container "  >
+            <div class="sub">
+              <form #myForm="ngForm" (ngSubmit)="licensePost(myForm)">
+                <div style="display: flex;">
+              <h1 class="Details" style="margin-left: 190px;font-weight: 700;">License Details</h1>
+              <!-- <button type="button" style="margin-left: 180px;" class="btn-close" ></button> -->
+              <span mat-dialog-close class="material-symbols-outlined pointercursor" style="margin-left: 180px;"  (click)="closeLicense()">
+                close
+              </span>
+            </div>
+            <ng-container *ngIf="errorText !== ''">
+              <div style="color: red; margin-top: 10px;">{{ errorText }}</div>
+            </ng-container>
+            <div class="scrollable-content">
+              <!-- <label for="Category">Category</label><br>
+              <select [(ngModel)]="selectedCategory" id="Category" name="selectedCategory" class="form-control" style="margin-bottom: 20px; "class="rounded-input" required>
+                <option value="Nurse">Nurse</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Physiotherapist">Physiotherapist</option>
+                <option value="Optometrist">Optometrist</option>
+                <option value="Dentist">Dentist</option>
+                <option value="Other">Other</option>
+              </select> -->
+              <!-- <input type="text" [(ngModel)]="selectedCategoryothers" name="selectedCategoryothers" *ngIf="selectedCategory === 'Other'" placeholder="Enter other category" class="form-control" style="max-width: 600px;"> -->
+              <label for="LicenseAuthority">License Authority</label><br>
+                <select [(ngModel)]="LicenseAuthority" id="LicenseAuthority" name="LicenseAuthority" class="form-control" style="margin-bottom: 20px; max-width: 600px;" class="rounded-input" required>
+                  <option value="DHA">DHA</option>
+                   <option value="DOH">DOH</option>
+                   <option value="MOH">MOH</option>
+                   <option value="Other">Other</option>
+                </select>
+                <input type="text" [(ngModel)]="LicenseAuthorityother" name='LicenseAuthorityother'  *ngIf="LicenseAuthority === 'Other'" placeholder="Enter other category" class="form-control" style="max-width: 600px; margin-top: 5px;" class="rounded-input" required>
+
+               <!-- <input type="text" [(ngModel)]="LicenseAuthorityother" name="LicenseAuthorityother" *ngIf="LicenseAuthority === 'Other'" placeholder="Enter other Authority" class="form-control" required> -->
+               <label for="License number #">License #</label><br>
+               <input type="text" id="Licensenumber#" name="Licensenumber" placeholder="Type here"  style="margin-bottom: 20px;" class="rounded-input" [(ngModel)]="Licensenumber" required><br>
+               <label for="specialisation">Specialization</label><br>
+               <input type="text" id="specialisation#" name="Specialization" placeholder="Type here"  style="margin-bottom: 20px;" class="rounded-input" [(ngModel)]="Specialization" required><br>
+               <!-- <label for="Country"  class="subh" style="margin-top: 00px;">Country </label><br>
+               <select name="SelectedCountryId" id="Country" class="form-control rounded" [(ngModel)]="SelectedCountryId" (ngModelChange)="onCountryChange($event)" style="width: 100%; background: #f9f9f9;" class="rounded-input"  required>
+                <option [value]="country" *ngFor="let country of CountryList; let i = index">{{ country }}</option>
+              </select><br>
+                 <label for="states"  class="subh" style="margin-top: 20px;">States </label><br>
+                 <div style="margin-top: 0px;">
+                  <select name="SelectedstatesId" id="State" class="form-control rounded" [(ngModel)]="SelectedstatesId" class="rounded-input"  style="width: 100%; background: #f9f9f9;" required>
+                      <option [value]="state" *ngFor="let state of statesList; let i = index">{{ state }}</option>
+                    </select>
+                 </div> -->
+                <label for="Validity Information">Validity Information</label><br>
+                <div class="row date-row">
+                  <div class="col">
+                    <label for="issuedDate" style="font-size: small;">Issue date </label>
+                
+                    <mat-form-field appearance="outline" class="w-100">
+                      <input matInput [matDatepicker]="startPicker" placeholder="DD/MMM/YYYY" name="issueddate" [(ngModel)]="issueddate" required>
+                      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                      <mat-datepicker #startPicker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  
+                  <div class="col">
+                    <label for="validateTill" style="font-size: small;">Valid till</label>
+                    <!-- <input
+                      type="date"
+                      id="validateTill"
+                      [(ngModel)]="validatetill"
+                      name="validateTill"
+                      placeholder="mm/yy"
+                      class="rounded-input"
+                      [min]="getMinlicDate()"
+                      [readonly]="lifelongvalidity"
+                      [disabled]="lifelongvalidity"
+                      [required]="!lifelongvalidity"
+                    /> -->
+                    <mat-form-field appearance="outline" class="w-100">
+                      <input matInput [matDatepicker]="startPickers" placeholder="DD/MMM/YYYY" name="validatetill" [(ngModel)]="validatetill"  [disabled]="lifelongvalidity === true">
+                      <mat-datepicker-toggle matSuffix [for]="startPickers"></mat-datepicker-toggle>
+                      <mat-datepicker #startPickers></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  
+                  <div class="col">
+                    <input
+                      type="checkbox"
+                      id="lifeLongValidity"
+                      [(ngModel)]="lifelongvalidity"
+                      name="validity"
+                      value="lifeLongValidity"
+                      (change)="onValidityChange()"
+                     
+                    />
+                    <label
+                      for="lifeLongValidity"
+                      style="color: black; font-size: small; margin-top: 10px; margin-left: 10px;"
+                      >Life long Validity</label
+                    >
+                  </div>
+                </div>
+                <label for="file">License Proof</label>
+                    <!-- <div class="e">
+                    </div> -->
+                    <ng-container *ngIf="errorFile !== ''">
+                      <div style="color: red; margin-top: 10px;">{{ errorFile }}</div>
+                    </ng-container>
+                    <div class="custom-file-upload"  style="margin-bottom:10px;margin-top:10px" style="display: flex;">
+                      <input type="file" id="file" name="providerlicenseupload" accept="image/*" value="providerlicenseupload" (change)="ondocumentUploads($event)" style="display: none;" >
+                      <label for="file" class="uploadButton"><p></p>Upload</label>
+                      <div class="image-path">{{providerlicenseupload?.name ||"No File Choosen" }}</div> 
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" style="margin-right: 45%; width: 110px; height: 40px; border-radius: 8px; gap: 13px; background-color: #8F1402; margin-top: 20px; color: #FFFFFF;">Save</button>
+                    </div>
+                  </div>
+                  </form>
+                 </div>
+                </div>
+              </div>
+        
+         <div *ngIf="showUpdateForm" class="popup-container">
+          <div class="sub">
+            <form  (ngSubmit)="updateproviderLicense(licenseId)">
+              <div style="display: flex;">
+            <h1 class="Details" style="margin-left: 190px;font-weight: 700;">License Details</h1>
+           
+            <span mat-dialog-close class="material-symbols-outlined pointercursor" (click)="closeupdLicense()" style="margin-left: 180px;">
+              close
+            </span>
+          </div>
+          <ng-container *ngIf="errorText !== ''">
+            <div style="color: red; margin-top: 10px;">{{ errorText }}</div>
+          </ng-container>
+          <div class="scrollable-content">
+            <!-- <label for="Category">Category</label><br>
+            <select [(ngModel)]="selectedCategorylic" id="Category" name="selectedCategorylic" class="form-control" style="margin-bottom: 20px; " class="rounded-input" required>
+            
+              <option value="Nurse">Nurse</option>
+              <option value="Doctor">Doctor</option>
+              <option value="Physiotherapist">Physiotherapist</option>
+              <option value="Optometrist">Optometrist</option>
+              <option value="Dentist">Dentist</option>
+              <option value="Other">Other</option>
+            </select> -->
+            <!-- <input type="text" [(ngModel)]="selectedCategoryotherslic" name="selectedCategoryothers" *ngIf="selectedCategorylic === 'Other'" placeholder="Enter other category" class="form-control" style="max-width: 600px;"> -->
+            <label for="License Authority">License Authority</label><br>
+              <select [(ngModel)]="LicenseAuthoritylic" id="Category" name="Category" class="form-control" style="margin-bottom: 20px; max-width: 600px;" class="rounded-input" required>
+                <option value="DHA">DHA</option>
+                 <option value="DOH">DOH</option>
+                 <option value="MOH">MOH</option>
+                 <option value="Other">Other</option>
+              </select>
+             <input type="text" [(ngModel)]="LicenseAuthorityotherlic" name="LicenseAuthorityotherlic" *ngIf="LicenseAuthoritylic === 'Other'" placeholder="Enter other Authority" class="form-control">
+             <label for="License number #">License #</label><br>
+             <input type="text" id="License number #" name="License number #" placeholder="Type here"  style="margin-bottom: 20px;" class="rounded-input" [(ngModel)]="Licensenumberlic" required><br>
+             <label for="special">Specialization</label><br>
+             <input type="text" id="special" name="updSpecialization" placeholder="Type here"  style="margin-bottom: 20px;" class="rounded-input" [(ngModel)]="updSpecialization" required><br>
+             <!-- <label for="Country"  class="subh" style="margin-top: 00px;">Country </label><br>
+             <select name="SelectedCountryIdlic" id="Country" class="form-control rounded" [(ngModel)]="SelectedCountryIdlic" (ngModelChange)="onCountryChange($event)" style="width: 100%; background: #f9f9f9;" required>
+              <option [value]="country" *ngFor="let country of CountryList; let i = index">{{ country }}</option>
+            </select><br>
+               <label for="states"  class="subh" >States </label><br>
+               <div style="margin-top: 0px;">
+                <select name="SelectedstatesIdlic" id="State" class="form-control rounded" [(ngModel)]="SelectedstatesIdlic" style="width: 100%; background: #f9f9f9;" required>
+                    <option [value]="state" *ngFor="let state of statesList; let i = index">{{ state }}</option>
+                  </select>
+               </div> -->
+              <label for="Validity Information" class="subh" style="margin-top: 5px;">Validity Information</label><br>
+              <div class="row date-row">
+                <div class="col">
+                  <label for="issuedDate" style="font-size: small;">Issue date</label>
+                  <!-- <input
+                    type="date"
+                    id="issuedDate"
+                    [(ngModel)]="issueddatelic"
+                    class="rounded-input"
+                    name="issueddatelic"
+                    [max]="getFormattedMaxDate()"
+                    required
+                  /> -->
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput [matDatepicker]="startPicker" placeholder="DD/MMM/YYYY" name="issueddatelic"  [(ngModel)]="issueddatelic">
+                    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startPicker></mat-datepicker>
+                </mat-form-field>
+                </div>
+              
+                <div class="col">
+                  <label for="validateTill" style="font-size: small;">Valid till</label>
+                 <!-- <input
+                    type="date"
+                    id="validateTill"
+                    [(ngModel)]="validatetilllic"
+                    [min]="getminlicupdDate()"
+                    name="validatetilllic"
+                    placeholder="mm/yy"
+                    class="rounded-input"
+                    [readonly]="lifelongvaliditylic"
+                    [disabled]="lifelongvaliditylic"
+                    required
+                  /> --> 
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input 
+                      matInput 
+                      [matDatepicker]="datepicker" 
+                      placeholder="DD/MMM/YYYY" 
+                      name="validatetilllic"  
+                      [(ngModel)]="validatetilllic" 
+                      [disabled]="lifelongvaliditylic"
+                      value="lifelongvaliditylic"
+                      >
+                    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                
+                <div class="col">
+                  <input
+                    type="checkbox"
+                    id="lifeLongValidity"
+                    [(ngModel)]="lifelongvaliditylic"
+                    name="lifelongvaliditylic"
+                    (change)="onValidityChange()"
+                    required
+                  />
+                  <label
+                    for="lifeLongValidity"
+                    style="color: black; font-size: small; margin-top: 10px; margin-left: 10px;"
+                  >Life long Validity</label>
+                </div>
+                
+                
+              </div>
+              <label for="file">License Proof</label>
+                  <!-- <div class="e">
+                    <input type="file" id="file" name="file" (change)="onFileSelected($event)" required>
+                  </div> -->
+                  <div class="custom-file-upload"  style="margin-bottom:10px;margin-top:10px" style="display: flex;">
+                    <input type="file" id="file" name="providerlicenseupload" accept="image/*,application/pdf" value="providerlicenseupload" (change)="ondocumentUploads($event)" style="display: none;" >
+                    <label for="file" class="uploadButton"><p></p>Upload</label>
+                    <div class="image-path">{{providerlicenseupload?.name ||providerlicenseDocName||"No File Choosen" }}</div> 
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" style="margin-right: 45%; width: 110px; height: 40px; border-radius: 8px; gap: 13px; background-color: #8F1402; margin-top: 20px;color: #FFFFFF;">Save</button>
+                  </div>
+                </div>
+                </form>
+               </div>
+            </div>
+    </ng-template>
+
+           
+
+    <ng-template [ngIf]="displayName==='presonal'&& userdetails">
+      <div class="sub">
+        <div class="container">
+          <form (ngSubmit)="PersonalInformationUpdate(personalupdateFom)" #personalupdateFom="ngForm"  enctype="multipart/form-data">
+            <div class="card-container"  >
+              <div style="display: flex;justify-content: space-between;">
+              <h1 class="base" >Personal Information</h1>
+              <div class="profile" *ngIf="studentPhoto">
+
+                <label >
+                  <img *ngIf="studentPhotoImageUrl" [src]="studentPhotoImageUrl" alt="Selected Student Photo"  class="imageicon">
+                  <div *ngIf="!studentPhotoImageUrl" class="box-text">
+                    <img src="assets/images/imageupload.png" alt="Upload Icon" class="upload-profile">
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div class="information">
+                <ng-container *ngIf="errorText !== '' || picerror">
+                <div style="color: red; margin-top: 10px;margin-left: 100px;">{{ errorText || picerror }}</div>
+              </ng-container>
+              <div  class="field">
+                <!-- <label style="margin-left: -3px;">Type </label><br>
+                <div class="test" style="margin-bottom:10px;margin-top:10px" >
+                  <div class="selection"
+                    (click)="selectTab('HCP')"
+                    [ngClass]="{ 'selected_1': selectedTab === 'HCP' }">
+                    <div class="word" >HCP</div>
+                  </div>
+                  <div class="selection"
+                    (click)="selectTab('Ops')"
+                    [ngClass]="{ 'selected': selectedTab === 'Ops' }">
+                    <div class="word" >Ops</div>
+                  </div>
+                </div><br> -->
+                
+                <label for="first">First Name </label><br>
+                <input type="text" id="first" name="FullName" [(ngModel)]="provideFullName" placeholder="Type here" size="60"style="margin-bottom:10px;margin-top:10px"  class="rounded-input"  required>
+                <label for="midlle">Middle Name </label><br>
+                <input type="text" id="midlle" name="providemidlle" [(ngModel)]="providemidlle" placeholder="Type here" size="60"style="margin-bottom:10px;margin-top:10px"  class="rounded-input"  required>
+                <label for="lastname">Last Name </label><br>
+                <input type="text" id="lastname" name="providelastname" [(ngModel)]="providelastname" placeholder="Type here" size="60"style="margin-bottom:10px;margin-top:10px"  class="rounded-input"  required>
+                <div class="firstname" style="margin-top: -10px;">
+                  <label for="studentPhotoInput" class="sub">Profile Photo upload </label>
+                  <!-- <div class="photocard" style="margin-top: 10px;" >
+                   
+                      <input class="choose-file-btn" type="file" accept="image/*" id="studentPhotoInput" name="studentPhoto" (change)="onStudentPhotoSelected($event)" required>
+                  
+                              
+                  </div> -->
+                  <div class="custom-file-input" style="margin-bottom:10px;margin-top:10px" >
+                    <input type="file" id="myFileInput" name="studentPhoto" accept="image/*,application/pdf" value="studentPhoto" (change)="onStudentPhotoSelected($event)" style="display:none" >
+                    <label for="myFileInput" class="uploadButton"><p></p>Upload</label>
+                     <span class="image-path">{{studentPhoto?.name|| personalPic|| "No file Choosen" }}</span> 
+                  </div>
+                <label style="margin-left: -3px;">Gender </label>
+               
+                </div>
+                <div class="gender-buttons">
+                  <div class="genderInfo"  style="margin-bottom:10px;margin-top:10px">
+                    <button type="button" (click)="selectMale()" class="btnmale"  [ngClass]="{'selected': selectedGender === 'Male','not-selected': selectedGender !== 'Male'}">
+                      <img src="assets/images/maleicon.png" class="male" >
+                      <span>Male</span>
+                    </button>
+                    <button type="button" (click)="selectFemale()" class="btnfemale" [ngClass]="{'selected': selectedGender === 'Female','not-selected': selectedGender !== 'Female'}">
+                      <img src="assets/images/image (3).png" class="male">
+                      <span>Female</span>
+                    </button>
+                  </div>
+                </div>
+                <label for="Date of Birth">DOB </label><br>
+                <!-- <input type="date" id="Date of Birth" name="Date of Birth"[(ngModel)]="provideDateOfBirth" placeholder="Type here"class="rounded-input" style="margin-bottom:10px;margin-top:10px" required><br> -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput [matDatepicker]="startPicker" placeholder="DD/MMM/YYYY" name="provideDateOfBirth"  [(ngModel)]="provideDateOfBirth">
+                  <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                  <mat-datepicker #startPicker></mat-datepicker>
+              </mat-form-field>
+                <label for="Mobile Number">Mobile # </label><br>
+                <input type="text" id="Mobile Number" name="Mobile Number" [(ngModel)]="provideMobileNumber" placeholder="Type here"class="rounded-input" style="margin-bottom:10px;margin-top:10px" required><br>
+                <label for="Email">Email </label><br>
+                <input type="text" id="Email" name="Email" [(ngModel)]="provideEmail" class="rounded-input" style="margin-bottom:10px;margin-top:10px" required [readOnly]="true" >
+                <label for="ptype">Type </label><br>
+                <select id="ptype" name="provideType" [(ngModel)]="provideType" style="margin-bottom:10px;margin-top:10px" class="rounded-input"   >
+                    <!-- <option value="" disabled selected>Select your first name</option> -->
+                    <option value="HCP" disabled selected>HCP</option>
+                    <option value="Ops" disabled selected>OPs</option>
+                    <!-- <option value="Michael">Michael</option> -->
+                    <!-- Add more options as needed -->
+                </select>
+                <label for="pcategory">Category </label><br>
+                <select id="pcategory" name="providecategoryType" [(ngModel)]="providecategoryType" style="margin-bottom:10px;margin-top:10px" class="rounded-input" required>
+                    <option value="" disabled selected>Select your Category</option>
+                    <option value="Nurse">Nurse</option>
+                    <option value="Doctor">Doctor</option>
+                    <option value="Physiotherapist">Physiotherapist</option>
+                    <option value="Optometrist">Optometrist</option>
+                    <option value="Dentist">Dentist</option>
+                    <option value="Other">Other</option>
+
+                    <!-- Add more options as needed -->
+                </select>
+                <!-- <input type="text" [(ngModel)]="providecategoryTypeOther" name="providecategoryTypeOther" *ngIf="providecategoryType === 'Other'" placeholder="Enter other Category" class="form-control"> -->
+              </div>
+              </div>
+            </div>
+            <div class="row" style="text-align: end;">
+              <span class="col">
+                <button type="submit" class="btn btn-primary custom-button btn-next" style="margin-right: 10px; " >Next</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </ng-template>
+
+
+    <ng-template [ngIf]="displayName==='presonalPost'">
+      <div class="sub">
+        <div class="container">
+          <form (ngSubmit)="personalupdates(personalForm)" #personalForm="ngForm">
+            <div class="card-container" >
+              <div style="display: flex;justify-content: space-between;">
+                <h1 class="base" >Personal Information</h1>
+                <div class="profile" *ngIf="studentPhoto">
+  
+                  <label>
+                    <img *ngIf="studentPhotoImageUrl" [src]="studentPhotoImageUrl" alt="Selected Student Photo"  class="imageicon">
+                    <div *ngIf="!studentPhotoImageUrl" class="box-text">
+                      <img src="assets/images/imageupload.png" alt="Upload Icon" class="upload-profile">
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <div class="information">
+              <ng-container *ngIf="errorText !== ''||personpicError">
+                <div style="color: red; margin-top: 10px;margin-left: 100px;">{{ errorText || personpicError }}</div>
+              </ng-container>
+              <div  class="field">
+                <!-- <label style="margin-left: -3px;">Type<span style="color:#ff0000 ">*</span></label><br>
+                <div class="test" style="margin-bottom:10px;margin-top:10px" >
+                  <div class="selection"
+                    (click)="selectTab('HCP')"
+                    [ngClass]="{ 'selected_1': selectedTab === 'HCP' }">
+                    <div class="word" >HCP</div>
+                  </div>
+                  <div class="selection"
+                    (click)="selectTab('Ops')"
+                    [ngClass]="{ 'selected': selectedTab === 'Ops' }">
+                    <div class="word" >Ops</div>
+                  </div>
+                </div> -->
+                <br>
+                <label for="newfirstname" >First Name </label><br>
+                <input type="text" id="newfirstname" name="newprovideFullName" [(ngModel)]="newprovideFullName" placeholder="Type here" size="60" style="margin-bottom:10px;margin-top:10px"  class="rounded-input" required><br>
+               
+                <label for="newmidlle">Middle Name </label><br>
+                <input type="text" id="newmidlle" name="providePostmidlle" [(ngModel)]="providePostmidlle" placeholder="Type here" size="60"style="margin-bottom:10px;margin-top:10px"  class="rounded-input"  required>
+                <label for="newlastname">Last Name </label><br>
+                <input type="text" id="newlastname" name="providepostlastname" [(ngModel)]="providepostlastname" placeholder="Type here" size="60"style="margin-bottom:10px;margin-top:10px"  class="rounded-input"  required>
+                <div class="firstname" style="margin-top: -10px;">
+                  <label for="studentPhotoInput" class="sub">Profile Photo upload </label>
+                  <!-- <div class="photocard" style="margin-top: 10px;" >
+                   
+                      <input class="choose-file-btn" type="file" accept="image/*" id="studentPhotoInput" name="studentPhoto" (change)="onStudentPhotoSelected($event)" required>
+                  
+                              
+                  </div> -->
+                  <div class="custom-file-input" style="margin-bottom:10px;margin-top:10px" >
+                    <input type="file" id="myFileInput" name="studentPhoto" accept="image/*" value="studentPhoto" (change)="onStudentPhotoSelected($event)" style="display:none">
+                    <label for="myFileInput" class="uploadButton"><p></p>Upload</label>
+                     <span class="image-path">{{studentPhoto?.name || 'No File Choosen'}}</span> 
+                  </div>
+                </div>
+                <label style="margin-left: -3px;">Gender</label>
+                
+                <div class="gender-buttons" style="margin-bottom:10px;margin-top:10px">
+                  <div class="genderInfo" >
+                    <button type="button" (click)="selectMale()" class="btnmale"  [ngClass]="{'selected': selectedGender === 'Male','not-selected': selectedGender !== 'Male'}">
+                      <img src="assets/images/maleicon.png" class="male" >
+                      <span>Male</span>
+                    </button>
+                    <button type="button" (click)="selectFemale()" class="btnfemale" [ngClass]="{'selected': selectedGender === 'Female','not-selected': selectedGender !== 'Female'}">
+                      <img src="assets/images/image (3).png" class="male">
+                      <span>Female</span>
+                    </button>
+                  </div>
+                </div>
+                <label for="Date of Birth">DOB</label>
+
+                <mat-form-field appearance="outline" class="w-100" style="margin-bottom:10px;margin-top:10px">
+                  <input matInput [matDatepicker]="startPicker" placeholder="DD/MMM/YYYY" name="newprovideDateOfBirth" [(ngModel)]="newprovideDateOfBirth" required>
+                  <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                  <mat-datepicker #startPicker></mat-datepicker>
+                </mat-form-field>
+                <!-- <input type="date" id="Date of Birth" name="Date of Birth"[(ngModel)]="newprovideDateOfBirth" placeholder="Type here"class="rounded-input" style="margin-bottom:10px;margin-top:10px" required><br> -->
+                <label for="Mobile Number">Mobile </label><br>
+                <input type="text" id="Mobile Number" name="Mobile Number" [(ngModel)]="newprovideMobileNumber" maxlength="20" (keypress)="onKeyPress($event)" placeholder="Type here"class="rounded-input" style="margin-bottom:10px;margin-top:10px" required><br>
+                <label for="email">Email</label><br>
+                <input type="text" id="email" name="email" [(ngModel)]="newprovideEmail" class="rounded-input" placeholder="Type here" style="margin-bottom:10px;margin-top:10px"  required>
+                <label for="type">Type </label><br>
+                  <select id="type" name="Type" [(ngModel)]="newprovideType" style="margin-bottom:10px;margin-top:10px" class="rounded-input" required>
+                      <option value="" disabled selected>Select your Type</option>
+                      <option value="HCP">HCP</option>
+                      <option value="Ops">OPs</option>
+                      <!-- <option value="Michael">Michael</option> -->
+                      <!-- Add more options as needed -->
+                  </select>
+                  <label for="newcategory">Category </label><br>
+                  <select id="newcategory" name="providepostcategoryType" [(ngModel)]="providepostcategoryType" style="margin-bottom:10px;margin-top:10px" class="rounded-input" required>
+                      <option value="" disabled selected>Select your Category</option>
+                      <option value="Nurse">Nurse</option>
+                      <option value="Doctor">Doctor</option>
+                      <option value="Physiotherapist">Physiotherapist</option>
+                      <option value="Optometrist">Optometrist</option>
+                      <option value="Dentist">Dentist</option>
+                      <option value="Other">Other</option>
+                      <!-- Add more options as needed -->
+                  </select>
+                  <!-- <input type="text" [(ngModel)]="providecategoryTypeOther" name="providepostcategoryTypeOther" *ngIf="providepostcategoryType === 'Other'" placeholder="Enter other Category" class="form-control"> -->
+  
+              </div>
+            </div>
+            </div>
+            <div class="row" style="text-align: end;">
+              <span class="col">
+                <button type="submit" class="btn btn-primary custom-button btn-next" style="margin-right: 10px;" >Next</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </ng-template>
+
+
+
+
+
+    
+<ng-template [ngIf]="displayName==='Note'" >
+  <div class="sec">
+  <form (ngSubmit)="hcpnotesubmit(consentForm)" enctype="multipart/form-data" #consentForm="ngForm">
+    
+    <div class="card-container">
+      <div style="display: flex;justify-content: space-between;">
+
+        <h1 class="base">Consent</h1>
+
+        <div class="profile" *ngIf="studentPhoto">
+  
+          <label >
+            <img *ngIf="studentPhotoImageUrl" [src]="studentPhotoImageUrl" alt="Selected Student Photo"  class="imageicon">
+            <div *ngIf="!studentPhotoImageUrl" class="box-text">
+              <img src="assets/images/imageupload.png" alt="Upload Icon" class="upload-profile">
+            </div>
+          </label>
+        </div>
+      </div>
+      <ng-container *ngIf="errorConsent !== '' || noteError !== ''">
+        <div style="color: red; margin-top: 10px;margin-left: 100px;">{{ errorConsent ||noteError }}</div>
+      </ng-container>
+        <div class="scroll-bar_3" >
+            <div class="scrollable-content_1">
+                <div class="page" style="color: #000;">
+                    <p>Sign and put date in the last section of the page below the consent section in the space provided.</p> <br>
+                    
+                 
+                     
+                      
+                                          
+                    
+                    <p>
+                      <b>Important:</b> Once saved or/and printed, you are advised to take utmost care of the Onboarding Confirmation form as the information contained therein is confidential.
+                      Neither the Enterprises connected in NIVISH Program nor the NIVISH takes responsibility for the printed form 
+                      <!-- <input type="text" [(ngModel)]="notedates" name="notedates" class="rounded-input" [min]="minDate" [max]="notedates" style="max-width: 120px; margin-left: 5px;" readonly class="rounded-input"> -->
+                    </p><br>
+                    
+                    <p><span class="text-danger" style="margin-left: 0px;"></span>I <input type="text" placeholder="Form Filled by" [(ngModel)]="typurName" name="typurName" style="max-width: 120px;"  class="rounded-input" required> provided all the license details, education details to register as an Health Care Practitioner under NIVISH program and do hereby give my consent to NIVISH to :
+
+                    <br>
+                    <div style="margin-left:35px;">
+                    <ol>
+                      <li>Create my electronic record;</li>
+                      <li>Update the electronic record with the information provided in the Onboarding questionnaire and with information gathered from the Designated / Provider from time to time.</li>
+                      <li>Process and analyze the information/data gathered and recorded through the NIVISH program for quality and transparency.</li>
+                    </ol>
+                  </div>
+                  <p style="color: #000; margin-left: 50px;">Signature of                                 
+                    <input type="text" id="Form_Filled_by"   name="signofformFilledby" [(ngModel)]="signofformFilledby" placeholder="Name" style="margin-left: 10px;max-width: 120px;"  class="rounded-input" required> 
+
+                    
+                </p><br>
+                <p style="color: #000;">Upload your digital Sign
+                </p>
+                  </div> 
+                   
+                    
+                    <ng-container *ngIf="errorNoteImage !== ''">
+                      <div style="color: red; margin-left: 100px;margin-bottom: 10px;">{{ errorNoteImage }}</div>
+                    </ng-container>
+                    <div class="sign">
+                      <div class="image-upload-container">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          id="digitalSignInput"
+                          name="Upload_Your_Sign"
+                          (change)="onProfilePictureSelected($event)"
+                          style="display: none;"
+                        />
+                        <label for="digitalSignInput" class="image-box">
+                          <img
+                            *ngIf="digitalSignImageUrl"
+                            [src]="digitalSignImageUrl"
+                            alt="Selected Digital Sign"
+                            class="preview-image"
+                          />
+                          <div  *ngIf="!digitalSignImageUrl" class="box-text">
+                            <img src="assets/images/imageupload.png"  style="margin-left: 0px;" alt="Upload Icon" class="upload-icon" />
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                    
+                    <!-- <div class="studentsign">
+                      <p style="color: #000;"> <span class="text-danger">*</span>Upload photo
+                      </p>
+                    </div>
+                    <div class="sign">
+                    <div class="image-upload-container">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        id="studentPhotoInput"
+                        name="Upload_Your_Photo"
+                        (change)="onStudentPhotoSelected($event)"
+                        style="display: none;"
+                      />
+                      <label for="studentPhotoInput" class="image-box">
+                        <img
+                          *ngIf="studentPhotoImageUrl"
+                          [src]="studentPhotoImageUrl"
+                          alt="Selected Student Photo"
+                          class="preview-image"
+                        />
+                        <div *ngIf="!studentPhotoImageUrl" class="box-text">
+                          <img src="assets/images/imageupload.png" alt="Upload Icon" class="upload-icon" />
+                        </div>
+                      </label>
+                    </div>
+                  </div> -->
+                    <p>
+                      <p style="color: #000;">
+                        <span class="text-danger"></span>
+                        Date
+                        <!-- <input type="text" [(ngModel)]="submittedDt" name="submittedDt" 
+                               class="rounded-input" 
+                               [min]="minDate" [max]="maxDate" style="max-width: 120px; margin-left:5px" 
+                               readonly class="rounded-input"> -->
+
+                               <mat-form-field appearance="outline" style="max-width: 120px; margin-left:5px"  >
+                                <input matInput readonly  placeholder="DD/MMM/YYYY" name="newprovideDateOfBirth" [value]="formatDateString(submittedDt)"
+                                (ngModelChange)="onDateChange($event)" required>
+                                <!-- <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                                <mat-datepicker #startPicker></mat-datepicker> -->
+                              </mat-form-field>
+                    </p>
+                                                                   
+                    <br>
+                     <p style="color: #000;"><span class="text-danger"></span>Place   <input type="text" [(ngModel)]="placeof" name="placeof"  placeholder="Type location"style="  max-width: 120px; margin-lrft:5px "  class="rounded-input" required> 
+                    </p>                            
+                    <br>
+                    <p><input type="checkbox" style="margin-left: 50px;" id="policies"  [(ngModel)]="terms"  name="terms" value="policies"  [(ngModel)]="policies"><span class="text-danger" style="margin-left: 2px;" required></span>I have read the policies and I provide my consent to NIVISH.
+
+                    </p>                            
+                    <br>
+               
+            </div>
+        </div>
+    </div>
+    <div class="row_1">
+      <!-- <div class="col_1">
+          <img src="assets/images/Vector.png" alt="Your Image Description" class="profile-img">
+          <button type="button" class="btn btn-secondary profile-btn">Profile Preview</button>
+      </div> -->
+  
+      <div class="col_1">
+          <button type="button" class="btn btn-secondary back-btn"(click)="proEducation()">Previous</button>
+      </div>
+  
+      <div class="col_2">
+          <button type="submit" class="btn btn-primary submit-btn">Submit</button>
+      </div>
+  </div>
+    
+</form>
+</div>
+</ng-template>
+
+  </div>
+</div>
+       

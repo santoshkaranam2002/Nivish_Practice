@@ -1,0 +1,17 @@
+.name-container {
+    max-width: 100%;
+  }
+
+  .name-wrap {
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow-wrap: break-word;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+    width: 100%; /* Ensures the line spans across the container */
+  }

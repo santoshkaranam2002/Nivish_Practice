@@ -1,0 +1,36 @@
+.coordinator-card {
+  margin: 20px;
+}
+
+.remaining-days-message{
+  color: rgba(0, 213, 102, 1);
+
+}
+
+.coordinator-info p {
+  margin: 5px 0;
+}
+
+.mat-mdc-card-title{
+  background-color: #FFE8E4 !important;
+  color:#8F1402;
+  padding: 20px;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+}
+
+.name-wrap {
+  display: inline-block; 
+  max-width: 100%; 
+  white-space: normal; 
+  word-break: break-word; 
+  overflow-wrap: break-word; 
+  line-height: 1.5; 
+}
+
+.overflowname{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+

@@ -1,0 +1,257 @@
+<div class="col-md-12">
+  <mat-card class="table-box">
+    <a class="sideh text-decoration-none f-s-14 f-w-500 align-items-center d-flex p-l-40 p-t-20" (click)="ename(displayName)">
+      <span class="material-symbols-outlined m-r-10" >
+        arrow_back
+      </span>Back</a>
+    <mat-card-header>
+        <mat-card-title class="f-s-30 f-w-900 p-l-30">School</mat-card-title>
+      </mat-card-header>
+      <form [formGroup]="enterpriseForm" (ngSubmit)="addEnterprise()">
+      <mat-card-content>
+        <div class="row p-24">
+            <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="row align-items-baseline">
+                                    <div class="col-md-4">
+                                        <mat-label class="f-s-20 f-w-500 sideh">Country</mat-label>
+                                    </div>
+                                    <div class="col-md-6 p-0">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-select placeholder="Country" formControlName="countryInput">
+                                              <mat-option *ngFor="let country of CountryList" [value]="country">{{ country }}</mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="enterpriseForm.get('countryInput')?.hasError('required') && enterpriseForm.get('submitted')?.value">
+                                              Country is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row align-items-baseline">
+                                    <div class="col-md-4">
+                                        <mat-label class="f-s-20 f-w-500 sideh">Enterprise Group</mat-label>
+                                    </div>
+                                    <div class="col-md-6 p-0">
+                                       <mat-form-field appearance="outline" class="w-100" [ngClass]="{'error-border': enterpriseForm.get('groupInput')?.invalid && enterpriseForm.get('submitted')?.value}">
+                                        <mat-select formControlName="groupInput" (selectionChange)="onGroupNameSelectionChange($event)">
+                                          <mat-option *ngFor="let group of groupNames" [value]="group.id">
+                                            {{ group.option }}
+                                          </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="enterpriseForm.get('groupInput')?.hasError('required') && enterpriseForm.get('submitted')?.value">
+                                            Enterprise Group is required
+                                        </mat-error>
+                                      </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row align-items-baseline">
+                                    <div class="col-md-4">
+                                        <mat-label class="f-s-20 f-w-500 sideh">School Name</mat-label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <app-inputs
+                                        [parentForm]="enterpriseForm "
+                                        controlName="eNameInput"
+                                        placeholder=""
+                                        type="text"
+                                        [required]="true"
+                                        [validationMessages]="{ required: 'School Name is required', minlength: 'Minimum length should be 3' }"
+                                        class="w-100"
+                                       ></app-inputs>
+                                    </div>
+                                </div>
+                                <div class="row align-items-baseline">
+                                    <div class="col-md-4">
+                                        <mat-label class="f-s-20 f-w-500 sideh">First Name</mat-label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <app-inputs
+                                        [parentForm]="enterpriseForm"
+                                        controlName="firstName"
+                                        placeholder=""
+                                        type="text"
+                                        [required]="true"
+                                        [validationMessages]="{ required: 'First Name is required', minlength: 'Minimum length should be 3' }"
+                                        class="w-100"
+                                       ></app-inputs>
+                                    </div>
+                                </div>
+                                <div class="row align-items-baseline">
+                                    <div class="col-md-4">
+                                        <mat-label class="f-s-20 f-w-500 sideh">Last Name</mat-label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <app-inputs
+                                        [parentForm]="enterpriseForm"
+                                        controlName="lastName"
+                                        placeholder=""
+                                        type="text"
+                                        [required]="true"
+                                        [validationMessages]="{ required: 'Last Name is required', minlength: 'Minimum length should be 3' }"
+                                       ></app-inputs>
+                                    </div>
+                                </div>
+                                <div class="row align-items-baseline">
+                                    <div class="col-md-4">
+                                        <mat-label class="f-s-20 f-w-500 sideh">Email</mat-label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <app-inputs
+                                        [parentForm]="enterpriseForm"
+                                        controlName="emailAddress"
+                                        placeholder=""
+                                        type="email"
+                                        [required]="true"
+                                        [validationMessages]="{ required: 'Email is required', minlength: 'Minimum length should be 3' }"
+                                        class="w-100"
+                                       ></app-inputs>
+                                    </div>
+                                </div>
+                                <div class="row align-items-baseline">
+                                    <div class="col-md-4">
+                                        <mat-label class="f-s-20 f-w-500 sideh">Alternate Email</mat-label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <app-inputs
+                                        [parentForm]="enterpriseForm"
+                                        controlName="altemailAddress"
+                                        placeholder=""
+                                        type="email"
+                                        [required]="true"
+                                        [validationMessages]="{ required: 'Alternate Email is required', minlength: 'Minimum length should be 3' }"
+                                        class="w-100"
+                                       ></app-inputs>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="row align-items-baseline">
+                                    <div class="col-md-4">
+                                        <mat-label class="f-s-20 f-w-500 sideh">Contact Person</mat-label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <app-inputs
+                                        [parentForm]="enterpriseForm"
+                                        controlName="contactPerson"
+                                        placeholder=""
+                                        type="text"
+                                        [required]="true"
+                                        [validationMessages]="{ required: 'Contact Person is required', minlength: 'Minimum length should be 3' }"
+                                        class="w-100"
+                                        ></app-inputs>
+                                    </div>
+                                </div>
+                              <div class="row align-items-baseline">
+                                <div class="col-md-4">
+                                    <mat-label class="f-s-20 f-w-500 sideh">Web Address</mat-label>
+                                </div>
+                                <div class="col-md-6">
+                                    <app-inputs
+                                    [parentForm]="enterpriseForm"
+                                    controlName="webAddress"
+                                    placeholder=""
+                                    type="text"
+                                    [required]="true"
+                                    [validationMessages]="{ required: 'Web Address is required', minlength: 'Minimum length should be 3' }"
+                                    class="w-100"
+                                   ></app-inputs>
+                                </div>
+                              </div>
+                              <div class="row align-items-baseline">
+                                  <div class="col-md-4">
+                                      <mat-label class="f-s-20 f-w-500 sideh">Street Address</mat-label>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <app-inputs
+                                      [parentForm]="enterpriseForm"
+                                      controlName="streetAddress"
+                                      placeholder=""
+                                      type="text"
+                                      [required]="true"
+                                      [validationMessages]="{ required: 'Street Address is required', minlength: 'Minimum length should be 3' }"
+                                      class="w-100"
+                                    ></app-inputs>
+                                  </div>
+                              </div>
+                              <div class="row align-items-baseline">
+                                  <div class="col-md-4">
+                                      <mat-label class="f-s-20 f-w-500 sideh">City</mat-label>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <app-inputs
+                                      [parentForm]="enterpriseForm"
+                                      controlName="city"
+                                      placeholder=""
+                                      type="text"
+                                      [required]="true"
+                                      [validationMessages]="{ required: 'City is required', minlength: 'Minimum length should be 3' }"
+
+                                      class="w-100"
+                                      ></app-inputs>
+                                  </div>
+                              </div>
+                              <div class="row align-items-baseline">
+                                  <div class="col-md-4">
+                                      <mat-label class="f-s-20 f-w-500 sideh">State</mat-label>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <app-inputs
+                                      [parentForm]="enterpriseForm"
+                                      controlName="state"
+                                      placeholder=""
+                                      type="text"
+                                      [required]="true"
+                                      [validationMessages]="{ required: 'State is required', minlength: 'Minimum length should be 3' }"
+                                      class="w-100"
+                                      ></app-inputs>
+                                  </div>
+                              </div>
+                              <div class="row align-items-baseline">
+                                  <div class="col-md-4">
+                                      <mat-label class="f-s-20 f-w-500 sideh">Zip Code</mat-label>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <app-inputs
+                                      [parentForm]="enterpriseForm"
+                                      controlName="zipCode"
+                                      placeholder=""
+                                      type="text"
+                                      [required]="true"
+                                      [validationMessages]="{ required: 'Zip Code is required', minlength: 'Minimum length should be 3' }"
+                                      class="w-100"
+                                      ></app-inputs>
+                                  </div>
+                              </div>
+                              <div class="row align-items-baseline">
+                                  <div class="col-md-4">
+                                      <mat-label class="f-s-20 f-w-500 sideh">Phone</mat-label>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <app-inputs
+                                      [parentForm]="enterpriseForm"
+                                      controlName="fax"
+                                      placeholder=""
+                                      type="text"
+                                      [required]="true"
+                                      [validationMessages]="{ required: 'Phone is required', minlength: 'Minimum length should be 3' }"
+                                      class="w-100"
+                                      ></app-inputs>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                    <!-- </div> -->
+            </div>
+        </div>
+
+        </mat-card-content>
+          <mat-card-footer>
+            <div class="row d-flex justify-content-center p-24" >
+              <app-button label="Add" buttoncolor="primary" [buttonColor]="'#8F1402'" class="m-r-64 f-s-18" type="submit" [buttonWidth]="'100%'"></app-button>
+              <app-button label="Cancel" type="button" [buttonColor]="'#fff'" [textColor]="'#8F1402'" [buttonWidth]="'100%'" (click)="ename(displayName)"></app-button>
+            </div>
+          </mat-card-footer>
+        </form>
+</mat-card>
+</div>

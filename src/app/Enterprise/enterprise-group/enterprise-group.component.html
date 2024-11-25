@@ -1,0 +1,51 @@
+<app-menubar></app-menubar>
+<div class="row m-r-0 p-l-40">
+  <app-breadcrumb [breadcrumbs]="breadcrumbs"class="m-b-12 m-t-12 p-12"></app-breadcrumb>
+</div>
+
+
+  <div class="row m-r-0 align-item-center p-30 p-t-0">
+    <div class="col-md-12">
+      <mat-card class="table-box">
+        <app-spinner [showSpinner]="spinnerLoading"
+        imageUrl="Nivish Loading.png"
+        loadingHeading="EnterPrise Group is Loading ..."></app-spinner>
+
+        <div class="row m-t-28">
+          <div class="col-10">
+            <app-heading class="m-l-20" [heading]="'Enterprise Groups'"></app-heading>
+          </div>
+        </div>
+        <!-- <acpl-title [heading]="'Ganesh'"></acpl-title> -->
+        <!-- <app-mutiple-upload
+        [maxFiles]="3"
+        [maxFileSize]="3000000"
+        (filesChanged)="onFilesChanged($event)"
+        (errorMessageChanged)="onErrorMessageChanged($event)">
+
+        </app-mutiple-upload> -->
+        <mat-card-content>
+          <div class=" ">
+          <custom-table
+            [tableData]="orders"
+                [tableColumns]="ordersTableColumns"
+                [isFilterable]="true"
+                [isPageable]="true"
+                [showButton]="true"
+                buttonLabel="Add Group"
+                buttonIcon="domain"
+                (buttonClick)="openAdEnterpriseGroup()"
+                [showCheckboxes]="false"
+                [paginationSizes]="[5,10]"
+                [defaultPageSize]="10"
+                (sort)="sortData($event)"
+                (rowAction)="handleRowAction($event)"
+                (rowClick)="onRowClicked($event)"
+              class="w-100">
+          </custom-table>
+        </div>
+        </mat-card-content>
+
+      </mat-card>
+    </div>
+  </div>

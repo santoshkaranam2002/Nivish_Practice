@@ -1,0 +1,214 @@
+@use "../variables";
+.timeline_ganesh{
+    color: red;
+}
+.student-details-spacing{
+  margin-left: 4px;
+}
+
+.details-boxshadow{
+  background: #fff;
+  margin-bottom: 20px;
+  position: relative;
+  margin: 20px 7px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  //min-height: calc(40vh - 0px);
+}
+
+.withtimeline{
+  margin: 24px 24px 10px 70px !important;
+}
+
+.updated-on{
+  font-family: Inter;
+  font-size: 10px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 12.1px;
+  text-align: left;
+  color: $gray-100;
+}
+
+.edit-del-btn{
+  background: transparent !important;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25) !important;
+  color: black !important;
+  border-radius: 4px !important;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: auto 1%;
+
+  &__event {
+    background: #fff;
+    margin-bottom: 20px;
+    margin: 24px 24px 10px 0px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    //min-height: calc(40vh - 0px);
+
+    &__title {
+      font-size: 1.2rem;
+      line-height: 1.4;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #9251ac;
+      letter-spacing: 1.5px;
+    }
+
+    &__content {
+      padding: 20px;
+    }
+
+    &__icon {
+      border-radius: 8px 0 0 8px;
+      background: #9251ac;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-basis: 40%;
+      font-size: 2rem;
+      color: #9251ac;
+      padding: 20px;
+
+      i {
+        position: absolute;
+        top: 50%;
+        left: -65px;
+        font-size: 2.5rem;
+        transform: translateY(-50%);
+      }
+    }
+
+    &__description {
+      flex-basis: 60%;
+    }
+
+    &.with-line {
+      position: relative;
+
+      &:after {
+        content: "";
+        width: 2px;
+        height: 31em;
+        background: #b20b0b; // Replace with your desired color
+        position: absolute;
+        left: -3.6rem;
+        z-index: -1;
+        top: 4%;
+      }
+
+      &:before {
+        content: "";
+        width: 1rem;
+        height: 1rem;
+        position: absolute;
+        background: #820b0b; // Replace with your desired color
+        border-radius: 100%;
+        left: -4rem;
+      }
+    }
+
+    &--type2 {
+      &:before {
+        background: #e0e0e0; // Replace with your desired color
+        border-color: #e0e0e0; // Replace with your desired color
+      }
+
+      &:after {
+        background: #e0e0e0; // Replace with your desired color
+      }
+
+      .timeline__event__date {
+        color: #e0e0e0; // Replace with your desired color
+      }
+
+      .timeline__event__icon {
+        background: #e0e0e0; // Replace with your desired color
+        color: #e0e0e0; // Replace with your desired color
+      }
+
+      .timeline__event__title {
+        color: #e0e0e0; // Replace with your desired color
+      }
+    }
+  }
+}
+
+
+
+@media (max-width: 786px) {
+  .timeline__event {
+    flex-direction: column;
+  }
+  .timeline__event__icon {
+    border-radius: 4px 4px 0 0;
+  }
+}
+
+
+.studentidcard {
+  color: blue;
+}
+
+
+.studentuploadimage{
+  width: 120px;
+  height: 120px;
+  border-radius: 50px;
+}
+.paddingfortabs{
+  padding: 0 136px;
+}
+
+@media (max-width: 767.98px) {
+  .paddingfortabs {
+    padding: 0 !important;
+  }
+}
+
+
+/* Override styles for mobile screens */
+@media (max-width: 767.98px) {
+  *, :after, :before {
+      box-sizing: initial; /* Reset to initial value */
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .buttionsforlargescreens {
+    display: none; /* Hide the entire row on mobile screens */
+  }
+}
+
+
+// scheduled
+// .timeline .scheduled-status-green:before {
+//   content: "";
+//   width: 1rem;
+//   height: 1rem;
+//   position: absolute;
+//   background: #222522 ; /* Green color */
+//   border-radius: 100%;
+//   left: -4rem;
+// }
+
+// not_sheduled
+// .timeline .scheduled-status-red:before {
+//   content: "";
+//   width: 1rem;
+//   height: 1rem;
+//   position: absolute;
+//   background: #640404; /* Red color */
+//   border-radius: 100%;
+//   left: -4rem;
+// }
+
+.border_studentinfo{
+  border: 1px solid rgba(143, 20, 2, 1);
+}
+

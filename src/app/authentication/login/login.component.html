@@ -1,0 +1,113 @@
+<ng-template [ngIf]="displayName === 'rdlogin'">
+  <div class="container">
+    <div class="d-flex blank-layout-container align-items-center justify-content-center overflowhidden login-page-height">
+      <div class="row position-relative w-100 h-100">
+        <!--Image div starts here-->
+        <div class="col-md-6 col-xl-8 p-0 justify-content-center d-flex p-24 align-items-center img-height d-none d-lg-flex">
+          <div *ngFor="let tile of tiles;">
+            <img class="w-100" src="{{tile.imageUrl}}">
+           </div>
+        </div>
+        <!--Image div ends here-->
+
+        <div class="col-md-6 col-xl-4 p-0">
+          <div class="d-flex align-items-start align-items-lg-center justify-content-center h-100">
+            <div class="w-100 justify-content-center d-flex justify-content-center">
+              <div class="col-lg-9 max-width-form">
+                <!--Mobile icon comes here-->
+                <div class="align-items-center w-100 p-24 border-radius boxshadow-form">
+                  <div class="text-center align-items-center ">
+                    <div class="f-s-20 f-w-600">Welcome to</div>
+                    <div class="f-s-30 f-w-700 m-t-16">Super Admin</div>
+                  </div>
+                  <!-- Toggle button start -->
+                  <div class="row m-4 m-t-32">
+                    <div class="col-md-12">
+                      <div class="w-100 m-4 m-b-20">
+                        <app-tooglebutton class="f-s-30" [options]="['Login With Email', 'Login with OTP']" [selectedOption]="'Login With Email'" (optionChange)="handleOptionChange($event)"></app-tooglebutton>
+                      </div>
+                      <app-error [errorMessage]="loginErrorMessage || otpErrorMessage"></app-error>
+                  <!-- Toggle button end -->
+                      <div class="col m-4">
+                          <div *ngIf="isEmailLogin">
+                            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                             <div>
+                              <app-inputs
+                              [parentForm]="loginForm"
+                              controlName="username"
+                              placeholder="Email"
+                              type="email"
+                              [minLength]="3"
+                              [required]="true"
+                              [validationMessages]="{
+                                required: 'Username is required.',
+                                minlength: 'Username should be at least 3 characters long.'
+                              }"
+                              class="w-100"
+                            ></app-inputs>
+                            </div>
+                             <div>
+                              <app-inputs
+                              [parentForm]="loginForm"
+                              controlName="password"
+                              placeholder="Password"
+                              type="password"
+                              [minLength]="6"
+                              [required]="true"
+                              [validationMessages]="{
+                                required: 'Password is required.',
+                                minlength: 'Password should be at least 6 characters long.'
+                              }"
+                              class="w-100"
+                            ></app-inputs>
+                            
+                            </div>
+                              <div class="w-100">  <mat-checkbox formControlName="terms">
+                                I agree to the 
+                                <a href="https://www.nivish.ae/" target="_blank" class="terms">Terms & Conditions</a>
+                              </mat-checkbox></div>
+                              <div *ngIf="loginForm.get('terms')?.touched && loginForm.get('terms')?.invalid" class="error-message">
+                                <app-error [errorMessage]="'You must agree to the terms and conditions.'"></app-error>
+                              </div>
+                            <app-button label="Login" type="submit" [buttonColor]="'#8F1402'"  [buttonWidth]="'100%'" icon="exit_to_app"></app-button>
+                           </form>
+                          </div>
+                          <div *ngIf="!isEmailLogin">
+                            <form [formGroup]="otpForm" (ngSubmit)="otpSubmit()">
+                              <app-inputs
+                              [parentForm]="otpForm"
+                              controlName="emailOtp"
+                              placeholder="Email"
+                              type="email"
+                              [minLength]="6"
+                              [required]="true"
+                              [validationMessages]="{
+                                required: 'Email is required.',
+                                minlength: 'Email should be at least 6 characters long.'
+                              }"
+                              class="w-100"
+                              ></app-inputs>
+                              <!-- <div><mat-checkbox  formControlName="conditions" class="w-100">I agree to the <span class="terms">terms and Conditions</span></mat-checkbox></div> -->
+                              <div *ngIf="otpForm.get('conditions')?.touched && otpForm.get('conditions')?.invalid" class="error-message">
+                                <app-error [errorMessage]="'You must agree to the terms and conditions.'"></app-error>
+                              </div>
+                              <app-button label="Send Otp" type="submit" [buttonColor]="'#8F1402'" [buttonWidth]="'100%'"  (click)="onResendClick()" icon="send"></app-button>
+                            </form>
+                          </div>
+                      </div>
+                      <div>
+                      </div>
+                      </div>
+
+                      <!-- Footer -->
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,43 @@
+<div class="container">
+  
+
+  <div>
+    <div *ngIf="displayName==='enterprisegroup'">
+      <app-enterprise-group></app-enterprise-group>
+    </div>
+
+    <div *ngIf="displayName==='enterprisename'">
+      <app-enterpise-names></app-enterpise-names>
+    </div>
+
+    <div *ngIf="displayName==='enterpriseForm'">
+      <app-enterprise-form></app-enterprise-form>
+    </div>
+
+    <div *ngIf="displayName==='studentMasterList'">
+      <app-student-master-list class="w-100"></app-student-master-list>
+    </div>
+
+    <div *ngIf="displayName==='Healthcamp'">
+
+    </div>
+    <div *ngIf="displayName==='dashboard'">
+<mat-card>
+  <app-menubar></app-menubar>
+  
+  <app-breadcrumb [breadcrumbs]="breadcrumbs"class="m-b-12 m-t-12 p-12"></app-breadcrumb>
+  <mat-card-header class="d-flex justify-content-center">
+    <mat-card-title class="f-s-30 f-w-900">Dashboard coming soon !</mat-card-title>
+    
+</mat-card-header>
+    <img  src="assets/images/svgs/SchoolHealthProgram.svg">
+
+</mat-card>
+    </div>
+
+    <!-- <div *ngIf="displayName==='Healthcamps'">
+      <app-health-camp></app-health-camp>
+    </div> -->
+  </div>
+</div>
+

@@ -1,0 +1,248 @@
+<app-menubar></app-menubar>
+<div *ngIf="isLoading" class="spinner-overlay">
+  <mat-spinner><img src="../../../assets/images/svgs/hedernivish.svg" alt=""></mat-spinner>
+</div>
+<ng-container class="container">
+  <app-spinner [showSpinner]="spinnerLoading"
+        imageUrl="Nivish Loading.png"
+        loadingHeading="Events is Loading ..."></app-spinner>
+  <div class="box-shadow p-b-2">
+    <div>
+      <a class="sideh text-decoration-none f-s-14 f-w-500 align-items-center d-flex p-l-20 p-t-20 cursor-pointer m-b-10" (click) ="goBack()">
+        <span class="material-symbols-outlined m-r-10">arrow_back
+        </span>Back School List/ Details</a>
+    </div>
+    <div class="border_studentinfo row align-items-center justify-content-center m-l-16 m-r-16 p-12 m-b-30  text-captailise">
+      <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 justify-content-center d-flex m-t-40">
+        <mat-card class="profile-img-card justify-content-center align-items-center">
+          <img class="m-t-20 schoolImage" src="../../assets/images/svgs/camping.svg" alt="Camp Details">
+          <span class="m-t-24 m-b-10 p-r-10 p-l-10" (click)="downloadSchoolDetails()">
+            Download Event Report
+          </span>
+          <div class="textcenter m-t-10" *ngIf="mobile">
+            <div class="row m-t-10 align-items-center w-100  justify-content-space-between ">
+                <div class="example-button-container">
+                    <button style="background: transparent;
+                    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+                    color: red;
+                    border-radius: 4px;" mat-mini-fab aria-label="Delete">
+                    <span class="material-symbols-outlined">
+                        delete
+                        </span>
+                    </button>
+                </div>
+                <div class="m-t-8">
+                    <button  style="background: transparent;
+                    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+                    color: black;
+                    border-radius: 4px;" mat-mini-fab aria-label="Edit" (click)="openEditPopup()">
+                    <span class="material-symbols-outlined">
+                        border_color
+                        </span>
+                    </button>
+                </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      <div class="col-md-9 col-sm-9 col-lg-9 col-xl-9 align-items-center">
+          <div class="d-flex">
+              <div class="row border-profile" *ngIf="healthcampprofile">
+                <!-- Event Name -->
+                <div class="col-6 p-b-10">
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="f-s-16 f-w-600">Event Name</div>
+                    </div>
+                    <div class="col-8">
+                      <div class="f-s-16 f-w-400">: {{healthcampprofile.HealthCampName}}</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Event Type -->
+                <div class="col-6 p-b-10">
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="f-s-16 f-w-600">Event Type</div>
+                    </div>
+                    <div class="col-8">
+                      <div class="f-s-16 f-w-400">: {{healthcampprofile.Event_Type}}</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Date -->
+                <div class="col-6 p-b-10">
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="f-s-16 f-w-600">Event Date</div>
+                    </div>
+                    <div class="col-8">
+                      <div class="f-s-16 f-w-400">: {{healthcampprofile.StartDate| date: 'dd MMM yyyy'}}</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Event Schedule -->
+                <div class="col-4 p-b-10">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="f-s-16 f-w-600">Event Schedule</div>
+                    </div>
+                    <div class="col-6">
+                      <div class="f-s-16 f-w-400">:
+                        <span *ngIf="healthcampprofile">
+                          <span *ngIf="healthcampprofile.Scheduled_Status">
+                          {{ healthcampprofile.Scheduled_Status }}
+                          </span>
+                        </span>
+                        <span *ngIf="!healthcampprofile">
+                          Loading...
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Location -->
+                <div class="col-12 p-b-10">
+                  <div class="row">
+                    <div class="col-2">
+                      <div class="f-s-16 f-w-600">Location</div>
+                    </div>
+                    <div class="col-8">
+                      <div class="f-s-16 f-w-400">: {{healthcampprofile.Location}}</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Description -->
+                <div class="col-12 p-b-10">
+                  <div class="row">
+                    <div class="col-2">
+                      <div class="f-s-16 f-w-600">Description</div>
+                    </div>
+                    <div class="col-8">
+                      <div class="f-s-16 f-w-400">: {{healthcampprofile.Discription}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="row m-t-10 m-b-24 f-s-18 f-w-600">
+            <div class="col-3">
+              <div class="row">
+                <div class="col-6">Status</div>
+                <div class="col-6" [ngStyle]="{'color': status === 'Scheduled' ? '#008F28' : '#FF6D00'}">
+                  :{{status}}
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="row">
+                <div class="col-6 f-s-18 f-w-600">Total</div>
+                <div class="col-6">: <span class="text-blue">{{ total }}</span></div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="row">
+                <div class="col-6 f-s-18 f-w-600">Included</div>
+                <div class="col-6">: <span class="text-success">{{ included }}</span></div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="row">
+                <div class="col-6 f-s-18 f-w-600">Excluded</div>
+                <div class="col-6">: <span class="text-primary">{{ excluded }}</span></div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Tabs -->
+<ng-container>
+  <div class="container m-t-20">
+    <div class="row m-r-0 p-l-20">
+      <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
+        <mat-tab-group>
+          <!-- Events Tab Starts Here-->
+          <mat-tab label="Summary">
+            <mat-card class="coordinator-card m-2 m-t-20" >
+              <mat-card-title class="d-flex justify-content-center">{{ title }}</mat-card-title>
+              <div class="coordinator-details p-20">
+                <p class="f-s-18 font-style-italic m-b-20">Updated on: <b>{{ updatedDate | date: 'dd MMM yyyy' }}</b></p>
+
+                <div *ngIf="hcSummary; else noSummary">
+                  <div class="row coordinator-info">
+                    <div class="col-md-6">
+                      <div class="row m-b-12">
+                        <div class="col-md-3">
+                          <mat-label class="f-w-600 f-s-18 textblackcolor">Class & Section</mat-label>
+                        </div>
+                        <div class="col-md-9">
+                          <mat-label class="f-w-400 f-s-18 textblackcolor">: {{ classSection }}</mat-label>
+                        </div>
+                      </div>
+                      <div class="row m-b-12">
+                        <div class="col-md-3">
+                          <mat-label class="f-w-600 f-s-18 textblackcolor">Included</mat-label>
+                        </div>
+                        <div class="col-md-3">
+                          <mat-label class="f-w-400 f-s-18 textblackcolor">: {{ included }}</mat-label>
+                        </div>
+                      </div>
+                      <div class="row m-b-12">
+                        <div class="col-md-3">
+                          <mat-label class="f-w-600 f-s-18 textblackcolor">Excluded</mat-label>
+                        </div>
+                        <div class="col-md-9">
+                          <mat-label class="f-w-400 f-s-18 textblackcolor">: {{ excluded }}</mat-label>
+                        </div>
+                      </div>
+                      <div class="row m-b-12">
+                        <div class="col-md-3">
+                          <mat-label class="f-w-600 f-s-18 textblackcolor">Total</mat-label>
+                        </div>
+                        <div class="col-md-3">
+                          <mat-label class="f-w-400 f-s-18 textblackcolor">: {{ total }}</mat-label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <ng-template #noSummary>
+                  <p>No summary to show</p>
+                </ng-template>
+              </div>
+            </mat-card>
+           </mat-tab>
+           <mat-tab label="Participants">
+            <div class=" text-captailise">
+            <custom-table
+                  [tableData]="orders"
+                  [tableColumns]="ordersTableColumns"
+                  [isFilterable]="true"
+                  [isPageable]="true"
+                  [showButton]="false"
+                  [showCheckboxes]="false"
+                  [paginationSizes]="[5, 10]"
+                  [defaultPageSize]="10"
+                  (sort)="sortData($event)"
+                  (rowAction)="handleRowAction($event)"
+                  (rowClick)="onRowClicked($event)"
+                  class="w-100 m-r-0">
+                </custom-table>
+              </div>
+          </mat-tab>
+          <mat-tab label="Resources">
+            <div class="f-w-900 f-s-16 textblackcolor">Comming Soon ....</div>
+          </mat-tab>
+          <mat-tab label="Communications">
+           <app-couminication></app-couminication>
+          </mat-tab>
+          <!-- <app-button [label]="buttonLabel"  buttoncolor="primary" [buttonColor]="'#8F1402'"  type="submit" [buttonWidth]="'50%'" ></app-button> -->
+        </mat-tab-group>
+      </div>
+
+    </div>
+  </div>
+</ng-container>

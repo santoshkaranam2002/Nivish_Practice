@@ -1,0 +1,11 @@
+a{
+    cursor: pointer;
+}
+.error-border .mat-form-field-outline,
+.error-border .mat-form-field-underline {
+  border-color: red !important;
+}
+
+.error-border .mat-input-element {
+  border-color: red !important;
+}

@@ -1,0 +1,125 @@
+<app-menubar></app-menubar>
+
+<div class="row m-r-0 align-item-center p-l-30 p-r-12 p-t-30">
+  <ng-template [ngIf]="displayName==='eName'";>
+    <div class="col-md-12">
+      <mat-card class="table-box">
+        <app-spinner [showSpinner]="spinnerLoading"
+        imageUrl="Nivish Loading.png"
+        loadingHeading="School Data is Loading ..."></app-spinner>
+        <div class="row m-t-28">
+          <div class="col-3">
+            <acpl-title class="m-l-20" [heading]="'Schools'"></acpl-title>
+          </div>
+          <!-- Filter -->
+          <div class="col-9">
+            <div class="row">
+              <div class="col-11 d-flex justify-content-end">
+                <div *ngIf="enterpriseStatus || reviewStatus || schoolStatus" class="boxforchips">
+                  <ng-container *ngIf="enterpriseStatus">
+                    <mat-chip class="m-b-10" *ngFor="let option of enterpriseStatus.split(','); let i = index" [removable]="true" (removed)="removeOption(i)">
+                      Group : {{ option.trim() }}
+                      <mat-icon class="" matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                  </ng-container>
+                  <ng-container *ngIf="reviewStatus">
+                    <mat-chip class="m-b-10" *ngFor="let status of reviewStatus.split(','); let i = index" [removable]="true" (removed)="removeReviewStatus(i)">
+                      Status : {{ status.trim() }}
+                      <mat-icon class="" matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                  </ng-container>
+                  <ng-container *ngIf="schoolStatus">
+                    <mat-chip class="m-b-10" *ngFor="let status of schoolStatus.split(','); let i = index" [removable]="true" (removed)="removeSchoolStatus(i)">
+                      School: {{ status.trim() }}
+                      <mat-icon class="" matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                  </ng-container>
+                  <ng-container *ngIf="verifiedStatus">
+                    <mat-chip class="m-b-10" *ngFor="let verified of verifiedStatus.split(','); let i = index" [removable]="true" (removed)="removeVerifiedStatus(i)">
+                      Status: {{ verified.trim() }}
+                      <mat-icon class="" matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-1 d-flex justify-content-end p-r-30 align-items-center">
+                <span class="material-symbols-outlined"  matTooltipPosition="above" matTooltip="Filter" (click)="toggleFilterPopup()">
+                  filter_alt
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="row d-flex justify-content-between p-24">
+          <mat-card-header>
+            <mat-card-title class="f-s-24 f-w-900">Schools</mat-card-title>
+          </mat-card-header>
+          <i class="fa-solid fa-filter" (click)="toggleFilterPopup()"></i>
+          <div class="col-md-4">
+            <div class="d-flex row align-items-center ">
+              <div *ngIf="enterpriseStatus || reviewStatus || schoolStatus" class="country-card-content">
+                <ng-container *ngIf="enterpriseStatus">
+                  <mat-chip *ngFor="let option of enterpriseStatus.split(','); let i = index" [removable]="true" (removed)="removeOption(i)">
+                    {{ option.trim() }}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </ng-container>
+
+                <ng-container *ngIf="reviewStatus">
+                  <mat-chip *ngFor="let status of reviewStatus.split(','); let i = index" [removable]="true" (removed)="removeReviewStatus(i)">
+                    {{ status.trim() }}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </ng-container>
+                <ng-container *ngIf="schoolStatus">
+                  <mat-chip *ngFor="let status of schoolStatus.split(','); let i = index" [removable]="true" (removed)="removeSchoolStatus(i)">
+                    {{ status.trim() }}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </ng-container>
+                <ng-container *ngIf="verifiedStatus">
+                  <mat-chip *ngFor="let verified of verifiedStatus.split(','); let i = index" [removable]="true" (removed)="removeVerifiedStatus(i)">
+                    {{ verified.trim() }}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </ng-container>
+              </div>
+              </div>
+          </div>
+          <div class="col-md-4 justify-content-end">
+            <div class="row float-right">
+              <div class="col-md-12">
+                <app-button mat-button label="Add School" type="Add Student" icon="person_add" [buttonColor]="'#8F1402'"  classname="w-100 borderradius" (click)="eform()"></app-button>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <mat-card-content class="p-0">
+          <custom-table [tableData]="orders"
+              [tableColumns]="ordersTableColumns"
+              [isFilterable]="true"
+              [isPageable]="true"
+              [showButton]="true"
+              buttonLabel="Add School"
+              buttonIcon="domain"
+              (buttonClick)="openSchoolForm()"
+              buttonColor="'primary'"
+              buttonClass="w-100 borderradius"
+              [paginationSizes]="[5,10,15,20]"
+              [defaultPageSize]="10"
+              (sort)="sortData($event)"
+              (rowAction)="handleRowAction($event)"
+              (rowClick)="onRowClicked($event)"
+              class="w-100">
+          </custom-table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-template>
+
+  <ng-template [ngIf]="displayName==='eform'">
+    <app-enterprise-form class="w-100"></app-enterprise-form>
+  </ng-template>
+</div>

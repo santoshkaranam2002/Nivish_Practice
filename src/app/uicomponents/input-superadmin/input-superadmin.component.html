@@ -1,0 +1,13 @@
+<div class="row form-group " [formGroup]="parentForm">
+    <mat-form-field>
+      <input
+        matInput
+        [type]="type"
+        [formControlName]="controlName"
+        [placeholder]="placeholder"
+        [ngClass]="{ 'is-invalid': showError() }"
+        class="w-100"
+      />
+      <mat-error *ngIf="showError()">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+  </div>

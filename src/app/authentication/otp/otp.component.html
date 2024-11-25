@@ -1,0 +1,59 @@
+<div class="blank-layout-container align-items-center justify-content-center overflowhidden login-page-height">
+    <div class="position-relative row w-100 h-100">
+      <div class="col-lg-6 col-xl-8 p-0 bg-gredient bg-light-primary align-items-center justify-content-center d-flex">
+        <div>
+          <div class="p-24 h-100 align-items-center justify-content-center img-height d-none d-lg-flex">
+            <div *ngFor="let tile of tiles;">
+             <img class="w-100" src="{{tile.imageUrl}}">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+      <!--Form div starts here-->
+      <div class="col-lg-6 col-xl-4 p-0">
+        <div class="p-32 d-flex align-items-start align-items-lg-center justify-content-center h-100">
+          <div class="w-100 justify-content-center">
+            <div class="boxshadow-form col-lg-9 max-width-form bg-white">
+              <form (ngSubmit)="otpSubmit()">
+              <!--Mobile icon comes here-->
+              <p class="textcenter">
+                <img *ngIf="mobile" width="50%" class="align-items-center justify-content-center" src="assets/images/logos/ivin-logo.svg">
+              </p>
+              <!--Mobile icon comes here-->
+              <!--Login Form Starts here-->
+              <app-error class="text-center f-w-400 f-s-14" [errorMessage]="invalidOtp"></app-error>
+
+                <h4 class="text-center f-w-700 p-t-64 f-s-24">Enter 4 Digits Code</h4>
+                <div class="text-center f-w-400 f-s-14">Enter the 4 digits code that was sent to your mail for verification</div>
+                <div class="otp-input m-t-40 d-flex otpboxes">
+                  <input #input1 type="text" maxlength="1" [(ngModel)]="otpValue[0]" (input)="onOtpInputChange(0, input2, null)" (keydown)="onKeyDown($event, null, input2)" [ngModelOptions]="{ standalone: true }" autofocus  />
+                  <input #input2 type="text" maxlength="1" [(ngModel)]="otpValue[1]" (input)="onOtpInputChange(1, input3, input1)" (keydown)="onKeyDown($event, input1, input3)" [ngModelOptions]="{ standalone: true }"  />
+                  <input #input3 type="text" maxlength="1" [(ngModel)]="otpValue[2]" (input)="onOtpInputChange(2, input4, input2)" (keydown)="onKeyDown($event, input2, input4)" [ngModelOptions]="{ standalone: true }"  />
+                  <input #input4 type="text" maxlength="1" [(ngModel)]="otpValue[3]" (input)="onOtpInputChange(3, null, input3)" (keydown)="onKeyDown($event, input3, null)" [ngModelOptions]="{ standalone: true }"  />
+              </div>
+                <div class="text-center f-w-400 f-s-14 m-b-54">
+                  {{ otpSentMessage || (otpExpired ? "Your OTP has expired. Click on Resend to get a new   ." : "Didn't receive the code?" ) }}
+                  <span [ngStyle]="{'color': resendButtonDisabled ? '#999999' : '#8F1402', 'cursor': resendButtonDisabled ? 'not-allowed' : 'pointer'}"  [attr.disabled]="resendButtonDisabled ? 'disabled' : null" class="text-primary focus:outline-none">
+                    {{ countdownSeconds > 0 ? formatCountdownTime(countdownSeconds) : 'Resend' }}
+                  </span>
+                </div>
+                <div class="text-center text-danger m-b-10" *ngIf="invalidDetailsMessage" style="color: red;">
+                  {{ invalidDetailsMessage }}
+                </div>
+                <mat-card-actions class="d-flex justify-content-center">
+                  <button mat-raised-button class="p-l-42 p-r-42 w-50" style="background-color:rgba(143, 20, 2, 1)!important;color: white;" type="submit">Submit</button>
+                </mat-card-actions>
+                <!-- <app-button label="Submit" type="submit"></app-button> -->
+              </form>
+              <!--Login Ends here-->
+            </div>
+      
+          </div>
+        </div>
+      </div>
+      <!--Form div ends here-->
+    </div>
+  </div>
+  

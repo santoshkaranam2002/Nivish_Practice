@@ -1,0 +1,106 @@
+<header>
+  <div class="container">
+    <div class="d-flex">
+      <div class="d-flex">
+        <div class="col-md-12 desktop_menu d-flex align-items-center">
+          <span  class="material-symbols-outlined" style="color: rgba(143, 20, 2, 1); cursor: pointer;">home_app_logo</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="menu-icon" (click)="openMenu()">
+          <mat-icon class="menubc m-l-20">menu</mat-icon>
+        </div>
+
+        <div class="desktop_menu" [class.mobile_menu]="menuValue">
+          <ul>
+            <li>
+              <button mat-button [matMenuTriggerFor]="menu" class="menuu" [ngClass]="{'selected': selectedButton === 'menu'}">
+                <i class="material-symbols-outlined just-the-i gradient-icon m-r-4">domain</i>
+                <span class="f-s-18">Enterprises</span>
+                <span class="material-symbols-outlined">arrow_drop_down</span>
+              </button>
+            </li>
+             <li>
+              <button mat-button [matMenuTriggerFor]="student" class="menuu">
+                <i class="material-symbols-outlined just-the-i gradient-icon m-r-4">school</i>
+                <span class="f-s-18">Students</span>
+                <span class="material-symbols-outlined">arrow_drop_down</span>
+              </button>
+            </li>
+            <li>
+              <button mat-button [matMenuTriggerFor]="provider" class="menuu">
+                <i class="material-symbols-outlined just-the-i gradient-icon m-r-4">partner_exchange</i>
+                <span class="f-s-18">Providers</span>
+                <span class="material-symbols-outlined">arrow_drop_down</span>
+              </button>
+            </li>
+            <li>
+              <button mat-button [matMenuTriggerFor]="events" class="menuu">
+                <i class="material-symbols-outlined just-the-i gradient-icon m-r-4">event</i>
+                <span class="f-s-18">Events</span>
+                <span class="material-symbols-outlined">arrow_drop_down</span>
+              </button>
+            </li>
+            <li>
+              <button mat-button [matMenuTriggerFor]="operations" class="menuu">
+                <i class="material-symbols-outlined just-the-i gradient-icon m-r-4">component_exchange</i>
+                <span class="f-s-18">Operations</span>
+                <span class="material-symbols-outlined">arrow_drop_down</span>
+              </button>
+            </li>
+            <li>
+              <!-- <button mat-button [matMenuTriggerFor]="settings" class="menuu"> -->
+              <button mat-button class="menuu">
+                <i class="material-symbols-outlined just-the-i gradient-icon m-r-4">settings</i>
+                <span class="f-s-18">Settings</span>
+                <span class="material-symbols-outlined">arrow_drop_down</span>
+              </button>
+            </li>
+
+            <mat-menu #menu="matMenu">
+              <button type="button" mat-menu-item (click)="eGroup()">Enterprise Groups</button>
+              <button mat-menu-item (click)="eName()">Schools</button>
+
+            </mat-menu>
+
+            <mat-menu #student="matMenu">
+              <button mat-menu-item (click)="studentMaster()">Student Master List</button>
+              <!-- <button mat-menu-item>student</button> -->
+            </mat-menu>
+
+            <mat-menu #provider="matMenu">
+              <button mat-menu-item (click)="providerEntity()">All Providers</button>
+              <button mat-menu-item (click)="hcp()">HCP Master List</button>
+              <!-- <button mat-menu-item >Communications</button> -->
+            </mat-menu>
+
+            <mat-menu #events="matMenu">
+              <button mat-menu-item (click)="healthcamp()">All Events</button>
+              <!-- <button mat-menu-item (click)="healthcampresource()">Health Assessment Resources</button>
+              <button mat-menu-item>Health Assessment Schedule</button> -->
+            </mat-menu>
+
+            <mat-menu #operations="matMenu">
+              <button mat-menu-item (click)="oprations()">Operations</button>
+              <!-- <button mat-menu-item>Statistics </button>
+              <button mat-menu-item>Health Assessment Schedule</button> -->
+            </mat-menu>
+
+            <mat-menu #settings="matMenu">
+              <!-- <button mat-menu-item>Ops User</button>
+              <button mat-menu-item>Roles </button>
+              <button mat-menu-item>Permissions</button> -->
+            </mat-menu>
+
+            <mat-menu #events="matMenu">
+              <button mat-menu-item (click)="healthcamp()">Health Assessment</button>
+              <button mat-menu-item (click)="healthcampresource()">Health Assessment Resources</button>
+              <button mat-menu-item>Health Assessment Schedule</button>
+            </mat-menu>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

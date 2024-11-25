@@ -1,0 +1,84 @@
+<app-menubar></app-menubar>
+<div class="row m-r-0 p-l-40">
+  <app-breadcrumb [breadcrumbs]="breadcrumbs"class="m-b-12 m-t-12 p-12"></app-breadcrumb>
+</div>
+<app-spinner [showSpinner]="spinnerLoading"
+  imageUrl="Nivish Loading.png"
+  loadingHeading=" All Event Data is Loading ..."></app-spinner>
+<ng-template [ngIf]="displayName==='healthTable'">
+  <div class="row m-r-0 align-item-center p-30">
+    <div class="col-md-12">
+      <mat-card class="table-box">
+        <div class="row m-t-28">
+          <div class="col-2">             
+            <app-heading class="m-l-20" [heading]="'All Events'"></app-heading>
+          </div>
+          <div class="col-10 d-flex justify-content-end">
+          
+            <div class="">
+              <div *ngIf="(Status && Status.length > 0) || (Schools && Schools.length > 0)" class="country-card-content boxforchips">
+                <ng-container *ngIf="Status">
+                  <mat-chip class="" *ngFor="let option of Status; let i = index" [removable]="true" (removed)="removeOption(i, 'Status')">
+                    Status:{{ option.trim() }}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </ng-container>
+                <ng-container *ngIf="Schools">
+                  
+                  <mat-chip class="" *ngFor="let option of Schools; let i = index" [removable]="true" (removed)="removeOption(i, 'Schools')">
+                    School:{{option.name.trim() }} 
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </ng-container>
+              </div>
+            </div>
+            <span class="material-symbols-outlined m-r-20" matTooltipPosition="above" matTooltip="Filter" (click)="toggleFilterPopup()">
+              filter_alt
+            </span>
+          </div>
+         
+        </div>
+
+         <!-- Chips for selected filters -->
+
+        <div class=" text-captailise">
+          <custom-table
+            [tableData]="orders"
+            [tableColumns]="ordersTableColumns"
+            [isFilterable]="true"
+            [isPageable]="true"
+            [showButton]="true"
+            buttonLabel="Add Event"
+            buttonIcon="add"
+            (buttonClick)="addhealthcamp()"
+            [paginationSizes]="[5,10]"
+            [defaultPageSize]="10"
+            (sort)="sortData($event)"
+            (rowAction)="handleRowAction($event)"
+            (rowClick)="onRowClick($event)"
+            class="w-100">
+          </custom-table>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #dotspopup>
+  <div class="row">
+    <div class="col-lg-12">
+      <div>
+        <mat-label (click)="healthcampedit()">Edit</mat-label>
+      </div>
+      <div class="m-t-18">
+        <mat-label>Delete</mat-label>
+      </div>
+      <div class="m-t-18">
+        <mat-label (click)="healthcampresource()">Health Assessment Resource</mat-label>
+      </div>
+      <div class="m-t-18">
+        <mat-label>Health Assessment Schedule</mat-label>
+      </div>
+    </div>
+  </div>
+</ng-template>

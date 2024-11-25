@@ -1,0 +1,4 @@
+<button mat-fab extended class="w-50 f-s-18 f-w-600 button rounded-button button-min-width" [class]="icon ? 'button-with-icon' : 'button-without-icon'" [style.background-color]="buttonColor" [type]="type" [style.width]="buttonWidth" [style.color]="textColor" >
+  <mat-icon aria-hidden="false" *ngIf="icon">{{ icon }}</mat-icon>
+  <span>{{ label }}</span>
+</button>

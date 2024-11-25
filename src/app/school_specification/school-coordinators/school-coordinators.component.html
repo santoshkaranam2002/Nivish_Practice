@@ -1,0 +1,65 @@
+<mat-card class="coordinator-card" [ngClass]="{ 'verified': isVerified, 'not-verified': !isVerified }">
+  <mat-card-title class="d-flex justify-content-center" *ngIf="type === 'Primary'">Primary School Coordinator</mat-card-title>
+  <mat-card-title class="d-flex justify-content-center" *ngIf="type === 'Secondary'">Secondary School Coordinator</mat-card-title>
+  <mat-divider></mat-divider>
+  <div class="coordinator-details p-20">
+    <p class="f-s-18 font-style-italic">Last Verified on: <b>{{ lastVerified }}</b></p>
+    <p class="f-s-18 font-style-italic">Verification Due On: <b>{{ dueOn }}</b></p>
+    <p *ngIf="pastDue" class="past-due-message">Past Due {{ calculatePastDueDays() }} Days</p>
+    <p *ngIf="!pastDue" class="f-s-18 remaining-days-message">{{ daysDifference }} Days Left</p>
+    <div class="row coordinator-info">
+      <div class="col-md-6">
+        <div class="row m-b-12">
+          <div class="col-md-3">
+            <mat-label class="f-w-600 f-s-18 textblackcolor">NID</mat-label>
+          </div>
+          <div class="col-md-9">
+            <mat-label class="f-w-400 f-s-18 textblackcolor overflowname">: {{ nid }}</mat-label>
+          </div>
+        </div>
+        <div class="row m-b-12">
+          <div class="col-md-3">
+            <mat-label class="f-w-600 f-s-18 textblackcolor">Name</mat-label>
+          </div>
+          <div class="col-md-3">
+            <mat-label class="f-w-400 f-s-18 textblackcolor overflowname" >: {{ name }}</mat-label>
+          </div>
+        </div>
+        <div class="row m-b-12">
+          <div class="col-md-3">
+            <mat-label class="f-w-600 f-s-18 textblackcolor">Email</mat-label>
+          </div>
+          <div class="col-md-9">
+            <mat-label class="f-w-400 f-s-18 textblackcolor overflowname">: {{ email }}</mat-label>
+          </div>
+        </div>
+        <div class="row m-b-12">
+          <div class="col-md-3">
+            <mat-label class="f-w-600 f-s-18 textblackcolor">Mobile</mat-label>
+          </div>
+          <div class="col-md-3">
+            <mat-label class="f-w-400 f-s-18 textblackcolor overflowname">: {{ mobile }}</mat-label>
+          </div>
+        </div>
+        <div class="row m-b-12">
+          <div class="col-md-3">
+            <mat-label class="f-w-600 f-s-18 textblackcolor">Status</mat-label>
+          </div>
+          <div class="col-md-3 d-flex align-items-center">
+            <mat-label class="f-w-400 f-s-18" [ngStyle]="{ 'color': isVerified ? 'green' : 'remaining-days-message' }">: {{ isVerified ? 'Verified' : 'Not Verified' }}</mat-label>
+            <div *ngIf="isVerified">
+              <span class="material-symbols-outlined remaining-days-message">check_circle</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 justify-content-end d-flex">
+        <button mat-icon-button color="primary" (click)="onEdit()">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</mat-card>

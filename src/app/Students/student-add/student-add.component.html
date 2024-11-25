@@ -1,0 +1,1106 @@
+<mat-tab-group #tabGroup>
+    <mat-tab>
+        <form [formGroup]="addstudentForm" (ngSubmit)="onSubmit()">
+          <ng-template mat-tab-label>
+              Choose Locale Setting*
+          </ng-template>
+          <div class="row p-24 add-student-form-min-height m-r-0 ">
+              <mat-dialog-content>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="row align-items-baseline">
+                        <div class="col-md-6">
+                          <mat-label class="f-w-400 f-s-16 textblackcolor">Country *</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                          <mat-form-field appearance="outline" class="w-100">
+                            <mat-select placeholder="Country" formControlName="Country">
+                              <mat-option *ngFor="let country of CountryList" [value]="country">{{ country }}</mat-option>
+                            </mat-select>
+                          
+                            <!-- Error message when the Country field is required and not selected -->
+                            <mat-error *ngIf="addstudentForm.get('Country')?.hasError('required') && addstudentForm.get('Country')?.touched">
+                              Country is required
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="row align-items-baseline">
+                        <div class="col-md-6">
+                          <mat-label class="f-w-400 f-s-16 textblackcolor">Enterprise Group *</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                          <!-- <mat-form-field appearance="outline" class="w-100">
+
+                              <mat-select formControlName="selectedGroupName" (selectionChange)="onGroupNameSelectionChange($event)">
+                                <mat-option *ngFor="let group of groupNames" [value]="group.id">
+                                  {{ group.option }}
+                                </mat-option>
+                                <mat-error *ngIf="addstudentForm.get('selectedGroupName')?.hasError('required') && addstudentForm.get('selectedGroupName')?.touched">
+                                  Enterprise Group is required
+                                </mat-error>
+                              </mat-select>
+                            </mat-form-field> -->
+
+                            <mat-form-field appearance="outline" class="w-100">
+                              <mat-select formControlName="selectedGroupName" (selectionChange)="onGroupNameSelectionChange($event)">
+                                <mat-option *ngFor="let group of groupNames" [value]="group.option">{{ group.option }}</mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="addstudentForm.get('selectedGroupName')?.hasError('required') && addstudentForm.get('selectedGroupName')?.touched">
+                                Enterprise Group is required
+                              </mat-error>
+                            </mat-form-field>
+
+
+                            
+                            
+                        </div>
+                      </div>
+
+                      <div class="row align-items-baseline">
+                        <div class="col-md-6">
+                          <mat-label class="f-w-400 f-s-16 textblackcolor">School *</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                          <mat-form-field appearance="outline" class="w-100">
+                            <mat-select formControlName="enterpriseNameControl" (selectionChange)="onEnterPriseNameSelectionChange($event)">
+                              <mat-option *ngFor="let enterprise of enterpriseNames" [value]="enterprise.id">{{ enterprise.option }}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="addstudentForm.get('enterpriseNameControl')?.hasError('required') && addstudentForm.get('enterpriseNameControl')?.touched">
+                              School is required
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                      <div class="row p-t-20 align-items-baseline">
+                          <div class="col-md-5">
+                              <mat-label class="f-w-400 f-s-16 textblackcolor">By what method would you prefer to include Students? *</mat-label>
+                          </div>
+                          <mat-radio-group formControlName="radioEGroup" (change)="onRadioButtonChangeEgroup($event)">
+                            <mat-radio-button id="radio_1" value="Add Details" class="my-radio-button" >Add Details</mat-radio-button>
+                            <mat-radio-button id="radio_2" value="Upload Details" class="my-radio-button" [disabled]="uploadDetailsDisabled" [matTooltip]="tooltipTextForUploadDetails">Upload Details</mat-radio-button>
+                            
+                          </mat-radio-group>
+                      </div>
+
+                  </mat-dialog-content>
+          </div>
+          <mat-dialog-actions class="justify-content-end">
+              <div class="col-md-5">
+                  <app-button label="Back" type="submit"  [buttonColor]="'#fff'"
+                  [textColor]="'#8F1402'" [buttonWidth]="'50%'" (click)="close()"></app-button>
+              </div>
+              <div class="col-md-5">
+                  <app-button label="Next" [buttonColor]="'#8F1402'" (click)="goToNextTab(tabGroup)" [buttonWidth]="'50%'"></app-button>
+              </div>
+          </mat-dialog-actions>
+        </form>
+    </mat-tab>
+
+    <!--General Information-->
+
+    <mat-tab>
+      <ng-template mat-tab-label>General Information</ng-template>
+      <form [formGroup]="addstudentForm" (ngSubmit)="onSubmit()">
+        <div class="row p-24 add-student-form-min-height m-r-0 ">
+          <mat-dialog-content>
+            <div class="row">
+              <div class="col-md-6">
+                  <div class="row align-items-baseline">
+                    <div class="col-md-4">
+                        <mat-label class="f-w-600 f-s-18 sideh">Regn #</mat-label>
+                    </div>
+                    <div class="col-md-6">
+                      <app-inputs
+                          [parentForm]="addstudentForm"
+                          controlName="admissionCode"
+                          placeholder=""
+                          type="text"
+                          [validationMessages]="{ required: 'Regn is required' }"
+                          [required]="true"
+                          class="w-100"
+                      ></app-inputs>
+                    </div>
+                  </div>
+                  <div class="row align-items-baseline">
+                    <div class="col-md-4">
+                        <mat-label class="f-w-600 f-s-18 sideh">Registration Date</mat-label>
+                    </div>
+                    <div class="col-md-6 p-0">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <input 
+                          matInput 
+                          [matDatepicker]="Picker" 
+                          placeholder="DD-MMM-YYYY" 
+                          formControlName="admissionDate"  
+                          (dateInput)="onAdmissionDateChange($event)" 
+                          (focus)="addstudentForm.get('admissionDate')?.markAsTouched()" 
+                        >
+                        <mat-datepicker-toggle matSuffix [for]="Picker"></mat-datepicker-toggle>
+                        <mat-datepicker #Picker></mat-datepicker>
+                        <mat-error *ngIf="addstudentForm.get('admissionDate')?.hasError('required') && addstudentForm.get('admissionDate')?.touched">
+                          Registration Date is required.
+                        </mat-error>
+                      </mat-form-field>
+                      
+                  </div>
+                  </div>
+               
+              </div>
+              <div class="col-md-6">
+                <div class="row align-items-baseline">
+                  <div class="col-md-3">
+                      <mat-label class="f-w-600 f-s-18 sideh">Class</mat-label>
+                  </div>
+                  <div class="col-md-6">
+                    <app-inputs
+                        [parentForm]="addstudentForm"
+                        controlName="studentClass"
+                        placeholder=""
+                        type="text"
+                        [required]="true"
+                        [validationMessages]="{ required: 'Class is required' }"
+                        class="w-100"
+                    ></app-inputs>
+                  </div>
+              </div>
+              <div class="row align-items-baseline">
+                <div class="col-md-3">
+                    <mat-label class="f-w-600 f-s-18 sideh">Section</mat-label>
+                </div>
+                <div class="col-md-6">
+                    <app-inputs
+                    [parentForm]="addstudentForm"
+                    controlName="studentSection"
+                    placeholder=""
+                    type="text"
+                    [required]="true"
+                    [validationMessages]="{ required: 'Section is required' }"
+
+
+                    class="w-100"
+                  ></app-inputs>
+                </div>
+              </div>
+              <div class="row align-items-baseline">
+                <div class="col-md-3">
+                    <mat-label class="f-w-600 f-s-18 sideh">Roll #</mat-label>
+                </div>
+                <div class="col-md-6">
+                    <app-inputs
+                        [parentForm]="addstudentForm"
+                        controlName="rollNumber"
+                        placeholder=""
+                        type="text"
+                        [required]="true"
+                        class="w-100"
+                        [validationMessages]="{ required: 'Roll is required' }"
+
+                    ></app-inputs>
+                </div>
+              </div>
+              </div>
+              
+            </div>
+          </mat-dialog-content>
+        </div>
+
+        <mat-dialog-actions class="justify-content-end">
+          <div class='col-md-5'>
+              <app-button label="Back" type="button"   [buttonColor]="'#fff'"
+              [textColor]="'#8F1402'"  [buttonWidth]="'50% !important'" (click)="goToPreviousTab(tabGroup)" ></app-button>
+          </div>
+          <div class='col-md-5'>
+              <app-button label="Next" [buttonColor]="'#8F1402'"  (click)="GeneralgoToNextTab(tabGroup)" [buttonWidth]="'50% !important'"></app-button>
+          </div>
+        </mat-dialog-actions>
+      </form>
+    </mat-tab>
+
+    <!-- Student Personal Information -->
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        Student Personal Information
+      </ng-template>
+      <mat-dialog-content id="scrollbar">
+        <fieldset class="fieldsets m-t-40">
+            
+                <legend class="heading textblackcolor f-w-900 f-s-24 fieldsets">Student Information</legend>
+         
+            <mat-card-content>
+                <div class="row p-24  ">
+                    <div class="col-md-6">
+                      <!-- <div class="row align-items-baseline">
+                        <div class="col-md-4">
+                            <mat-label class="f-w-600 f-s-18 sideh">Salutation</mat-label>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-radio-group formControlName="radioSalutation"  (change)="onRadioButtonChangeSalutation($event)">
+                                <div class="row f-s-16 textblackcolor d-flex gap-20">
+                                  <div class="col-md-3" ><mat-radio-button id="radio_1" value="Mr" class="my-radio-button" >Mr.</mat-radio-button> </div>
+                                  <div class="col-md-3"><mat-radio-button id="radio_2" value="Miss" class="my-radio-button">Miss.</mat-radio-button></div>
+                                  <div class="col-md-3"><mat-radio-button id="radio_2" value="Ms" class="my-radio-button">Mrs.</mat-radio-button></div>
+                                </div>  
+                            </mat-radio-group>
+                        </div>
+                      </div> -->
+                      <div class="row align-items-baseline">
+                        <div class="col-md-4 m-t-32">
+                            <mat-label class="f-w-600 f-s-18 sideh">First Name</mat-label>
+                        </div>
+                        <div class="col-md-6 m-t-32">
+                          <app-inputs
+                            [parentForm]="addstudentForm"
+                            controlName="firstName"
+                            placeholder=""
+                            type="text"
+                            [required]="true"
+                            [validationMessages]="{ required: 'First Name is required' }"
+
+                            class="w-100"
+                            ></app-inputs>
+                        </div>
+                      </div>
+                      <div class="row align-items-baseline">
+                          <div class="col-md-4">
+                              <mat-label class="f-w-600 f-s-18 sideh">Middle Name 1</mat-label>
+                          </div>
+                          <div class="col-md-6">
+                              <app-inputs
+                                      [parentForm]="addstudentForm"
+                                      controlName="middleName1"
+                                      placeholder=""
+                                      type="text"
+                                      
+                                      class="w-100"
+                                      ></app-inputs>
+                          </div>
+                      </div>
+                      <div class="row align-items-baseline">
+                        <div class="col-md-4">
+                          <mat-label class="f-w-600 f-s-18 sideh">Middle Name 2</mat-label>
+                        </div>
+                        <div class="col-md-6">
+                            <app-inputs
+                              [parentForm]="addstudentForm"
+                              controlName="middleName2"
+                              placeholder=""
+                              type="text"
+                              
+
+                              class="w-100"
+                              ></app-inputs>
+                        </div>
+                      </div>
+                      <div class="row align-items-baseline">
+                        <div class="col-md-4">
+                          <mat-label class="f-w-600 f-s-18 sideh">Last Name</mat-label>
+                        </div>
+                        <div class="col-md-6">
+                          <app-inputs
+                            [parentForm]="addstudentForm"
+                            controlName="lastName"
+                            placeholder=""
+                            type="text"
+                            [required]="true"
+                            [validationMessages]="{ required: 'Last Name is required' }"
+
+                            class="w-100"
+                            ></app-inputs>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 m-t-32">
+                      <div class="row align-items-baseline">
+                        <div class="col-md-4">
+                          <mat-label class="f-w-600 f-s-18 sideh">Ethnicity</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                            <!-- <app-inputs
+                            [parentForm]="addstudentForm"
+                            controlName="ethincity"
+                            placeholder=""
+                            type="text"
+                            [required]="false"
+
+                            class="w-100"
+                          ></app-inputs> -->
+                          <!-- <mat-form-field appearance="outline" class="w-100">
+                            <mat-select [formControl]="ethincity" placeholder="Select Ethnicity" (selectionChange)="studentEthnicityChange($event)">
+                              <mat-option value="Asian/Indian">Asian/Indian</mat-option>  
+                              <mat-option value="Black African">Black African</mat-option>
+                              <mat-option value="Arabs">Arabs</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="ethincity.invalid && (ethincity.touched || ethincity.dirty)">
+                              Ethnicity is required.
+                            </mat-error>
+                          </mat-form-field> -->
+
+                          <mat-form-field appearance="outline" class="w-100">
+                            <mat-select [formControl]="ethincity" placeholder="Select Ethnicity" (selectionChange)="studentEthnicityChange($event)" required>
+                              <mat-option value="Asian/Indian">Asian/Indian</mat-option>
+                              <mat-option value="Black African">Black African</mat-option>
+                              <mat-option value="Arabs">Arabs</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="ethincity.invalid && (ethincity.touched || ethincity.dirty)">
+                              Ethnicity is required
+                          </mat-error>
+                          </mat-form-field>
+
+
+                          
+                        </div>
+                      </div>
+
+                      <div class="row align-items-baseline">
+                        <div class="col-md-4">
+                          <mat-label class="f-w-600 f-s-18 sideh">Blood Group</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                            <!-- <app-inputs
+                            [parentForm]="addstudentForm"
+                            controlName="bloodGroup"
+                            placeholder=""
+                            type="text"
+                            [required]="false"
+                            class="w-100"
+                          ></app-inputs> -->
+                          <mat-form-field appearance="outline" class="w-100">
+                            <mat-select [formControl]="bloodGroup" placeholder="Select Blood Group" (selectionChange)="bloodGroupChange($event)">
+                              <mat-option value="A">A</mat-option>
+                              <mat-option value="B">B</mat-option>
+                              <mat-option value="AB">AB</mat-option>
+                              <mat-option value="O">O</mat-option>
+                              <mat-option value="Not Known">Not Known</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="bloodGroup.invalid">
+                              Blood Group is required
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="row align-items-baseline">
+                        <div class="col-md-4">
+                          <mat-label class="f-w-600 f-s-18 sideh">Rh Factor</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                          <mat-form-field appearance="outline" class="w-100">
+                            <mat-select [formControl]="rhFactor" placeholder="Select Rh Factor" (selectionChange)="rhFactorChange($event)">
+                              <mat-option value="+ve">+ve</mat-option>
+                              <mat-option value="-ve">-ve</mat-option>
+                              <mat-option value="Not Known">Not Known</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="rhFactor.invalid">
+                              Rh Factor is required
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="row align-items-baseline">
+                        <div class="col-md-4">
+                          <mat-label class="f-w-600 f-s-18 sideh">Gender</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                          <!-- <app-inputs
+                          [parentForm]="addstudentForm"
+                          controlName="gender"
+                          placeholder=""
+                          type="text"
+                          [required]="false"
+                          class="w-100"
+                         ></app-inputs> -->
+                         <mat-form-field appearance="outline" class="w-100">
+                          <mat-select [formControl]="gender" placeholder="Select Gender" (selectionChange)="genderChange($event)">
+                            <mat-option value="Male">Male</mat-option>
+                            <mat-option value="Female">Female</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="gender.invalid">
+                            Gender is required
+                          </mat-error>
+                        </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="row align-items-baseline">
+                        <div class="col-md-4">
+                          <mat-label class="f-w-600 f-s-18 sideh">DOB</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0 w-100">
+                          <mat-form-field appearance="outline" class="w-100">
+                              <input matInput [matDatepicker]="startPicker" placeholder="DD-MMM-YYYY" [(ngModel)]="dateOfBirth">
+                              <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                              <mat-datepicker #startPicker ></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </fieldset>
+        <fieldset class="fieldsets m-t-40">
+          <legend class="heading textblackcolor f-w-900 f-s-24 fieldsets">Mother's Information </legend>
+          <mat-card-content>
+                <div class="row p-24 ">
+                    <div class="col-md-6">
+                      <div class="row align-items-baseline">
+                        <div class="col-md-4">
+                          <mat-label class="f-w-600 f-s-18 sideh">First Name</mat-label>
+                        </div>
+                        <div class="col-md-6">
+                            <app-inputs
+                            [parentForm]="addstudentForm"
+                            controlName="mothersFirstName"
+                            placeholder=""
+                            type="text"
+                            [required]="true"
+                            [validationMessages]="{ required: 'First Name is required' }"
+
+                            class="w-100"
+                          ></app-inputs>
+                        </div>
+                      </div>
+                      <div class="row align-items-baseline">
+                        <div class="col-md-4">
+                          <mat-label class="f-w-600 f-s-18 sideh">Middle Name</mat-label>
+                        </div>
+                        <div class="col-md-6">
+                            <app-inputs
+                            [parentForm]="addstudentForm"
+                            controlName="mothersMiddleName1"
+                            placeholder=""
+                            type="text"
+                            [required]="true"
+                            [validationMessages]="{ required: 'Middle Name is required' }"
+
+                            class="w-100"
+                          ></app-inputs>
+                        </div>
+                      </div>
+                      <div class="row align-items-baseline">
+                        <div class="col-md-4">
+                          <mat-label class="f-w-600 f-s-18 sideh">Last Name</mat-label>
+                        </div>
+                        <div class="col-md-6">
+                          <app-inputs
+                            [parentForm]="addstudentForm"
+                            controlName="mothersLastName"
+                            placeholder=""
+                            type="text"
+                            [required]="true"
+                            [validationMessages]="{ required: 'Last Name is required' }"
+
+                            class="w-100"
+                            ></app-inputs>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="row align-items-baseline">
+                        <div class="col-md-4">
+                          <mat-label class="f-w-600 f-s-18 sideh">Ethnicity</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                            <!-- <app-inputs
+                            [parentForm]="addstudentForm"
+                            controlName="mothersEthinicity"
+                            placeholder=""
+                            type="text"
+                            [required]="false"
+
+                            class="w-100"
+                          ></app-inputs> -->
+                          <mat-form-field appearance="outline" class="w-100">
+                            <mat-select [formControl]="mothersEthinicity" placeholder="Select Ethnicity" (selectionChange)="motherEthnicityChange($event)" required>
+                              <mat-option value="Asian/Indian">Asian/Indian</mat-option>
+                              <mat-option value="Black African">Black African</mat-option>
+                              <mat-option value="Arabs">Arabs</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="mothersEthinicity.invalid && (mothersEthinicity.touched || mothersEthinicity.dirty)">
+                              Ethnicity is required
+                          </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </fieldset>
+        <fieldset class="fieldsets m-t-40">
+          <legend class="heading textblackcolor f-w-900 f-s-24 fieldsets">Father's Information</legend>
+          <mat-card-content>
+                <div class="row p-24  ">
+                    <div class="col-md-6">
+                      <div class="row align-items-baseline">
+                        <div class="col-md-4">
+                          <mat-label class="f-w-600 f-s-18 sideh">First Name</mat-label>
+                        </div>
+                        <div class="col-md-6">
+                          <app-inputs
+                            [parentForm]="addstudentForm"
+                            controlName="fathersFirstName"
+                            placeholder=""
+                            type="text"
+                            [required]="true"
+                            [validationMessages]="{ required: 'First Name is required' }"
+
+                            class="w-100"
+                            ></app-inputs>
+                        </div>
+                      </div>
+                      <div class="row align-items-baseline">
+                        <div class="col-md-4">
+                          <mat-label class="f-w-600 f-s-18 sideh">Middle Name</mat-label>
+                        </div>
+                        <div class="col-md-6">
+                            <app-inputs
+                            [parentForm]="addstudentForm"
+                            controlName="fathersMiddleName1"
+                            placeholder=""
+                            type="text"
+                            [required]="true"
+                            [validationMessages]="{ required: 'Middle Name is required' }"
+
+                            class="w-100"
+                          ></app-inputs>
+                        </div>
+                      </div>
+                      <div class="row align-items-baseline">
+                        <div class="col-md-4">
+                          <mat-label class="f-w-600 f-s-18 sideh">Last Name</mat-label>
+                        </div>
+                        <div class="col-md-6">
+                          <app-inputs
+                            [parentForm]="addstudentForm"
+                            controlName="fathersLastName"
+                            placeholder=""
+                            type="text"
+                            [required]="true"
+                            [validationMessages]="{ required: 'Last Name is required' }"
+
+                            class="w-100"
+                          ></app-inputs>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row align-items-baseline">
+                        <div class="col-md-4">
+                          <mat-label class="f-w-600 f-s-18 sideh">Ethnicity</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                            <!-- <app-inputs
+                            [parentForm]="addstudentForm"
+                            controlName="fathersEthinicity"
+                            placeholder=""
+                            type="text"
+                            [required]="false"
+
+                            class="w-100"
+                          ></app-inputs> -->
+                          <mat-form-field appearance="outline" class="w-100">
+                            <mat-select [formControl]="fathersEthinicity" placeholder="Select Ethnicity" (selectionChange)="fatherEthnicityChange($event)">
+                              <mat-option value="Asian/Indian">Asian/Indian</mat-option>
+                              <mat-option value="Black African">Black African</mat-option>
+                              <mat-option value="Arabs">Arabs</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="fathersEthinicity.invalid">
+                              Ethnicity is required
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <!-- <div class="row align-items-baseline">
+                        <div class="col-md-4">
+                          <mat-label class="f-w-600 f-s-18 sideh">Middle Name 2</mat-label>
+                        </div>
+                        <div class="col-md-6">
+                          <app-inputs
+                              [parentForm]="addstudentForm"
+                              controlName="fathersMiddleName2"
+                              placeholder=""
+                              type="text"
+                              [required]="false"
+
+                              class="w-100"
+                            ></app-inputs>
+                        </div>
+                      </div> -->
+                    </div>
+                </div>
+            </mat-card-content>
+        </fieldset>
+      </mat-dialog-content>
+      <mat-dialog-actions  class="justify-content-end">
+        <div class='col-md-5'>
+            <app-button label="Back" type="button" [buttonColor]="'#fff'" [textColor]="'#8F1402'" [buttonWidth]="'50% !important'" (click)="goToPreviousTab(tabGroup)"></app-button>
+        </div>
+        <div class='col-md-5'>
+            <app-button label="Next" [buttonColor]="'#8F1402'" (click)="StudentgoToNextTab(tabGroup)" [buttonWidth]="'50% !important'"></app-button>
+        </div>
+        </mat-dialog-actions>
+    </mat-tab>
+
+    <!-- Address Information -->
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+          Address
+        </ng-template>
+        <mat-dialog-content id="scrollbar">
+            <div class="row p-24 add-student-form-min-height m-r-0 ">
+                <div class="col-md-6">
+                  <div class="row align-items-baseline">
+                    <div class="col-md-4">
+                      <mat-label class="f-w-600 f-s-18 sideh">Country</mat-label>
+                  </div>
+                  <div class="col-md-6 p-0">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-select placeholder="Country" [formControl]="countryselectControl" (selectionChange)="onCountrySelect($event)">
+                            <mat-option *ngFor="let country of CountryList" [value]="country">{{ country }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="countryselectControl.invalid">
+                          Country is required
+                        </mat-error>
+                    </mat-form-field>
+                  </div>
+                  </div>
+                  <div class="row align-items-baseline">
+                    <div class="col-md-4">
+                      <mat-label class="f-w-600 f-s-18 sideh">State/ Province</mat-label>
+                  </div>
+                  <div class="col-md-6">
+                      <app-inputs
+                      [parentForm]="addstudentForm"
+                      controlName="stateProvince"
+                      placeholder=""
+                      type="text"
+                      [required]="true"
+                      [validationMessages]="{ required: 'State/ Province is required' }"
+
+                      class="w-100"
+                     ></app-inputs>
+                  </div>
+                  </div>
+                  <div class="row align-items-baseline">
+                    <div class="col-md-4">
+                      <mat-label class="f-w-600 f-s-18 sideh">City/ Town</mat-label>
+                    </div>
+                    <div class="col-md-6">
+                        <app-inputs
+                        [parentForm]="addstudentForm"
+                        controlName="cityTown"
+                        placeholder=""
+                        type="text"
+                        [required]="true"
+                        [validationMessages]="{ required: 'City/ Town is required' }"
+
+                        class="w-100"
+                      ></app-inputs>
+                    </div>
+                  </div>
+                  <div class="row align-items-baseline">
+                    <div class="col-md-4">
+                      <mat-label class="f-w-600 f-s-18 sideh">Street Address</mat-label>
+                    </div>
+                    <div class="col-md-6">
+                      <app-inputs
+                        [parentForm]="addstudentForm"
+                        controlName="street"
+                        placeholder="street Address"
+                        type="text"
+                        [required]="true"
+                        [validationMessages]="{ required: 'Street is required' }"
+
+                        class="w-100"
+                        ></app-inputs>
+                        <app-inputs
+                        [parentForm]="addstudentForm"
+                        controlName="building"
+                        placeholder="Building"
+                        type="text"
+                        [required]="true"
+                        [validationMessages]="{ required: 'Street is required' }"
+
+                        class="w-100"
+                        ></app-inputs>
+                        <app-inputs
+                        [parentForm]="addstudentForm"
+                        controlName="otherAddressPart"
+                        placeholder="otherAddressPart"
+                        type="text"
+                        [required]="true"
+                        [validationMessages]="{ required: 'otherAddressPart is required' }"
+
+
+                        class="w-100"
+                        ></app-inputs>
+                    </div>
+                  </div>
+                    
+              
+                </div>
+                <div class="col-md-6">
+                  <div class="row align-items-baseline">
+                    <div class="col-md-4">
+                      <mat-label class="f-w-600 f-s-18 sideh">PO Box/ZIP Code</mat-label>
+                    </div>
+                    <div class="col-md-6">
+                      <app-inputs
+                        [parentForm]="addstudentForm"
+                        controlName="zip"
+                        placeholder=""
+                        type="text"
+                        [required]="true"
+                        [validationMessages]="{ required: 'PO Box/ZIP Code is required' }"
+
+                        class="w-100"
+                        ></app-inputs>
+                    </div>
+                  </div>
+                  <div class="row align-items-baseline">
+                    <div class="col-md-4">
+                      <mat-label class="f-w-600 f-s-18 sideh">Home Phone</mat-label>
+                    </div>
+                    <div class="col-md-6">
+                      <app-inputs
+                        [parentForm]="addstudentForm"
+                        controlName="landlineNumber"
+                        placeholder=""
+                        type="number"
+                        [required]="true"
+                        [validationMessages]="{ required: 'Home Phone is required' }"
+
+                        class="w-100"
+                        ></app-inputs>
+                        <div  *ngIf="addstudentForm.get('landlineNumber')?.touched && addstudentForm.get('landlineNumber')?.invalid" class="error-message">
+                          <span *ngIf="addstudentForm.get('landlineNumber')?.errors?.['pattern']">Please enter a valid 10-digit phone number.</span>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-baseline">
+                    <div class="col-md-4">
+                      <mat-label class="f-w-600 f-s-18 sideh">Mother’s Mobile Number</mat-label>
+                    </div>
+                    <div class="col-md-6">
+                        <app-inputs
+                        [parentForm]="addstudentForm"
+                        controlName="motherMobileNumber"
+                        placeholder=""
+                        type="number"
+                        [required]="true"
+                        [validationMessages]="{ required: 'Mother’s Mobile Number is required' }"
+
+                        class="w-100"
+                      ></app-inputs>
+                      <div  *ngIf="addstudentForm.get('motherMobileNumber')?.touched && addstudentForm.get('motherMobileNumber')?.invalid" class="error-message">
+                        <span *ngIf="addstudentForm.get('motherMobileNumber')?.errors?.['pattern']">Please enter a valid 10-digit phone number.</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-baseline">
+                    <div class="col-md-4">
+                      <mat-label class="f-w-600 f-s-18 sideh">Father’s Mobile Number</mat-label>
+                    </div>
+                    <div class="col-md-6">
+                        <app-inputs
+                          [parentForm]="addstudentForm"
+                          controlName="fatherMobileNumber"
+                          placeholder=""
+                          type="number"
+                          [required]="true"
+                          [validationMessages]="{ required: 'Father’s Mobile Number is required' }"
+
+                          class="w-100"
+                          ></app-inputs>
+                          <div  *ngIf="addstudentForm.get('fatherMobileNumber')?.touched && addstudentForm.get('fatherMobileNumber')?.invalid" class="error-message">
+                            <span *ngIf="addstudentForm.get('fatherMobileNumber')?.errors?.['pattern']">Please enter a valid 10-digit phone number.</span>
+                          </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-baseline">
+                    <div class="col-md-4">
+                      <mat-label class="f-w-600 f-s-18 sideh">Parent Email </mat-label>
+                    </div>
+                    <div class="col-md-6">
+                      <app-inputs
+                        [parentForm]="addstudentForm"
+                        controlName="parentEmail"
+                        placeholder=""
+                        type="email"
+                        [required]="true"
+                        [validationMessages]="{ required: 'Parent Email Mobile Number is required' }"
+
+                        class="w-100"
+                        ></app-inputs>
+                        <div *ngIf="addstudentForm.get('parentEmail')?.touched && addstudentForm.get('parentEmail')?.invalid" class="error-message">
+                          <span *ngIf="addstudentForm.get('parentEmail')?.errors?.['email']">Please enter a valid email address.</span>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </mat-dialog-content>
+        <mat-dialog-actions class="justify-content-end">
+            <div class='col-md-5 '>
+                <app-button label="Back" type="button"   [buttonColor]="'#fff'"
+                [textColor]="'#8F1402'"  [buttonWidth]="'50% !important'" (click)="goToPreviousTab(tabGroup)"></app-button>
+            </div>
+            <div class='col-md-5'>
+                <app-button label="Next" [buttonColor]="'#8F1402'"  (click)="addressgoToPreviousTab(tabGroup)" [buttonWidth]="'50% !important'"></app-button>
+            </div>
+        </mat-dialog-actions>
+    </mat-tab>
+
+    <!-- Emergency Contact -->
+
+    <mat-tab >
+        <ng-template mat-tab-label>
+          Emergency Contact
+        </ng-template>
+        <mat-dialog-content id="scrollbar">
+          <div class="row p-24  m-r-0">
+            <div class="col-md-12">
+              <div class="row align-items-baseline">
+                  <div class="col-md-3">
+                      <mat-label class="f-w-600 f-s-18 sideh">Emergency Contact</mat-label>
+                  </div>
+                  <div class="col-md-9">
+                    <mat-radio-group [formControl]="emergencyContactControl" (change)="onRadioButtonChangeEmergency($event)">
+                      <div class="row f-s-16 textblackcolor   d-flex">
+                          <div class="col-md-3" ><mat-radio-button id="Mother" value="Mother" class="my-radio-button" >Mother</mat-radio-button> </div>
+                          <div class="col-md-3"><mat-radio-button id="Father" value="Father" class="my-radio-button">Father</mat-radio-button></div>
+                          <div class="col-md-3"><mat-radio-button id="Guardian" value="Guardian" class="my-radio-button">Guardian</mat-radio-button></div>
+                          <div class="col-md-3"><mat-radio-button id="Other" value="Other" class="my-radio-button">Others</mat-radio-button></div>
+                      </div>
+                     
+                  </mat-radio-group>
+                
+                      <app-inputs
+                        *ngIf="showEmergencyContactOthers"
+                        [parentForm]="addstudentForm"
+                        controlName="emergencyContactOthers"
+                        placeholder=""
+                        type="text"
+                        [required]="false"
+
+                        class="w-100"
+                        ></app-inputs>
+                  </div>
+                  
+              </div>
+            </div>
+            
+          </div>
+          <div class="row m-t-18  ">
+            <div class="col-md-6">
+                <div class="row align-items-baseline">
+                    <div class="col-md-3">
+                        <mat-label class="f-w-600 f-s-18 sideh">First Name</mat-label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <app-inputs
+                            [parentForm]="addstudentForm"
+                            controlName="emergencyFirstName"
+                            placeholder=""
+                            type="text"
+                            [required]="true"
+                            [validationMessages]="{ required: 'First Name is required' }"
+
+                            class="w-100"
+                        ></app-inputs>
+                    </div>
+                </div>
+                <div class="row align-items-baseline">
+                    <div class="col-md-3">
+                        <mat-label class="f-w-600 f-s-18 sideh">Middle Name</mat-label>
+                    </div>
+                    <div class="col-md-6">
+                        <app-inputs
+                            [parentForm]="addstudentForm"
+                            controlName="emergencyMiddleName"
+                            placeholder=""
+                            type="text"
+                            [required]="true"
+                            [validationMessages]="{ required: 'Middle Name is required' }"
+
+                            class="w-100"
+                        ></app-inputs>
+                    </div>
+                </div>
+                <div class="row align-items-baseline">
+                    <div class="col-md-3">
+                        <mat-label class="f-w-600 f-s-18 sideh">Last Name</mat-label>
+                    </div>
+                    <div class="col-md-6">
+                        <app-inputs
+                            [parentForm]="addstudentForm"
+                            controlName="emergencyLastName"
+                            placeholder=""
+                            type="text"
+                            [required]="true"
+                            [validationMessages]="{ required: 'Last Name is required' }"
+
+                            class="w-100"
+                        ></app-inputs>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row align-items-baseline">
+                    <div class="col-md-3">
+                        <mat-label class="f-w-600 f-s-18 sideh">Relationship</mat-label>
+                    </div>
+                    <div class="col-md-6">
+                        <app-inputs
+                            [parentForm]="addstudentForm"
+                            controlName="emergencyRealtionship"
+                            placeholder=""
+                            type="text"
+                            [required]="true"
+                            [validationMessages]="{ required: 'Relationship is required' }"
+
+                            class="w-100"
+                        ></app-inputs>
+                    </div>
+                </div>
+                <div class="row align-items-baseline">
+                    <div class="col-md-3">
+                        <mat-label class="f-w-600 f-s-18 sideh">Mobile</mat-label>
+                    </div>
+                    <div class="col-md-6">
+                        <app-inputs
+                            [parentForm]="addstudentForm"
+                            controlName="emergencyContactNumber1"
+                            placeholder=""
+                            type="number"
+                            [required]="true"
+                            [validationMessages]="{ required: 'Mobile is required' }"
+
+                            class="w-100"
+                        ></app-inputs>
+                        <div  *ngIf="addstudentForm.get('emergencyContactNumber1')?.touched && addstudentForm.get('emergencyContactNumber1')?.invalid" class="error-message">
+                          <span *ngIf="addstudentForm.get('emergencyContactNumber1')?.errors?.['pattern']">Please enter a valid 10-digit phone number.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </mat-dialog-content>
+        <mat-dialog-actions class="justify-content-end">
+          <div class='col-md-5'>
+              <app-button label="Back" type="button"   [buttonColor]="'#fff'"
+              [textColor]="'#8F1402'"  [buttonWidth]="'50% !important'" (click)="goToPreviousTab(tabGroup)"></app-button>
+          </div>
+          <div class='col-md-5'>
+              <app-button label="Next" [buttonColor]="'#8F1402'"  (click)="emergencygoToNextTab(tabGroup)" [buttonWidth]="'50% !important'"></app-button>
+          </div>
+      </mat-dialog-actions>
+    </mat-tab>
+        <mat-tab class="">
+          <ng-template mat-tab-label>Doctor Contact</ng-template>
+          
+            <div class="row p-24 add-student-form-min-height m-r-0 ">
+              <mat-dialog-content class="d-flex row">
+                <div class="col-6">
+                  <div class="row align-items-baseline">
+                    <div class="col-md-4">
+                      <mat-label class="f-w-600 f-s-18 sideh">Doctor’s Name</mat-label>
+                    </div>
+                    <div class="col-md-6">
+                      <app-inputs
+                        [parentForm]="addstudentForm"
+                        controlName="doctorsName"
+                        placeholder=""
+                        type="text"
+                        [required]="true"
+                        [validationMessages]="{ required: 'Doctor’s Name is required' }"
+
+                        class="w-100"
+                      ></app-inputs>
+                    </div>
+                  </div>
+                  <div class="row align-items-baseline">
+                    <div class="col-md-4">
+                      <mat-label class="f-w-600 f-s-18 sideh">Doctor’s Mobile 1</mat-label>
+                    </div>
+                    <div class="col-md-6">
+                      <app-inputs
+                        [parentForm]="addstudentForm"
+                        controlName="doctorsNumber"
+                        placeholder=""
+                        type="number"
+                        [required]="true"
+                        [validationMessages]="{ required: 'Doctor’s Mobile 1 is required' }"
+
+                        class="w-100"
+                      ></app-inputs>
+                      <div  *ngIf="addstudentForm.get('doctorsNumber')?.touched && addstudentForm.get('doctorsNumber')?.invalid" class="error-message">
+                        <span *ngIf="addstudentForm.get('doctorsNumber')?.errors?.['pattern']">Please enter a valid 10-digit phone number.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="row align-items-baseline">
+                    <div class="col-md-4">
+                      <mat-label class="f-w-600 f-s-18 sideh">Doctor’s Mobile 2</mat-label>
+                    </div>
+                    <div class="col-md-6">
+                      <app-inputs
+                        [parentForm]="addstudentForm"
+                        controlName="emergencyContactNumber2"
+                        placeholder=""
+                        type="number"
+                        [required]="true"
+                        [validationMessages]="{ required: 'Doctor’s Mobile 2 is required' }"
+
+                        class="w-100"
+                      ></app-inputs>
+                      <div  *ngIf="addstudentForm.get('motherMobileNumber')?.touched && addstudentForm.get('motherMobileNumber')?.invalid" class="error-message">
+                        <span *ngIf="addstudentForm.get('motherMobileNumber')?.errors?.['pattern']">Please enter a valid 10-digit phone number.</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-baseline">
+                    <div class="col-md-4">
+                      <mat-label class="f-w-600 f-s-18 sideh">Comments</mat-label>
+                    </div>
+                    <div class="col-md-6">
+                      <app-inputs
+                        [parentForm]="addstudentForm"
+                        controlName="comments"
+                        placeholder=""
+                        type="text"
+                        [required]="true"
+                        [validationMessages]="{ required: 'Comments is required' }"
+
+                        class="w-100"
+                      ></app-inputs>
+                    </div>
+                  </div>
+                </div>
+              </mat-dialog-content>
+            </div>
+
+            <mat-dialog-actions class="justify-content-end">
+              <div class='col-md-5'>
+                  <app-button label="Cancel" type="button" [buttonColor]="'#fff'" [textColor]="'#8F1402'" [buttonWidth]="'50% !important'" (click)="close()"></app-button>
+              </div>
+              <div class='col-md-5'>
+                  <app-button [label]="buttonLabel" [buttonColor]="'#8F1402'" (click)="doctorgoToNextTab(tabGroup)" [buttonWidth]="'50% !important'"></app-button>
+              </div>
+          </mat-dialog-actions>
+    
+          
+          
+        </mat-tab>
+          
+</mat-tab-group>

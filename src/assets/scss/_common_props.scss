@@ -1,0 +1,263 @@
+@use "variables";
+
+.mainbgcolor{
+  background-color: $main-body-bg;
+}
+
+.thememaincolor{
+  color: $primary !important;
+}
+
+.mat-pseudo-checkbox{
+  display: none !important;
+}
+
+.mdc-text-field{
+  border: 1px solid $black;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}
+.my-radio-button {
+  --mdc-radio-selected-hover-icon-color: #8F1402;
+  --mdc-radio-selected-pressed-icon-color:#8F1402;
+  --mdc-radio-selected-icon-color: #8F1402;
+}
+.mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background{
+  color: #8F1402 !important;
+}
+
+html .mdc-form-field > label{
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  color: #000 !important;
+}
+
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: #000 !important;
+  font-weight: 600 !important;
+  font-size: 18px !important;
+}
+
+.mat-mdc-tab .mdc-tab__text-label{
+  font-size: 18px !important;
+}
+
+.mat-mdc-tab-group, .mat-mdc-tab-nav-bar {
+  --mat-tab-header-active-hover-indicator-color:5px solid #8f1402 !important;
+
+}
+.mdc-radio-selected-icon-color{
+  color: #8F1402;
+}
+.header{
+  color:$mandatory ;
+}
+
+.textblackcolor{
+  color: $black !important;
+}
+
+.textwhitecolor{
+  color: $white;
+}
+.bgwhite{
+  background-color: $white;
+}
+
+.blackcolor{
+  color: $black;
+}
+
+.float-right{
+  float: right;
+}
+
+.float-left{
+  float: left;
+}
+
+.mat-step-icon{
+  background-color: transparent !important;
+  border: 2px solid #000;
+  color: #000 !important;
+  height: 40px !important;
+  width: 40px !important;
+}
+
+.mat-step-icon-selected{
+  background-color: rgba(143, 20, 2, 1) !important;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.mat-horizontal-stepper-header-container{
+  box-shadow: $box-shadow;
+}
+
+.table-box{
+  box-shadow: $border-radius;
+  border-radius: 25px !important;
+}
+
+.text-decoration-none{
+  text-decoration: none;
+}
+
+.button-min-width{
+  min-width: 150px;
+}
+
+.boxforchips {
+  height: 100%;
+  padding: 12px 0px 0px 0px;
+  gap: 24px;
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.fieldsets{
+  border: 1px solid rgba(212, 214, 218, 1);
+  border-radius: 12px !important;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+
+  legend{
+    border: none;
+  }
+}
+
+.box-shadow{
+  box-shadow: $box-shadow;
+}
+
+.font-style-italic{
+  font-style: italic;
+}
+
+.border-profile{
+  border-bottom: 1px solid rgb(0, 0, 0);
+}
+
+.border-radius-10{
+  border-radius: 10px;
+}
+
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.email-container {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px; /* Adjust as needed */
+  display: inline-block;
+}
+
+.tooltip-text:hover + .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip {
+    visibility: hidden;
+    opacity: 0;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position the tooltip above the text */
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s;
+  }
+
+  .notification {
+    //To get the notification bottom right use the below CSS
+    //bottom: 20px;
+    //right: 20px;
+
+    //To get the notification top center use the below CSS
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+
+    position: fixed;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1000;
+
+  }
+
+  .notification.show {
+    opacity: 1;
+  }
+/*
+ *  Scroll Bar
+ */
+
+ #scrollbar::-webkit-scrollbar-track
+ {
+   //-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+ }
+
+ #scrollbar::-webkit-scrollbar
+ {
+   width: 3px;
+   border-radius: 2px;
+ }
+
+ #scrollbar::-webkit-scrollbar-thumb
+ {
+   background-color: rgba(186, 186, 186, 1);
+ }
+
+ //X Axis Scrollbar
+
+ .shadow-scroll-x {
+    overflow-x: auto;
+
+    /* Opera doesn't support this in the shorthand */
+    background-attachment: local, local, scroll, scroll;
+    -webkit-overflow-scrolling: touch;
+
+    /*
+    Progressive enhancement of scrollbar on webkit
+    Use media queries to only use on mobile */
+    &::-webkit-scrollbar {
+      height: 3px;
+      // background-color: white;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      // background-color: #999;
+      // border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-button {
+      display: none;
+    }
+}
+
+/*
+ *  Scroll Bar End
+ */

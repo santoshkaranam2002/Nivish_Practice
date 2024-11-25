@@ -1,0 +1,18 @@
+html .mat-mdc-card{
+    margin-bottom: 0px;
+  }
+.checkbox input[type="checkbox"] {
+  /* Change the color of the checkboxes */
+  background-color:
+  #8F1402 !important;
+}
+
+.checkbox.mat-checkbox-checked .mat-checkbox-background, .checkbox.mat-checkbox-indeterminate .mat-checkbox-background {
+  /* Change the color of the checkboxes when checked */
+  background-color:#8F1402 !important;
+}
+.apply{
+  width:10%;
+  justify-content: center;
+  margin-left: 40%;
+}

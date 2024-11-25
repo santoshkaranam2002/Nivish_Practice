@@ -1,0 +1,32 @@
+.name-container {
+    display: flex;
+    align-items: flex-start; /* Aligns items to the start of the container */
+  }
+
+  .colon {
+    margin-left: 40px; /* Adds space between the colon and the name */
+  }
+  .colons {
+    margin-right: 80px; /* Adds space between the colon and the name */
+  }
+
+  .name-wrap {
+    display: inline-block;
+    max-width: 100%; /* Adjust based on the container width */
+    white-space: normal; /* Allows normal text wrapping */
+    word-break: break-word; /* Breaks long words to fit within the container */
+    overflow-wrap: break-word; /* Ensures long words are broken if necessary */
+    line-height: 1.5; /* Adjust line height for readability */
+  }
+  .overflowname{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: #ccc;
+  width: 100%; /* Ensures the line spans across the container */
+}

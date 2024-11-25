@@ -1,0 +1,100 @@
+<app-menubar></app-menubar>
+<app-spinner [showSpinner]="spinnerLoading"
+  imageUrl="Nivish Loading.png"
+  loadingHeading="HCP MasterList is Loading ..."></app-spinner>
+<div class="row m-r-0 align-item-center p-30 text-captailise">
+  <div class="col-md-12">
+    <mat-card class="table-box">
+      <div class="row d-flex justify-content-between p-24">
+        <div class="col-lg-6">
+          <app-heading [heading]="'HCP Master List'"></app-heading>
+        </div>
+        <div class="col-10 d-flex justify-content-end">
+          <div *ngIf="(verifiedStatus && verifiedStatus.length > 0) || (category && category.length > 0) || (Type && Type.length > 0) ||  (providerIds && providerIds.length > 0)" class="country-card-content boxforchips">
+            <ng-container *ngIf="verifiedStatus && verifiedStatus.length > 0">
+              <mat-chip class="" *ngFor="let option of verifiedStatus; let i = index" [removable]="true" (removed)="removeOption(i, 'verifiedStatus')">
+                {{ option.trim() }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+            </ng-container>
+            <ng-container *ngIf="category && category.length > 0">
+              <mat-chip class="" *ngFor="let option of category; let i = index" [removable]="true" (removed)="removeOption(i, 'category')">
+                {{ option.trim() }} 
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+            </ng-container>
+            <ng-container *ngIf="providerIds && providerIds.length > 0">
+              <mat-chip class="" *ngFor="let option of providerIds; let i = index" [removable]="true" (removed)="removeOption(i, 'providerIds')">
+                {{ option.name.trim() }} 
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+            </ng-container>
+            <ng-container *ngIf="Type && Type.length > 0">
+              <mat-chip class="" *ngFor="let option of Type; let i = index" [removable]="true" (removed)="removeOption(i, 'Type')">
+                {{ option.trim() }} 
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+            </ng-container>
+          </div>
+        </div>
+        <span class="material-symbols-outlined" matTooltip="Filter" matTooltipPosition="above" (click)="toggleFilterPopup()">
+          filter_alt
+          </span>
+      </div>
+      <div>
+      
+        <custom-table
+          [tableData]="orders"
+              [tableColumns]="ordersTableColumns"
+              [isFilterable]="true"
+              [isPageable]="true"
+              [showButton]="true"
+              [isFilterable]="true"
+              buttonLabel="Add HCP/Ops"
+              (buttonClick)="addhcp()"
+              buttonIcon="add"
+              [paginationSizes]="[5,10]"
+              [defaultPageSize]="10"
+              (rowAction)="handleRowAction($event)"
+              (sort)="sortData($event)"
+              (rowClick)="onRowClicked($event)"
+            class="w-100">
+        </custom-table>
+    </div>
+    </mat-card>
+    <ng-template #campadminpopup>
+        <form>
+            <div class="filter-container d-flex m-10">
+              <ng-container>
+                <mat-card class="w-100 p-24">
+                  <h2 mat-dialog-title class="text-center">Provider</h2>
+                  <mat-dialog-content>
+                    <h3 class="category-title"></h3>
+                    <div *ngFor="let name of names">
+                        <mat-radio-button [value]="name">{{ name }}</mat-radio-button>
+                      </div>
+                  </mat-dialog-content>
+                </mat-card>
+                <mat-card class="w-100 p-24">
+                    <h2 mat-dialog-title class="text-center">Provider</h2>
+                  <mat-dialog-content>
+                    <h3 class="category-title"></h3>
+                    <mat-radio-button value="Nurse">Nurse</mat-radio-button>
+                    <mat-radio-button value="Doctor">Doctor</mat-radio-button>
+                    <mat-radio-button value="Physiotherapist">Physiotherapist</mat-radio-button>
+                    <mat-radio-button value="Optometrist">Optometrist</mat-radio-button>
+                    <mat-radio-button value="Dentist">Dentist</mat-radio-button>
+                    <mat-radio-button value="Other">Other</mat-radio-button>
+
+                  </mat-dialog-content>
+                </mat-card>
+              </ng-container>
+            </div>
+            <mat-dialog-actions align="center" class="row d-flex">
+              <app-button mat-button label="clear All" type="button" classname="100 borderradius"></app-button>
+              <app-button mat-button label="Apply" type="submit" [buttonColor]="'#8F1402'" classname="100 borderradius" ></app-button>
+            </mat-dialog-actions>
+          </form>
+    </ng-template>
+  </div>
+</div>

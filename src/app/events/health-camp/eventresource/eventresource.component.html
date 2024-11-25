@@ -1,0 +1,27 @@
+<app-menubar></app-menubar>
+<div class="row m-r-0 align-item-center p-30">
+  <div class="col-md-12">
+    <mat-card class="table-box">
+      <div class="row m-t-28">
+        <div class="col-4">
+          <app-heading class="m-l-20" [heading]="'Events Resource'"></app-heading>
+        </div>
+        <div class="col-10 d-flex justify-content-end">
+        </div>
+      </div>
+      <!-- Chips for selected filters -->
+      <div class=" text-captailise">
+        <custom-table [tableData]="orders"
+          [tableColumns]="ordersTableColumns"
+          [isFilterable]="true"
+          [isPageable]="true"
+          [paginationSizes]="[5, 10, 15, 20]"
+          [defaultPageSize]="10"
+          (sort)="sortData($event)"
+          (rowAction)="handleRowAction($event)"
+          class="w-100">
+        </custom-table>
+      </div>
+    </mat-card>
+  </div>
+</div>

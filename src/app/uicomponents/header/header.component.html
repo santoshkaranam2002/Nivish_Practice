@@ -1,0 +1,38 @@
+<mat-toolbar class="header w-100">
+  <div>
+    <img src="../../../assets/images/svgs/hedernivish.svg">
+  </div>
+  <div class="p-20 d-flex justfy-content-center">
+    <div class="d-flex align-items-center">
+    </div>
+    <div class="m-2 p-10 justify-content-center d-flex" *ngIf="isLoggedIn()">
+      <div style="display: grid;">
+        <button class="m-l-10 p-t-24" mat-icon-button [matMenuTriggerFor]="avatarMenu">
+          <img src="../../../assets/images/svgs/Account.svg" alt="User Avatar" class="avatar-image">
+          <mat-icon class="textwhitecolor">arrow_drop_down</mat-icon>
+        </button>
+      <mat-label class="f-s-14 textwhitecolor p-b-16">Super Admin</mat-label>
+      </div>
+    <mat-card>
+      <mat-menu #avatarMenu="matMenu" >
+      <button mat-menu-item  (click)="navigateToProfile()">
+        <mat-icon>person</mat-icon>
+        Profile
+      </button>
+      <button mat-menu-item (click)="navigateToSettings()" >
+        <mat-icon>settings</mat-icon>
+        Settings
+      </button>
+      <button mat-menu-item (click)="openHelp()" >
+        <mat-icon>help</mat-icon>
+
+        Help
+      </button>
+      <button mat-menu-item (click)="logout()" >
+        <mat-icon>exit_to_app</mat-icon>
+        Log Out
+      </button>
+    </mat-menu>
+  </mat-card>
+</div>
+</div>    </mat-toolbar>

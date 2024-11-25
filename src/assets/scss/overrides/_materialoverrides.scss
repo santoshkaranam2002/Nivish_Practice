@@ -1,0 +1,55 @@
+html {
+  @import "./buttons";
+  @import "./drawer";
+  @import "./form";
+  @import "./card";
+  @import "./typography";
+  @import "./borderColor";
+  @import "./table";
+  @import "./list";
+  @import "./checkbox";
+}
+
+.topbar {
+  background-color: $toolbar;
+}
+
+.mat-mdc-card-title{
+  font-family: $font-family !important;
+}
+
+.mdc-button .mdc-button__label{
+  display: contents;
+}
+
+.mat-mdc-form-field-error{
+  color: $primary !important;
+  font-weight: 600;
+}
+
+.mat-mdc-form-field .mat-mdc-select.mat-mdc-select-invalid .mat-mdc-select-arrow{
+  color: $primary !important;
+}
+
+.mat-mdc-header-row{
+  font-family: $font-family !important;
+}
+
+.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-text-field__input{
+  font-size: 18px !important;
+}
+
+.mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled){
+  background-color: transparent !important;
+}
+
+.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab{
+  flex-grow: 0 !important;
+}
+
+.mat-mdc-tab-body-content{
+  overflow-x: hidden !important;
+}
+.mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background, .mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background{
+  background-color: $primary !important;
+}

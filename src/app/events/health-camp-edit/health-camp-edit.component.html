@@ -1,0 +1,178 @@
+<app-menubar></app-menubar>
+<div class="back-button d-flex align-items-center">
+  <button mat-icon-button (click)="goBack()">
+      <mat-icon  aria-label="Back">arrow_back</mat-icon>
+  </button>
+  <span class="back-label" >Back</span>
+</div>
+<div class="row m-r-0 align-item-center p-l-30 p-r-12 p-t-30">
+  <ng-template [ngIf]="displayName === 'editform'">
+    <div class="col-12">
+      <mat-card class="table-box">
+        <!-- <div class="row m-t-28"> -->
+          <!-- <app-heading class="p-l-56" [heading]="'Health Camp Details'"></app-heading> -->
+        <!-- </div> -->
+        <form [formGroup]="campForm">
+          <div>
+            <div class="row p-24 d-flex">
+              <div class="col-lg-6">
+                <mat-card-header>
+                  <mat-card-title class="f-s-24 f-w-900  m-l-20">Edit Add Event</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="row p-24 m-t-18">
+                    <div class="col-lg-12">
+                      <div class="row m-b-10">
+                        <div class="col-md-4">
+                          <mat-label class="f-s-18 f-w-500 sideh">Event Name</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                          <h2>{{HealthCampName}}</h2>
+                        </div>
+                      </div>
+                    
+                      <div class="row">
+                        <div class="col-md-4">
+                          <mat-label class="f-s-18 f-w-500 sideh">Event Type</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                          <h2>{{ Event_Type }}</h2>
+                        </div>
+                      </div>
+                      
+                      <!-- Others Field: Shown only if Event_Type is 'Others' -->
+                      <div class="row" *ngIf="Event_Type === 'Others'">
+                        <div class="col-md-4">
+                          <mat-label class="f-s-18 f-w-500 sideh">Others</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                          <h2>{{ Event_Type_Others }}</h2>
+                        </div>
+                      </div>
+                      
+                      <!-- Health Assessment Type: Shown only if Event_Type is 'Comprehensive' -->
+                      <div class="row" *ngIf="Event_Type === 'Health Assessment'">
+                        <div class="col-md-4">
+                          <mat-label class="f-s-18 f-w-500 sideh">Health Assessment Type</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                          <h2>{{ HealthCampType }}</h2>
+                        </div>
+                      </div>
+
+                      <div class="row m-b-10 m-t-18">
+                        <div class="col-md-4">
+                          <mat-label class="f-s-18 f-w-500 sideh">Country</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                          <h2>{{Country}}</h2>
+                        </div>
+                      </div>
+                      <div class="row m-b-10">
+                        <div class="col-md-4">
+                          <mat-label class="f-s-18 f-w-500 sideh">Enterprise Group</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                          <h2>{{enterpriseGroups}}</h2>
+                        </div>
+                      </div>
+                      <div class="row m-b-10">
+                        <div class="col-md-4">
+                          <mat-label class="f-s-18 f-w-500 sideh">School Name</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                          <h2>{{EnterpriseName}}</h2>
+                        </div>
+                      </div>
+                      <div class="row m-b-10">
+                        <div class="col-md-4">
+                          <mat-label class="f-s-18 f-w-500 sideh">School Address</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                          <h2>{{Venue_Location}}</h2>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </div>
+              <div class="col-lg-6">
+                <mat-card-header>
+                  <mat-card-title class="f-s-24 f-w-900" >Schedule Event</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="row p-24 m-t-18">
+                    <div class="col-lg-12">
+                      <div class="row m-b-10">
+                        <div class="col-md-4">
+                          <mat-label class="f-s-18 f-w-500 sideh">Venue Location</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                          <h2>{{Venue_Location}}</h2>
+                        </div>
+                      </div>
+                      <div class="row m-b-10">
+                        <div class="col-md-4">
+                          <mat-label class="f-s-18 f-w-500 sideh">Start Date</mat-label>
+                        </div>
+                        <div class="col-md-6">
+                          <h2>{{StartDate}}</h2>
+                        </div>
+                      </div>
+                      <div class="row m-b-10">
+                        <div class="col-md-4">
+                          <mat-label class="f-s-18 f-w-500 sideh">End Date</mat-label>
+                        </div>
+                        <div class="col-md-6">
+                          <h2>{{EndDate}}</h2>
+                        </div>
+                      </div>
+                      <div class="row m-b-10">
+                        <div class="col-md-4">
+                          <mat-label class="f-s-18 f-w-500 sideh">Classes</mat-label>
+                        </div>
+                        <div class="col-md-6">
+                          <h2>{{Classes}}</h2>
+                        </div>
+                      </div>
+                      <div class="row m-b-10">
+                        <div class="col-md-4">
+                          <mat-label class="f-s-18 f-w-500 sideh">Number Of Students</mat-label>
+                        </div>
+                        <div class="col-md-6">
+                          <h2>{{Number_of_Participant}}</h2>
+                        </div>
+                      </div>
+                      <div class="row m-b-10">
+                        <div class="col-md-4">
+                          <mat-label class="f-s-18 f-w-500 sideh">Description</mat-label>
+                        </div>
+                        <div class="col-md-6 p-0">
+                          <h2>{{Discription}}</h2>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </div>
+            </div>
+            <mat-card-footer align="center">
+              <div class="row d-flex justify-content-center m-b-20">
+                <div class='col-lg-4'>
+                  <app-button label="Cancel" (click)="goBack()"  [buttonColor]="'#FFFFFF'" [textColor]="'#8F1402'"  type="submit" [buttonWidth]="'30%'"></app-button>
+                </div>
+                <div class="col-lg-4">
+                  <app-button label="Edit & Update Schedule" [buttonColor]="'#8F1402'"  type="submit" [buttonWidth]="'60%'" (click)="healthcampedit()" ></app-button>
+
+                </div>
+              </div>
+            </mat-card-footer>
+           </div>
+        </form>
+      </mat-card>
+    </div>
+  </ng-template>
+</div>
+
+
+

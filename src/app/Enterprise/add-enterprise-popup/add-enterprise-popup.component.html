@@ -1,0 +1,48 @@
+<div class="container  text-captailise">
+    <div class="row m-r-0">
+        <div class="col-md-12 d-flex p-l-20">
+           <h2 mat-dialog-title class="f-s-32 f-w-900">{{ data?.title }}</h2>
+        </div>
+    </div>
+    <form [formGroup]="popupForm" (ngSubmit)="onSubmit()">
+    <mat-dialog-content class="p-b-0">
+        <div class="row d-flex p-l-20">
+            <div class="col-md-10">
+                <app-inputs
+                [parentForm]="popupForm"
+                controlName="popupInput"
+                placeholder="Enterprise Group"
+                type="text"
+                [required]="true"
+                [validationMessages]="{ required: 'Group Name is required', minlength: 'Minimum length should be 3' }"
+                class="w-100"
+
+              ></app-inputs>
+            </div>
+        </div>
+
+        <!-- <div class="row d-flex p-l-20">
+            <div class="col-md-10">
+                <app-inputs
+                [parentForm]="popupForm"
+                controlName="noOfSchools"
+                placeholder="Number Of Schools"
+                type="text"
+                [required]="true"
+                [validationMessages]="{ required: 'Number Of Schools is required', minlength: 'Minimum length should be 3' }"
+                class="w-100"
+               ></app-inputs>
+            </div>
+        </div> -->
+
+    </mat-dialog-content>
+        <mat-dialog-actions class="p-l-28 m-b-20">
+            <div class='col-md-6'>
+                <app-button label="Cancel" type="button" [buttonColor]="'#fff'" [textColor]="'#8F1402'"  [buttonWidth]="'50%'" (click)="close()"></app-button>
+            </div>
+            <div class='col-md-6'>
+                <app-button [label]="buttonLabel"  buttoncolor="primary" [buttonColor]="'#8F1402'"  type="submit" [buttonWidth]="'50%'" ></app-button>
+            </div>
+        </mat-dialog-actions>
+    </form>
+    </div>

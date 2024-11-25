@@ -1,0 +1,26 @@
+<app-menubar></app-menubar>
+
+<div class="row m-r-0 align-item-center p-30">
+  <div class="col-md-12">
+    <mat-card class="table-box">
+      <div class="row d-flex justify-content-between p-24">
+        <mat-card-header>
+          <mat-card-title class="f-s-24 f-w-900">Communication Analytics</mat-card-title>
+        </mat-card-header>
+        <div class="m-t-18">
+          <div> <img src="../../../assets/images/svgs/Frame.svg" (click)="filteroperations()"></div>
+        </div>
+      </div>
+      <mat-card-content>
+          <app-orders></app-orders>
+          <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator> -->
+        </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+
+<!-- <ng-template #filteroprations>
+    <p>dfghjkl;</p>
+
+</ng-template> -->

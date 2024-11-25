@@ -1,0 +1,49 @@
+<ng-template [ngIf]="displayName === 'filterDashboard'">
+  <form>
+    <div class="filter-container d-flex m-10 justify-content-between">
+      <ng-container *ngFor="let filterOption of filterOptions">
+        <mat-card id="scrollbar" class="w-100 p-24 m-r-20" style="height: calc(60vh - 0px); box-shadow: 2px 0px 4px 4px rgba(0, 0, 0, 0.25); width: 25%;">
+          <h2 mat-dialog-title class="text-center">{{ filterOption.category }}</h2>
+          <mat-dialog-content>
+            <mat-radio-group name="selectedOption" (change)="onRadioChange(filterOption.category, $event)">
+              <mat-radio-button
+                *ngFor="let option of filterOption.options"
+                [value]="option"
+                class="d-block m-10"
+                >
+                {{ option.option }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </mat-dialog-content>
+        </mat-card>
+      </ng-container>
+      <mat-card id="scrollbar" *ngIf="showSchoolCategory" class="w-100 p-24 m-r-20" style="height: calc(60vh - 0px); box-shadow: 2px 0px 4px 4px rgba(0, 0, 0, 0.25); width: 25%;">
+        <h2 mat-dialog-title class="text-center">{{ schoolFilter.category }}</h2>
+        <mat-dialog-content>
+          <mat-radio-group  name="selectedOption" (change)="onRadioChange(schoolFilter.category, $event)">
+            <mat-radio-button
+              *ngFor="let option of schoolFilter.options"
+              [value]="option"
+              class="radio-button-alignment m-10">
+              {{ option.option }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </mat-dialog-content>
+      </mat-card>
+      <mat-card id="scrollbar" *ngIf="showStatusCategory" class="w-100 p-24 m-r-20" style="height: calc(60vh - 0px);box-shadow: 2px 0px 4px 4px rgba(0, 0, 0, 0.25); width: 25%;">
+        <h2 mat-dialog-title class="text-center">Status</h2>
+        <mat-dialog-content>
+          <mat-radio-group name="statusOption" (change)="onRadioChange('Status', $event)">
+            <mat-radio-button *ngFor="let status of statusOptions" [value]="status" class="radio-button-alignment m-10">
+              {{ status }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </mat-dialog-content>
+      </mat-card>
+    </div>
+    <mat-dialog-actions align="center" class="row justify-content-end">
+      <app-button mat-button label="Clear All" type="Clear All" [buttonColor]="'transparent'" [textColor]="'#8F1402'" [classname]="'100 borderradius m-l-64 float-right'" style="margin-right: 20px;" (click)="clearAll()"></app-button>
+      <app-button mat-button label="Apply" type="button" [buttonColor]="'#8F1402'" buttoncolor="warn" [classname]="'100 borderradius textwhitecolor'" (click)="applyFilter()"></app-button>
+    </mat-dialog-actions>
+  </form>
+</ng-template>

@@ -1,0 +1,111 @@
+.login-page-height{
+  height: calc(90vh - 0px);
+}
+
+.red-background {
+  background-color: red;
+}
+
+.toggle-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.active {
+  background-color: #8F1402;
+  color: #ffff;
+}
+
+.selected {
+  color: #ffff;
+}
+
+.mat-card-title{
+  width: 1200px;
+  background-color:
+  #39404F;
+  font-size: 24px !important;
+  justify-content: center !important;
+}
+
+.ng-otp-input {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.Emailerrormessage{
+  color: red;
+}
+
+span.mat-button-toggle-label-content{
+  font-size: 16px;
+}
+
+.boxshadow-form{
+border: 1px solid rgba(0, 0, 0, 0.2);
+border-radius: 10px;
+background-color: white !important;
+box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.25);
+}
+
+.boxed-auth {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.max-width-form {
+  max-width: 625px;
+  margin-left: 20px;
+  margin-top: auto;
+}
+
+
+.otp-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.otp-input input {
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  text-align: center;
+  margin: 0 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+.sideh{
+  color: rgba(88, 94, 108, 1);
+}
+.success-snackbar {
+  background-color: green !important;
+  color: white;
+}
+
+
+.error-snackbar {
+  background-color: red !important;
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .otp-input input {
+    margin-left:0px;
+  }
+
+}
+
+
+
+
+
+
+
+
+

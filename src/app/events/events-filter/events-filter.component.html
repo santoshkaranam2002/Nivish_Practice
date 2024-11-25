@@ -1,0 +1,41 @@
+<form [formGroup]="form">
+  <div class="filter-container d-flex m-10">
+    <ng-container *ngFor="let filterOption of filterOptions; let i = index">
+      <mat-card class="w-100 p-24">
+        <h2 mat-dialog-title class="text-center">{{ filterOption.category }}</h2>
+        <mat-dialog-content>
+          <h3 class="category-title"></h3>
+          <div formArrayName="{{ filterOption.category }}">
+            <mat-checkbox
+            class="example-margin"
+              *ngFor="let option of filterOption.options; let j = index"
+              [formControlName]="j"
+              (change)="onCheckboxChange($event, filterOption.category, j)"
+              class="checkbox-alignment m-10 d-block" >
+              {{ option.option }}
+            </mat-checkbox>
+          </div>
+        </mat-dialog-content>
+      </mat-card>
+    </ng-container>
+    <mat-card *ngIf="showStatusCategory" class="w-100 p-24">
+      <h2 mat-dialog-title class="text-center">Status</h2>
+      <mat-dialog-content>
+        <div formArrayName="Status">
+          <mat-checkbox
+            *ngFor="let status of statusOptions; let k = index"
+            [formControlName]="k"
+            (change)="onCheckboxChange($event, 'Status', k)"
+            class="checkbox-alignment m-10">
+            {{ status }}
+          </mat-checkbox>
+        </div>
+      </mat-dialog-content>
+    </mat-card>
+  </div>
+  <mat-dialog-actions align="center" class="d-flex justify-content-center">
+    <app-button mat-button label="Clear All" type="Clear All" [buttonColor]="'transparent'" [textColor]="'#8F1402'" [classname]="'100 borderradius m-l-64'" (click)="clearAll()" style="margin-right: 20px;"></app-button>
+    <app-button mat-button label="Apply" type="button" [buttonColor]="'#8F1402'" buttoncolor="warn" [classname]="'100 borderradius textwhitecolor'" (click)="applyFilter()"></app-button>
+  </mat-dialog-actions>
+  
+</form>

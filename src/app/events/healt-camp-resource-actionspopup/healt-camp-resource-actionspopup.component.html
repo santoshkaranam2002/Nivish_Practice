@@ -1,0 +1,297 @@
+
+<mat-tab-group>
+    <mat-tab>
+        
+            <ng-template mat-tab-label  >
+                   <mat-label>Assign Station & Team</mat-label> 
+            </ng-template>
+            <!-- <div class="row p-24"> -->
+                <form [formGroup]="popupForm">
+
+                <mat-dialog-content>
+        
+              <div class="row">
+                <div class="col-lg-4 f-w-900 m-l-20 mat-subtitle-1 m-t-28">
+                    <mat-label>Dr. Hamza Bafaqia</mat-label>
+                    <mat-icon class="m-l-18 mt circle">check_circle</mat-icon>
+                    <h4>Optometrist</h4>
+
+                </div>
+                <div class="col-lg-6 f-w-900 m-t-32 mat-subtitle-1">
+                    <mat-label>Day & Date</mat-label>                
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-lg-4"> 
+                    <div>
+                        <mat-checkbox (change)="toggleDropdown($event)">
+                            <mat-label>Day 1 & 30/9/2023</mat-label>
+                        </mat-checkbox>
+                        <div *ngIf="showDropdown">
+                            <div class="f-w-900 f-s-32 mat-subtitle-1">
+                                <mat-label class="formlabel">Team Name*</mat-label>
+                            </div>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-select formControlName="Mothers_Ethnicity">
+                                  <mat-option value="Team A">Team A</mat-option>
+                                  <mat-option value="Team B">Team B</mat-option>
+                                  <mat-option value="Team C">Team C</mat-option>
+                                  <mat-option value="Team O">Team O</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            <div class="f-w-900 f-s-32 mat-subtitle-1">
+                                <mat-label class="formlabel">Station Name*</mat-label>
+                            </div>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-select formControlName="Mothers_Ethnicity">
+                                  <mat-option value="Team A">Review Doctor</mat-option>
+                                  <mat-option value="Team B">Registration Desk</mat-option>
+                                  <mat-option value="Team C">Exit Desk</mat-option>
+                                  <mat-option value="Team O">Station A</mat-option>
+                                  <mat-option value="Team O">Station B</mat-option>
+                                  <mat-option value="Team O">Station C</mat-option>
+
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                    </div>
+                    <div> 
+                        <mat-checkbox (change)="daytwoDropdown($event)">
+                            <mat-label>Day 2 & 01/10/2023</mat-label>
+                        </mat-checkbox>
+                        <div *ngIf="daytwoshowDropdown">
+                            <div class="f-w-900 f-s-32 mat-subtitle-1">
+                                <mat-label class="formlabel">Team Name*</mat-label>
+                            </div>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-select formControlName="Mothers_Ethnicity">
+                                  <mat-option value="Team A">Team A</mat-option>
+                                  <mat-option value="Team B">Team B</mat-option>
+                                  <mat-option value="Team C">Team C</mat-option>
+                                  <mat-option value="Team O">Team O</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            <div class="f-w-900 f-s-32 mat-subtitle-1">
+                                <mat-label class="formlabel">Station Name*</mat-label>
+                            </div>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-select formControlName="Mothers_Ethnicity">
+                                  <mat-option value="Team A">Review Doctor</mat-option>
+                                  <mat-option value="Team B">Registration Desk</mat-option>
+                                  <mat-option value="Team C">Exit Desk</mat-option>
+                                  <mat-option value="Team O">Station A</mat-option>
+                                  <mat-option value="Team O">Station B</mat-option>
+                                  <mat-option value="Team O">Station C</mat-option>
+
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                    </div>
+                    <div>
+                        <mat-checkbox (change)="daythreeDropdown($event)">
+                            <mat-label>Day 3 & 02/10/2023</mat-label>
+                        </mat-checkbox>
+                        <div *ngIf="daythreeshowDropdown">
+                            <div class="f-w-900 f-s-32 mat-subtitle-1">
+                                <mat-label class="formlabel">Team Name*</mat-label>
+                            </div>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-select formControlName="Team Name">
+                                  <mat-option value="Team A">Team A</mat-option>
+                                  <mat-option value="Team B">Team B</mat-option>
+                                  <mat-option value="Team C">Team C</mat-option>
+                                  <mat-option value="Team O">Team O</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            <div class="f-w-900 f-s-32 mat-subtitle-1">
+                                <mat-label class="formlabel">Station Name*</mat-label>
+                            </div>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-select formControlName="Mothers_Ethnicity">
+                                  <mat-option value="Team A">Review Doctor</mat-option>
+                                  <mat-option value="Team B">Registration Desk</mat-option>
+                                  <mat-option value="Team C">Exit Desk</mat-option>
+                                  <mat-option value="Team O">Station A</mat-option>
+                                  <mat-option value="Team O">Station B</mat-option>
+                                  <mat-option value="Team O">Station C</mat-option>
+
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                  
+
+                </mat-dialog-content>
+                </form>
+            <mat-dialog-actions  class="m-t-48">
+                <div class="row d-flex justify-content-center ">
+                    <div class="col-md-5 m-t-24 ">
+                        <app-button label="Cancel"  [buttonColor]="'#FFFFFF'" [textColor]="'#8F1402'"  type="submit" [buttonWidth]="'30%'"></app-button>
+                    </div>
+                    <div class="col-md-5 m-t-24 ">
+                        <app-button label="Save"  [buttonColor]="'#8F1402'" [buttonWidth]="'30%'"  type="submit"  buttoncolor="primary"></app-button>
+                    </div>
+                </div>
+            </mat-dialog-actions>
+        
+    
+           
+    </mat-tab>
+  
+    <mat-tab>
+      <ng-template mat-tab-label>
+        Reset Password
+      </ng-template>
+    <mat-dialog-content>
+        <div class="row">
+                <div class="col-lg-4 f-w-900 m-l-20 mat-subtitle-1">
+                    <mat-label>Dr. Hamza Bafaqia</mat-label>
+                    <mat-icon class="m-l-18 mt circle">check_circle</mat-icon>
+                    <h4>Optometrist</h4>
+                </div>
+                <div class="col-lg-6 m-t-48">
+                    <mat-label class="mat-subtitle-1 f-w-900 d-block formlabel m-t-18">Password</mat-label>
+                    <div class="m-t-24">
+                    <app-inputs
+                    [parentForm]="popupForm"
+                    controlName="healthcampname"
+                    type="email"
+                    [minLength]="3"
+                    [validationMessages]="{
+                        required: 'Username is required.',
+                        minlength: 'Username should be at least 3 characters long.'
+                    }"
+                    class="w-100"
+                    ></app-inputs>
+                </div>
+                    <mat-label class="mat-subtitle-1 f-w-900 d-block formlabel m-t-48">Confirm Password</mat-label>
+                    <div class="m-t-24">
+                    <app-inputs
+                    [parentForm]="popupForm"
+                    controlName="healthcampname"
+                    type="email"
+                    [minLength]="3"
+                    [validationMessages]="{
+                        required: 'Username is required.',
+                        minlength: 'Username should be at least 3 characters long.'
+                    }"
+                    class="w-100"
+                    
+                    ></app-inputs>
+                </div>
+            </div>
+                <!-- <mat-icon matSuffix (click)="togglePasswordVisibility()">
+                    {{ hidePassword ? 'visibility_off' : 'visibility' }}
+                </mat-icon> -->
+                <!-- <mat-icon matSuffix (click)="togglePasswordVisibility()">
+                    {{ hidePassword ? 'visibility_off' : 'visibility' }}
+                </mat-icon> -->
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions  class="m-t-48">
+        <div class="row d-flex justify-content-center ">
+            <div class="col-md-5 m-t-24 ">
+                <app-button label="Cancel"  [buttonColor]="'#FFFFFF'" [textColor]="'#8F1402'"  type="submit" [buttonWidth]="'30%'"></app-button>
+            </div>
+            <div class="col-md-5 m-t-24 ">
+                <app-button label="Save"  [buttonColor]="'#8F1402'" [buttonWidth]="'30%'"  type="submit"  buttoncolor="primary"></app-button>
+            </div>
+        </div>
+    </mat-dialog-actions>
+
+
+
+
+
+    </mat-tab>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            Release Resource
+        </ng-template>
+        <mat-dialog-content>
+            <div class="row">
+                <div class="col-lg-3 f-w-900 m-l-20 mat-subtitle-1">
+                    <mat-label>Dr. Hamza Bafaqia</mat-label>
+                    <mat-icon class="m-l-18 mt circle">check_circle</mat-icon>
+
+                    <h4>Optometrist</h4>
+                </div>
+                
+                <div class="col-lg-2 f-w-900 m-t-32 mat-subtitle-1 ">
+                    <mat-label>Camp Day & Date</mat-label>  
+                    <div class="m-t-48">
+                    <mat-checkbox >
+                        <mat-label>30/9/2023</mat-label>
+                    </mat-checkbox>
+                </div>
+                <div class="m-t-48">  
+                    <mat-checkbox >
+                        <mat-label>31/9/2023</mat-label>
+                    </mat-checkbox> 
+                </div>
+                <div class="m-t-48">
+                    <mat-checkbox >
+                        <mat-label>1/10/2023</mat-label>
+                    </mat-checkbox> 
+                </div>  
+                                 
+                </div>
+                <div class="col-lg-2 f-w-900 m-t-32 mat-subtitle-1 ">
+                    <mat-label>Station Assigned</mat-label> 
+                    <div class="m-t-24 d-flex justify-content-center">
+                        <h4>G</h4>
+                    </div> 
+                    <div class="m-t-4 d-flex justify-content-center">
+                        <h4>G</h4>
+                    </div>
+                    <div class="m-t-4 d-flex justify-content-center">
+                        <h4>G</h4>
+                    </div>           
+                </div>
+                <div class="col-lg-2 f-w-900 m-t-32 mat-subtitle-1">
+                    <mat-label>Team Assigned</mat-label> 
+                    <div class="m-t-24 d-flex justify-content-center">
+                        <h4>B</h4>
+                    </div> 
+                    <div class="m-t- d-flex justify-content-center">
+                        <h4>B</h4>
+                    </div>
+                    <div class="m-t-4 d-flex justify-content-center">
+                        <h4>B</h4>
+                    </div>                
+                </div>
+
+              </div>
+              <div class="row d-flex justify-content-center ">
+                <div class="col-lg-6 m-l-20">
+                <div class="f-w-900 f-s-32 mat-subtitle-1">
+                    <mat-label class="formlabel">Available Doctors</mat-label>
+                </div>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="Team Name">
+                      <mat-option value="Team A">None</mat-option>
+                      <mat-option value="Team B">Dr. Hamza Bafaqia</mat-option>
+                      <mat-option value="Team C">Dr. Hamza</mat-option>
+                      <mat-option value="Team O">Dr. Bafaqia</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+        </mat-dialog-content>
+        <mat-dialog-actions  class="m-t-48">
+            <div class="row d-flex justify-content-center ">
+                <div class="col-md-5 m-t-24 ">
+                    <app-button label="Cancel"  [buttonColor]="'#FFFFFF'" [textColor]="'#8F1402'"  type="submit" [buttonWidth]="'30%'"></app-button>
+                </div>
+                <div class="col-md-5 m-t-24 ">
+                    <app-button label="Save"  [buttonColor]="'#8F1402'" [buttonWidth]="'30%'"  type="submit"  buttoncolor="primary"></app-button>
+                </div>
+            </div>
+        </mat-dialog-actions>
+
+    </mat-tab>
+  
+   

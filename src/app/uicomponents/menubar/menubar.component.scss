@@ -1,0 +1,101 @@
+header {
+  padding: 10px;
+  padding-top: 20px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  height: 90px;
+}
+
+.logo {
+  width:50px;
+}
+
+//Icon Garident Color change
+
+i.just-the-i {
+  background:-moz-linear-gradient(top, #8F1402 0%, #FFA899 100%);
+    background: -webkit-linear-gradient(180deg, #8F1402 0%, #FFA899 100%);
+    background: linear-gradient(180deg, #8F1402 0%, #FFA899 100%);;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+   -webkit-text-fill-color:transparent;
+}
+
+.desktop_menu {
+  margin-top: 5px;
+}
+
+.desktop_menu ul {
+  padding: 0;
+  margin: 0;
+}
+
+.desktop_menu ul li {
+  list-style-type: none;
+  color: white;
+  display: inline-block;
+  font-size: 18px;
+  margin-left: 26px;
+}
+.desktop_menu ul li:hover {
+  font-size: 19px;
+  cursor: pointer;
+  color: white;
+  transition: 0.3s ease-in-out;
+}
+.menu-icon {
+  display: none;
+}
+
+@media screen and (min-width: 128px) and (max-width: 900px) {
+  .desktop_menu {
+    position: fixed !important;
+    right: -280px;
+    transition: 0.4s ease-in-out;
+    top: 64px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 200px;
+    height: 100%;
+  }
+  .desktop_menu ul li {
+    display: block;
+    text-align: left;
+    margin: 0;
+    padding: 10px 0 10px 26px;
+    border-bottom: 1px solid grey;
+  }
+  .menu-icon {
+    display: block;
+    color: white;
+    font-size: 40px;
+    padding-top: 10px;
+  }
+  .mobile_menu {
+    right: 0;
+    transition: 0.4s ease-in-out;
+  }
+}
+
+.menuu {
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  position: relative;
+  display: flex;
+}
+
+.selected::after {
+  content: "";
+  position: absolute;
+  bottom: -1mm;
+  width: 100%;
+  height: 0.8mm;
+  background-color: rgba(143, 20, 2, 1);
+  display: block;
+}
+
+.menuu.show-menu::after {
+  display: none;
+}

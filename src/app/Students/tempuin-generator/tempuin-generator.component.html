@@ -1,0 +1,62 @@
+<div class="row m-r-0">
+    <div class="col-md-12 d-flex justify-content-center">
+        <h2 mat-dialog-title class="f-s-32 f-w-900">{{ data?.title }}</h2>
+    </div>
+</div>
+<div class="row m-r-0">
+    <form [formGroup]="tempUinForm" (ngSubmit)="onSubmit()">
+        <mat-dialog-content class="p-b-0" >
+            <div class="row">
+                <div class="col-md-6">
+                <mat-label class="f-w-400 f-s-16 textblackcolor">This Consent is given by :</mat-label>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div *ngIf="tempUinForm.get('consentGivenBy')!.touched && tempUinForm.get('consentGivenBy')!.invalid" class="error-message">
+                    <span *ngIf="tempUinForm.get('consentGivenBy')!.errors?.['required']">Please select a Consent.</span>
+                  </div>
+                <div class="row d-flex align-item-center">
+                    <mat-radio-group formControlName="consentGivenBy" (change)="onRadioButtonChangeEgroup($event)">
+                        <mat-radio-button id="radio_1" value="Mother" class="my-radio-button" >Mother</mat-radio-button>
+                        <mat-radio-button id="radio_2" value="Father" class="my-radio-button" >Father</mat-radio-button>
+                        <mat-radio-button id="radio_3" value="Gurdian" class="my-radio-button" >Gurdian</mat-radio-button>
+                        <mat-radio-button id="radio_4" value="School Authority" class="my-radio-button" >School Authority</mat-radio-button>
+                        <mat-radio-button id="radio_5" value="Other" class="my-radio-button" >Other</mat-radio-button>
+                    </mat-radio-group>
+                   
+                </div>
+                <app-inputs
+                *ngIf="showConsentOthers"
+                [parentForm]="tempUinForm"
+                controlName="consentOthers"
+                placeholder=""
+                type="text"
+                [required]="false"
+                class="w-100"
+                ></app-inputs>
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-label class="f-w-400 f-s-16 textblackcolor">I, {{parentName}}, hereby give my consent to NIVISH to create the health record of my child.</mat-label>
+                    </div>  
+                </div>
+                <div class="row">
+                   <app-img-input
+                   [maxFileSize]="524288000" 
+                    [acceptedFileTypes]="'image/jpeg, image/png, application/pdf'"
+                    [buttonLabel]="'Browse Files'"
+                    (fileSelected)="handleFileSelected($event)"></app-img-input> 
+                </div>
+            </div>
+        </mat-dialog-content>
+        <mat-dialog-actions class="p-l-28 m-b-20" align="center">
+            <div class="row">
+                <!-- <div class='col-md-6'>
+                    <app-button label="Cancel" type="button" [buttonColor]="'#fff'" [textColor]="'#8F1402'"  [buttonWidth]="'50%'" (click)="close()"></app-button>
+                </div> -->
+                <div class='col-md-12'>
+                    <app-button [label]="buttonLabel"  buttoncolor="primary" [buttonColor]="'#8F1402'"  type="submit" [buttonWidth]="'100%'" ></app-button>
+                </div>
+            </div>
+        </mat-dialog-actions>           
+    </form>
+</div>

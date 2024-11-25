@@ -1,0 +1,437 @@
+<app-menubar></app-menubar>
+<app-spinner [showSpinner]="spinnerLoading"
+  imageUrl="Nivish Loading.png"
+  loadingHeading="Doctor Profile is Loading ..."></app-spinner>
+<!-- Profile Cotainer Starts here -->
+<ng-container class="container  text-captailise">
+  <div class="box-shadow p-b-2">
+    <div>
+      <a class="sideh text-decoration-none f-s-14 f-w-500 align-items-center d-flex p-l-20 p-t-20 cursor-pointer m-b-10" (click) ="hcpmasterlist()">
+        <span class="material-symbols-outlined m-r-10">arrow_back
+        </span>Back HcpMaster List</a>
+    </div>
+    <div class="border_studentinfo row align-items-center justify-content-center m-l-16 m-r-16 p-12 m-b-30" >
+      <!-- Student ID Card -->
+      <div class="col-md-3 col-sm-3 col-lg-3 col-xl-3 justify-content-center d-flex m-t-40">
+        <mat-card class="profile-img-card">
+          <img class="m-t-20 studentuploadimage" [src]=" '../assets/images/address.png'" alt="Student ID Card">
+            <span class="material-symbols-outlined f-s-12">id_card</span> Download id Card
+        </mat-card>
+      </div>
+      <!-- Student Name -->
+      <div class="col-md-9 col-sm-9 col-lg-9 col-xl-9  text-captailise" *ngIf="docdetails">
+        <div class="d-flex">
+          <!-- Student Information -->
+          <div class="row" style="border-bottom: 1px solid rgb(0, 0, 0);">
+            <!-- First Row: Name and Age & Gender -->
+            <div class="col-md-6 mb-3">
+                <div class="row m-b-12">
+                    <div class="col-md-4">
+                        <div class="f-s-18 f-w-600">Name</div>
+                    </div>
+                    <div class="col-md-1 text-end">:</div>
+                    <div class="col-md-7">
+                        <div class="f-s-18 f-w-400">{{ docdetails.FullName }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="row m-b-12">
+                    <div class="col-md-4">
+                        <div class="f-s-18 f-w-600">Age & Gender</div>
+                    </div>
+                    <div class="col-md-1 text-end">:</div>
+                    <div class="col-md-7">
+                        <div class="f-s-18 f-w-400">{{ getAge(docdetails.Date_of_Birth) }} Y, {{ getGenderAbbreviation(docdetails.Gender) }}</div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Second Row: Type and Category -->
+            <div class="col-md-6 mb-3">
+                <div class="row m-b-12">
+                    <div class="col-md-4">
+                        <div class="f-s-18 f-w-600">Type</div>
+                    </div>
+                    <div class="col-md-1 text-end">:</div>
+                    <div class="col-md-7">
+                        <div class="f-s-18 f-w-400">{{ docdetails.Type }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="f-s-18 f-w-600">Category</div>
+                    </div>
+                    <div class="col-md-1 text-end">:</div>
+                    <div class="col-md-7">
+                        <div class="f-s-18 f-w-400">{{ docdetails.Category }}</div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Third Row: DOB and Experience -->
+            <div class="col-md-6 mb-3">
+                <div class="row m-b-12">
+                    <div class="col-md-4">
+                        <div class="f-s-18 f-w-600">DOB</div>
+                    </div>
+                    <div class="col-md-1 text-end">:</div>
+                    <div class="col-md-7">
+                        <div class="f-s-18 f-w-400">{{ formatDateOfBirth(docdetails.Date_of_Birth) || '--' }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3" *ngFor="let experiensdoctorprofile of experiencedoctor">
+                <div class="row m-b-12">
+                    <div class="col-md-4">
+                        <div class="f-s-18 f-w-600">Experience</div>
+                    </div>
+                    <div class="col-md-1 text-end">:</div>
+                    <div class="col-md-7">
+                        <div class="f-s-18 f-w-400">{{ experiensdoctorprofile.Total_Experience_Years }} Years {{ experiensdoctorprofile.Total_Experience_Months }} Months</div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Fourth Row: NID (Optional, if needed) -->
+            <div class="col-md-6 mb-3">
+                <div class="row m-b-10">
+                    <div class="col-md-4">
+                        <div class="f-s-18 f-w-600">NID</div>
+                    </div>
+                    <div class="col-md-1 text-end">:</div>
+                    <div class="col-md-7">
+                        <div class="f-s-18 f-w-400">{{ docdetails.NIV }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+
+        
+          <!-- Action Buttons -->
+          <div class="row buttionsforlargescreens">
+            <div class="example-button-container">
+              <button style="background: transparent; box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25); color: red; border-radius: 4px;" mat-mini-fab aria-label="Delete">
+                <span class="material-symbols-outlined">delete</span>
+              </button>
+            </div>
+            <div class="m-t-8">
+              <button style="background: transparent; box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25); color: black; border-radius: 4px;" mat-mini-fab aria-label="Edit">
+                <span class="material-symbols-outlined">border_color</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row m-t-10 m-b-24">
+          <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6">
+                <h4 class="f-s-18 f-w-600">Status</h4>
+              </div>
+              <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6 d-flex align-items-center">
+                <div class="f-s-18 f-w-400" [ngClass]="{
+                  'status-verified':  docdetails.Status === 'Verified',
+                  'status-not-verified': docdetails.Status !== 'Verified'
+                }">
+                  : {{ docdetails.Status }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6">
+                <h4 class="f-s-18 f-w-600">Last Event</h4>
+              </div>
+              <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6 d-flex align-items-center">
+                <div class="f-s-18 f-w-400" [ngClass]="{
+                  'status-verified':  docdetails.ScheduledStatus === 'Verified',
+                  'status-not-verified': docdetails.ScheduledStatus !== 'Verified' }"
+               >: {{ScheduledStatus ||'N/A'}} </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container class=" text-captailise">
+    <div class="container m-t-20">
+      <div class="row m-r-0 p-l-20">
+        <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
+          <mat-tab-group>
+            <mat-tab label="Events">
+                <!-- Dummy data setup -->
+
+
+                      <div class="col-1 d-flex justify-content-end">
+
+                      </div>
+
+                <div class="timeline  text-captailise">
+
+                  <div class="timeline__event animated fadeInUp delay-3s timeline__event--type1">
+                    <div class="row">
+                      <div class="col-md-11 col-sm-11 col-lg-11 col-xl-11"  >
+                        <div class="timeline__event__content">
+                          <div *ngIf="noEvents" class="f-s-30 f-w-800 justify-content-center d-flex m-t-40 m-b-40" >
+                            No Events For This User
+                          </div>
+                          <div class="timeline__event__description" *ngFor="let eventdetailas of doctorprofileevents">
+                            <div>
+
+                            <div class="row m-b-12">
+
+                              <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 f-w-600 f-s-18">Event Name</div>
+                              <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6 f-s-18">
+                                <span>:{{eventdetailas.HealthCampName}}</span>
+
+                              </div>
+                            </div>
+                            <div class="row m-b-12">
+                              <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 f-w-600 f-s-18">Type</div>
+                              <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6 f-s-18">
+                                <span>:{{eventdetailas.Event_Type || '--'}}</span>
+                              </div>
+                            </div>
+                            <div class="row m-b-12">
+                              <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 f-w-600 f-s-18">Date</div>
+                              <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6 f-s-18">
+                                <span>:{{ formatDate(eventdetailas.StartDate) }} - {{ formatDate(eventdetailas.EndDate) }} </span>
+                              </div>
+                            </div>
+                            <div class="row m-b-12">
+                              <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 f-w-600 f-s-18">Event Schedule</div>
+                              <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6 f-s-18">
+                                <span >:</span>
+                                <span style="color: blue; " (click)="viewpopup()">View</span>
+                              </div>
+                            </div>
+                            <div class="row m-b-12">
+                              <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 f-w-600 f-s-18">Location</div>
+                              <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6 f-s-18">
+                                <span>:{{eventdetailas.Location}}</span>
+
+                              </div>
+                            </div>
+                            <div class="row m-b-12">
+                              <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 f-w-600 f-s-18">Description</div>
+                              <div class="col-md-9 col-sm-9 col-lg-9 col-xl-9 f-s-18">
+                                <span>:{{eventdetailas.Description}}</span>
+
+                              </div>
+                            </div>
+                            <div class="row scheduled-status-green">
+                              <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 f-w-600 f-s-18">Status</div>
+                              <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6 f-s-18">
+                                <span>:{{eventdetailas.Scheduled_Status}}</span>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="col-1 d-flex justify-content-end">
+                        <div class="m-t-8 m-r-12">
+                          <button class="edit-del-btn mat-mini-fab" aria-label="Save" disabled>
+                            <span class="material-symbols-outlined">file_save</span>
+                          </button>
+                          <button class="m-t-16 edit-del-btn mat-mini-fab" aria-label="Edit" disabled>
+                            <span class="material-symbols-outlined">border_color</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+
+              <mat-tab label="Demographics">
+                <div class="timeline">
+                  <div class="details-boxshadow m-r-64 p-l-20">
+                    <div class="row">
+                      <div class="col-md-11 col-sm-11 col-lg-11 col-xl-11" *ngIf="docdemographic">
+                        <!-- Parents Info -->
+                        <div>
+                          <div class="row">
+                            <div class="col-md-8 text-center">
+                              <h2>Personal Information</h2>
+                            </div>
+                          </div>
+                          <div class="row m-b-12 m-t-20">
+                            <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 f-w-600 f-s-18">Mobile #</div>
+                            <div class="col-md-8 f-s-18">
+                              <span>:{{docdemographic.Registered_MobileNumber}}</span>
+
+                            </div>
+                          </div>
+                          <div class="row m-b-12 m-b-20">
+                            <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 f-w-600 f-s-18">Email Id</div>
+                            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6 f-s-18">
+                              <span>:{{docdemographic.Registered_Email}}</span>
+
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Mother Info -->
+                        <div>
+                          <div class="row">
+                            <div class="col-md-8 text-center">
+                              <h2>Identification Details</h2>
+                            </div>
+                          </div>
+                          <div class="row m-b-12 m-t-20">
+                            <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 f-w-600 f-s-18">Nationality</div>
+                            <div class="col-md-8 f-s-18">
+                              <span>:{{docdemographic.Nationality}}</span>
+
+                            </div>
+                          </div>
+                          <div class="row m-b-12">
+                            <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 f-w-600 f-s-18">ID</div>
+                            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6 f-s-18">
+                              <span>:{{docdemographic.Emirates_Id}}</span>
+
+                            </div>
+                          </div>
+                          <div class="row m-b-12">
+                            <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 f-w-600 f-s-18">Passport</div>
+                            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6 f-s-18">
+                              <span>:{{docdemographic.Passport}}</span>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-8 text-center">
+                              <h2>Licensee Details</h2>
+                            </div>
+                          </div>
+                          <div *ngFor="let experiensedata of experience">
+                          <div class="row m-b-12">
+                            <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 f-w-600 f-s-18">Experience</div>
+                            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6 f-s-18">
+                              <span>:{{ experiensedata.Total_Experience_Years }} Years {{ experiensedata.Total_Experience_Months }} Months</span>
+
+                            </div>
+                          </div>
+                          <div class="row m-b-12">
+                            <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 f-w-600 f-s-18">Sub Contracted</div>
+                            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6 f-s-18">
+                              <span>:{{experiensedata.Sub_Contracted_Form}}</span>
+                            </div>
+                          </div>
+                        </div>
+                          <div class="row m-b-12 d-flex">
+                            <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 f-w-600 f-s-18">Licensee Details:</div>
+                            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6 f-s-18">
+                              <div class="row d-flex justify-content-between">
+                             <div  class="text-center" *ngFor="let license of licensedata">
+                              <mat-card class="matcradwidth d-flex">
+                                <span class="f-s-28 f-w-600 m-t-10">{{docdemographic.Nationality}}</span>
+                                <span class="m-t-20">{{license.License_Authority}}</span>
+                                <span class="m-t-20">{{ formatDate(license.Issued_Date)}}</span>
+                                <span class="m-t-20">{{license.License_Number}}</span>
+                              </mat-card>
+                             </div>
+                            </div>
+                          </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-8 text-center">
+                              <h2>Education Details</h2>
+                            </div>
+                          </div>
+                          <div class="row m-b-12">
+                            <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 f-w-600 f-s-18">Education Details:</div>
+                            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6 f-s-18">
+                              <div class="row d-flex justify-content-between">
+                             <div  class="text-center"  *ngFor="let education of educationdata">
+                              <mat-card class="matcradwidth">
+                                <span class="f-s-28 f-w-600 m-t-10">{{education.Name_of_institute}}</span>
+                                <span class="m-t-20">{{education.Type_of_degree}}</span>
+                                <span class="m-t-20">{{docdemographic.Nationality}}</span>
+                                 <span class="m-t-20">{{ formatDate (education.from_Date )}} - {{ formatDate (education.to_Date) }} </span>
+                                <span class="m-t-20">pdf</span>
+                              </mat-card>
+                             </div>
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+        <mat-tab >
+            <ng-template mat-tab-label>
+              Communications
+            </ng-template>
+            <div class="timeline">
+              <h2>Coming Soon</h2>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+    </div>
+  </div>
+</div>
+
+<ng-template #viewdoctordialogbox>
+  <div class="row m-r-0 align-item-center p-30">
+    <div class="col-md-12">
+      <div class="widthtable">
+        <div>
+          <a class="sideh text-decoration-none f-s-14 f-w-500 d-flex" (click)="closeDialog()">
+            <span class="material-symbols-outlined m-r-10">arrow_back</span>Back
+          </a>
+        </div>
+        <div>
+          <div class="row p-24">
+            <div class="col-12">
+              <div class="row align-items-center justify-content-center m-b-20">
+                <div class="col-4">
+                  <div class="f-s-24">Start Date</div>
+                </div>
+                <div class="col-8">
+                  <div class="row">
+                    <div class="col-6 justify-content-center d-flex">
+                      <div class="f-s-24">Start Time</div>
+                    </div>
+                    <div class="col-6 justify-content-center d-flex">
+                      <div class="f-s-24">End Time</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row align-items-center justify-content-center m-b-64">
+                <div class="col-12">
+                  <div id="scrollbar" class="scrollable-content">
+                    <div class="row" *ngFor="let dates of assignments let timeslot of assignments">
+                      <div class="col-4 d-flex align-items-center">
+                        <span class="f-s-18">{{ formatDate(dates.Date) }}</span>
+                      </div>
+                      <div class="col-4">
+                        <input matInput name="startTime" class="time-input-box" placeholder="HH:MM" [value]="formatTime(timeslot.Start_Time)">
+                      </div>
+                      <div class="col-4">
+                        <input matInput name="endTime" class="time-input-box" placeholder="HH:MM" [value]="formatTime(timeslot.End_Time)">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+</ng-container>

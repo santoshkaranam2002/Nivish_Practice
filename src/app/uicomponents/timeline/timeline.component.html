@@ -1,0 +1,11 @@
+<div class="timeline-container">
+    <div class="timeline" *ngIf="steps">
+      <div *ngFor="let step of steps; let i = index" class="timeline-step" [class.active]="step.active">
+        <div class="timeline-label">
+          {{ step.title }} <span *ngIf="step.subtitle">({{ step.subtitle }})</span>
+        </div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-connector" *ngIf="i < steps.length - 1"></div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,23 @@
+
+    <div class="row m-r-0">
+        <div class="col-md-10 d-flex justify-content-center">
+           <h2 mat-dialog-title class="f-s-30 f-w-900">{{ data?.title }}</h2>
+        </div>
+        <div class="col-md-2">
+            <mat-icon (click)="close()">clear</mat-icon>
+        </div>
+    </div>
+    <mat-dialog-content>
+        <div class="row">
+            <div class="col-md-1">
+                <mat-icon class="green-icon">check_circle</mat-icon>
+              </div>
+            <div class="col-md-11">
+                <p class='f-s-24'>{{ data?.message }}</p>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <app-button [label]="data?.buttonLabel" [buttonColor]="'#8F1402'" type="submit" [buttonWidth]="'50%'" class="w-100 next" (click)="buttonClickFunction?.()"></app-button>
+    </mat-dialog-actions>
+  

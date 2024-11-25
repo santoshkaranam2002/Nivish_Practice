@@ -1,0 +1,55 @@
+<div class="row m-r-0">
+  <div class="col-md-12 d-flex justify-content-center">
+    <h2 mat-dialog-title class="f-s-32 f-w-900">{{ data?.title }}</h2>
+  </div>
+</div>
+<div class="row m-r-0">
+  <form [formGroup]="addCordinatorForm" (ngSubmit)="onSubmit()">
+    <mat-dialog-content class="p-b-0">
+      <div class="row m-b-30">
+        <div class="col-3"></div>
+        <div class="col-9">
+          <mat-radio-group formControlName="radioEGroup" (change)="onRadioButtonChangeEgroup($event)">
+            <mat-radio-button id="radio_1" value="Primary" [disabled]="isPrimaryDisabled">Primary Coordinator</mat-radio-button>
+            <mat-radio-button id="radio_2" value="Secondary" [disabled]="isSecondaryDisabled" >Secondary Coordinator</mat-radio-button>
+          </mat-radio-group>
+          <div *ngIf="addCordinatorForm.get('radioEGroup')!.touched && addCordinatorForm.get('radioEGroup')!.invalid" class="error-message">
+            <span *ngIf="addCordinatorForm.get('radioEGroup')!.errors?.['required']">Please select a coordinator type.</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 m-l-10">
+        <div class="row align-items-baseline">
+          <div class="col-md-6">
+            <mat-label class="f-w-400 f-s-18 textblackcolor">Coordinator Name</mat-label>
+          </div>
+          <div class="col-md-6">
+            <app-inputs [parentForm]="addCordinatorForm" controlName="popupInput" placeholder="" type="text" [required]="true" [validationMessages]="{ required: 'Coordinator Name is required', minlength: 'Minimum length should be 3' }" class="w-100"></app-inputs>
+          </div>
+          <div class="col-md-6">
+            <mat-label class="f-w-400 f-s-18 textblackcolor">Email</mat-label>
+          </div>
+          <div class="col-md-6">
+            <app-inputs [parentForm]="addCordinatorForm" controlName="emailCordinator" placeholder="" type="text" [required]="true" [validationMessages]="{ required: 'Email is required', minlength: 'Minimum length should be 3' }" class="w-100"></app-inputs>
+          </div>
+          <div class="col-md-6">
+            <mat-label class="f-w-400 f-s-18 textblackcolor">Mobile</mat-label>
+          </div>
+          <div class="col-md-6">
+            <app-inputs [parentForm]="addCordinatorForm" controlName="mobileCordinator" placeholder="" type="text" [required]="true" [validationMessages]="{ required: 'Mobile is required', minlength: 'Minimum length should be 3' }" class="w-100"></app-inputs>
+          </div>
+        </div>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions class="p-l-28 m-b-20" align="center">
+      <div class="row">
+        <div class='col-md-6'>
+          <app-button label="Cancel" type="button" [buttonColor]="'#fff'" [textColor]="'#8F1402'" [buttonWidth]="'50%'" (click)="close()"></app-button>
+        </div>
+        <div class='col-md-6'>
+          <app-button [label]="buttonLabel" buttoncolor="primary" [buttonColor]="'#8F1402'" type="submit" [buttonWidth]="'50%'"></app-button>
+        </div>
+      </div>
+    </mat-dialog-actions>
+  </form>
+</div>

@@ -1,0 +1,10 @@
+<div *ngIf="showSpinner" class="spinner-overlay">
+    <div class="spinner-container">
+      <img *ngIf="imageUrl" class="spinner-image" [src]="getSafeImageUrl()" alt="Loading">
+      <mat-spinner [diameter]="size" [color]="color"></mat-spinner>
+      <div class="spinner-text">
+        <span *ngIf="loadingText">{{ loadingText }}</span>
+        <h1 *ngIf="loadingHeading">{{ loadingHeading }}</h1>
+      </div>
+    </div>
+  </div>

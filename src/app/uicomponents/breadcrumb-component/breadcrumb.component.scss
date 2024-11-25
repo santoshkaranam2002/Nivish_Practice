@@ -1,0 +1,24 @@
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .breadcrumb-item {
+    margin-right: 0.5rem;
+  }
+
+  .breadcrumb-item a {
+    text-decoration: none;
+    color: #757575;
+  }
+
+  .breadcrumb-item.active {
+    color:rgb(0, 0, 0);
+    font-weight: bold !important;
+    background-color: transparent;
+  }
+

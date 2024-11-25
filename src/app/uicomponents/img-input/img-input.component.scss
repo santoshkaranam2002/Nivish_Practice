@@ -1,0 +1,49 @@
+.file-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+
+    .custom-file-button {
+        background-color: #8F1402;
+        color: white;
+        border: 1px solid #8F1402 !important;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .custom-file-button:hover {
+        background-color: #8F1402;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 12px;
+        margin-top: 10px;
+    }
+
+    .file-preview {
+        margin-top: 10px;
+        text-align: center;
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        div {
+            font-size: 14px;
+            color: #555;
+            margin-top: 10px;
+        }
+    }
+}

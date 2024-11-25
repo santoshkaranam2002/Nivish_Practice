@@ -1,0 +1,86 @@
+<form [formGroup]="form">
+  <div class="filter-container d-flex m-10 " style="overflow-x: auto;">
+    <!-- Country Filter -->
+    <mat-card class="w-100 p-24">
+      <h2 mat-dialog-title class="text-center">Country</h2>
+      <mat-dialog-content>
+        <mat-radio-group formControlName="Country" (change)="onCountryChange($event)">
+          <mat-radio-button *ngFor="let country of filterOptions[0].options" [value]="country.option">
+            {{ country.option }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </mat-dialog-content>
+    </mat-card>
+
+    <!-- Enterprise Group Filter -->
+
+    <mat-card *ngIf="showEnterpriseGroups" class="w-100 p-24 enterprisegroup">
+      <h2 mat-dialog-title class="text-center">Enterprise Group</h2>
+      <mat-dialog-content>
+        <mat-radio-group formControlName="Enterprise Group" (change)="onEnterpriseGroupChange($event)">
+          <mat-radio-button *ngFor="let group of filterOptions[1].options" [value]="group.id" class="radio-option">
+            {{ group.option }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </mat-dialog-content>
+    </mat-card>
+
+
+    <!-- Schools Filter -->
+    <mat-card *ngIf="showSchools" class="w-100 p-24">
+      <h2 mat-dialog-title class="text-center">Schools</h2>
+      <mat-dialog-content>
+        <mat-radio-group formControlName="Schools" (change)="onSchoolChange($event)">
+          <mat-radio-button *ngFor="let option of filterOptions[2].options" [value]="option.id" class="radio-option">
+            {{ option.option }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </mat-dialog-content>
+    </mat-card>
+    
+<!-- class and section filter -->
+<mat-card *ngIf="classandsectionsfilter" class="w-100 p-24">
+  <h2 mat-dialog-title class="text-center">Class & Section</h2>
+  <mat-dialog-content>
+    <mat-checkbox 
+      *ngFor="let option of classSectionOptions" 
+      [value]="option.option"
+      (change)="onClassSectionChange($event,option)"
+       [checked]="option.selected || false"
+      class="radio-option">
+      {{ option.option }}
+    </mat-checkbox>
+  </mat-dialog-content>
+</mat-card>
+
+<!-- <mat-dialog-content>
+  
+  <div class="checkbox-group">
+    <mat-checkbox 
+      *ngFor="let option of classSectionOptions" 
+      [value]="option.option"
+      (change)="onClassSectionChange($event)"
+      class="checkbox-option">
+      {{ option.option }}
+    </mat-checkbox>
+  </div>
+</mat-dialog-content> -->
+
+
+    <!-- Status Filter -->
+    <mat-card *ngIf="showStatusCategory" class="w-100 p-24">
+      <h2 mat-dialog-title class="text-center">Status</h2>
+      <mat-dialog-content>
+        <div formGroupName="Status">
+          <mat-checkbox *ngFor="let status of statusOptions" [formControlName]="status" (change)="onstatusChange(status, $event.checked)" class="radio-option">
+            {{ status }}
+          </mat-checkbox>
+        </div>
+      </mat-dialog-content>
+    </mat-card>
+  </div>
+  <mat-dialog-actions align="center" class="row d-flex">
+    <app-button mat-button label="Clear All" type="Clear All" [buttonColor]="'transparent'" [textColor]="'#8F1402'" [classname]="'100 borderradius m-l-64'" (click)="clearAll()" style="margin-right: 20px;"></app-button>
+    <app-button mat-button label="Apply" type="button" [buttonColor]="'#8F1402'" buttoncolor="warn" [classname]="'100 borderradius textwhitecolor'" (click)="applyFilter()"></app-button>
+  </mat-dialog-actions>
+</form>

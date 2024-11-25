@@ -1,0 +1,12 @@
+.mat-button-toggle-checked {
+  background-color: #8F1402 !important;
+  color:white !important;
+}
+
+.login-toggle-border{
+  border-radius: 10px;
+}
+
+.mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after{
+  display: none !important;
+}

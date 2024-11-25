@@ -1,0 +1,33 @@
+
+<!-- <div class="row ">
+    
+    <mat-form-field appearance="outline" class="w-100"  [style.border-radius.px]="borderRadius">
+      
+      <input matInput [type]="type"  [id]="inputId" placeholder="{{ placeholder }}" [style.border-radius]="borderRadius"  [class.invalid]="control.invalid && control.dirty && control.touched" required />
+      
+    </mat-form-field>
+    <ng-container *ngIf="control.invalid && control.dirty && control.touched">
+        <mat-error *ngFor="let err of control.errors|keyvalue">
+        
+            {{errorMessages[err.key]}}
+        </mat-error>
+    </ng-container>
+</div> -->
+
+
+<div class="row form-group" [formGroup]="parentForm">
+    <mat-form-field appearance="outline" class="w-100"  [style.border-radius.px]="borderRadius" [ngClass]="{'error-border': showError()}">
+      <input
+        matInput
+        [type]="type"
+        [formControlName]="controlName"
+        [placeholder]="placeholder"
+        [ngClass]="{ 'is-invalid': showError() }"
+        class="w-100"
+      />
+      <mat-error *ngIf="showError()">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+  </div>
+
+
+ 

@@ -1,0 +1,23 @@
+
+<mat-card class="w-100" class="p-64" >
+  <mat-card-content >
+<div class="w-100">
+  <div class="upload-area" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+    <p>Drag to Upload File or</p>
+    <button type="button" class="custom-file-button" (click)="fileInput.click()" [disabled]="files.length >= maxFiles">Browse Files</button>
+    <input type="file" #fileInput (change)="onFilesAdded($event)" multiple style="display: none;">
+    <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </div>
+  <div class="file-list">
+    <div *ngFor="let file of files; let i = index" class="file-item">
+      <img *ngIf="file.type.startsWith('image/')" [src]="imagePreviews[i]" alt="Preview" class="image-preview">
+      <p>{{ file.name }} ({{ (file.size / 1000000).toFixed(2) }} MB)</p>
+      <button (click)="removeFile(i)">Remove</button>
+    </div>
+  </div>
+  <p *ngIf="files.length > 0">Uploaded {{ files.length }} of {{ maxFiles }} files.</p>
+</div>
+  </mat-card-content>
+</mat-card>
+  
+  

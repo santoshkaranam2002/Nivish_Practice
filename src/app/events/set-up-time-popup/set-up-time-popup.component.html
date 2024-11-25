@@ -1,0 +1,69 @@
+<app-menubar></app-menubar>
+
+<form (ngSubmit)="onSubmit()">
+  <div class="row m-r-0 align-item-center p-30">
+    <div class="col-md-12">
+      <mat-card class="table-box">
+        <div class="back-button d-flex align-items-center">
+          <button mat-icon-button (click)="Back()">
+            <mat-icon aria-label="Back">arrow_back</mat-icon>
+          </button>
+          <span class="back-label">Back</span>
+        </div>
+        <div>
+          <div class="row p-24">
+            <div class="col-12">
+              <mat-card-header>
+                <div class="f-w-900 m-b-64">
+                    <mat-card-title class="f-s-30 f-w-900">Set Up Schedule</mat-card-title>
+                </div>
+              </mat-card-header>
+
+              <div class="row align-items-center justify-content-center m-b-20">
+                <div class="col-4">
+                  <div class="f-s-24 m-l-44">Start Date</div>
+                </div>
+                <div class="col-6">
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="f-s-24">Start Time</div>
+                    </div>
+                    <div class="col-7">
+                      <div class="f-s-24">End Time</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row align-items-center justify-content-center" *ngFor="let dateInfo of dateRange">
+                <div class="col-4">
+                  <mat-checkbox (change)="updateSelectedDates(dateInfo.date)" [(ngModel)]="selectedDates">{{ dateInfo.date }}</mat-checkbox>
+                </div>
+                <div class="col-6">
+                  <div class="row m-b-20">
+                    <div class="d-flex col-4">
+                      <input matInput [(ngModel)]="dateInfo.startTime" name="startTime{{ dateInfo.date }}" class="time-input-box" placeholder="HH:MM">
+                    </div>
+                    <div class="col-7 d-flex">
+                      <input matInput [(ngModel)]="dateInfo.endTime" name="endTime{{ dateInfo.date }}" class="time-input-box" placeholder="HH:MM">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+          <mat-card-content class="scrollable-content">
+            <div class="row p-l-10 m-t-18">
+              <div class="col-md-12 justify-content-center d-flex">
+                <p class="text-center">
+                  <app-button label="Save" [buttonColor]="'#8F1402'" buttoncolor="primary" type="submit" [buttonWidth]="'100%'"></app-button>
+                </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</form>

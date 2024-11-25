@@ -1,0 +1,27 @@
+.mat-header-cell {
+    background-color:#FFE8E4 !important; 
+    color: #000; 
+    font-weight: bold; 
+  }
+  th{
+    background-color:#FFE8E4 !important;
+    font-weight: bold;
+    color: #8F1402;
+
+  }
+
+  chip-list-container {
+    border: 3px solid  #8F1402 !important;
+    padding: 10px;
+    border-radius: 10px;
+    width: fit-content;
+    overflow-x: auto;
+  }
+  .country-card-content {
+    border: 2px solid #000000; 
+    border-radius: 10px; 
+    
+}
+.material-symbols-outlined {
+  cursor:pointer;
+}

@@ -1,0 +1,58 @@
+.time-inputs {
+    display: flex;
+    justify-content: space-between;
+  }
+
+.matcard{
+height: 550px;
+}
+
+  .time-input {
+    flex: 1;
+    margin-right: 10px; /* Adjust margin as needed */
+  }
+
+  .small-input .mat-form-field-wrapper {
+    width: 80px; /* Adjust width as needed */
+  }
+  .scrollable-content {
+    max-height: calc(100vh - 200px); /* Adjust as needed */
+    overflow-y: auto;
+}
+  .small-input .mat-input-element {
+    font-size: 14px; /* Adjust font size as needed */
+  }
+  .time-picker{
+    display: flex;
+    align-items: center;
+    width: 115px;
+    .hours, .minutes{
+      display: flex;
+      flex-direction: column;
+      width: 50px;
+      align-items: center;
+      .input{
+        height: 30px;
+        width: 50px;
+        font-size: 16px;
+        text-align: center;
+        padding: 0;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+      }
+    }
+    .separator{
+      margin: 5px;
+    }
+
+
+  }
+
+  .time-input-box{
+    border: 2px solid rgba(200, 200, 200, 1);
+    width: 95px;
+    height: 42px;
+    border-radius: 5px;
+    padding: 0px;
+    font-size: 24px;
+    text-align: center;
+}

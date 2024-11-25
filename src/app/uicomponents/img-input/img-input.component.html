@@ -1,0 +1,9 @@
+<div class="file-upload-container">
+    <button type="button" class="custom-file-button" (click)="fileInput.click()">{{ buttonLabel }}</button>
+    <input type="file" #fileInput (change)="onFileSelected($event)" [accept]="acceptedFileTypes" style="display: none;" />
+    <div *ngIf="fileError" class="error-message">{{ fileError }}</div>
+    <div *ngIf="filePreview" class="file-preview">
+        <img *ngIf="isImageFile" [src]="filePreview" alt="Image preview" />
+        <div *ngIf="!isImageFile">{{ fileName }}</div>
+    </div>
+</div>

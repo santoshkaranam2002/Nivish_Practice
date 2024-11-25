@@ -1,0 +1,41 @@
+.example-container {
+  height: 520px;
+  width: 1550px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+table {
+  width: 1600px;
+}
+
+td.mat-column-star {
+  width: 20px;
+  padding-right: 8px;
+}
+
+th.mat-column-position, td.mat-column-position {
+  padding-left: 8px;
+}
+
+.mat-mdc-table-sticky-border-elem-right {
+  border-left: 1px solid #e0e0e0;
+}
+
+.mat-mdc-table-sticky-border-elem-left {
+  border-right: 1px solid #e0e0e0;
+}
+.mat-header-cell {
+  background-color: rgba(255, 232, 228, 1) !important;
+
+  }
+.matcardcontent{
+    height: 300px;
+}
+th{
+  color: rgba(143, 20, 2, 1);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 31.79px;
+  text-align: left;
+  }

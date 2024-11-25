@@ -1,0 +1,70 @@
+
+<div>
+  <div class="row m-r-0 align-item-center">
+    <div class="col-md-12">
+      <div class="row d-flex justify-content-between p-24">
+        <div class="col-10">
+          <app-heading class="m-r-40" [heading]="'Student Master List'" ></app-heading>
+        </div>
+        <div class="col-12 d-flex justify-content-end m-l-20">         
+        <div *ngIf="(Status && Status.length > 0) || (Country && Country.length > 0) || (Enterprisegroup && Enterprisegroup.length > 0) || (Schools && Schools.length > 0) || (classandsection && classandsection.length > 0)" class="country-card-content boxforchips">
+          <ng-container *ngIf="Status && Status.length > 0">
+            <mat-chip class="" *ngFor="let option of Status; let i = index" [removable]="true" (removed)="removeOption(i, 'Status')">
+              {{ option.trim() }}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </ng-container>
+          <ng-container *ngIf="Country">
+            <mat-chip class="" *ngFor="let option of Country; let i = index" [removable]="true" (removed)="removeOption(i, 'Country')">
+              {{ option.option.trim() }} 
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </ng-container>
+          <ng-container *ngIf="Enterprisegroup ">
+            <mat-chip class="" *ngFor="let option of Enterprisegroup; let i = index" [removable]="true" (removed)="removeOption(i, 'Enterprisegroup')">
+              {{ option.option.trim() }} 
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </ng-container>
+          <ng-container *ngIf="Schools ">
+            <mat-chip class="" *ngFor="let option of Schools; let i = index" [removable]="true" (removed)="removeOption(i, 'Schools')">
+              {{ option.option.trim() }} 
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </ng-container>
+          <ng-container *ngIf="classandsection ">
+            <mat-chip class="" *ngFor="let option of classandsection; let i = index" [removable]="true" (removed)="removeOption(i, 'classandsection')">
+              {{ option.option.trim() }} 
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </ng-container>
+        </div>
+        <span class="material-symbols-outlined  m-l-40" matTooltip="Filter" matTooltipPosition="above" (click)="toggleFilterPopup()">
+          filter_alt
+        </span>
+      </div>
+      </div>
+    </div>
+  </div>
+ 
+ <div class=" text-captailise"> 
+  <custom-table
+      [tableData]="orders"
+      [tableColumns]="ordersTableColumns"
+      [isFilterable]="true"
+      [isPageable]="true"
+      [showCheckboxes]="false"
+      [showButton]="true"
+      buttonLabel="Add Student"
+      buttonIcon="person_add"
+      buttonClass="w-100 borderradius"
+      (buttonClick)="openDialog()"
+      [paginationSizes]="[5,10]"
+      [defaultPageSize]="10"
+      (sort)="sortData($event)"
+      (rowAction)="handleRowAction($event)"
+      (rowClick)="onRowClicked($event)"
+      class="w-100">
+  </custom-table>
+</div>
+</div>

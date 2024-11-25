@@ -1,0 +1,400 @@
+<app-menubar></app-menubar>
+<div class="row m-r-0 align-item-center p-30  text-captailise">
+    <div class="col-md-12">
+    <mat-card class="table-box">
+    <form [formGroup]="enterpriseForm" (ngSubmit)="addEnterprise()">
+    <mat-tab-group #tabGroup  class="mat-mdc-tab-labels" style="justify-content: space-between;">
+        <mat-tab label="Choose Locale Setting">
+            <ng-container>
+            <div class="row p-24 add-student-form-min-height ">              
+                    <div class="col-md-12">
+                        <div class="row align-items-baseline">
+                           
+                            <div class="col-md-3">
+                            <mat-label class="f-s-20 f-w-500 sideh">Country</mat-label>
+                            </div>
+                          
+                            <div class="col-md-4 p-0">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-select formControlName="countryInput">
+                                  <mat-option *ngFor="let country of CountryList" [value]="country">{{ country }}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="enterpriseForm.get('countryInput')?.hasError('required') && enterpriseForm.get('countryInput')?.touched">
+                                    Country is required
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row align-items-baseline">
+                            <div class="col-md-3">
+                                <mat-label class="f-s-20 f-w-500 sideh">Enterprise Group</mat-label>
+                            </div>
+                            <div class="col-md-4 p-0">
+                            <mat-form-field appearance="outline" class="w-100"  [ngClass]="{'error-border': enterpriseForm.get('groupInput')?.invalid && enterpriseForm.get('submitted')?.value}">
+                                <mat-select formControlName="groupInput">
+                                  <mat-option *ngFor="let group of groupNames" [value]="group.id">{{ group.option }}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="enterpriseForm.get('groupInput')?.hasError('required') && enterpriseForm.get('groupInput')?.touched">
+                                    Enterprise Group is required
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row align-items-baseline">
+                            <div class="col-md-3">
+                                <mat-label class="f-s-20 f-w-500 sideh">School Name</mat-label>
+                            </div>
+                            <div class="col-md-4">
+                                <app-inputs
+                                [parentForm]="enterpriseForm "
+                                controlName="eNameInput"
+                                placeholder=""
+                                type="text"
+                                [required]="true"
+                                [validationMessages]="{ required: 'School Name is required', minlength: 'Minimum length should be 3' }"
+                                 
+                            ></app-inputs>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="row justify-content-center m-b-10  m-t-20">
+                <!-- <div class="col-md-5">
+                    <app-button label="Back" type="button"  [buttonColor]="'#fff'"
+                    [textColor]="'#8F1402'" [buttonWidth]="'50%'" (click)="backToSchool()"></app-button>
+                </div> -->
+                <div >
+                    <app-button label="Save & Next" type="button" [buttonColor]="'#8F1402'" (click)="goToNextTab(tabGroup)" [buttonWidth]="'50%'"></app-button>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="School Details">
+            <ng-container>
+            <div class="row p-24 add-student-form-min-height m-r-0">               
+                    <div class="col-md-6">
+                        <div class="row align-items-baseline">
+                            <div class="col-md-6">
+                                <mat-label class="f-s-20 f-w-500 sideh">Street Address</mat-label>
+                            </div>
+                            <div class="col-md-6">
+                                <app-inputs
+                                [parentForm]="enterpriseForm"
+                                controlName="streetAddress"
+                                placeholder=""
+                                type="text"
+                                [required]="true"
+                                [validationMessages]="{ required: 'Street Address is required', minlength: 'Minimum length should be 3' }"
+                            ></app-inputs>
+                            </div>
+                        </div>
+                        <div class="row align-items-baseline">
+                            <div class="col-md-6">
+                                <mat-label class="f-s-20 f-w-500 sideh">State/Emirates</mat-label>
+                            </div>
+                            <div class="col-md-6">
+                                <app-inputs
+                                [parentForm]="enterpriseForm"
+                                controlName="state"
+                                placeholder=""
+                                type="text"
+                                [required]="true"
+                                [validationMessages]="{ required: 'State is required', minlength: 'Minimum length should be 3' }"
+                                ></app-inputs>
+                            </div>
+                        </div>
+                        <div class="row align-items-baseline">
+                            <div class="col-md-6">
+                                <mat-label class="f-s-20 f-w-500 sideh">City</mat-label>
+                            </div>
+                            <div class="col-md-6">
+                                <app-inputs
+                                [parentForm]="enterpriseForm"
+                                controlName="city"
+                                placeholder=""
+                                type="text"
+                                [required]="true"
+                                [validationMessages]="{ required: 'City is required', minlength: 'Minimum length should be 3' }"
+
+                                class="w-100"
+                                ></app-inputs>
+                            </div>
+                        </div>
+                        <div class="row align-items-baseline">
+                            <div class="col-md-6">
+                                <mat-label class="f-s-20 f-w-500 sideh">PO Box</mat-label>
+                            </div>
+                            <div class="col-md-6">
+                                <app-inputs
+                                [parentForm]="enterpriseForm"
+                                controlName="poBox"
+                                placeholder=""
+                                type="text"
+                                [required]="true"
+                                [validationMessages]="{ required: 'PO Box is required', minlength: 'Minimum length should be 3' }"
+                                class="w-100"
+                                ></app-inputs>
+                            </div>
+                        </div>
+                        <div class="row align-items-baseline">
+                            <div class="col-md-6">
+                                <mat-label class="f-s-20 f-w-500 sideh">Web Address (Optional)</mat-label>
+                            </div>
+                            <div class="col-md-6">
+                                <app-inputs
+                                [parentForm]="enterpriseForm"
+                                controlName="webAddress"
+                                placeholder=""
+                                type="text"
+                                [required]="true"
+                                [validationMessages]="{ required: 'Web Address is required', minlength: 'Minimum length should be 3' }"
+                                class="w-100"
+                            ></app-inputs>
+                            </div>
+                        </div>
+                        <div class="row align-items-baseline">
+                            <div class="col-md-6">
+                                <mat-label class="f-s-20 f-w-500 sideh">School Display Name (Optional)</mat-label>
+                            </div>
+                            <div class="col-md-6">
+                                <app-inputs
+                                [parentForm]="enterpriseForm"
+                                controlName="schoolDisplayName"
+                                placeholder=""
+                                type="text"
+                                [required]="true"
+                                [validationMessages]="{ required: 'School Display Name is required', minlength: 'Minimum length should be 3' }"
+                                class="w-100"
+                            ></app-inputs>
+                            </div>
+                        </div>
+                        <div class="row align-items-baseline">
+                            <div class="col-md-6">
+                                <mat-label class="f-s-20 f-w-500 sideh">Public Display Email (Optional)</mat-label>
+                            </div>
+                            <div class="col-md-6">
+                                <app-inputs
+                                [parentForm]="enterpriseForm"
+                                controlName="publicDisplayEmail"
+                                placeholder=""
+                                type="email"
+                                [required]="true"
+                                [validationMessages]="{ required: 'Email is required', minlength: 'Minimum length should be 3' }"
+                                class="w-100"
+                            ></app-inputs>
+                            </div>
+                        </div>
+                    </div>
+                  
+             
+                    <div class="col-md-6 justify-content-end d-flex align-items-baseline m-r-5">
+                        <div>
+                          <mat-label class="f-s-20 f-w-500 sideh">Upload School Logo</mat-label>
+                      
+                          <ng-container>
+                            <div style="color: red; margin-left: 100px; margin-bottom: 10px;"></div>
+                          </ng-container>
+                          <div class="image-upload-container">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              id="digitalSignInput"
+                              name="Upload_Your_Sign"
+                              (change)="handleFileSelected($event)"
+                              style="display: none;"
+                              #fileInput
+                            />
+                            <label for="digitalSignInput" class="image-box">
+                              <img *ngIf="uploadFileUrl" [src]="uploadFileUrl" alt="Uploaded School Logo" class="preview-image" />
+                              <div *ngIf="!uploadFileUrl" class="box-text">
+                                <img src="../../assets/images/svgs/imageinsidesgets.svg" alt="Upload Icon" class="upload-icon" />
+                              </div>
+                            </label>
+                            <button type="button" class="custom-file-button" (click)="fileInput.click()">Browse File</button>
+                          </div>
+                          <div *ngIf="fileUploadError" class="error-message">Please Upload School Logo</div>
+
+                        </div>
+                      </div>
+                      
+
+        </div> 
+            <div class="row justify-content-center m-b-10 m-t-30">
+                <div  class=" d-flex justify-content-space-between">
+                    <app-button label="Back" [buttonColor]="'#fff'" [textColor]="'#8F1402'" type="button" [buttonWidth]="'50%'" class="" (click)="goToPreviousTab(tabGroup)"></app-button>  
+                    <app-button label="Save & Next" type="button" [buttonColor]="'#8F1402'" (click)="schoolgoToNextTab(tabGroup)" [buttonWidth]="'50%'" class="m-l-16"></app-button>
+                </div>
+                
+            </div> 
+        </ng-container>          
+        </mat-tab>
+        <mat-tab label="Coordinator Details">
+            <ng-container>
+            <div class="row p-24 add-student-form-min-height m-r-0">               
+                    <div class="col-md-6">
+                        <div class="row align-items-baseline">
+                            <div class="col-md-6">
+                                <mat-label class="f-s-20 f-w-500 sideh">Primary Coordinator Name</mat-label>
+                            </div>
+                            <div class="col-md-6">
+                                <app-inputs
+                                [parentForm]="enterpriseForm"
+                                controlName="primaryCordinatorName"
+                                placeholder=""
+                                type="text"
+                                [required]="true"
+                                [validationMessages]="{ required: 'Primary Coordinator Name is required', minlength: 'Minimum length should be 3' }"
+                                class="w-100"
+                            ></app-inputs>
+                            </div>
+                        </div>
+                        <div class="row align-items-baseline">
+                            <div class="col-md-6">
+                                <mat-label class="f-s-20 f-w-500 sideh">Email</mat-label>
+                            </div>
+                            <div class="col-md-6">
+                                <app-inputs
+                                [parentForm]="enterpriseForm"
+                                controlName="primaryCordinatorEmail"
+                                placeholder=""
+                                type="text"
+                                [required]="true"
+                                [validationMessages]="{ required: 'Primary Coordinator Email is required', minlength: 'Minimum length should be 3' }"
+                                class="w-100"
+                            ></app-inputs>
+                            </div>
+                        </div>
+                        <div class="row align-items-baseline">
+                            <div class="col-md-6">
+                                <mat-label class="f-s-20 f-w-500 sideh">Mobile</mat-label>
+                            </div>
+                            <div class="col-md-6">
+                                <app-inputs
+                                [parentForm]="enterpriseForm"
+                                controlName="primaryCordinatorMobile"
+                                placeholder=""
+                                type="text"
+                                [required]="true"
+                                [validationMessages]="{ required: 'Primary Coordinator Mobile is required', minlength: 'Minimum length should be 3' }"
+                                class="w-100"
+                            ></app-inputs>
+                            </div>
+                        </div>
+                        <div class="row align-items-baseline">
+                            <div class="col-md-6">
+                                <mat-label class="f-s-20 f-w-500 sideh">Secondary Coordinator Name</mat-label>
+                            </div>
+                            <div class="col-md-6">
+                                <app-inputs
+                                [parentForm]="enterpriseForm"
+                                controlName="secondaryCordinatorName"
+                                placeholder=""
+                                type="text"
+                                [required]="true"
+                                [validationMessages]="{ required: 'Secondary Coordinator Name is required', minlength: 'Minimum length should be 3' }"
+                                class="w-100"
+                            ></app-inputs>
+                            </div>
+                        </div>
+                        <div class="row align-items-baseline">
+                            <div class="col-md-6">
+                                <mat-label class="f-s-20 f-w-500 sideh">Email</mat-label>
+                            </div>
+                            <div class="col-md-6">
+                                <app-inputs
+                                [parentForm]="enterpriseForm"
+                                controlName="secondaryCordinatorEmail"
+                                placeholder=""
+                                type="text"
+                                [required]="true"
+                                [validationMessages]="{ required: 'Secondary Coordinator Email is required', minlength: 'Minimum length should be 3' }"
+                                class="w-100"
+                            ></app-inputs>
+                            </div>
+                        </div>
+                        
+                        <div class="row align-items-baseline">
+                            <div class="col-md-6">
+                                <mat-label class="f-s-20 f-w-500 sideh">Mobile</mat-label>
+                            </div>
+                            <div class="col-md-6">
+                                <app-inputs
+                                [parentForm]="enterpriseForm"
+                                controlName="secondaryCordinatorMobile"
+                                placeholder=""
+                                type="text"
+                                [required]="true"
+                                [validationMessages]="{ required: 'Secondary Coordinator Mobile is required', minlength: 'Minimum length should be 3' }"
+                                class="w-100"
+                            ></app-inputs>
+                            </div>
+                        </div>                       
+                    </div>
+            </div>
+            </ng-container>
+            <div class="row justify-content-center m-b-10 m-t-30">
+                <div  class=" d-flex justify-content-space-between">
+                    <app-button label="Back" [buttonColor]="'#fff'" [textColor]="'#8F1402'" type="button" [buttonWidth]="'50%'" (click)="goToPreviousTab(tabGroup)" ></app-button>  
+                    <app-button label="Save & Next" type="button" [buttonColor]="'#8F1402'" (click)="cooridinatorgoToNextTab(tabGroup)" [buttonWidth]="'50%'" class="m-l-16"></app-button>
+                </div>
+            </div>            
+        </mat-tab>
+        <mat-tab label="Supporting Documents">
+            <ng-container>
+            <div class="row p-24 add-student-form-min-height">
+                <div class="col-md-12">
+                    <div class="row align-items-baseline justify-content-center">
+                        <div *ngFor="let imageUrl of imageUrls" class="m-2">
+                            <img [src]="imageUrl.imageUrl" alt="Document Image" class="document-image m-2">
+                            <button type="button" class="custom-file-button" (click)="removeImage(imageUrl.id)">Remove</button>
+                        </div>
+                        <app-mutiple-upload
+                            [maxFiles]="5"
+                            [maxFileSize]="5000000"
+                            (filesChanged)="onFilesChanged($event)"
+                            (errorMessageChanged)="onErrorMessageChanged($event)"
+                            class="m-2"
+                        ></app-mutiple-upload>
+                        <p *ngIf="parentErrorMessage" class="m-2">{{ parentErrorMessage }}</p>
+                    </div>
+                    <div *ngIf="fileUploadErrors" class="error-message justify-content-center d-flex">Please upload Documents</div>
+
+                    <div class="row justify-content-center align-items-baseline m-b-10 m-t-20">
+                        <div class="d-flex justify-content-space-between">
+                            <app-button label="Back" [buttonColor]="'#fff'" [textColor]="'#8F1402'" type="button" [buttonWidth]="'50%'" (click)="goToPreviousTab(tabGroup)"></app-button>  
+                            <app-button label="Save & Next" type="button" [buttonColor]="'#8F1402'" (click)="goToNextTab(tabGroup)" [buttonWidth]="'50%'" class="m-l-16"></app-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        </mat-tab>
+       
+        <mat-tab label="Description">
+            <div class="row p-24 add-student-form-min-height m-r-0 d-flex justify-content-center">
+                <div class="row">
+                    <div class="col-md-6 m-b-10">
+                        <mat-label class="f-s-20 f-w-500 sideh ">Description</mat-label>
+                    </div>
+                    <div class="col-md-12">
+                        <mat-form-field appearance="fill" class="textareadesc" >
+                            <textarea  matInput formControlName="textAreaInput" placeholder="Up to 300 to 500 words"></textarea>
+                            <mat-error *ngIf="enterpriseForm.controls['textAreaInput'].invalid && enterpriseForm.controls['textAreaInput'].touched">
+                                Description is required.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center m-b-10 m-t-20">
+                <div class="d-flex justify-content-space-between">
+                    <app-button label="Back" [buttonColor]="'#fff'" [textColor]="'#8F1402'" type="button" [buttonWidth]="'50%'" (click)="goToPreviousTab(tabGroup)" ></app-button>  
+                    <app-button label="Save & Next" type="button" [buttonColor]="'#8F1402'" (click)="goToNextTab(tabGroup)" [buttonWidth]="'50%'" class="m-l-16"></app-button>
+                </div>
+            </div>                 
+        </mat-tab>    
+    </mat-tab-group>
+    </form>
+    </mat-card>
+  </div>
+  </div>  

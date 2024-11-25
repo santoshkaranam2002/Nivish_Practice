@@ -1,0 +1,30 @@
+<ng-container>
+    <!-- <ng-template #reviewstatusdialogbox> -->
+        <mat-dialog-content id="scrollbar">
+            <div class="d-flex align-item-center float-right">
+                <span mat-dialog-close class="material-symbols-outlined pointercursor">
+                  close
+                </span>
+            </div>
+            <div class="filter-container d-flex m-10">
+                <mat-card *ngFor="let filterOption of filterOptions" class="w-100 m-r-20">
+                  <h2 class="justify-content-center align-items-center d-flex" style="color: rgba(88, 88, 88, 1);">{{ filterOption.category }}</h2>
+                  <mat-checkbox
+                    style="border-bottom: 1px solid #8A8A8A"
+                    *ngFor="let option of filterOption.options"
+                    [checked]="isChecked(filterOption.category, option)"
+                    (change)="toggleSelection(filterOption.category, option)"
+                    class="checkbox m-10">
+                    {{ option }}
+                  </mat-checkbox>
+                </mat-card>
+              </div>
+        </mat-dialog-content>
+        <mat-dialog-actions align="center">
+            <div class="d-flex">
+                <!-- <app-button classname="w-100 borderradius m-r-64" label="Clear All"></app-button> -->
+                <app-button mat-button label="Apply" type="button" [buttonColor]="'#8F1402'" buttoncolor="warn" [classname]="'100 borderradius textwhitecolor'" (click)="applyFilter()"></app-button>
+            </div>
+        </mat-dialog-actions>
+    <!-- </ng-template> -->
+  </ng-container>

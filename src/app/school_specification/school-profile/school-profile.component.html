@@ -1,0 +1,335 @@
+<app-menubar></app-menubar>
+<div *ngIf="isLoading" class="spinner-overlay text-captailise">
+    <mat-spinner><img src="../../../assets/images/svgs/hedernivish.svg" alt=""></mat-spinner>
+</div>
+<ng-container class="container text-captailise">
+  <app-spinner [showSpinner]="spinnerLoading"
+        imageUrl="Nivish Loading.png"
+        loadingHeading="School Profile is Loading ..."></app-spinner>
+    <div class="box-shadow p-b-2">
+      <div class="notification" id="notification">Copied to clipboardsss!</div>
+      <div>
+        <a class="sideh text-decoration-none f-s-14 f-w-500 align-items-center d-flex p-l-20 p-t-20 cursor-pointer m-b-10" (click) ="goBack()">
+          <span class="material-symbols-outlined m-r-10">arrow_back
+          </span>Back School List/ Details</a>
+      </div>
+        <div class="border_studentinfo row justify-content-center m-l-16 m-r-16 p-12 m-b-30">
+            <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2 justify-content-center d-flex m-t-40">
+                <mat-card class="profile-img-card justify-content-center align-items-center">
+                  <img class="m-t-20 schoolImage" [src]="uploadFileUrl" alt="School Details">
+                  <!--<img class="m-t-20 schoolImage"
+                  [src]="schoolLogo || '../../assets/images/svgs/school-icon.svg'"
+                  alt="School Logo">-->
+                    <span class="m-t-24 m-b-10" (click)="downloadSchoolDetails()">
+                      <span class="material-symbols-outlined f-s-12">id_card</span> Download School Details
+                    </span>
+                    <div class="textcenter m-t-10" *ngIf="mobile">
+                    <div class="row m-t-10 align-items-center w-100  justify-content-space-between ">
+                        <div class="example-button-container">
+                            <button style="background: transparent;
+                            box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+                            color: red;
+                            border-radius: 4px;" mat-mini-fab aria-label="Delete">
+                            <span class="material-symbols-outlined">
+                                delete
+                                </span>
+                            </button>
+                        </div>
+                        <div class="m-t-8">
+                            <button  style="background: transparent;
+                            box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+                            color: black;
+                            border-radius: 4px;" mat-mini-fab aria-label="Edit" (click)="openEditPopup()">
+                            <span class="material-symbols-outlined">
+                                border_color
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                </mat-card>
+            </div>
+            <div class="col-md-9 col-sm-9 col-lg-9 col-xl-9 d-flex align-items-center">
+                <div class="d-flex">
+                    <div class="row" *ngIf="schoolprofile">
+                      <!-- School Details -->
+                      <div class="col-6">
+                        <div class="row">
+                          <div class="col-5">
+                            <div class="f-s-16 f-w-600">Enterprise Group</div>
+                          </div>
+                          <div class="col-7">
+                            <div class="f-s-16 f-w-400">: {{schoolprofile.Group_Name}}</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-6 m-b-10">
+                        <div class="row">
+                          <div class="col-5">
+                            <div class="f-s-16 f-w-600">School Name</div>
+                          </div>
+                          <div class="col-7">
+                            <div class="f-s-16 f-w-400">: {{schoolprofile.Enterprise_Name}}</div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr>
+
+                      <!-- Address Details -->
+                      <div class="col-4 ">
+                        <div class="row m-t-10">
+                          <div class="col-4">
+                            <div class="f-s-16 f-w-600">Address</div>
+                          </div>
+                          <div class="col-8">
+                            <div class="f-s-16 f-w-400">: {{schoolprofile.State}}</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-4 p-b-10 m-t-10">
+                        <div class="row">
+                          <div class="col-4">
+                            <div class="f-s-16 f-w-600">City</div>
+                          </div>
+                          <div class="col-8">
+                            <div class="f-s-16 ">: {{schoolprofile.City}}</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-4 p-b-10 m-t-10">
+                        <div class="row">
+                          <div class="col-4">
+                            <div class="f-s-16 f-w-600">State/Emirate</div>
+                          </div>
+                          <div class="col-8">
+                            <div class="f-s-16 f-w-400">: {{schoolprofile.State}}</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-4 p-b-10">
+                        <div class="row">
+                          <div class="col-4">
+                            <div class="f-s-16 f-w-600">Country</div>
+                          </div>
+                          <div class="col-8">
+                            <div class="f-s-16 f-w-400 country-value">: {{schoolprofile.Country}}</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-4">
+                        <div class="row">
+                          <div class="col-4">
+                            <div class="f-s-16 f-w-600">P.O Box</div>
+                          </div>
+                          <div class="col-8">
+                            <div class="f-s-16 f-w-400">: {{schoolprofile.PO_Box}}</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-4"></div>
+                      <!-- Contact Details -->
+
+                      <div class="col-4">
+                        <div class="row">
+                          <div class="col-4">
+                            <div class="f-s-16 f-w-600">Phone</div>
+                          </div>
+                          <div class="col-8">
+                            <div class="f-s-16 f-w-400">: {{schoolprofile.Primary_Coordinator_MobileNo}}</div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="col-4">
+                        <div class="row">
+                          <div class="col-4">
+                            <div class="f-s-16 f-w-600">Email</div>
+                          </div>
+                          <div class="col-8">
+                            <div class="f-s-16 f-w-400 email-container"
+                            (click)="copyToClipboard(schoolprofile.Secondary_Coordinator_Email)">
+                              : <span class="tooltip-text">{{schoolprofile.Secondary_Coordinator_Email}}</span>
+                              <div class="tooltip">{{schoolprofile.Secondary_Coordinator_Email}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-4">
+                        <div class="row">
+                          <div class="col-4">
+                            <div class="f-s-16 f-w-600">Web</div>
+                          </div>
+                          <div class="col-8">
+                            <div class="f-s-16 f-w-400 email-container"
+                            (click)="copyToClipboard(schoolprofile.Web_Address)">
+                              : <span class="tooltip-text">{{schoolprofile.Web_Address}}</span>
+                              <div class="tooltip">{{schoolprofile.Web_Address}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-4"></div>
+                      <hr>
+                      <!-- Coordinator Details -->
+                       <div class="col-12">
+                       <h4 class="m-t-10 text-left f-w-700">Coordinator Details</h4>
+                       </div>
+
+                       <div class="col-4">
+                        <div class="row">
+                          <div class="col-4">
+                            <div class="f-s-16 f-w-600">Primary
+                            </div>
+                          </div>
+                          <div class="col-8">
+                            <div class="f-s-16 f-w-400 m-l-20 name-wrap" >:{{schoolprofile.Primary_Coordinator_Name}}</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-4">
+                        <div class="row">
+                          <div class="col-4">
+                            <div class="f-s-16 f-w-600">Email</div>
+                          </div>
+                          <div class="col-8">
+                            <div
+                              class="f-s-16 f-w-400 email-container"
+                              (click)="copyToClipboard(schoolprofile.Primary_Coordinator_Email)">
+                              : <span class="tooltip-text">{{schoolprofile.Primary_Coordinator_Email}}</span>
+                              <div class="tooltip">{{schoolprofile.Primary_Coordinator_Email}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-4">
+                        <div class="row ">
+                          <div class="col-4">
+                            <div class="f-s-16 f-w-600">Phone
+                            </div>
+                          </div>
+                          <div class="col-8">
+                            <div class="f-s-16 f-w-400  name-wrap" >:{{schoolprofile.Primary_Coordinator_MobileNo}}</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-4 m-t-10">
+                        <div class="row">
+                          <div class="col-4">
+                            <div class="f-s-16 f-w-600">Secondary
+                            </div>
+                          </div>
+                          <div class="col-8">
+                            <div class="f-s-16 f-w-400 m-l-20 name-wrap" >:{{schoolprofile.Secondary_Coordinator_Name}}</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-4 m-t-10">
+                        <div class="row">
+                          <div class="col-4">
+                            <div class="f-s-16 f-w-600">Email</div>
+                          </div>
+                          <div class="col-8">
+                            <div class="f-s-16 f-w-400 email-container">
+                              : <span class="tooltip-text">{{schoolprofile.Primary_Coordinator_Email}}</span>
+                              <div class="tooltip">{{schoolprofile.Primary_Coordinator_Email}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-4 m-t-10">
+                        <div class="row ">
+                          <div class="col-4">
+                            <div class="f-s-16 f-w-600">Phone
+                            </div>
+                          </div>
+                          <div class="col-8">
+                            <div class="f-s-16 f-w-400  name-wrap" >:{{schoolprofile.Secondary_Coordinator_MobileNo}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<ng-container class="text-captailise">
+  <div class="container m-t-20">
+    <div class="row m-r-0 p-l-20">
+      <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
+        <mat-tab-group (selectedTabChange)="onTabChange($event)">
+          <!-- Events Tab Starts Here-->
+          <mat-tab label="Events">
+            <div *ngIf="noData; else dataTable" class="f-s-30 f-w-800 justify-content-center d-flex m-t-40">
+                <p>No Events to show</p>
+              </div>
+              <ng-template #dataTable>
+                <div class=" text-captailise">
+                <custom-table
+                  [tableData]="orders"
+                  [tableColumns]="ordersTableColumns"
+                  [isFilterable]="true"
+                  [isPageable]="true"
+                  [showButton]="false"
+                  [showCheckboxes]="false"
+                  [paginationSizes]="[5, 10]"
+                  [defaultPageSize]="10"
+                  (sort)="sortData($event)"
+                  (rowAction)="handleRowAction($event)"
+                  (rowClick)="onRowClicked($event)"
+                  class="w-100 m-r-0">
+                </custom-table>
+              </div>
+              </ng-template>
+           </mat-tab>
+           <mat-tab label="Coordinators">
+            <app-school-coordinators *ngIf="primaryCordinator"
+            type="Primary"
+            [lastVerified]="lastVerifiedOn"
+            dueOn="08 Nov 2024"
+            [isVerified]="primaryCordinatorStatus"
+            [nid]="primaryCordinatorNid"
+            [name]="primaryCordinator"
+            [email]="primaryCordinatorEmail"
+            [mobile]="primaryCordinatorMobile"
+            (edit)="onEditCoordinator($event)">
+        </app-school-coordinators>
+
+        <app-school-coordinators *ngIf="secondaryCordinator"
+            type="Secondary"
+            [lastVerified]="lastVerifiedOn"
+            dueOn="08 Nov 2024"
+            [isVerified]="secondaryCordinatorStatus"
+            [nid]="secondaryCordinatorNid"
+            [name]="secondaryCordinator"
+            [email]="secondaryCordinatorEmail"
+            [mobile]="secondaryCordinatorMobile"
+            (edit)="onEditCoordinator($event)">
+        </app-school-coordinators>
+          </mat-tab>
+          <mat-tab label="Summary">
+            <div class="f-w-900 f-s-16 textblackcolor">Comming Soon ....</div>
+          </mat-tab>
+          <app-button [label]="buttonLabel"  buttoncolor="primary" [buttonColor]="'#8F1402'"  type="submit" [buttonWidth]="'50%'" ></app-button>
+        </mat-tab-group>
+      </div>
+      <div class="col-md-2">
+        <app-button *ngIf="showButtonCordinator"  [label]="buttonLabel"  buttoncolor="primary" [buttonColor]="'#8F1402'"  type="submit" [buttonWidth]="'50%'" (click)="AddCoOrdinator()" ></app-button>
+      </div>
+    </div>
+  </div>
+</ng-container>

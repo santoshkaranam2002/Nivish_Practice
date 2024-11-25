@@ -1,0 +1,41 @@
+.tbcard{
+    margin: 1%;
+}
+.countryborder{
+    border: 2px solid #0000;
+}
+.country-card-content {
+    border: 1px solid #000000; /* Example border style */
+    border-radius: 10px; /* Example border radius */
+    // padding: 16px; /* Example padding */
+}
+.my-radio-button {
+    --mdc-radio-selected-hover-icon-color: #8F1402;
+    --mdc-radio-selected-pressed-icon-color:#8F1402;
+    --mdc-radio-selected-icon-color: #8F1402;
+}
+html .mdc-form-field > label{
+    font-weight: 400 !important;
+    font-size: 20px !important;
+    color: #000000 !important;
+
+}
+.heading{
+    font-size: x-large;
+}
+.next{
+    margin-left: 85% !important;
+}
+
+.sml-box-max-height{
+  height: calc(47vh - 0px); 
+  overflow: auto;
+}
+.search-input {
+    width: 100%;      
+    height: 40px;    
+    font-size: 16px; 
+    padding: 8px;    
+    box-sizing: border-box; 
+    border-radius: 10px;
+  }
