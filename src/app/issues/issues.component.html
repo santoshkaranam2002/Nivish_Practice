@@ -1,0 +1,25 @@
+<h2 class="m-b-20">Issues List</h2>
+
+<mat-card>
+    <div *ngIf="isLoadingsearch" class="justify-content-center text-center">
+      <div>
+        <img src="/assets/images/ivin-loading.gif" alt="Loading Image" width="10%">
+        <p class="data-load">Data is loading. Please wait!</p>
+      </div>
+    </div>
+    <div *ngIf="!isLoadingsearch">
+      <custom-table
+        [tableData]="orders"
+        [tableColumns]="ordersTableColumns"
+        [isFilterable]="true"
+        [isdatefilter] = "true"
+        [isPageable]="true"
+        [showCheckboxes]="false"
+        [paginationSizes]="[5, 10]"
+        [defaultPageSize]="10"
+        (sort)="sortData($event)"
+        class="w-100">
+      </custom-table>
+    </div>
+  </mat-card>
+  

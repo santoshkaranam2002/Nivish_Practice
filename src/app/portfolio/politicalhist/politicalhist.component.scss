@@ -1,0 +1,42 @@
+.PoliticalHistory{
+    border: 1px solid #000;
+    border-radius: 10px;
+    border-color: rgba(237, 237, 237, 1);
+  }
+  
+  .scroll{
+    // padding: 1px;
+    overflow-y: scroll;
+    height: 500px;
+    width: 800px;
+  }
+  
+  .content{
+    border: 1px solid rgba(218, 218, 218, 1); 
+    padding: 5px; 
+    border-radius: 10px; 
+    // box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important; 
+    height: 65%;
+  }
+  
+  .borderradius{
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
+    padding: 16px;
+  }
+  
+  .card-edit-button{
+    position: absolute;
+    background: white;
+    color: white;
+    top: -10px;
+    right: 0px; 
+    border-radius: 50%; 
+    padding: 8px 10px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+  }
+  .place input::placeholder {
+    font-size: 15px; /* Adjust this value as needed */
+  }

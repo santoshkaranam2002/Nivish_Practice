@@ -1,0 +1,108 @@
+<div class="form-container overflowhidden p-l-4">
+    <form (ngSubmit)="Ecstatuspost()" class="p-r-64 p-l-64">
+        <div class="d-flex" class="scrollbar w-90">
+            <div class="col-md-12 m-l-12 m-t-12 borderradius align-items-center">
+
+                <div class="row">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Constituency Name</mat-label> -->
+                        <app-label text="Constituency Name" for="Constituency Name" [required]="true"></app-label>
+
+                    </div>
+                    <div class="col-sm-8">
+                        <mat-form-field appearance="outline" class="w-100 place">
+                            <input [formControl]="constituencyname" id="constituencyname" matInput placeholder="Type Your Constituency Name">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block">Type Of Candidate</mat-label> -->
+                        <app-label text="Type Of Candidate" for="Type Of Candidate" [required]="true"></app-label>
+
+                    </div>
+                    <div class="col-sm-8 m-t-24">
+                        <mat-form-field appearance="outline"  class="w-100 m-t-16 place">
+                            <mat-select [formControl]="typecandidate" id="typecandidate" required placeholder="Select Your Party Name">
+                                <mat-option value="MLA">MLA</mat-option>
+                                <mat-option value="MP">MP</mat-option>
+                                <mat-option value="MLC">MLC</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Candidate EC Number</mat-label> -->
+                        <app-label text="Candidate EC Number" for="Candidate EC Number" [required]="true"></app-label>
+                    </div>
+                    <div class="col-sm-8">
+                        <mat-form-field appearance="outline" class="w-100 place">
+                            <input [formControl]="Ecnumber" id="Ecnumber" matInput placeholder="Type Your Candidate EC Number ">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block">Candidate Status</mat-label> -->
+                        <app-label text="Candidate Status" for="Candidate Status" [required]="true"></app-label>
+
+                    </div>
+                    <div class="col-sm-8 m-t-24">
+                        <mat-form-field appearance="outline"  class="w-100 m-t-16 place">
+                            <mat-select [formControl]="candidatestatus" id="candidatestatus" required placeholder="Select Your Candidate Status">
+                                <mat-option value="WIN">WIN</mat-option>
+                                <mat-option value="Loss">LOSS</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                
+
+                <div class="row">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Father/Husband Name</mat-label> -->
+                        <app-label text="Husband Name" for="Husband Name" [required]="true"></app-label> 
+
+                    </div>
+                    <div class="col-sm-8">
+                        <mat-form-field appearance="outline" class="w-100 place">
+                            <input [formControl]="candidaterealtion" id="candidaterealtion" matInput placeholder="Type your Relation Name">
+                        </mat-form-field>
+                    </div>
+                </div>
+           
+
+                <div class="row">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">EC Documents</mat-label> -->
+                        <app-label text="EC Documents" for="EC Documents" [required]="true"></app-label> 
+
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="file" class="click" accept="image/" id="ecdigitalsigninput" name="selectedECDocument" (change)="onProfilePictureSelecte($event)">
+                            <label for="ecdigitalsigninput" ><img *ngIf="digitalSignImageUrl" [src]="digitalSignImageUrl" >
+                                <div  *ngIf="!digitalSignImageUrl">
+                                    <img mat-card-image src="/assets/images/svgs/upload-document.svg" alt="Upload Icon"/>
+                                </div>
+                            </label>
+                        <div *ngIf="fileTypeError" class="f-w-600 mandatory">{{ errorMessage }}</div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="d-flex align-items-center m-l-8">
+                <mat-icon (click)="addCard()">add</mat-icon>
+            </div> -->
+        </div>
+            
+        <!--Button-->
+        <div align="center" class="m-t-20 m-b-10 m-r-32">
+            <button mat-raised-button class="blackbutton" >Save</button>
+            <button mat-button mat-dialog-close class="m-l-20 cancel-border">Cancel</button>
+        </div>
+    </form>
+
+</div>    

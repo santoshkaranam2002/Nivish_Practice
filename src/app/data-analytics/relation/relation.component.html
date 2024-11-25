@@ -1,0 +1,56 @@
+<button mat-icon-button mat-dialog-close>
+  <mat-icon >close</mat-icon>
+</button>
+<mat-dialog-content id="scrollbar">
+  <div class="mat-elevation-z8 example-table-container">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container  class="d-flex flex-row justify-content-center">
+        <div matColumnDef="Voter_SerialNumber" class="pointercursor">
+          <th mat-header-cell *matHeaderCellDef class="table-headings"> Sno </th>
+          <td class="p-22 border-none" mat-cell *matCellDef="let element"> {{element.VoterSerialNumber}}
+          </td>
+        </div>
+
+        <div matColumnDef="VoterID" class="pointercursor">
+          <th mat-header-cell *matHeaderCellDef class="table-headings"> Voter ID </th>
+          <td class="p-22 border-none" mat-cell *matCellDef="let element"> {{element.VoterId}}
+          </td>
+        </div>
+
+        <div matColumnDef="Name" class="pointercursor">
+          <th mat-header-cell *matHeaderCellDef class="table-headings"> Name </th>
+          <td class="p-22 border-none" mat-cell *matCellDef="let element"> {{element.Name}}
+          </td>
+        </div>
+
+        <div matColumnDef="Dependent" class="pointercursor">
+          <th mat-header-cell *matHeaderCellDef class="table-headings"> Dependent </th>
+          <td class="p-22 border-none" mat-cell *matCellDef="let element"> {{element.Guardian}}
+          </td>
+        </div>
+
+        <div matColumnDef="House" class="pointercursor">
+          <th mat-header-cell *matHeaderCellDef class="table-headings"> House </th>
+          <td class="p-22 border-none" mat-cell *matCellDef="let element"> {{element.Home}}
+          </td>
+        </div>
+
+        <div matColumnDef="Age" class="pointercursor">
+          <th mat-header-cell *matHeaderCellDef class="table-headings"> Age </th>
+          <td class="p-22 border-none" mat-cell *matCellDef="let element"> {{element.Age}}
+          </td>
+        </div>
+
+        <div matColumnDef="Gender" class="pointercursor">
+          <th mat-header-cell *matHeaderCellDef class="table-headings"> Gender </th>
+          <td class="p-22 border-none" mat-cell *matCellDef="let element"> {{element.Gender}}
+          </td>
+        </div>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="table-row"></tr>
+      <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+  </div>
+</mat-dialog-content>

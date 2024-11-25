@@ -1,0 +1,323 @@
+<div class="blank-layout-container align-items-center justify-content-center overflowhidden">
+  <div>
+    <img class="w-5" src="assets/images/logos/ivin-logo.svg" alt="Logo">
+  </div>
+  <div class="position-relative row w-100 h-100">
+      <!-- Image div starts here -->
+      <div class="col-lg-6 col-xl-8 p-0 bg-gredient bg-light-primary">
+          <div>
+              <div class="p-24 h-100 align-items-center justify-content-center img-height d-none d-lg-flex">
+                  <div *ngFor="let tile of tiles;">
+                      <img class="w-100" src="{{tile.imageUrl}}">
+                  </div>
+              </div> 
+          </div>
+      </div>
+      <!-- Image div ends here -->
+    
+      <!-- Form div starts here -->
+      <div class="col-lg-6 col-xl-4 p-0">
+          <div class="p-b-10 d-flex align-items-start align-items-lg-center justify-content-center h-100">
+              <div class="row justify-content-center w-100">
+                  <div class="col-lg-9 max-width-form">
+                      <!-- Mobile icon comes here -->
+                      <p class="textcenter">
+                          <img *ngIf="mobile" width="50%" class="align-items-center justify-content-center" src="assets/images/logos/ivin-logo.svg">
+                      </p>
+                      <!-- Mobile icon comes here -->
+                      <div class="w-100 p-24 border-radius boxshadow-form">
+                          <div *ngFor="let tile of tiles;">
+                              <div *ngIf="tile.userid && tile.Password">
+                                <div class="text-center align-items-center m-t-10">
+                                  <div class="f-w-600 d-grid">
+                                  <!-- <mat-card-title class="f-s-24 m-b-10">
+                                      Welcome to Idovin Strategies!
+                                  </mat-card-title> -->
+                                  <!-- <app-pagemaintitle  class="m-t-6 f-s-30 " heading="Welcome to Idovin Strategies!"></app-pagemaintitle> -->
+                                  <app-pagemaintitle heading="Welcome to Idovin Strategies!" className="f-s-30 f-w-900 "></app-pagemaintitle>
+                                  <mat-card-subtitle class="m-b-20 f-s-12">
+                                      Unlocking Insights with Data-Driven Strategies using Pro and Pro-Bite.
+                                  </mat-card-subtitle>
+                                  <div>
+                                    <h2>Sign Up</h2>
+                                  <div class="title-border"></div>
+                                  </div>
+                                  </div>
+                                </div>
+                                  <!-- Stepper starts here -->
+                                  <mat-horizontal-stepper [linear]="true" #stepper class="p-r-20 p-l-20">
+                                      <mat-step [stepControl]="firstFormGroup">
+                                          <form [formGroup]="firstFormGroup">
+                                            <div *ngIf="existingUserMessage" class="error-message" style="color: red; font-weight: bold;">
+                                              {{ existingUserMessage }}
+                                            </div>
+                                            <div *ngIf="!isVerificationStep">
+                                              <!-- Initial Form -->
+                                               <div class="row">
+                                                  <div class="col-3">
+                                                    <mat-label class="d-block f-w-900 f-s-12">Country Code</mat-label>
+                                                    <mat-form-field appearance="outline" class="w-100" color="primary">
+                                                      <mat-select formControlName="CountryCode">
+                                                        <mat-option value="+91(IND)">+91 (IND)</mat-option>
+                                                        <mat-option value="+1(USA)" selected="true">+1 (USA)</mat-option>
+                                                      </mat-select>
+                                                    </mat-form-field>
+                                                  </div>
+                                                  <div class="col-9">
+                                                    <mat-label class="d-block f-w-900 f-s-12">Phone Number</mat-label>
+                                                    <mat-form-field appearance="outline" class="w-100" color="primary">
+                                                      <span class="material-symbols-outlined p-r-4">
+                                                        smartphone
+                                                      </span>
+                                                      <input matInput type="number" formControlName="MobileNumber">
+                                                      <mat-error *ngIf="firstFormGroup.get('MobileNumber')?.hasError('required')">Phone Number is Required</mat-error>
+                                                      <mat-error *ngIf="firstFormGroup.get('MobileNumber')?.hasError('minlength')">Please enter a valid number with at least 10 digits</mat-error>
+                                                    </mat-form-field>
+                                                  </div>
+                                               </div>
+                                        
+                                              <mat-label class="d-block f-w-900">Email</mat-label>
+                                              <mat-form-field appearance="outline" class="w-100" color="primary">
+                                                <span class="material-symbols-outlined p-r-4">
+                                                  mail
+                                                </span>
+                                                <input matInput type="email" formControlName="Email">
+                                                <mat-error *ngIf="firstFormGroup.get('Email')?.hasError('required')">Email is Requried</mat-error>
+                                                <!-- <mat-error *ngIf="firstFormGroup.get('Email')?.hasError('email')">Please enter a valid email address</mat-error> -->
+                                              </mat-form-field>
+                                        
+                                              <div class="m-t-20">
+                                                <app-reusable-button
+                                                label="Verify"
+                                                [textColor]="'white'"
+                                                [buttonWidth]="'100%'"
+                                                [buttonHeight]="'50px'"
+                                                classname="black-color f-s-18"
+                                                (click)="sendotp()"
+                                                ></app-reusable-button>
+                                              </div>
+                                            </div>
+                                        
+                                            <div *ngIf="isVerificationStep">
+                                              <div class="w-100 m-4 m-b-20">
+                                                <div class="m-t-12">
+                                                  <p class="text-center f-s-14 m-t-12 text-gray">
+                                                    Enter the 4 digits code that was sent to your Email<br>
+                                                    <span class="text-center f-s-14 blackcolor m-b-10">{{ email }}</span>
+                                                  </p>
+                                                </div>
+                                              </div>
+                                              <!-- Verification Content -->
+                                              <form [formGroup]="VerifyFormGroup" (ngSubmit)="handleFormSubmit()">
+                                                <div class="otp-input m-t-40 d-flex otpboxes">
+                                                  <input type="tel" formControlName="otp1" maxlength="1" size="1" pattern="[0-9]*" (keypress)="validateNumericInput($event)" (input)="autoFocusNext($event, 'otp2')" (keydown)="handleBackspace($event, '')" />
+                                                  <input type="tel" formControlName="otp2" maxlength="1" size="1" pattern="[0-9]*" (keypress)="validateNumericInput($event)" (input)="autoFocusNext($event, 'otp3')" (keydown)="handleBackspace($event, 'otp1')" />
+                                                  <input type="tel" formControlName="otp3" maxlength="1" size="1" pattern="[0-9]*" (keypress)="validateNumericInput($event)" (input)="autoFocusNext($event, 'otp4')" (keydown)="handleBackspace($event, 'otp2')" />
+                                                  <input type="tel" formControlName="otp4" maxlength="1" size="1" pattern="[0-9]*" (keypress)="validateNumericInput($event)" (input)="autoFocusNext($event, '')" (keydown)="handleBackspace($event, 'otp3')" />
+                                                </div>
+                                                <div class="text-center f-s-16 m-t-28 m-b-20">
+                                                  {{ otpSentMessage || (otpExpired ? "Your OTP has expired. Click on Resend to get a new one." : "Didn't receive the OTP?") }}
+                                                  <span [ngStyle]="{'color': resendButtonDisabled ? '#999999' : '#8F1402', 'cursor': resendButtonDisabled ? 'not-allowed' : 'pointer'}" (click)="ResendOtp()" [attr.disabled]="resendButtonDisabled ? 'disabled' : null" class="f-w-700 text-primary focus:outline-none">
+                                                    {{ countdownSeconds > 0 ? formatCountdownTime(countdownSeconds) : 'Resend' }}
+                                                  </span>
+                                                </div>
+                                                
+                                                <div class="justify-content-center d-flex align-items-center">
+                                                  <app-reusable-button
+                                                    label="Back"
+                                                    [textColor]="'white'"
+                                                    [buttonWidth]="'100%'"
+                                                    [buttonHeight]="'50px'"
+                                                    classname="black-color f-s-18"
+                                                    (click)="goBackToInitialStep()"
+                                                  ></app-reusable-button>
+                                                  <button mat-raised-button color="primary" class="m-l-4 save-continue-btn" [disabled]="isOTPInvalid()" (click)="saveAndContinue(firstFormGroup)">Save & Continue</button>
+                                                </div>
+                                              </form>
+                                            </div>
+                                          </form>
+                                      </mat-step>
+                                        
+                                      <mat-step [stepControl]="secondFormGroup">
+                                          <form [formGroup]="secondFormGroup" (ngSubmit)="updatedata()">
+                                              <!-- Initial Form -->
+                                              <mat-label class="d-block f-w-600">Password</mat-label>
+                                              <mat-form-field appearance="outline" class="w-100" color="primary">
+                                                <span class="material-symbols-outlined p-r-4">
+                                                  lock
+                                                </span>
+                                                <input matInput [type]="hide ? 'text' : 'password'" formControlName="Password" name="password" [errorStateMatcher]="matcher">
+                                                <mat-error *ngIf="passwordFormControl.hasError('required')">Password is <strong>Required</strong></mat-error>
+                                                <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                                </button>
+                                              </mat-form-field>
+
+                                              <mat-label class="d-blockf-w-900">First Name</mat-label>
+                                              <mat-form-field appearance="outline" class="w-100" color="primary">
+                                                <span class="material-symbols-outlined p-r-4">
+                                                  person
+                                              </span>
+                                                <input matInput type="name" formControlName="Firstname">
+                                                <mat-error *ngIf="secondFormGroup.get('Firstname')?.hasError('required')">First Name is <strong>Required</strong></mat-error>
+                                              </mat-form-field>
+                                        
+                                              <mat-label class="d-block f-w-900">Last Name</mat-label>
+                                              <mat-form-field appearance="outline" class="w-100" color="primary">
+                                                <span class="material-symbols-outlined p-r-4">
+                                                  person
+                                              </span>
+                                                <input matInput type="name" formControlName="Lastname">
+                                                <mat-error *ngIf="secondFormGroup.get('Lastname')?.hasError('required')">Last Name is<strong>Required</strong></mat-error>
+                                              </mat-form-field>
+                                        
+                                              <div class="justify-content-center d-flex align-items-center">
+                                                <app-reusable-button
+                                                    label="Back"
+                                                    [textColor]="'white'"
+                                                    [buttonWidth]="'100%'"
+                                                    [buttonHeight]="'50px'"
+                                                    classname="black-color f-s-18"
+                                                  ></app-reusable-button>
+                                                  <button mat-raised-button color="primary" class="m-l-4 save-continue-btn" (click)="saveAndContinue(secondFormGroup)">Save & Continue</button>
+                                            </div> 
+                                          </form>     
+
+                                      </mat-step>
+                                      
+                                      <mat-step [stepControl]="thirdFormGroup">
+                                        <form [formGroup]="thirdFormGroup" (ngSubmit)="updatedata()">
+                                          <span class="f-w-700 f-s-30 d-flex justify-content-center m-t-40">Let's Get To Know You Better</span>
+                                          <p class="d-flex justify-content-center m-t-10">
+                                            How would you like to get associated with Idovin Strategies?
+                                          </p>
+                                          
+                                          <mat-label class="d-block f-w-900 m-t-20">Search & Select</mat-label>
+                                          <mat-form-field appearance="outline" class="w-100" color="primary">
+                                            <mat-select formControlName="UserType">
+                                              <mat-option *ngFor="let option of UserTypeOptions" [value]="option.value">
+                                                {{ option.label }}
+                                              </mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                          
+                  
+                                          <div class="justify-content-center d-flex align-items-center m-t-40">
+                                            <app-reusable-button
+                                            label="Back"
+                                            [textColor]="'white'"
+                                            [buttonWidth]="'100%'"
+                                            [buttonHeight]="'50px'"
+                                            classname="black-color f-s-18"
+                                            ></app-reusable-button>                                            
+                                            <button mat-raised-button color="primary" class="m-l-4 save-continue-btn" (click)="saveAndContinue(thirdFormGroup)">Save & Continue</button>
+                                          </div>
+                                        </form>
+                                      </mat-step>
+
+                                      <mat-step [stepControl]="fourthFormGroup">
+                                          <form [formGroup]="fourthFormGroup" >
+                                            <!-- <span class="f-w-700 f-s-30 d-flex justify-content-center m-t-40">Location Details</span> -->
+                                            
+                                            <mat-label class="d-block f-w-900">Country</mat-label>
+                                            <mat-form-field appearance="outline" class="w-100" color="primary">
+                                              <mat-select formControlName="Country">
+                                                <mat-option value="India">India</mat-option>
+                                                <mat-option value="Us">US</mat-option>
+                                              </mat-select>
+                                              <mat-error *ngIf="fourthFormGroup.get('Country')?.hasError('required')">Country is<strong>Required</strong></mat-error>
+                                            </mat-form-field>
+                                            
+                                            <mat-label class="d-block f-w-900">State</mat-label>
+                                            <mat-form-field appearance="outline" class="w-100" color="primary">
+                                              <mat-select formControlName="State">
+                                                <mat-option value="Andhra Pradesh">Andhra Pradesh</mat-option>
+                                                <mat-option value="Telangana">Telangana</mat-option>
+                                                <mat-option value="others">Others</mat-option>
+                                              </mat-select>
+                                              <mat-error *ngIf="fourthFormGroup.get('State')?.hasError('required')">State is<strong>Required</strong></mat-error>
+                                            </mat-form-field>
+                                            
+                                            <mat-label class="d-block f-w-900">City</mat-label>
+                                            <mat-form-field appearance="outline" class="w-100" color="primary">
+                                              <input matInput formControlName="City" placeholder="Enter your City">
+                                              <mat-error *ngIf="fourthFormGroup.get('City')?.hasError('required')">City is<strong>Required</strong></mat-error>
+                                            </mat-form-field>
+                                            
+                                            <mat-label class="d-block f-w-900">Pincode</mat-label>
+                                            <mat-form-field appearance="outline" class="w-100" color="primary">
+                                              <input matInput formControlName="PinCode" placeholder="Enter your Pincode">
+                                              <mat-error *ngIf="fourthFormGroup.get('PinCode')?.hasError('required')">Pincode is<strong>Required</strong></mat-error>
+                                            </mat-form-field>
+                                            
+                                            <div class="justify-content-center d-flex align-items-center m-t-40">
+                                              <app-reusable-button
+                                              label="Back"
+                                              [textColor]="'white'"
+                                              [buttonWidth]="'100%'"
+                                              [buttonHeight]="'50px'"
+                                              classname="black-color f-s-18"
+                                              ></app-reusable-button>                                            
+                                              <button mat-raised-button color="primary" class="m-l-4 save-continue-btn" (click)="saveAndContinue(fourthFormGroup)">Save & Continue</button>
+                                            </div>    
+                                          </form>
+                                        </mat-step>
+
+                                        <mat-step [stepControl]="fifthFormGroup">
+                                          <form [formGroup]="fifthFormGroup" (ngSubmit)="submitForm()">
+                                              <span class="f-w-700 f-s-30 d-flex justify-content-center m-t-40">Tell Us More About You</span>
+                                              <p class="d-flex justify-content-center m-t-10">
+                                                How would you like to get associated with Idovin Strategies?
+                                              </p>
+
+                                              <mat-label class="d-block f-w-900 m-t-20">Write a one-line description of yourself</mat-label>
+                                              <mat-form-field appearance="outline" class="w-100" color="primary">
+                                                  <input matInput formControlName="Candidate_Brief">
+                                                </mat-form-field>
+                                                
+                                                <mat-label class="d-block f-w-900">Provide a brief paragraph describing yourself</mat-label>
+                                                <mat-form-field appearance="outline" class="w-100" color="primary">
+                                                  <textarea matInput formControlName="Description"></textarea>
+                                                </mat-form-field>
+                                              
+                                                <div class="justify-content-center d-flex align-items-center m-t-40">
+                                                  <app-reusable-button
+                                                  label="Back"
+                                                  [textColor]="'white'"
+                                                  [buttonWidth]="'100%'"
+                                                  [buttonHeight]="'50px'"
+                                                  classname="black-color f-s-18"
+                                                  ></app-reusable-button>                                            
+                                                  <button mat-raised-button color="primary" class="m-l-4 save-continue-btn" (click)="signup()">Sign up</button>
+                                                </div> 
+                                          </form>
+                                        </mat-step>
+                                  </mat-horizontal-stepper>
+                                  <!-- Stepper ends here -->
+                                  <div>
+                                    <span class="f-s-16 f-w-400 justify-content-center d-flex align-items-center">Already have an account?
+                                        <a class="m-l-4 f-w-700 text-primary pointercursor" (click)="login()">Login</a>
+                                    </span>
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- Help Section -->
+                      <div>
+                        <div class="float-right f-s-14 m-r-10 m-t-10">
+                            <a class="light-grey-color text-decoration-none" target="_blank" href="https://ivinpro.atlassian.net/jira/servicedesk/projects/IVIN/queues/custom/">Help</a>
+                        </div>
+                        <div class="float-right f-s-14 m-r-10 m-t-10">
+                            <a class="light-grey-color text-decoration-none" target="_blank" href="https://docs.ivinstrategies.com/">Terms</a>
+                        </div> 
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Form div ends here -->
+  </div>
+</div>
+<footer>
+  Copyright © 2024 | Idovin Strategies Pvt. Ltd. or its affiliates. All rights reserved. Discover ivin Pro & ivin Pro-bite
+</footer>

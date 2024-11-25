@@ -1,0 +1,193 @@
+<!-- out side get -->
+<div class="form-container overflowhidden m-t-24 p-l-4" action="" (ngSubmit)="political()" [formGroup]="myForm">
+    <div class="row m-t-20 m-r-20">
+        <div class="col-lg-12">
+            <div class="row">
+                <div *ngFor="let political of politicaldata" style="min-width: 40%; width: 45%;">
+                    <div class="col-md-12 d-flex m-b-24">
+                        <div class="col-sm-12 m-r-32 borderradius">
+                            <table>
+                                <tr>
+                                    <ng-container *ngIf="political.partyname !== undefined">
+                                        <td>
+                                            <span class="f-w-600">Party Name &nbsp;</span>
+                                        </td>
+                                        <td>
+                                            : {{political.partyname || 'N/A'}}
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                                <tr>
+                                    <td><span class="f-w-600">Role &nbsp;</span></td>
+                                    <td>: {{political.OfficeHeld || 'N/A'}}</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="f-w-600">Duration &nbsp;</span></td>
+                                    <td>: {{political.FromDate || 'N/A'}}&nbsp;to&nbsp;{{political.ToDate || 'N/A'}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- <button class="card-edit-button" (click)="outcorrections(candidatureinformationdialogbox)"><span class="material-symbols-outlined" style="color: black; font-size: 18px;">edit</span></button> -->
+                        <!-- <button class="card-edit-button" type="button" (click)="removepolpoliticaldata(political.id)"><span class="material-symbols-outlined" style="color: black; font-size: 18px;">close</span></button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message for no data available -->
+    <div *ngIf="!politicaldata || politicaldata.length === 0" class="text-center">
+        <p>No data available</p>
+    </div>
+
+    <!--Button-->
+    <div class="row justify-content-end m-b-64 m-t-32">
+        <div class="col-sm-8">
+            <button mat-raised-button class="m-r-12 m-b-12 blackbutton save-cancel-button" (click)="outcorrections(candidatureinformationdialogbox)">Add or Update</button>
+        </div>
+    </div>
+</div>
+<!-- out side get end -->
+
+<!-- popup starts here -->
+<ng-container>
+    <ng-template #candidatureinformationdialogbox>
+        <div mat-dialog-title class="text-center blackbutton">Political History</div>
+            <form action="" (ngSubmit)="political()" [formGroup]="myForm">
+                <mat-dialog-content id="scrollbar">
+                    <div class="row m-t-20 m-r-20">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div (click)="openupdatepoliticalname(item)" *ngFor="let item of politicaldata; let i=index">
+                                    <div class="col-md-12 d-flex m-b-24">
+                                        <div class="col-sm-12 m-r-32 borderradius">
+                                            <table>
+                                                <tr>
+                                                    <ng-container *ngIf="item.partyname !== undefined">
+                                                        <td>
+                                                            <span class="f-w-600">Party Name &nbsp;</span>
+                                                        </td>
+                                                        <td>
+                                                            : {{item.partyname || 'N/A'}}
+                                                        </td>
+                                                    </ng-container>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="f-w-600">Role &nbsp;</span></td>
+                                                    <td>: {{item.OfficeHeld || 'N/A'}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="f-w-600">Duration &nbsp;</span></td>
+                                                    <td>: {{item.FromDate || 'N/A'}}&nbsp;to&nbsp;{{item.ToDate || 'N/A'}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <button class="card-edit-button" type="button" (click)="removepolpoliticaldata(item.id)"><span class="material-symbols-outlined" style="color: black; font-size: 18px;">close</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- this is for multiple post-->
+                    <ng-template [ngIf]="displayName==='post'">
+                        <div class="row d-flex m-d-8">
+                            <div class="col-sm-3 d-flex align-items-center">
+                                <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Political History</mat-label> -->
+                            </div>
+
+                            <div class="col-md-8 PoliticalHistory">
+                                    <mat-form-field appearance="outline" class="w-100 m-t-16">
+                                        <mat-select required formControlName="partyname" placeholder="Select Your Party Name">
+                                            <mat-option>-- None --</mat-option>
+                                            <mat-option *ngFor="let party of partynames" [value]="party.PID">
+                                            {{ party.PartyName }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" class="w-100 place">
+                                        <mat-select required formControlName="officeheld" placeholder="Select Your Role">
+                                            <mat-option>-- None --</mat-option>
+                                            <mat-option value="MLA">MLA</mat-option>
+                                            <mat-option value="MP">MP</mat-option>
+                                            <mat-option value="MLC">MLC</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field appearance="outline" class="w-100 place">
+                                            <input matInput formControlName="fromdate" [matDatepicker]="fromPicker" placeholder="Duration From">
+                                            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #fromPicker></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <mat-form-field appearance="outline" class="w-100 place">
+                                            <input matInput formControlName="todate" [matDatepicker]="toPicker" placeholder="Duration To">
+                                            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #toPicker></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                                <!-- <div class="d-flex align-items-center m-l-8">
+                                    <mat-icon (click)="addCard()">add</mat-icon>
+                                </div> -->
+                        </div>
+                    </ng-template>
+
+                        <!-- this is for multiple update -->
+                    <ng-template  [ngIf]="displayName==='update'">
+                        <div  class="row d-flex m-d-8">
+                            <div class="col-sm-3 d-flex align-items-center">
+                                <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Political Historys</mat-label>
+                            </div>
+                            <div class="col-md-8 PoliticalHistory">
+                                    <mat-form-field appearance="outline" class="w-100 m-t-16">
+                                        <mat-select required formControlName="partynameupdate" placeholder="Select your party name">
+                                            <mat-option>-- None --</mat-option>
+                                            <mat-option *ngFor="let party of partynames" [value]="party.PID">
+                                            {{ party.PartyName }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-select required formControlName="officeheldupdate" placeholder="Select your Role">
+                                            <mat-option>-- None --</mat-option>
+                                            <mat-option value="MLA">MLA</mat-option>
+                                            <mat-option value="MP">MP</mat-option>
+                                            <mat-option value="MLC">MLC</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <input matInput formControlName="fromdateupdate" [matDatepicker]="fromPicker" placeholder="Form">
+                                            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #fromPicker></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <input matInput formControlName="todateupdate" [matDatepicker]="toPicker" placeholder="To">
+                                            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #toPicker></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                                <!-- <div class="d-flex align-items-center m-l-8">
+                                    <mat-icon (click)="addCardupdate()">add</mat-icon>
+                                </div> -->
+                        </div>
+                    </ng-template>
+                </mat-dialog-content>
+                <!--Button-->
+                <mat-dialog-actions align="center">
+                    <button mat-raised-button type="submit" class="blackbutton">Save</button>
+                    <button mat-button mat-dialog-close class="m-r-20 cancel-border">Cancel</button>
+                </mat-dialog-actions>
+            </form>
+    </ng-template>
+</ng-container>

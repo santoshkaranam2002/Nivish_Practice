@@ -1,0 +1,91 @@
+.partymanifestodocuments{
+    max-width: 150px;
+    max-height: 200px;
+    margin-left: 20px;
+    margin-top: 10px;
+    cursor:pointer;
+  }
+
+  .partysupportdocuments{
+    max-width: 150px;
+    max-height: 200px;
+    margin-left: 20px;
+    margin-top: 10px;
+    cursor:pointer;
+  }
+
+  .partysymbol{
+    max-width: 150px;
+    max-height: 200px;
+    margin-left: 20px;
+    margin-top: 10px;
+    cursor:pointer;
+  }
+
+  .partylogo{
+    max-width: 150px;
+    max-height: 200px;
+    margin-left: 20px;
+    margin-top: 10px;
+    cursor:pointer;
+  }
+
+  .image-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .icon-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* Space between image and icons */
+  }
+  
+  .icon {
+    margin: 0 5px; /* Space between icons */
+  }
+  
+  img.partylogo,
+  img.partysymbol {
+    width: 150px; /* Adjust size as needed */
+    height: 150px; /* Adjust size as needed */
+    object-fit: cover; /* Ensures image fits well */
+  }
+
+  .place input::placeholder {
+    font-size: 15px; /* Adjust this value as needed */
+  }
+
+  .fileTypeError{
+    color: red;
+  }
+
+  // spinner  start
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh; 
+}
+
+.loading-spinner img {
+  width: 150px;
+  height: 150px; 
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8); 
+  z-index: 1000; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none; 
+}
+

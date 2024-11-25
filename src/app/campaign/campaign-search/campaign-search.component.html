@@ -1,0 +1,221 @@
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-8 m-b-40">
+            <div class="d-flex">
+              <mat-icon class="m-r-6">chat</mat-icon>
+              <div>
+                <span class="f-s-18 textdecoration-underline pointercursor" routerLink="/campaign">Communication</span> 
+                <span class="f-s-18"> / </span>
+                <span class="f-s-18 textdecoration-underline">Search</span> <span class="f-s-18"> / </span>
+                <span class="f-s-18 textdecoration-underline communication-message">Message</span>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Accordion start here -->
+    <mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title class="page-title">
+                    Search Data
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row m-t-24">
+                <!--Constituency-->
+                <div class="col-md-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-select [formControl]="constituencyformControl" required placeholder="Constituency" (ngModelChange)="ConstituencyChange($event)">
+                          <mat-option>-- None --</mat-option>
+                          <mat-option value="Anakapalli">Anakapalli</mat-option>
+                          <mat-option value="Madugula">Madugula</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="constituencyformControl.hasError('required')">Please choose an Constituency</mat-error>
+                    </mat-form-field>
+                </div>
+                <!--Mandal-->
+                <div class="col-md-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-select [formControl]="mandalformControl" required placeholder="Mandal" (ngModelChange)="MandalChange($event)">
+                          <mat-option>-- None --</mat-option>
+                          <mat-option [value]="mandal" *ngFor="let mandal of mandalnames">{{ mandal }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="mandalformControl.hasError('required')">Please choose an Mandal</mat-error>
+                    </mat-form-field>
+                </div>
+                <!--Polling Station-->
+                <div class="col-md-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-select [formControl]="pollingstationformControl" required placeholder="Polling Station" (ngModelChange)="SectionChange($event)">
+                          <mat-option>-- None --</mat-option>
+                          <mat-option [value]="polling" *ngFor="let polling of pollingstationnames">{{ polling }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="pollingstationformControl.hasError('required')">Please choose an PollingStation</mat-error>
+                    </mat-form-field>
+                </div>
+                <!--Section Number and Name-->
+                <div class="col-md-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-select [formControl]="sectionnumberandnameformControl" placeholder="Section Number and Name">
+                          <mat-option>-- None --</mat-option>
+                          <mat-option [value]="section" *ngFor="let section of sectionnoandnames">{{ section }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <!--Gender-->
+                <div class="col-md-3 m-t-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-select [formControl]="genderformControl" placeholder="Gender">
+                            <mat-option>-- None --</mat-option>
+                            <mat-option value="Male">Male</mat-option>
+                            <mat-option value="Female">Female</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <!--Name-->
+                <div class="col-md-3 m-t-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <input matInput type="text" [formControl]="nameformControl" placeholder="Name">
+                    </mat-form-field>
+                </div>
+                <!--Last Name-->
+                <div class="col-md-3 m-t-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <input matInput type="text" [formControl]="lastnameformControl" placeholder="Last Name">
+                    </mat-form-field>
+                </div>
+                <!--House Number-->
+                <div class="col-md-3 m-t-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <input matInput [formControl]="housenumberformControl" placeholder="House Number">
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- Search Button And Reset Button -->
+            <div class="text-center m-t-20">
+                <button mat-raised-button class="blackbutton rounded-pill m-r-20" (click)="OnSearch()">SEARCH</button>
+                <button mat-raised-button class="blackbutton rounded-pill" (click)="OnReset()">RESET</button>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <!-- Accordion ends here -->
+    
+    <!-- Filter Icon -->
+    <div class="row p-t-40 p-b-40">
+        <div class="col-md-12">
+            <div class="float-right">
+              <button mat-fab class="blackbutton" (click)="FilterPopUp()" [disabled]="isFilterButtonDisabled">
+                <mat-icon>filter_alt</mat-icon>
+              </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <span class="f-s-20 f-w-600">Total Count: </span>
+            <span class="f-s-18">{{ searchCount }}</span>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <button mat-raised-button class="blackbutton rounded-pill" (click)="BuildOpen()">
+            <mat-icon>create</mat-icon>
+            Build Communication
+        </button>
+        <span class="d-flex align-items-center m-l-10">
+            {{ selectedFilterCount }} Filter{{ selectedFilterCount === 1 ? ' Applied' : 's Applied' }}
+        </span>
+    </div>
+
+    <!--Correction Popups start here-->
+    <ng-container>
+        <!-- Build Communication -->
+        <ng-template #BuildCommunicationpopup>
+            <button mat-icon-button mat-dialog-close class="close-icon">
+                <mat-icon>close</mat-icon>
+            </button>
+            <div mat-dialog-title class="popupheader-black text-center">Build Communication</div>
+            <form (ngSubmit)="BuildPost()">
+                <mat-dialog-content id="scrollbar">
+                    <div class="row p-48">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-md-4 d-flex align-items-center">
+                                    <mat-label class="mat-subtitle-2 f-w-600 m-b-16">Communication Name</mat-label>
+                                </div>
+                                <div class="col-md-8">
+                                    <mat-form-field appearance="outline" class="w-100 f-w-500">
+                                        <input matInput type="text" [formControl]="buildCommunicationName" placeholder="Type here">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 d-flex align-items-center">
+                                    <mat-label class="mat-subtitle-2 f-w-600 m-b-16">Descripation/Note</mat-label>
+                                </div>
+                                <div class="col-md-8">
+                                    <mat-form-field appearance="outline" class="w-100 f-w-500">
+                                        <textarea matInput [formControl]="buildDescripation" id="scrollbar" placeholder="Type your text"></textarea>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 d-flex align-items-center">
+                                    <mat-label class="mat-subtitle-2 f-w-600 m-b-16">Communication Type</mat-label>
+                                </div>
+                                <div class="col-md-8">
+                                    <mat-checkbox [(ngModel)]="buildemailcheck" name="buildemailcheck">Email</mat-checkbox>
+                                    <mat-checkbox [(ngModel)]="buildSMScheck" name="buildSMScheck">SMS</mat-checkbox>
+                                    <mat-checkbox [(ngModel)]="buildTelegramcheck" name="buildTelegramcheck" [disabled]="true">Telegram</mat-checkbox>
+                                    <mat-checkbox [(ngModel)]="buildWhatsAppcheck" name="buildWhatsAppcheck" [disabled]="true">WhatsApp</mat-checkbox>
+                                    <mat-checkbox [(ngModel)]="buildInstagramcheck" name="buildInstagramcheck" [disabled]="true">Instagram</mat-checkbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 d-flex align-items-center">
+                                    <mat-label class="mat-subtitle-2 f-w-600 m-b-16">Text Message</mat-label>
+                                </div>
+                                <div class="col-md-8">
+                                    <mat-label class="mat-subtitle-2 f-w-600 m-b-4">Subject Line</mat-label>
+                                    <mat-form-field appearance="outline" class="w-100 f-w-500">
+                                        <input matInput [(ngModel)]="SMSSubjectLine" name="SMSSubjectLine" placeholder="Type here" [disabled]="!buildSMScheck">
+                                    </mat-form-field>
+
+                                    <mat-label class="mat-subtitle-2 f-w-600 m-b-4">Message</mat-label>
+                                    <mat-form-field appearance="outline" class="w-100 f-w-500">
+                                        <textarea matInput [(ngModel)]="SMSMessage" name="SMSMessage" placeholder="Type your text" [disabled]="!buildSMScheck"></textarea>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 d-flex align-items-center">
+                                    <mat-label class="mat-subtitle-2 f-w-600 m-b-16">Email</mat-label>
+                                </div>
+                                <div class="col-md-8">
+                                    <mat-label class="mat-subtitle-2 f-w-600 m-b-4">Subject Line</mat-label>
+                                    <mat-form-field appearance="outline" class="w-100 f-w-500">
+                                        <input matInput [(ngModel)]="emailSubjectLine" name="emailSubjectLine" placeholder="Type here" [disabled]="!buildemailcheck">
+                                    </mat-form-field>
+
+                                    <mat-label class="mat-subtitle-2 f-w-600 m-b-4">Message</mat-label>
+                                    <mat-form-field appearance="outline" class="w-100 f-w-500">
+                                        <textarea matInput [(ngModel)]="emailMessage" name="emailMessage" placeholder="Type your text" [disabled]="!buildemailcheck"></textarea>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-dialog-content>
+                <mat-dialog-actions align="center">
+                    <button mat-raised-button class="blackbutton rounded-pill m-r-24" (click)="ButtonClick('SendNow')">Send Now</button>
+                    <button mat-stroked-button class="cancel-border rounded-pill" (click)="ButtonClick('SaveAsDraft')" [disabled]="communicationquickname === 'quickinsights'">SaveAsDraft</button>
+                </mat-dialog-actions>
+            </form>
+        </ng-template>
+        <!-- End of Build Communication -->
+    </ng-container>
+</div>

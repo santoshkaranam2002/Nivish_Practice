@@ -1,0 +1,130 @@
+.borderradius{
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
+    padding: 16px;
+  }
+
+  .Socialmedia{
+    border: 1px solid #000;
+    border-radius: 10px;
+    border-color: rgba(237, 237, 237, 1);
+  }
+
+  .card-edit-button{
+    position: absolute;
+    background: white;
+    color: white;
+    top: -10px;
+    right: 0px; 
+    border-radius: 50%; 
+    padding: 8px 10px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+  }
+
+  .accordion-container {
+    width: 95%;
+    margin: auto;
+    justify-content: center;
+    display: flow-root;
+    padding-bottom: 20px;
+    padding-top: 20px;
+
+    mat-expansion-panel {
+      margin-bottom: 16px; // Adjust the value as needed
+    }
+  }
+  
+  .custom-expansion-panel {
+    background-color: rgba(222, 236, 255, 1); /* Light gray background */
+    margin-bottom: 12px; /* Space between panels */
+    border-radius: 10px !important; // Adjust the value as needed
+    overflow: hidden; // Ensures the content respects the border radius
+    margin-bottom: 16px; // Optional: To add space between panels if needed
+
+  mat-expansion-panel-header {
+    border-radius: 20px; // Apply the same border radius to the header
+  }
+
+  &::ng-deep {
+    .mat-expansion-panel-body {
+      border-bottom-left-radius: 20px; // Apply radius to the bottom of the panel
+      border-bottom-right-radius: 20px;
+    }
+  }
+  }
+  
+  .custom-expansion-panel mat-expansion-panel-header {
+    background-color: rgba(222, 236, 255, 1); /* Slightly darker background for header */
+    border-radius: 8px 8px 0 0; /* Rounded corners for the header */
+  }
+  
+  .custom-expansion-panel .mat-expansion-panel-content {
+    padding: 16px; /* Padding inside the content area */
+    background-color: #ffffff; /* White background for content */
+    border-radius: 0 0 8px 8px; /* Rounded corners for the content */
+  }
+  
+  
+  mat-expansion-panel-header {
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  mat-panel-title {
+    display: flex;
+    align-items: center;
+  }
+  
+  mat-panel-title mat-icon {
+    margin-right: 10px;
+  }
+  
+  mat-panel-description a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  mat-panel-description a:hover {
+    text-decoration: underline;
+  }
+  
+  mat-panel-description mat-icon {
+    cursor: pointer;
+  }
+  
+  .link-container {
+    margin-bottom: 16px;
+}
+
+.noneditable-container {
+    position: relative;
+    display: inline-block;
+}
+
+.noneditablefield {
+    padding-right: 40px; /* Add sufficient padding to the right */
+    box-sizing: border-box; /* Ensure padding is included in the width calculation */
+}
+
+.icon {
+    position: absolute;
+    right: 10px; /* Adjust spacing from the right edge */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888; /* Adjust color as needed */
+    cursor: pointer;
+    z-index: 1; /* Ensure icon is above the text */
+}
+.place input::placeholder {
+  font-size: 15px; /* Adjust this value as needed */
+}
+.custom-placeholder textarea::placeholder {
+  font-size: 15px; /* Adjust this value to change the placeholder size */
+}
+

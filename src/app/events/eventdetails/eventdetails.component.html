@@ -1,0 +1,324 @@
+<div class="form-container overflowhidden m-t-24" >
+    <!--Profile Form starts here-->
+    <form>
+        <div class="row">
+        
+            <div class="col-lg-6">
+
+                <!--event display name-->
+                <div class="row m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Display Name<sup class="required-field">*</sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>{{ this.eventdisplayname || eventDetailsForm.value.eventdisplayname ||'N/A' }}</p>
+                    </div>
+                </div>
+
+                <!--event title-->
+                <div class="row m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16" >Title<sup class="required-field">*</sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>{{ this.eventtitle || eventDetailsForm.value.eventtitle ||'N/A' }}</p>
+                    </div>
+                </div>
+
+                <!--event description--> 
+                <div class="row m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Description<sup class="required-field">*</sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                       <p>{{this.eventdescription || eventDetailsForm.value.eventdescription  || 'N/A'}}</p>
+                    </div>
+                </div>
+
+                <!--event category-->
+                <div class="row m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Category<sup class="required-field">*</sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                        <!-- <p>{{getCategoryValueById(this.eventcategory) ||   eventDetailsForm.controls['eventcategory'].value}}</p> -->
+                        <p>{{categoryName || 'N/A'}}</p>
+                    </div>
+                </div>
+                
+
+                <!--Address-->
+                <div class="row m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Address<sup class="required-field">*</sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>{{this.eventaddress || eventDetailsForm.value.address || 'N/A'}}</p>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <!--event date-->
+                <div class="row m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Start Date<sup class="required-field">*</sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>{{this.eventstartdate||  eventDetailsForm.value.eventdate||  'N/A'}}</p>
+                    </div>
+                </div>
+
+                
+                <!--event end date-->
+                <div class="row m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">End Date<sup class="required-field">*</sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>{{ this.eventenddate || eventDetailsForm.value.enddate || 'N/A'}}</p>
+                    </div>
+                </div>
+
+                
+
+                <!--event contacts-->
+                <div class="row m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Contacts<sup class="required-field">*</sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>{{this.eventcontact || eventDetailsForm.value.eventcontacts|| 'N/A'}}</p>
+                    </div>
+                </div>
+              
+                <!--location-->
+                <div class="row m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Location<sup class="required-field">*</sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>{{this.eventlocation|| eventDetailsForm.value.Location || 'N/A'}}</p>
+                    </div>
+                </div>
+
+                <!--Virtual/steaming link-->
+                <div class="row m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Virtual/Steaming Link<sup class="required-field"></sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>{{this.eventlink|| eventDetailsForm.value.virtuallink || 'N/A'}}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Button -->
+        <div class="row justify-content-end m-b-64 m-t-32">
+            <div class="col-sm-8">
+                <button mat-raised-button class="m-r-12 m-b-12 blackbutton save-cancel-button" (click)="eventdetail(eventdetailsdialogbox)">Add or Update</button>
+            </div>
+        </div>
+    </form>
+     <!-- Event Details Form ends here -->
+</div>
+
+
+
+
+
+
+
+
+<!-- popup starts here -->
+<ng-container>
+    <ng-template #eventdetailsdialogbox>
+
+        <div mat-dialog-title class="text-center popupheader-black">Event Schedule Details</div>
+            <form action="" [formGroup]="eventDetailsForm" (ngSubmit)="submitForm()">
+                <mat-dialog-content>
+                        <div class="row p-64">
+                            <div class="col-lg-6">
+
+                                <!--Event Display Name-->
+                                <div class="row">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Display Name<sup class="required-field">*</sup></mat-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <input matInput id="name"  formControlName="eventdisplayname" id="Event Display Name" name="name" placeholder="Enter your Event Display Name">
+                                            <mat-error>Event Display is required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div> 
+
+                                <!--Event Details-->
+                                <div class="row">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Title<sup class="required-field">*</sup></mat-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <input matInput id="name"  formControlName="eventtitle" id="Event Title" name="name" placeholder="Enter your Event Title">
+                                            <mat-error>Event Title is required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div> 
+
+                                <!--Event Description-->
+                                <div class="row">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Description<sup class="required-field">*</sup></mat-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <textarea matInput placeholder="Enter your Event Description" id="Event Description" formControlName="eventdescription"></textarea>
+                                            <mat-error>Event Description is required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <!--Event Category-->
+                                <div class="row">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Category<sup class="required-field">*</sup></mat-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-select required placeholder="Event Category"  id="Event Category" formControlName="eventcategory" (selectionChange)="onCategorySelection($event)">
+                                                <mat-option *ngFor="let category of eventCategories" [value]="category">{{category}}</mat-option>
+                                            </mat-select>
+                                            <mat-error>Event Category is required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div> 
+
+                                 <!--Event contacts-->
+                                 <div class="row">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Contacts<sup class="required-field">*</sup></mat-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <input matInput id="Event Contacts" formControlName="eventcontacts"  placeholder="Event Contacts">
+                                            <mat-error>Event Contacts is required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-lg-6"> 
+
+                                <!--Event Date-->
+                                <div class="row">
+                                    <div class="col-sm-3 d-flex">
+                                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Start Date<sup class="required-field">*</sup></mat-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <input matInput [matDatepicker]="picker" placeholder="Event Date" formControlName="eventdate">
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                            <mat-error>Date is required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <a *ngIf="!showEndDate" (click)="addEndDate()" class="add-end-date-link">+ Add End Date</a>
+                                    </div>
+                                </div> 
+
+                                <!-- Display End Date -->
+                                <div *ngIf="showEndDate" class="row">
+                                    <div class="col-sm-3 d-flex">
+                                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">End Date<sup class="required-field">*</sup></mat-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <input matInput [matDatepicker]="endDatePicker" placeholder="End Date" formControlName="enddate">
+                                            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #endDatePicker></mat-datepicker>
+                                            <mat-error>End Date is required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                
+
+                                <!--Address-->
+                                <div class="row">
+                                <div class="col-sm-3 d-flex align-items-center">
+                                    <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Address<sup class="required-field">*</sup></mat-label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <input matInput id="Address" formControlName="address"  placeholder="Adddress">
+                                        <mat-error>Address is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                </div>  
+
+
+                            <!-- Location -->
+                                <div class="row">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                    <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Location<sup class="required-field">*</sup></mat-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                    <!-- Remove mat-form-field for radio buttons -->
+                                    <mat-radio-group matInput required placeholder="location" formControlName="Location">
+                                        <mat-radio-button value="Offline">Offline</mat-radio-button>
+                                        <mat-radio-button value="Online">Online</mat-radio-button>
+                                    </mat-radio-group>
+                                    <!-- <mat-error>Location is required</mat-error> -->
+                                    </div>
+                                </div><br>
+
+                                                                
+                                <!--Virtual Link-->
+                                <div class="row">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Virtual Link<sup class="required-field"></sup></mat-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <input matInput required placeholder="virtual Link" id="Virtual/Steaming Link"  formControlName="virtuallink">
+                                            <!-- <mat-error>Virtual/Steaming Link is required</mat-error> -->
+                                        </mat-form-field>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div> 
+                </mat-dialog-content>
+            <mat-dialog-actions align="center">
+                    <!--Button-->
+                    <!-- <div> -->
+                        <!-- <div class="col-sm-8"> -->
+                            <button mat-raised-button class="m-r-12 blackbutton save-cancel-button">Save Next</button>
+                            <button mat-stroked-button mat-dialog-close class="save-cancel-button">Cancel</button>
+                        <!-- </div> -->
+                    <!-- </div> -->
+            </mat-dialog-actions>
+        </form> 
+    </ng-template>
+  </ng-container>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

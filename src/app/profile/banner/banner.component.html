@@ -1,0 +1,67 @@
+<div>
+  <!-- Conditionally render either the carousel or the default image -->
+        <ng-container *ngIf="multipleImagesArr && multipleImagesArr.length > 0; else defaultImage">
+          <!-- Image carousel section -->
+            <label id="carouselLabel" style="height: 55vh; display: block;">
+                <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false" data-bs-ride="carousel" [attr.data-bs-interval]="multipleImagesArr.length > 0 ? '3000' : '0'" [@slideAnimation]="multipleImagesArr.length">
+                    <div class="carousel-inner">
+                      <div *ngFor="let each of multipleImagesArr; let i = index" class="carousel-item" [class.active]="i === 0">
+                        <img *ngIf="each?.image" [src]="each.image" class="d-block w-100 custom-image" alt="...">
+                      </div>
+                    </div>
+                </div>
+            </label>
+        </ng-container>
+
+  <!-- Default image -->
+      <ng-template #defaultImage>
+          <label>
+          <img src="/assets/images/svgs/banner-image-upload.svg" class="w-100 m-t-10 m-b-20" alt="Click to upload image">
+          </label>
+      </ng-template>
+      <div *ngIf="fileTypeError" class="f-w-600 mandatory">{{ errorMessage }}</div>
+</div>
+
+
+<!-- Display selected images and default image in a row -->
+<!-- <div>
+  <img *ngFor="let image of selectedImages" [src]="image" class="m-r-20 m-b-20" alt="Selected Image">
+  <img src="/assets/images/Frame 316.png" class="m-b-20" alt="Default Image">
+</div> -->
+
+
+<div class="d-flex">
+  <!-- Display selected images -->
+    <!-- <div *ngFor="let item of multipleImages; let i = index" class="m-r-20 m-b-20">
+      <img [src]="item.multipleImages" class="selected-image w-50" alt="Selected Image">
+        <button mat-icon-button class="removebutton m-t-24" (click)="removeImage(i, item.id)">
+            <mat-icon>clear</mat-icon>
+        </button>
+    </div> -->
+
+    <div *ngFor="let item of multipleImages; let i = index" class="m-r-20 m-b-20">
+      <!-- Clickable image -->
+      <label for="fileInput{{i}}">
+          <img [src]="item.multipleImages" class="selected-image w-50" alt="Selected Image" >
+      </label>
+      <!-- Input file type for uploading new images -->
+      <input type="file" accept="image/*" name="licenseDoc"  style="display: none;" id="fileInput{{i}}">
+      <!-- Remove button -->
+      <button mat-icon-button class="removebutton m-t-24" (click)="removeImage(i, item.id)">
+          <mat-icon>clear</mat-icon>
+      </button>
+  </div>
+
+  
+    <!-- Upload option -->
+      <div *ngIf="multipleImagesArr.length < 5">
+        <!-- Hidden file input -->
+          <input type="file" accept="image/" id="digitalsigninput" name="selectedUserProfile" (change)="onbannerselect($event)" style="display:none;">
+
+        <!-- Clickable image for upload -->
+          <label  for="digitalsigninput">
+              <img src="/assets/images/upload.png" class="default-image" alt="Default Image">
+          </label>
+      </div>
+    
+</div>

@@ -1,0 +1,372 @@
+@use '../grid/variables';
+@use '../grid/mixins';
+
+.pollingstation-dropdown{
+  width: 300px;
+  // height: 50px;
+}
+
+.mat-button-toggle-appearance-standard.mat-button-toggle-checked{
+    background-color: $black;
+    color: #fff;
+}
+
+.pollingdayvotedbutton{
+  background-color: $black !important;
+  color: $light-primary !important;
+  width: 110px !important;
+  height: 45px !important;
+}
+
+.pollingdayfilterdownloadbutton{
+  width: 120px !important;
+  height: 45px !important;
+}
+
+.partyfilterdropdown{
+  width: 150px;
+  height: 50px;
+}
+
+.countboxborder{
+  width: 348px;
+  height: 70px;
+  top: 204px;
+  left: 881px;
+  padding: 12px 24px 12px 24px;
+  border-radius: 10px;
+  background: #FFF;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+
+  
+
+  .countbox{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 25px;
+    letter-spacing: 0em;
+    text-align: center;
+  }
+
+  .countboxnumber{
+    color: rgba(240, 74, 61, 1) !important;
+  }
+}
+
+
+.countdowncountboxborder{
+  width: 400px;
+  height: 90px;
+  top: 204px;
+  left: 881px;
+  padding: 12px 24px 12px 24px;
+  border-radius: 10px;
+  background: #FFF;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+input[type=checkbox] {
+    display: none;
+  }
+  .label {
+    background-color: #fff;
+    display: inline-block;
+    padding: 3px;
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    gap: 4px;
+    display: grid;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;;
+  }
+  input[type=checkbox]:checked + .label {
+    background: #009933;
+    color: #fff;
+    /* background-image: url("checked.png"); */
+  }
+  .labelbg{
+    // background-color: #E7E7E8;
+    padding: 12px;
+    display: flex;
+  }
+  .icon-box{
+    padding-right: 24px;
+    margin-right: 20px; 
+  }
+  .pollingday-icon{
+    text-align: center;
+    margin-top: 5px;
+  }
+  .pollingday-subheading{
+    font-size: 20px;
+    line-height: 24.31px;
+    font-weight: 400;
+    text-decoration: underline;
+  }
+  .inout-button{
+    justify-content: grid;
+    display: contents;
+    line-height: 34px !important;
+
+    .inoutbutton-radius{
+      border-radius: 50px;
+      height: 40px;
+    }
+
+    .mat-button-toggle-appearance-standard .mat-button-toggle-label-content{
+      padding: 0 10rem;
+    }
+  }
+
+/* popup screen */
+.popup-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* width: 80%;
+  max-height: 80%; */
+  /* overflow: auto; */
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 1000;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.main-content1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  overflow: hidden;
+}
+
+.main-content2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  overflow: hidden;
+  background-color: rgba(240, 74, 61, 0.1);
+}
+
+.container-fluid {
+  width: 100%;
+}
+
+.load{
+  height:100px;
+  width:100px;
+  margin-top: 20px;
+}
+
+.data-load {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.container1 {
+  width: 800px; /* Adjust the width as needed */
+  margin: 0 auto;
+  overflow-y: auto;
+  height: fit-content;
+}
+
+.checkbox-container {
+  max-height: 400px;
+  overflow-y: auto; /* Add a scroll to the container */
+}
+
+.checkbox-rows {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.label {
+  background-color: #fff;
+  // display: inline-block;
+  padding: 3px;
+  width: 80px;
+  height: 90px;
+  border-radius: 10px;
+  gap: 4px;
+  // display: grid;
+  text-align: center;
+  color: #0b0c0c;
+  font-size: 12px;
+}
+
+input[type=checkbox]:checked + .label {
+  background: #009933;
+  color: #fff;
+}
+
+.checked-checkbox {
+  background-color: rgba(0, 204, 102, 0.2);
+}
+
+.voterscontent{
+  // background: rgba(255, 255, 255, 0.1) url('assets/images/ivin-transparent.svg'); 
+  background-size: cover; 
+  opacity: 0.9; 
+  background-position: center center;
+  background-repeat: no-repeat; 
+  background-size: 100% auto; 
+  background-color: transparent;
+}
+
+.voterscontentinsidebg{
+  background-color: rgba(240, 74, 61, 0.1) !important;
+}
+
+.footer{
+  position: sticky;
+  bottom:0;
+  width:100%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 50px;
+  background-color: #fff;
+
+  .copyright{
+    text-align: center;
+    color:#fff;
+  }
+
+  .pill {
+    height: 10px;
+    background-color:  rgba(255, 255, 255, 0.8);
+    width: 20px;
+    border-radius: 10px; 
+    color: #fff;
+  }
+
+  .partyname{
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 12px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    ;
+  }
+
+  .ysrcppillbgcolor{
+    background-color: $ysrcp;
+    stroke-width: 5px;
+    stroke: $ysrcp;
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25));
+  }
+
+  .tdppillbgcolor{
+    background-color: $tdp;
+    stroke-width: 5px;
+    stroke: $tdp;
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25));
+  }
+
+  .janasenappillbgcolor{
+    background-color: $janasena;
+    stroke-width: 5px;
+    stroke: $janasena;
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25));
+  }
+
+  .bjppillbgcolor{
+    background-color: $bjp;
+    stroke-width: 5px;
+    stroke: $bjp;
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25));
+  }
+
+  .neutralpillbgcolor{
+    background-color: $neutral;
+    stroke-width: 5px;
+    stroke: $neutral;
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25));
+  }
+
+  .otherspillbgcolor{
+    background-color: $others;
+    stroke-width: 5px;
+    stroke: $others;
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25));
+  }
+  
+  .nonlocaladdressbgcolor{
+  color: $nonlocaladdress;
+    stroke-width: 5px;
+    stroke: $others;
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25));
+  }
+}
+
+  @each $breakpoint, $infix in variables.$breakpoint-infixs {
+    @if ($breakpoint== 'xsmall') {
+
+    }
+  }
+
+.dialog-popup{
+  background-color: $dialog-popup;
+}
+
+.error-message {
+  font-size: 10px;
+  margin-left: 18px;
+  margin-top: 8px;
+  color: red;
+}
+
+.button-correction {
+    margin-left: 50%;
+}
+
+.partypill{
+  height: 10px;
+  width: 20px;
+  border-radius: 10px;
+}
+
+.color-circle {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 5px; 
+  }
+
+.checkbox-icons {
+  width: 30px;
+}
+
+.party-dropdown{
+  width: 200px;
+  height: 48px;
+ }
+
+.checkbox-icons-popup {
+  width: 30px;
+}
+
+.toggle-button{
+  width: 65%;
+}
+
+.toggle-button-boxshadow{
+  border-radius: 50px;
+  background: #FFF;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25);
+}
+
+.markasvoted{
+  // background-color: $black !important;
+  // color: $light-primary !important;
+  width: 175px !important;
+  height: 45px !important;
+}

@@ -1,0 +1,301 @@
+
+<!-- Spinner component: Automatically starts loading -->
+<app-loading-spinner [autoStartLoading]="true" [loadingDuration]="3000"></app-loading-spinner>
+
+<!-- Other content -->
+ <div class="container">
+  <mat-toolbar class="header w-100 p-t-40 p-b-36">
+    <div class="d-flex align-items-center justify-content-between w-100">
+      <!-- Left side content -->
+      <div class="d-flex align-items-center">
+        <!-- Menu icon is hidden by removing the button -->
+        <label for="profilePicture">
+          <img *ngIf="aboutpic" class="profileimage avatar-image" [src]="aboutpic">
+          <img *ngIf="!aboutpic" mat-card-image alt="Upload Icon">
+        </label>
+        <div class="d-flex flex-column m-l-10">
+          <div class="user-name">
+            {{ aboutfirstname || 'N/A' }} {{ aboutlastname || 'N/A' }}
+          </div>
+          <div class="last-updated">
+            Last Updated on: {{ createdon | date: 'dd-MMM-yyyy | hh:mm a' : 'UTC' || 'N/A' }}
+
+          </div>
+        </div>
+      </div>
+  
+      <!-- Right side icons (heart and share) aligned to the right -->
+      <div class="d-flex justify-content-end align-items-center">
+        <button mat-icon-button>
+          <mat-icon>favorite</mat-icon>
+        </button>
+  
+        <!-- Share button with mat-menu for options -->
+        <button mat-icon-button [matMenuTriggerFor]="shareMenu">
+          <mat-icon>share</mat-icon>
+        </button>
+  
+        <!-- Menu for share options -->
+        <mat-menu #shareMenu="matMenu" class="share-menu">
+          <div class="share-box">
+            <input type="text" [value]="shareUrl" id="share-url" readonly class="share-url-box" />
+            <!-- Copy icon instead of button -->
+            <button mat-icon-button (click)="copyToClipboard()">
+              <mat-icon style="color: black;">content_copy</mat-icon>
+            </button>
+          </div>
+        </mat-menu>
+      </div>
+    </div>
+  </mat-toolbar>
+
+  <div class="m-t-20 p-l-22 m-b-20">
+    <!-- <app-truncate-text [fullText]="longDescription" [wordLimit]="50"></app-truncate-text> -->
+
+    <p>
+      {{ isExpanded ? longDescription : (longDescription | slice: 0:limit) }}
+      <a href="javascript:void(0)" *ngIf="longDescription.length > limit" (click)="toggleView()">
+        {{ isExpanded ? 'View Less' : 'View More' }}
+      </a>
+    </p>
+    
+    <!-- Icon container for view, like, and dislike icons -->
+    <div class="icon-section d-flex m-t-20">
+      <div class="d-flex align-items-center m-r-20">
+        <span class="material-icons m-r-4">visibility</span>
+        <span class="icon-number">720</span>
+      </div>
+      <div class="d-flex align-items-center m-r-20">
+        <!-- <span class="material-icons m-r-4">thumb_up</span> -->
+        <!-- <span class="icon-number">400</span> -->
+      </div>
+      <div class="d-flex align-items-center m-r-20">
+        <!-- <span class="material-icons m-r-4">thumb_down</span> -->
+        <!-- <span class="icon-number">28</span> -->
+      </div>
+    </div>
+  </div>
+ </div>
+
+<div class="content-wrapper m-b-40">
+  <div class="content-center">
+    <div class="header-image">
+      <img [src]="bannerImageUrl || 'assets/images/profile/banner.jpg'" alt="Header Image" class="bannerimage">
+
+      <input type="file" accept="image/*" id="bannerpicture" name="selectedUserProfile" 
+             hidden>
+    </div>
+    <div>
+      <div class="d-flex align-items-center">
+        <h2 class="text-left m-t-20 m-b-20">{{quickinsightname}}</h2>
+      </div>
+      <!-- <app-truncate-text [fullText]="probitelongDescription" [wordLimit]="50"></app-truncate-text> -->
+      <p class="text-left">{{quickinsightdescription}}</p>
+      <!-- <app-publicview-charts></app-publicview-charts> -->
+    </div>
+  </div>
+</div>
+
+   <!-- Your loading spinner -->
+   <div *ngIf="publicpagespinner" class="loading-spinner overlay">
+    <img src="assets/images/ivin-loading.gif" alt="Loading">
+  </div>
+
+<div class="row d-flex justify-content-space charts-bg">
+  
+    <div class="col-md-6">
+      <div class="card">
+        <div class="row justify-content-center">
+          <!-- <span class="tabletitle m-t-20 f-s-24">Election Summary</span> -->
+         <app-pagemaintitle  class="m-t-6 " heading="Election Summary"></app-pagemaintitle>
+
+        </div>
+        <div class="row justify-content-center">
+          <span class="m-t-6">
+            {{state}}
+            <ng-container *ngIf="state && election"> &#8594; </ng-container>
+            {{election}}
+            <ng-container *ngIf="election && year"> &#8594; </ng-container>
+            {{year}}
+            <ng-container *ngIf="year && constituency"> &#8594; </ng-container>
+            {{constituency}}
+          </span>
+        </div>
+  
+        <div class="row justify-content-center m-t-54" *ngIf="!tabledata || tabledata.length === 0">
+          <p>No data available.</p>
+        </div>
+  
+        <div id="summarychart" style="width: 100%; height: 200px;"></div>
+        
+        <table class="m-b-10 m-l-32" *ngIf="tabledata && tabledata.length > 0">
+          <tr>
+            <td>Electors:</td>
+            <td>{{ tabledata[0].SumTotalElectors | number }}</td>
+          </tr>
+          <tr>
+            <td>Votes Polled:</td>
+            <td>{{ tabledata[0].SumTotalPolled | number }}</td>
+          </tr>
+          <tr>
+            <td>Turnout:</td>
+            <td>{{ tabledata[0].PercentagePolled | number:'1.2-2' }}%</td>
+          </tr>
+          <tr>
+            <td>Total Constituencies:</td>
+            <td>{{ tabledata[0].ACCount }}</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <span *ngFor="let result of tabledata[0].ACCategoryResult; let i = index">
+                {{ result.caste }} : {{ result.count }}<span *ngIf="i < tabledata[0].ACCategoryResult.length - 1"> , </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+  
+      </div>
+    </div>
+
+
+        <!-- This is pie chart for vote share -->
+        <div class="col-md-6">
+          <div class="card">
+            <div class="row justify-content-center">
+              <app-pagemaintitle  class="m-t-6 " heading="Party Wise Vote Share"></app-pagemaintitle>
+             </div>
+            <div id="partywisepiechart"></div>
+          </div>
+        </div>
+
+
+  <!-- <div class="col-md-12">
+    <span class="view-more-text float-right" (click)="toggleMoreCharts()">View More</span>
+  </div> -->
+
+
+<!-- <div *ngIf="showMoreCharts">  -->
+
+  
+  
+    <!-- This is Bar chart -->
+    <div class="col-md-6" *ngIf="!constituency">
+      <div class="card">
+        <div class="row justify-content-center">
+          <app-pagemaintitle  class="m-t-6 " heading="Party Wise Seats Won"></app-pagemaintitle>
+         </div>
+        <div id="Barchart"></div>
+      </div>
+    </div>
+  
+  
+    <!-- This is the chart for Cate wise piechart -->
+    <div class="col-md-6" *ngIf="!constituency">
+      <div class="card">
+        <div class="row justify-content-center">
+          <app-pagemaintitle  class="m-t-6 " heading="Seat Representation by Reservation"></app-pagemaintitle>
+         </div>
+        <div id="castewisepiechart"></div>
+      </div>
+    </div>
+
+    
+     <!-- This is Parliament chart -->
+     <div class="col-md-6" *ngIf="!constituency">
+      <div class="card">
+        <div class="row justify-content-center">
+          <app-pagemaintitle  class="m-t-6 " heading="Party Wise Seats Won"></app-pagemaintitle>
+         </div>
+        <div id="container"></div>
+      </div>
+    </div>
+  
+  
+   <!--This is Tree Chart  -->
+    <div class="col-md-6" *ngIf="!constituency">
+      
+      <div class="card">  
+        <div class="row justify-content-center">
+          <app-pagemaintitle  class="m-t-6 " heading="State Results Summary"></app-pagemaintitle>
+         </div>    
+        <div id="treechart">
+        
+        </div>
+        
+      </div>
+    </div>
+  
+  
+    <!-- This is Map chart -->
+    <div class="col-md-6" *ngIf="shouldShowMapCard">
+      <div class="card">
+        <!-- <div class="row justify-content-center tabletitle m-t-20 f-s-20">Party Wise Seats Won</div> -->
+        <div class="row justify-content-center">
+
+         <app-pagemaintitle  class="m-t-6 " heading="Party Wise Seats Won"></app-pagemaintitle>
+         
+
+        </div>
+
+        <div class="row justify-content-center">
+          <span class="m-t-6">
+            {{state}}
+            <ng-container *ngIf="state && election"> &#8594; </ng-container>
+            {{election}}
+            <ng-container *ngIf="election && year"> &#8594; </ng-container>
+            {{year}}
+            <ng-container *ngIf="year && constituency"> &#8594; </ng-container>
+            {{constituency}}
+          </span>
+        </div>
+        <div class="d-flex justify-content-space">
+          <div #mapContainer class="m-l-48"></div>
+          <div #infoPanel id="infoPanel" class="info-panel m-r-40"></div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-md-6" *ngIf="!constituency">
+      <div class="card">
+        <div class="row justify-content-center">
+          <app-pagemaintitle  class="m-t-6 " heading="Party Wise Seats Won"></app-pagemaintitle>
+         </div>
+        <div id="bubblechart" style="width: 100%; height: 400px;"></div>
+      </div>
+    </div>
+
+    
+  
+    <!-- This is for details of the participation -->
+    <!-- <app-participation-details></app-participation-details> -->
+  
+  <!-- </div> -->
+</div>    
+
+ <!--pagination  -->
+  <div class="row">
+    <div class="col-md-12">
+      <app-pagination></app-pagination>
+    </div>
+  </div>
+
+  <div>
+    <div class="d-flex m-t-30 p-l-64 p-r-64">
+      <p class="font-style-italic">
+        <span class="f-s-16 f-w-600">Disclaimer:</span>The data shown and visualizations presented on this platform are created by the user. The company holds no legal obligation for the content. For reporting misuse or inappropriate data, please contact support at <a href="mailto:support@ivinstrategies.com">support&#64;ivinstrategies.com</a>.</p>
+    </div>
+
+    <p class="m-t-30 text-center">Pro-bite by Idovin Strategies Pvt. Ltd.</p>
+  </div>
+  
+  <!-- Map popup -->
+  <div class="popup" *ngIf="showPopup">
+    <div class="popup-content">
+      <div class="row justify-content-center tabletitle m-t-20">{{selectedState}} Districts Map</div>
+        <button (click)="closePopup()" class="float-right">
+          <span class="material-icons">close</span>
+        </button>
+      <svg #districtMap></svg>
+    </div>
+    <div class="popup-overlay" (click)="closePopup()"></div>
+  </div>

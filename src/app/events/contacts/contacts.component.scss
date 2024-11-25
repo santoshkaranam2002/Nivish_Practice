@@ -1,0 +1,14 @@
+.example-container {
+    height: 600px;
+    width: 90%;
+    max-width: 100%;
+    overflow: auto;
+  }
+  
+  .mdc-data-table__cell, html .mdc-data-table__header-cell{
+  padding: 0 30px;
+}
+
+tr.example-element-row {
+  height: 0;
+}

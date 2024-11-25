@@ -1,0 +1,30 @@
+html {
+  @import "./buttons";
+  @import "./drawer";
+  @import "./form";
+  @import "./card";
+  @import "./typography";
+  @import "./borderColor";
+  @import "./table";
+  @import "./list";
+  @import "./checkbox";
+}
+
+.topbar {
+  background-color: $toolbar;
+}
+
+.mdc-text-field__input{
+  font-size: 15px !important;
+  font-family: 'Inter', sans-serif;
+}
+
+.mat-mdc-tab-body-content{
+  overflow-x: hidden !important;
+}
+
+
+.mdc-tab{
+  font-size: 17px !important;
+  font-weight: bold;
+}

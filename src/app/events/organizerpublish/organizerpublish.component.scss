@@ -1,0 +1,118 @@
+.add-end-date-link {
+    color: rgb(9, 9, 10);
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: large;
+    font-weight: bold;
+}
+
+  
+.slide .carousel-inner {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.slide .carousel-item {
+  transform: translateX(-100%);
+}
+
+.slide .carousel-item.active {
+  transform: translateX(0);
+}
+
+.image{
+    width: 50px;
+}
+
+.name{
+    text-decoration: underline;
+}
+
+.scrollable-container {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.scrollable-container::-webkit-scrollbar {
+  display: none;
+}
+
+.voteimage{
+    width: 950px;
+}
+
+.text{
+    // width:600px;
+    font-size: 15px;
+}
+
+.countboxborderbig{
+    width: 300px;
+    height: 300px;
+    background: rgba(231, 231, 232, 1);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+}
+  
+.countboxbordersmall{
+  width: 300px;
+  height: 80px;
+  background: rgba(240, 74, 61, 0.2);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.popupcountboxborder{
+  width: 850px;
+  height: 70px;
+  background: rgba(220, 255, 237, 1);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+  .bordered-div {
+    border: 2px solid #000;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+
+.box-shadow{
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25); 
+  border-radius: 10px;
+  width: 90%;
+}
+
+.imageSize{
+  width: 150px;
+  height: 150px;
+  margin: 50px;
+}
+
+.no-bullets {
+  // list-style-type: none; 
+  padding-left: 30px; 
+}
+
+.address-text {
+  color: rgba(60, 162, 218, 1);
+}
+
+.disabled-icon {
+  opacity: 0.5; /* Adjust the opacity to your liking */
+  /* You can also apply additional styling to make it visually distinct */
+}
+
+.tag-wrapper {
+  display: inline-block;
+  margin-bottom: 5px; /* Adjust as needed */
+}
+
+.tag {
+  display: inline-block;
+  padding: 5px 20px;
+  border: 1px solid #ccc; /* Border properties */
+  border-radius: 4px; /* Optional: Round the corners */
+  background-color: rgba(231, 231, 232, 1); /* Background color */
+  margin-right: 5px;
+}

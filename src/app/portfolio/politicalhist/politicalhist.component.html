@@ -1,0 +1,53 @@
+<!-- out side get -->
+<div class="form-container overflowhidden m-t-24 p-l-4">
+
+    <form action="" (ngSubmit)="politicalsubmit()" [formGroup]="myForm">
+        <div  class="row d-flex m-d-8">
+            <div class="col-sm-3 d-flex align-items-center">
+                <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Political History</mat-label> -->
+                <app-label text="Political History" for="Political History" [required]="true"></app-label> 
+            </div>
+            <div class="col-md-8 PoliticalHistory">
+                    <mat-form-field appearance="outline" class="w-100 m-t-16">
+                        <mat-select required formControlName="partynameupdate" placeholder="Select Your Party Name">
+                            <mat-option *ngFor="let party of partynames" [value]="party.PID">
+                            {{ party.PartyName }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-select required formControlName="officeheldupdate" placeholder="Select Your Role">
+                            <mat-option value="MLA">MLA</mat-option>
+                            <mat-option value="MP">MP</mat-option>
+                            <mat-option value="MLC">MLC</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field appearance="outline" class="w-100 place">
+                            <input matInput formControlName="fromdateupdate" [matDatepicker]="fromPicker" placeholder=" Duration From">
+                            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #fromPicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field appearance="outline" class="w-100 place">
+                            <input matInput formControlName="todateupdate" [matDatepicker]="toPicker" placeholder=" Duration To">
+                            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #toPicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+                <!-- <div class="d-flex align-items-center m-l-8">
+                    <mat-icon (click)="addCardupdate()">add</mat-icon>
+                </div> -->
+        </div>
+        <!--Button-->
+        <div align="center" class="m-t-20 m-b-10">
+            <button mat-raised-button class="blackbutton">Save</button>
+            <button mat-button mat-dialog-close class="m-l-20 cancel-border">Cancel</button>
+        </div>
+    </form>
+
+</div>    

@@ -1,0 +1,53 @@
+:host ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix{
+    display: flex;
+}
+
+:host ::ng-deep .mat-stepper-horizontal-line {
+    margin: 0 -40px !important;
+    min-width: 80px !important;
+}
+
+.otp-input input{
+    margin: 0 30px;
+}
+
+:host ::ng-deep mat-step-header .mat-step-label {
+    overflow: visible;
+}
+
+:host ::ng-deep mat-step-header .mat-step-icon-not-touched span,
+:host ::ng-deep mat-step-header .mat-step-icon span,
+:host ::ng-deep mat-step-header .mat-step-icon-not-touched .mat-icon,
+:host ::ng-deep mat-step-header .mat-step-icon .mat-icon {
+  display: none;
+}
+
+:host ::ng-deep mat-step-header:nth-of-type(1) .mat-step-icon-not-touched:after,
+:host ::ng-deep mat-step-header:nth-of-type(1) .mat-step-icon:after {
+  content: '';
+}
+
+:host ::ng-deep .active-step-1 mat-step-header:nth-of-type(1) .mat-step-icon-not-touched::after,
+:host ::ng-deep .active-step-1 mat-step-header:nth-of-type(1) .mat-step-icon::after {
+  content: 'add_circle' !important; /* name of the material icon */
+  font-family: 'Material Icons' !important;
+  font-feature-settings: 'liga' 1;
+}
+
+:host ::ng-deep .mat-step-header:hover:not([aria-disabled]){
+    background-color: none !important;
+}
+
+:host ::ng-deep .mat-step-header:hover{
+    background-color: transparent !important;
+}
+:host ::ng-deep .mat-step-header.cdk-program-focused {
+      background-color: transparent;
+  }
+:host ::ng-deep .mat-step-header.cdk-mouse-focused{
+    background-color: transparent;
+}
+:host ::ng-deep .mat-step-header.cdk-focused{
+    background-color: transparent;
+}
+

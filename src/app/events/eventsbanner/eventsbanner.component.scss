@@ -1,0 +1,38 @@
+// .carousel-item {
+//     height:80px;
+//     flex: 0 0 auto;
+//     width: 100%;
+//   }
+  
+  
+.slide .carousel-inner {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.slide .carousel-item {
+  transform: translateX(-100%);
+}
+
+.slide .carousel-item.active {
+  transform: translateX(0);
+}
+
+// .thamnailimage{
+//   width: 10%;
+// }
+
+.selected-image{
+  border: 1px solid rgba(218, 218, 218, 1); 
+  padding: 5px; 
+  border-radius: 10px; 
+  box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important; 
+  height: 65%;
+}
+
+.removebutton{
+  top: -56%;
+  left: -8%;
+  background: white;
+  border: 1px solid rgba(218, 218, 218, 1);
+}

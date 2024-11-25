@@ -1,0 +1,229 @@
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-8 m-b-20">
+            <div class="d-flex">
+              <span class="material-symbols-outlined m-r-4">lightbulb</span>
+                <span class="f-s-18 textdecoration-underline pointercursor" routerLink="/quickinsight">Quick Insights</span> 
+                <span class="f-s-18"> / </span>
+                <span class="f-s-18 textdecoration-underline">Search and create</span> 
+            </div>
+        </div>
+    </div>
+    <form (ngSubmit)="post()">
+    <div class="col-md-12 d-flex justify-content-end">
+        <button mat-raised-button class="blackbutton" type="submit">Save</button>
+    </div>
+  </form>
+
+    
+    <!-- Name you Quick Insights -->
+    <div class="row  m-t-40">
+      <div class="col-lg-6">
+       
+          <div class="row m-b-24">
+            <div class="col-sm-3 d-flex align-items-center">
+                <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Quick Insight</mat-label>
+            </div>
+            <div class="col-sm-8">
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput placeholder="Please provide a name for your Quick Insights" [(ngModel)]="quickInsightsName" name="quickInsightsName" #quickInsightsNameRef="ngModel" required>
+                <!-- <mat-hint>Please provide a name for your Quick Insights.</mat-hint> -->
+                <mat-error *ngIf="(isAccordionOpened || quickInsightsNameRef.touched) && quickInsightsNameRef.invalid">
+                  Please provide a name for your Quick Insights.
+                </mat-error>
+            </mat-form-field>
+            </div>
+          </div> 
+    
+          <div class="row">
+            <div class="col-sm-3 d-flex align-items-center">
+                <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Descripation/Note</mat-label>
+            </div>
+            <div class="col-sm-8">
+                <mat-form-field appearance="outline" class="w-100">
+                    <textarea matInput id="candidateBrief" [formControl]="descripationformcontrol" placeholder="Type your brief"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+   <!-- Accordion start here -->
+  <mat-accordion class="example-headers-align" multi (opened)="isAccordionOpened = true">
+    <mat-expansion-panel [disabled]="!quickInsightsName">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="page-title">
+          Search data
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="row m-t-24">
+        <!--Constituency-->
+        <div class="col-md-3">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-select [formControl]="constituencyformControl" required placeholder="Constituency" (ngModelChange)="Constituency($event)">
+                  <mat-option>-- None --</mat-option>
+                  <mat-option value="Anakapalli">Anakapalli</mat-option>
+                  <mat-option value="Madugula">Madugula</mat-option>
+                </mat-select>
+                <mat-error *ngIf="constituencyformControl.hasError('required')">Please choose an Constituency</mat-error>
+            </mat-form-field>
+        </div>
+
+        <!--Mandal-->
+        <div class="col-md-3">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-select [formControl]="mandalformControl" required placeholder="Mandal" (ngModelChange)="Mandal($event)">
+                  <mat-option>-- None --</mat-option>
+                  <mat-option [value]="mandal" *ngFor="let mandal of mandalnames">{{ mandal }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="mandalformControl.hasError('required')">Please choose an Mandal</mat-error>
+            </mat-form-field>
+        </div>
+
+        <!--Polling Station-->
+        <div class="col-md-3">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-select [formControl]="pollingstationformControl" required placeholder="Polling Station" (ngModelChange)="Section($event)">
+                  <mat-option>-- None --</mat-option>
+                  <mat-option [value]="polling" *ngFor="let polling of pollingstationnames">{{ polling }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="pollingstationformControl.hasError('required')">Please choose an PollingStation</mat-error>
+            </mat-form-field>
+        </div>
+
+        <!--Section Number and Name-->
+        <div class="col-md-3">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-select [formControl]="sectionnumberandnameformControl" placeholder="Section Number and Name">
+                  <mat-option>-- None --</mat-option>
+                  <mat-option [value]="section" *ngFor="let section of sectionnoandnames">{{ section }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <!--Gender-->
+        <div class="col-md-3 m-t-12">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-select [formControl]="genderformControl" placeholder="Gender">
+                    <mat-option>-- None --</mat-option>
+                    <mat-option value="Male">Male</mat-option>
+                    <mat-option value="Female">Female</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <!--Name-->
+        <div class="col-md-3 m-t-12">
+            <mat-form-field appearance="outline" class="w-100">
+                <input matInput type="text" [formControl]="nameformControl" placeholder="Name">
+            </mat-form-field>
+        </div>
+
+        <!--Last Name-->
+        <div class="col-md-3 m-t-12">
+            <mat-form-field appearance="outline" class="w-100">
+                <input matInput type="text" [formControl]="lastnameformControl" placeholder="Last Name">
+            </mat-form-field>
+        </div>
+
+        <!--House Number-->
+        <div class="col-md-3 m-t-12">
+            <mat-form-field appearance="outline" class="w-100">
+                <input matInput [formControl]="housenumberformControl" placeholder="House Number">
+            </mat-form-field>
+        </div>
+
+        <!--Voter ID-->
+        <div class="col-md-3 m-t-12">
+            <mat-form-field appearance="outline" class="w-100 byclass">
+                <input matInput [formControl]="lastnamelikeformControl" placeholder="Last name like">
+            </mat-form-field>
+        </div>
+    </div>   
+    <div class="text-center">
+        <button mat-raised-button class="blackbutton rounded-pill m-r-20" (click)="OnSearch()">SEARCH</button>
+        <button mat-raised-button class="blackbutton rounded-pill" (click)="OnReset()">RESET</button>
+    </div>
+</mat-expansion-panel>
+</mat-accordion>
+
+    <!-- Filter Icon -->
+    <div class="col-md-12 m-t-10 m-b-10 d-flex justify-content-end">
+        <button mat-fab class="blackbutton" (click)="FilterPopUp()" [disabled]="isFilterButtonDisabled">
+            <mat-icon>filter_alt</mat-icon>
+        </button>
+    </div>
+</div>
+
+
+
+
+<!--Table Starts here-->
+<div class="container">
+    <div class="row">
+        <section class="examplecontainer mat-elevation-z8" id="scrollbar">
+          <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" matSort>
+                <ng-container  class="d-flex flex-row justify-content-center">
+                    <div matColumnDef="Voter_SerialNumber" class="pointercursor">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings"> S# </th>
+                      <td class="p-22" mat-cell *matCellDef="let element"> {{element.VoterSerialNumber}}
+                      </td>
+                    </div>
+              
+                    <div matColumnDef="VoterId" class="d-flex pointercursor">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings"> Voter ID </th>
+                      <td mat-cell *matCellDef="let element" class="m-t-10 "> {{element. VoterId}} </td>
+                    </div>
+              
+                    <div matColumnDef="Name" class="pointercursor">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings"> Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.Name}}</td>
+                    </div>
+              
+                    <div matColumnDef="Guardian">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings"> Dependent </th>
+                      <td mat-cell *matCellDef="let element"> {{element. Guardian}} </td>
+                    </div>
+              
+                    <div matColumnDef="Home" class="pointercursor">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings"> House </th>
+                      <td mat-cell *matCellDef="let element"> {{element. Home}} </td>
+                    </div>
+              
+                    <div matColumnDef="Age">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Age</th>
+                      <td mat-cell *matCellDef="let element"> {{element. Age}} </td>
+                    </div>
+              
+                    <div matColumnDef="Gender" class="pointercursor">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings"> Gender </th>
+                      <td mat-cell *matCellDef="let element"> {{element.Gender}} </td>
+                    </div>
+              
+                    <!-- <div matColumnDef="Action" class="pointercursor">
+                      <th mat-header-cell *matHeaderCellDef class="table-headings"> Action </th>
+                      <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button (click)="$event.stopPropagation();" aria-label="Example icon-button with a menu">
+                          <mat-icon>more_vert</mat-icon>
+                        </button>
+                      </td>
+                    </div> -->
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayeColumns; sticky: true" class="table-row"></tr>
+                <tr mat-row *matRowDef="let element; columns: displayeColumns;"></tr>
+          </table>
+          <div *ngIf="isLoadingsearch">
+            <div class="justify-content-center text-center">
+              <div>
+                <img src="/assets/images/ivin-loading.gif" alt="Loading Image" width="10%">
+                <p class="data-load">Data is loading. please wait!</p>
+              </div>
+            </div>
+          </div>
+          <div class="sticky-paginator">
+            <mat-paginator [pageSizeOptions]="[10, 50, 100]" showFirstLastButtons></mat-paginator>
+          </div>
+        </section>
+      </div>
+
+</div>

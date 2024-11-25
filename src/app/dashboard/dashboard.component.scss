@@ -1,0 +1,7 @@
+.clickable-wrapper {
+    pointer-events: none; /* Prevents the div from blocking clicks */
+  }
+  
+  .clickable-wrapper a {
+    pointer-events: auto; /* Allows the link to be clickable */
+  }

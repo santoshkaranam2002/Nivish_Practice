@@ -1,0 +1,404 @@
+<div class="form-container overflowhidden m-t-24" >
+    <div class="row p-64">
+        <div class="col-lg-12">
+
+            <!-- Guests -->
+            <div class="col-md-12 d-flex m-b-24">
+                <div class="col-sm-3 d-flex align-items-center">
+                <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Guests</mat-label>
+                </div>
+                <div class="col-sm-8 m-r-32">
+                <div class="guest-images-container">
+                    <div *ngFor="let guest of guestimages" class="guest-image">
+                    <img src="{{ guest.Gustsimage }}" alt="{{ guest.Gustsimage_name }}" class="imagesizes" />
+                    <p class="text-center">{{ guest.Gustsimage_name }}</p>
+                    </div>
+                </div>
+                <p *ngIf="!guestimages || guestimages.length === 0">N/A</p>
+                </div>
+            </div>
+
+
+            <!-- Event Speaker -->
+            <div class="col-md-12 d-flex m-b-24">
+                <div class="col-sm-3 d-flex align-items-center">
+                    <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Event Speaker</mat-label>
+                </div>
+                <div class="col-sm-8 m-r-32">
+                    <div class="d-flex">
+                        <div *ngFor="let speaker of speakerimages" class="m-l-10">
+                            <img src="{{ speaker.EventSpeacker_image }}" alt="{{ speaker.EventSpeacker_name }}" class="imagesizes" />
+                            <p class="text-center">{{ speaker.EventSpeacker_name }}</p>
+                        </div>
+                    </div>
+                    <p *ngIf="!speakerimages || speakerimages.length === 0">N/A</p>
+                </div>
+            </div>
+
+
+
+            <!-- Event Floor plan -->
+            <div class="col-md-12 d-flex m-b-24">
+                <div class="col-sm-3 d-flex align-items-center">
+                    <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Event Floor plan</mat-label>
+                </div>
+                <div class="col-sm-8 m-r-32">
+                    <div class="d-flex">
+                        <div *ngFor="let floorPlan of eventFloorPlanImages" class="m-l-10">
+                            <img src="{{ floorPlan.EventFloorPlan_images }}" alt="{{ floorPlan.name }}" class="imagesizes" />
+                            <!-- <p class="text-center">{{ floorPlan.name }}</p> -->
+                        </div>
+                    </div>
+                    <p *ngIf="!eventFloorPlanImages || eventFloorPlanImages.length === 0">N/A</p>
+                </div>
+            </div>
+
+
+            <!--Event Host-->
+            <div class="col-md-12 d-flex m-b-24">
+                <div class="col-sm-3 d-flex align-items-center">
+                <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Event Host</mat-label>
+                </div>
+                <div class="col-md-8 m-r-32">
+                    <p>{{ this.eventhost || 'N/A'}}</p>
+                </div>
+            </div>
+
+            <!--Expected Members-->
+            <div class="col-md-12 d-flex m-b-24">
+                <div class="col-sm-3 d-flex align-items-center">
+                <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Expected Members</mat-label>
+                </div>
+                <div class="col-md-8 m-r-32">
+                    <p>{{ this.expectedmembers || 'N/A'}}</p>
+                </div>
+            </div>
+
+            <!--Tags-->
+            <div class="col-md-12 d-flex m-b-24">
+                <div class="col-sm-3 d-flex align-items-center">
+                <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Tags</mat-label>
+                </div>
+                <div class="col-md-8 m-r-32">
+                    <p>{{ this.tags ||  'N/A'}}</p>
+                </div>
+            </div>
+
+            <!--Instruction-->
+            <div class="col-md-12 d-flex m-b-24">
+                <div class="col-sm-3 d-flex align-items-center">
+                <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Instruction</mat-label>
+                </div>
+                <div class="col-md-8 m-r-32">
+                    <p>{{ this.instructions ||  'N/A'}}</p>
+                </div>
+            </div>
+
+
+            <!-- Organizer Logo -->
+            <div class="col-md-12 d-flex m-b-24">
+                <div class="col-sm-3 d-flex align-items-center">
+                    <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Event Organizer Logo</mat-label>
+                </div>
+                <div class="col-sm-8 m-r-32">
+                    <div class="d-flex">
+                        <div *ngFor="let organizer of organizerid" class="m-l-10">
+                            <img src="{{ organizer.EventOrganizer_Logo }}" alt="{{ organizer.Title }}" class="imagesizes" />
+                            <p class="text-center">{{ organizer.Title }}</p>
+                        </div>
+                    </div>
+                    <p *ngIf="!organizerid || organizerid.length === 0">N/A</p>
+                </div>
+            </div>
+
+
+
+           <!-- Event Sponsor Logos -->
+            <div class="col-md-12 d-flex m-b-24">
+                <div class="col-sm-3 d-flex align-items-center">
+                    <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Event Sponsor Logos</mat-label>
+                </div>
+                <div class="col-sm-8 m-r-32">
+                    <div class="d-flex">
+                        <div *ngFor="let sponsor of sponsorimages" class="m-l-10">
+                            <img src="{{ sponsor.EventSponsor_Logo }}" alt="{{ sponsor.EventSponsor_Name }} - {{ sponsor.EventSponsor_Type }}" class="imagesizes" />
+                            <p class="text-center">{{ sponsor.EventSponsor_Name }}</p>
+                            <p class="text-center">{{ sponsor.EventSponsor_Type }}</p>
+                        </div>
+                    </div>
+                    <p *ngIf="!sponsorimages || sponsorimages.length === 0">N/A</p>
+                </div>
+            </div>
+
+
+        </div>
+
+         <!-- Button -->
+         <div class="row justify-content-end m-b-64 m-t-32">
+            <div class="col-sm-8">
+                <button mat-raised-button class="m-r-12 m-b-12 blackbutton save-cancel-button" (click)="organizerinfo(aboutyourselfdialogbox)">Add or Update</button>
+            </div>
+        </div>
+
+        <div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+
+<!-- popup starts here -->
+<ng-container>
+    <ng-template #aboutyourselfdialogbox>
+
+    <div mat-dialog-title class="text-center popupheader-black">Organizer information</div>
+        <form action="" [formGroup]="organizerForm" (ngSubmit)="orginfopost()">
+            <mat-dialog-content id="scrollbar" [class.disabled]="organizerinformation">
+
+            <div class="form-container m-t-24" >
+                <div class="row p-64">
+
+                            <div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <!-- Guests -->
+                                        <div class="col-md-12 d-flex m-b-24 m-r-32">
+                                            <div class="col-sm-3 d-flex align-items-center">
+                                            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Guests</mat-label>
+                                            </div>
+                                            <div class="col-sm-8 d-flex">
+                                                <!-- <input type="file" accept="image/" class="click" id="guestinput" name="guest" (change)="Guestimage($event)" style="display:none;"> -->
+                                                <ng-container *ngFor="let guest of guestsArray; let i = index">
+                                                    <div class="m-l-20">
+                                                    <input type="file" accept="image/" class="click" id="guestinput{{i}}" name="guest" (change)="Guestimage($event, i)" style="display:none;">
+                                                    <label for="guestinput{{i}}">
+                                                        <img *ngIf="guest.guestImageUrl" [src]="guest.guestImageUrl" alt="Guest Image">
+                                                        <div *ngIf="!guest.guestImageUrl">
+                                                        <img mat-card-image src="/assets/images/svgs/upload-image.svg" alt="Upload Icon" />
+                                                        </div>
+                                                    </label>
+                                                    <p class="d-flex align-items-center">
+                                                        <mat-form-field appearance="outline" class="guest-text m-t-6">
+                                                        <input matInput placeholder="Type your Title" (input)="onGuestTextChange(i, $event)" required>
+                                                        </mat-form-field>
+                                                        <button mat-icon-button *ngIf="i !== 0" (click)="removeGuest(i)" aria-label="Remove">
+                                                        <mat-icon>cancel</mat-icon>
+                                                        </button>
+                                                    </p>
+                                                    </div>
+                                                </ng-container>
+                                                <div>
+                                                    <img mat-card-image  class="m-l-20" src="/assets/images/add.png" alt="Upload Icon" (click)="addGuest()" />
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                        <!-- Event Speaker -->
+                                        <div class="col-md-12 d-flex m-b-24 m-r-32">
+                                            <div class="col-sm-3 d-flex align-items-center">
+                                            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Event Speaker</mat-label>
+                                            </div>
+                                            <div class="col-sm-8 d-flex">
+                                            <ng-container *ngFor="let eventspeaker of  eventspeakerArray; let i = index">
+                                                <div class="m-l-20">
+                                                <input type="file" accept="image/" id="eventspeakerinput{{i}}" name="eventSpeaker" (change)="eventspeakerImage($event,i)" style="display:none;">
+                                                <label for="eventspeakerinput{{i}}">
+                                                    <img *ngIf="eventspeaker.eventSpeakerImageUrl" [src]="eventspeaker.eventSpeakerImageUrl" alt="Event Speaker Image">
+                                                    <div *ngIf="!eventspeaker.eventSpeakerImageUrl">
+                                                    <img mat-card-image src="/assets/images/svgs/upload-image.svg" alt="Upload Icon" />
+                                                    </div>
+                                                </label>
+                                                <p class="d-flex align-items-center">
+                                                    <mat-form-field appearance="outline" class="guest-text m-t-6">
+                                                    <input matInput placeholder="Type your Title" (input)="oneventspeakerTextChange(i, $event)" required>
+                                                    </mat-form-field>
+                                                    <button mat-icon-button *ngIf="i !== 0" (click)="removeeventspeaker(i)" aria-label="Remove">
+                                                    <mat-icon>cancel</mat-icon>
+                                                    </button>
+                                                </p>
+                                                </div>
+                                            </ng-container>
+                                            <div>
+                                                <img mat-card-image  class="m-l-20" src="/assets/images/add.png" alt="Upload Icon" (click)="eventspeaker()" />
+                                            </div>
+                                            </div>
+                                        </div>
+            
+                            
+                                        <!-- Event Floor plan -->
+                                        <div class="col-md-12 d-flex m-b-24 m-r-32">
+                                            <div class="col-sm-3 d-flex align-items-center">
+                                            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Event Floor plan</mat-label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="file" accept="image/" id="eventFloorPlanInput" name="eventFloorPlan" (change)="eventFloorPlanImage($event)"  style="display:none;">
+                                                <div class="m-l-20">
+                                                <label for="eventFloorPlanInput">
+                                                    <img *ngIf="eventFloorPlanImageUrl" [src]="eventFloorPlanImageUrl" alt="event Floor Plan Image">
+                                                    <div *ngIf="!eventFloorPlanImageUrl">
+                                                    <img mat-card-image  src="/assets/images/svgs/upload-document.svg" alt="Upload Icon" />
+                                                    </div>
+                                                </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Your loading spinner -->
+                                        <div *ngIf="organizerinformation">
+                                            <img src="assets/images/ivin-loading.gif" alt="Loading"  class="loading-spinner overlay">
+                                        </div>
+                            
+                                        <!--Event Host-->
+                                        <div class="row m-l-20">
+                                            <div class="col-sm-3 d-flex align-items-center">
+                                                <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Event Host</mat-label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <input matInput placeholder="Type you Host" formControlName="eventhost" required>
+                                                </mat-form-field>
+                                            </div>
+                                        </div> 
+                            
+                                        <!--Expected Members-->
+                                        <div class="row m-l-20">
+                                        <div class="col-sm-3 d-flex align-items-center">
+                                            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Expected Members</mat-label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <input matInput  placeholder="Type your Expectedmembers" formControlName="expectedmembers" required>
+                                            </mat-form-field>
+                                        </div>
+                                        </div>
+                    
+
+
+                                        <!--Tags-->
+                                        <div class="row m-l-20">
+                                            <div class="col-sm-3 d-flex align-items-center">
+                                                <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Tags</mat-label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <textarea matInput placeholder="Add to Event tags" formControlName="tags"></textarea>
+                                                </mat-form-field>
+                                            </div>
+                
+                                            <!--Instruction-->
+                                                <div class="col-sm-3 d-flex align-items-center">
+                                                    <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Instruction</mat-label>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <mat-form-field appearance="outline" class="w-100">
+                                                        <textarea matInput placeholder="Type Your rule, regulation, guidlines....etc" formControlName="instructions"></textarea>
+                                                    </mat-form-field>
+                                                </div>
+                                        </div>
+                
+                                        <!-- Event Organizer logo -->
+                                        <div class="row d-flex m-d-8 m-l-20">
+                                            <div class="col-sm-3 d-flex align-items-center">
+                                                <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Event Organizer logo</mat-label>
+                                            </div>
+                
+                                            <ng-container *ngFor="let organizer of eventOrganizersArray; let i = index">
+                                                <div class="col-md-8 EventOrganizercard m-t-20">
+                                                    <div class="col-sm-8">
+                                                        <input type="file" accept="image/" class="click" id="eventOrganizerInput{{i}}" name="eventOrganizer" (change)="eventOrganizerLogo($event,i)">
+                                                        <label for="eventOrganizerInput{{i}}">
+                                                            <img *ngIf="organizer.eventOrganizerImageUrl" [src]="organizer.eventOrganizerImageUrl" class="m-t-15" alt="Event Organizer Logo">
+                                                            <div *ngIf="!organizer.eventOrganizerImageUrl">
+                                                                <img mat-card-image class="m-t-15" src="/assets/images/svgs/upload-document.svg" alt="Upload Icon"/>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                        
+                                                    <div class="col-sm-8 m-t-15 d-flex align-items-center">
+                                                        <mat-form-field appearance="outline" class="w-100">
+                                                            <input matInput placeholder="Type your Title" (input)="oneventorganizerTextChange(i, $event)" required>
+                                                        </mat-form-field>
+                                                        
+                                                        <!-- Add Remove button -->
+                                                        <button mat-icon-button *ngIf="i !== 0" (click)="removeEventOrganizer(i)" aria-label="Remove">
+                                                            <mat-icon>cancel</mat-icon>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        
+                                            
+                                            <div class="d-flex align-items-center m-l-8" (click)="addNewEventOrganizer()">
+                                                <mat-icon>add</mat-icon>
+                                            </div>
+                                        </div>
+                
+                                        <!-- Event Sponsor logo -->
+                                        <div class="row d-flex m-d-8 m-t-28 m-l-20">
+                                            <div class="col-sm-3 d-flex align-items-center">
+                                                <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Event Sponsor logo</mat-label>
+                                            </div>
+                                                <ng-container *ngFor="let Sponsor of eventSponsorArray; let i = index">
+                                                    <div class="col-md-8 EventOrganizercard m-t-20">
+                                                            <div class="col-sm-8">
+                                                                <input type="file" accept="image/" class="click" id="eventSponsorInput{{i}}" name="eventSponsor" (change)="eventSponsorLogo($event,i)">
+                                                                <label for="eventSponsorInput{{i}}">
+                                                                    <img *ngIf="Sponsor.eventSponsorImageUrl" [src]="Sponsor.eventSponsorImageUrl" class="m-t-15" alt="Event Sponsor Logo">
+                                                                    <div *ngIf="!Sponsor.eventSponsorImageUrl">
+                                                                        <img mat-card-image class="m-t-15" src="/assets/images/svgs/upload-document.svg" alt="Upload Icon"/>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+                        
+                                                            <div class="col-sm-8 m-t-15">
+                                                                <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Event Sponsor Name</mat-label>
+                                                                <mat-form-field appearance="outline" class="w-100">
+                                                                    <input matInput placeholder="Type your Sponsor Name" (input)="oneventsponsorTextChange(i, $event, 'name')" required>
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="col-sm-8">
+                                                                <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Event Sponsor type</mat-label>
+                                                                <mat-form-field appearance="outline" class="w-100">
+                                                                    <input matInput placeholder="Type your Sponsor Type" (input)="oneventsponsorTextChange(i, $event, 'type')" required>
+                                                                </mat-form-field>
+                                                                <!-- Add Remove button -->
+                                                                <button mat-icon-button *ngIf="i !== 0" (click)="removeEventSponsor(i)" aria-label="Remove">
+                                                                    <mat-icon>cancel</mat-icon>
+                                                                </button>
+                                                            </div>
+                                                    </div>
+                                                </ng-container>    
+                                                <div class="d-flex align-items-center m-l-8" (click)="addNewEventSponsor()">
+                                                    <mat-icon>add</mat-icon>
+                                                </div>
+                                        </div>
+                    
+                                    </div>
+                            
+                                    <div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+            
+                </div>
+                
+            </div>
+
+
+        </mat-dialog-content> 
+
+        <!--Button-->
+        <mat-dialog-actions align="center">
+        <button mat-raised-button class="blackbutton">Save</button>
+        <button mat-button mat-dialog-close class="m-r-20  cancel-border">Cancel</button>
+        </mat-dialog-actions>
+    </form>    
+
+</ng-template>
+</ng-container>
+

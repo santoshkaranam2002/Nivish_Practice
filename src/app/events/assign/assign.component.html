@@ -1,0 +1,226 @@
+<div class="form-container overflowhidden m-t-24">
+    <!--assign Form starts here-->
+    <form>
+        <div class="row">
+            
+            <div class="col-lg-6">
+                <!--data-->
+                <div class="row m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Data<sup class="required-field">*</sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>{{'withthedata'}}</p>
+                    </div>
+                </div>
+
+                <!--upload--> 
+                <div class="row m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Upload<sup class="required-field">*</sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                       <p>{{'N/A'}}</p>
+                    </div>
+                </div>
+
+                <!--available data-->
+                <div class="row m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Available Data<sup class="required-field">*</sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>{{'madugula'}}</p>
+                    </div>
+                </div>
+
+                <!--assign-->
+                <div class="row m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Assign<sup class="required-field">*</sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>{{'N/A'}}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Button -->
+        <div class="row justify-content-end m-b-64 m-t-32">
+            <div class="col-sm-8">
+                <button mat-raised-button class="m-r-12 m-b-12 blackbutton save-cancel-button" (click)="assign(eventassigndialgbox)">Add or Update</button>
+            </div>
+        </div>
+    </form>
+     <!-- assign Form ends here -->
+</div>
+
+
+
+
+
+<!-- pop up start here -->
+
+<ng-container>
+    <ng-template #eventassigndialgbox>
+        <div mat-dialog-title class="text-center popupheader-black">Event Assign</div>
+        <form action="" [formGroup]="assignform">
+            <mat-dialog-content id="scrollbar">
+
+               <!-- data -->
+                <div class="row">
+                    <div class="col-md-12 m-t-32">
+                        <div class="col-sm-3 m-b-20">
+                            <mat-label class="mat-subtitle-2 f-w-600 d-block">Data<sup class="required-field">*</sup></mat-label>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-radio-group matInput required formControlName="data" class="d-flex">
+                                <mat-radio-button value="withthedata">With the Data</mat-radio-button>
+                                <mat-radio-button value="withoutthedata"  class="m-l-54">Without the Data</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload -->
+                <div class="row m-t-12">
+                    <div class=" col-md-12 d-flex m-t-32">
+                        <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block">Upload<sup class="required-field">*</sup></mat-label>
+                        </div>
+                        <div class="col-md-6 ">
+                            <!-- <img src="assets/images/svgs/upload-document.svg"> -->
+                            <input type="file" accept="image/" id="image" name="selectedassignprofile" (change)="onassignpicture($event)" style="display:none;">
+                            <label><img *ngIf="digitalSignImageUrl" [src]="digitalSignImageUrl" >
+                                <div  *ngIf="!digitalSignImageUrl">
+                                    <img mat-card-image [src]="selectedImage"   alt="Upload Icon"  />
+                                </div>
+                            </label>
+                            <div *ngIf="fileTypeError" class="f-w-600 mandatory">{{ errorMessage }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Available Data -->
+                <div class="row m-t-12">
+                    <div class=" col-md-12 d-flex m-t-32">
+                        <div class="col-sm-3">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block">Available Data<sup class="required-field">*</sup></mat-label>
+                        </div>
+                        <div class="col-md-6">
+                        <mat-radio-group matInput required formControlName="availabledata">
+                            <mat-radio-button value="madugula">Madugula</mat-radio-button>
+                        </mat-radio-group>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Assign -->
+                <div class="row m-t-12">
+                    <div class=" col-md-12 d-flex m-t-32">
+                        <div class="col-sm-3">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block">Assign<sup class="required-field">*</sup></mat-label>
+                        </div>
+                        <div class="col-md-6">
+                            <a class="add-end-date-link" (click)="createassign(CreateAsign)">+ Create Assign</a>
+                        </div>
+                    </div>
+                </div>
+
+            </mat-dialog-content>
+            <mat-dialog-actions align="center">
+                <button mat-button mat-dialog-close class="cancel-border">Cancel</button>
+                <button mat-raised-button class="blackbutton" (click)="assignclose()">Save Next</button>
+            </mat-dialog-actions>
+        </form>
+
+    </ng-template>
+</ng-container>
+
+
+<!-- create Assign -->
+
+<ng-container>
+    <ng-template #CreateAsign>
+        <div mat-dialog-title class="text-center popupheader-black">Assign</div>
+        <form (ngSubmit)="pollingstationsassign()">
+            <mat-dialog-content id="scrollbar">
+                <div class="row">
+                    <div class="bigbox scrollable-container">
+                        <mat-form-field appearance="fill" class="search-input m-10">
+                            <!-- <mat-icon class="search-icon">search</mat-icon> -->
+                            <input matInput class="input" placeholder="Search polling Station" [(ngModel)]="searchTerm" name="searchTerm" (input)="filterStations()" />
+                        </mat-form-field>
+
+                        <!-- <div>
+                            <div class="polling-stations-list">
+                                <div *ngFor="let station of dummy" class="polling-station m-r-16 m-b-16 d-flex">
+                                    <mat-checkbox [(ngModel)]="selectedStations[station]" [name]="station">{{ station }}</mat-checkbox>
+                                </div>  
+                            </div>
+                        </div> -->
+
+
+                        <div *ngIf="searchTerm === ''; else filteredStationsBlock" class="polling-stations-list">
+                            <div *ngFor="let station of pollingstationsnames" class="polling-station m-r-16 m-b-16 d-flex">
+                                <mat-checkbox [(ngModel)]="selectedStations[station]" [name]="station" (change)="updateSelectedStationsArray()">{{ station }}</mat-checkbox>
+                            </div>
+                        </div>
+                        
+                        <ng-template #filteredStationsBlock>
+                            <div class="polling-stations-list">
+                                <div *ngFor="let station of filteredStations" class="polling-station m-r-16 m-b-16 d-flex">
+                                    <mat-checkbox [(ngModel)]="selectedStations[station]" [name]="station" (change)="updateSelectedStationsArray()">{{ station }}</mat-checkbox>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div> 
+
+            <!-- <mat-chip-list>
+                <mat-chip *ngFor="let selectedStation of selectedStationsArray" [removable]="true" (removed)="removeStation(selectedStation)">
+                  {{ selectedStation }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+            </mat-chip-list> -->
+
+       
+                <mat-chip-list>
+                    <ng-container *ngFor="let selectedStation of selectedStationsArray; let i = index" class="scrollable-container">
+                    <mat-chip [removable]="true" (removed)="removeStation(selectedStation)" class="m-4">
+                        {{ selectedStation }}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                    <ng-container *ngIf="(i + 1) % 3 === 0 && i !== selectedStationsArray.length - 1">
+                        <br>
+                    </ng-container>
+                    </ng-container>
+                </mat-chip-list>
+        
+            <hr class="blackbutton m-t-48">
+
+            <div class="row">
+                <div class="m-t-40">
+                    <span class="material-symbols-outlined">
+                        group_add
+                    </span>
+                </div>
+                <div class="assignname m-t-24 m-l-20">
+                    <mat-chip [removable]="true" class="m-10 m-t-12">
+                        {{firstname}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                </div>
+            </div>
+
+        </mat-dialog-content>
+ 
+            <mat-dialog-actions align="center">
+                <button mat-raised-button class="blackbutton">Create</button>
+                <button mat-button mat-dialog-close class="cancel-border">Cancel</button>
+            </mat-dialog-actions>
+        </form>
+    </ng-template>
+</ng-container>

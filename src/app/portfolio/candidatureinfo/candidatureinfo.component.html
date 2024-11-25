@@ -1,0 +1,237 @@
+<div class="form-container m-t-24">
+
+  <form  [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+        <div class="row p-64">
+            <div class="col-lg-6">
+                <!-- Party Logo -->
+                <div class="col-md-12 d-flex m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                    <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Party Logo</mat-label> -->
+                    <app-label text="Party Logo" for="Party Logo" [required]="true"></app-label>
+
+                    </div>
+                    <div class="col-sm-8 m-r-32">
+                        <input type="file" accept="image/" id="candidatedigitalsigninput" name="partyLogo" (change)="partylogo($event)" style="display:none;">
+                        <label for="candidatedigitalsigninput">
+                        <img *ngIf="partyLogoImageUrl" [src]="partyLogoImageUrl" alt="Digital Sign Image">
+                        <div *ngIf="!partyLogoImageUrl">
+                            <img mat-card-image class="partylogo" src="/assets/images/svgs/upload-image.svg" alt="Upload Icon" />
+                        </div>
+                        </label>
+                        <div *ngIf="fileTypeError" class="f-w-600 mandatory">{{ errorMessage }}</div>
+                    </div>
+                </div>
+
+                <!-- Party Symbol -->
+                <div class="col-md-12 d-flex m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                    <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Party Symbol</mat-label> -->
+                    <app-label text="Party Symbol" for="Party Symbol" [required]="true"></app-label>
+
+                    </div>
+                    <div class="col-sm-8 m-r-32">
+                        <input type="file" accept="image/" id="imageinput" name="partySymbol" (change)="partysymbol($event)" style="display:none;">
+                        <label for="imageinput">
+                        <img *ngIf="partySymbolImageUrl" [src]="partySymbolImageUrl" alt="Digital Sign Image" >
+                        <div *ngIf="!partySymbolImageUrl">
+                            <img mat-card-image class="partysymbol" src="/assets/images/svgs/upload-image.svg" alt="Upload Icon" />
+                        </div>
+                        </label>
+                        <div *ngIf="fileTypeError" class="f-w-600 mandatory">{{ errorMessage1 }}</div>
+                    </div>
+                </div>
+    
+                <!-- Upload Party Supporting Files -->
+                <div class="d-flex m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                    <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Upload Party Supporting Files</mat-label> -->
+                    <app-label text="Upload Party Supporting Files" for="Upload Party Supporting Files" [required]="true"></app-label>
+
+                    </div>
+                    <div class="col-sm-8 m-r-32">
+
+                        <!-- <input type="file" accept="image/*,application/pdf" (change)="onFileChange($event, 'supportingFiles')" style="display:none;" id="supportingFilesInput">
+                            <label for="supportingFilesInput">
+                                <img *ngIf="uploadedFiles.supportingFiles && uploadedFiles.supportingFiles.type === 'application/pdf'" src="/assets/images/pdf.png" alt="PDF Icon" class="file-icon">
+                                <img *ngIf="uploadedFiles.supportingFiles && uploadedFiles.supportingFiles.type !== 'application/pdf'" [src]="uploadedFiles.supportingFiles?.url || '/assets/images/pdf.png'" alt="Uploaded File" class="partysupportdocuments">
+                                <div *ngIf="!uploadedFiles.supportingFiles" class="upload-placeholder">
+                                    <img mat-card-image class="partysupportdocuments" src="/assets/images/svgs/upload-image.png" alt="Upload Icon" />
+                                </div>
+                            </label> -->
+
+                        <input type="file" accept="image/" id="supporting" name="supportingFiles" (change)="supportingfiles($event)" style="display:none;">
+                        <label for="supporting">
+                        <img *ngIf="partysupportingFilesImageUrl" [src]="partysupportingFilesImageUrl" alt="Digital Sign Image" >
+                        <div *ngIf="!partysupportingFilesImageUrl">
+                            <img mat-card-image class="partysupportdocuments" src="/assets/images/svgs/upload-document.svg" alt="Upload Icon" />
+                        </div>
+                        </label>
+                        <div *ngIf="fileTypeError" class="f-w-600 mandatory">{{ imageerrorMessageforsupportingfiles }}</div>
+                    </div>
+                </div>
+
+                <!-- Party Manifesto -->
+                <div class="d-flex m-b-24">
+                    <div class="col-sm-3 d-flex align-items-center">
+                    <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Party Manifesto</mat-label> -->
+                    <app-label text="Party Manifesto" for="Party Manifesto" [required]="true"></app-label>
+ 
+                    </div>
+                    <div class="col-sm-8 m-r-32">
+                        <input type="file" accept="image/" id="manifesto" name="partyManifesto" (change)="parrtymanifesto($event)" style="display:none;">
+                        <label for="manifesto">
+                            <img *ngIf="partymanifestoImageUrl"  [src]="partymanifestoImageUrl" alt="Digital Sign Image" >
+                        <div *ngIf="!partymanifestoImageUrl">
+                            <img mat-card-image class="partymanifestodocuments" src="/assets/images/svgs/upload-document.svg" alt="Upload Icon" />
+                        </div>
+                        </label>
+                        <div *ngIf="fileTypeError" class="f-w-600 mandatory">{{ imageerrorMessageforpartymanifesto }}</div>
+                    </div>
+                </div>
+            </div>
+
+            
+                <!-- Political affiliation -->
+            <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-sm-3 d-flex align-items-center">
+                            <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Political Affiliation</mat-label> -->
+                            <app-label text="Political Affiliation" for="Political Affiliation" [required]="true"></app-label>
+
+                        </div>
+                        <div class="col-sm-8">
+                            <mat-form-field appearance="outline" class="w-100 m-t-16">
+                                <mat-select required formControlName="partyname" placeholder="Select Your Party Name">
+                                    <mat-option *ngFor="let party of partynames" [value]="party.PID">
+                                    {{ party.PartyName }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                        <!-- Slogan -->
+                        <div class="row">
+                            <div class="col-sm-3 d-flex align-items-center">
+                              <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Slogan</mat-label> -->
+                              <app-label text="Slogan" for="Slogan" [required]="true"></app-label>
+
+                            </div>
+                            <div class="col-sm-8 ">
+                              <mat-form-field appearance="outline" class="w-100 place">
+                                <input matInput formControlName="slogan" placeholder="Type Slogan">
+                              </mat-form-field>
+                            </div>
+                          </div>
+
+                    <!-- Activists -->
+                    <div class="row">
+                        <div class="col-sm-3 d-flex align-items-center">
+                          <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Activists</mat-label> -->
+
+                          <app-label text="Activists" for="Activists" [required]="true"></app-label>
+
+                        </div>
+                        <div class="col-sm-8 d-flex align-items-center">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div *ngFor="let item of tasklist; let i=index">
+                                <span>{{ item }}</span>
+                                <mat-icon (click)="removeact(i)">close</mat-icon>
+                              </div>
+                              <div class="d-flex">
+                                <mat-form-field appearance="outline" class="w-100 place">
+                                  <input #task matInput formControlName="activists" placeholder="Type Your Best Activists">
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                        <!-- Achievements -->
+                    <div class="row">
+                        <div class="col-sm-3 d-flex align-items-center">
+                            <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Achievements</mat-label> -->
+                            <app-label text="Achievements" for="Achievements" [required]="true"></app-label>
+
+                        </div>
+                        <div class="col-sm-8 d-flex align-items-center">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div *ngFor="let item of achlist; let i=index">
+                                        <span>{{ item }}</span>
+                                        <mat-icon (click)="removeach(i)">close</mat-icon>
+                                    </div>
+                                    <div class="d-flex">
+                                        <mat-form-field appearance="outline" class="w-100 place">
+                                            <input #ach type="text" matInput  formControlName="achievements" placeholder="Type Your Achievements">
+                                        </mat-form-field>
+                                        <!-- <mat-icon (click)=" addach(ach.value);ach.value=''" class="m-t-22">add</mat-icon> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Priorities -->
+                    <div class="row">
+                        <div class="col-sm-3 d-flex align-items-center">
+                          <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Priorities</mat-label> -->
+                          <app-label text="Priorities" for="Priorities" [required]="true"></app-label>
+
+                        </div>
+                        <div class="col-sm-8 d-flex align-items-center">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div *ngFor="let item of prtlist; let i=index">
+                                <span>{{ item }}</span>
+                                <mat-icon (click)="removeprt(i)">close</mat-icon>
+                              </div>
+                              <div class="d-flex">
+                                <mat-form-field appearance="outline" class="w-100 place">
+                                  <input #prt type="text" matInput formControlName="priorities" placeholder="Type Your Priorities">
+                                </mat-form-field>
+                                        <!-- <mat-icon (click)="addprt(prt.value); prt.value = ''" class="m-t-20">add</mat-icon> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+                <!-- Video URLs -->
+                    <div class="row">
+                        <div class="col-sm-3 d-flex align-items-center">
+                            <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Video URLs</mat-label> -->
+                            <app-label text="Video URLs" for="Video URLs" [required]="true"></app-label>
+
+                        </div>
+                        <div class="col-sm-8 d-flex align-items-center">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div *ngFor="let item of videolist; let i=index">
+                                        <span>{{ item }}</span>
+                                        <mat-icon (click)=" removeurl(i)">close</mat-icon>
+                                    </div>
+                                    <div class="d-flex">
+                                        <mat-form-field appearance="outline" class="w-100 place">
+                                            <input #url matInput  formControlName="videourls" placeholder="Type Your Video URLs">
+                                            <mat-error *ngIf="videoForm.get('videourls')?.hasError('required')">URL is required</mat-error>
+                                            <mat-error *ngIf="videoForm.get('videourls')?.hasError('pattern')">Invalid URL format</mat-error>
+                                        </mat-form-field>
+                                        <!-- <mat-icon (click)=" addurl(url.value);url.value=''" class="m-t-20">add</mat-icon> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>  
+        </div>
+   
+                    <!--Button-->
+        <div align="center">
+            <button mat-raised-button class="blackbutton" type="submit">Save</button>
+            <button mat-button mat-dialog-close class="m-l-20 cancel-border">Cancel</button>
+        </div>
+</form>
+
+</div>   

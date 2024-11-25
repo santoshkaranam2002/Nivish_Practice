@@ -1,0 +1,8 @@
+:host ::ng-deep .mat-button-toggle-label-content{
+    padding: 0 36px !important;
+    line-height: 50px !important;
+}
+
+:host ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix{
+    display: flex;
+}

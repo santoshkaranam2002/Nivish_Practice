@@ -1,0 +1,144 @@
+
+
+<!--Table Starts here-->
+<div class="row">
+    <section class="example-container mat-elevation-z8" id="scrollbar">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+        <ng-container matColumnDef="Election Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Election Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.ElectionName !== null ? element.ElectionName : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Election Year">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Election Year</th>
+          <td mat-cell *matCellDef="let element">{{ element.ElectionYear !== null ? element.ElectionYear : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Election Date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Election Date</th>
+          <td mat-cell *matCellDef="let element">{{ element.ElectionDate !== null ? element.ElectionDate : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Election Type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Election Type</th>
+          <td mat-cell *matCellDef="let element">{{ element.ACPCByPoll !== null ? element.ACPCByPoll : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="State/UT Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">State/UT Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.StateUTName !== null ? element.StateUTName : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="AC Number">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">AC Number</th>
+          <td mat-cell *matCellDef="let element">{{ element.ACNO !== null ? element.ACNO : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="PC Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">PC Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.PCName !== null ? element.PCName : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="AssemblyConstituency">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Assembly Constituency</th>
+          <td mat-cell *matCellDef="let element">{{ element.ACName !== null ? element.ACName : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="AC Category">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">AC Category</th>
+          <td mat-cell *matCellDef="let element">{{ element.ACCategory !== null ? element.ACCategory : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Candidate Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Candidate Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.CandidateName !== null ? element.CandidateName : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Gender">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Gender</th>
+          <td mat-cell *matCellDef="let element">{{ element.Gender !== null ? element.Gender : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Age">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Age</th>
+          <td mat-cell *matCellDef="let element">{{ element.Age !== null ? element.Age : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Candidate Category">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Candidate Category</th>
+          <td mat-cell *matCellDef="let element">{{ element.Candidate_Category !== null ? element.Candidate_Category : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Political Party">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Political Party</th>
+          <td mat-cell *matCellDef="let element">{{ element.Party !== null ? element.Party : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Party Symbol">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Party Symbol</th>
+          <td mat-cell *matCellDef="let element">{{ element.Symbol !== null ? element.Symbol : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="General Votes">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">General Votes</th>
+          <td mat-cell *matCellDef="let element">{{ element.General_Votes !== null ? element.General_Votes : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Postal Votes">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Postal Votes</th>
+          <td mat-cell *matCellDef="let element">{{ element.PostalVotes !== null ? element.PostalVotes : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Service Votes">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Service Votes</th>
+          <td mat-cell *matCellDef="let element">{{ element.ServiceVotes !== null ? element.ServiceVotes : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="TotalVotesPolled">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Total Votes Polled</th>
+          <td mat-cell *matCellDef="let element">{{ element.Total !== null ? element.Total : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Votes Polled">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Votes Polled</th>
+          <td mat-cell *matCellDef="let element">{{ element.VotesPolledPer !== null ? element.VotesPolledPer : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Total Electors">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Total Electors</th>
+          <td mat-cell *matCellDef="let element">{{ element.TotalElectors !== null ? element.TotalElectors : 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Win Order">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings">Win Order</th>
+          <td mat-cell *matCellDef="let element">{{ element.WinOrder !== null ? element.WinOrder : 'N/A' }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="table-row"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
+      </table>
+      
+      <!-- Loading search -->
+      <div *ngIf="isLoadingsearch">
+        <div class="justify-content-center text-center">
+          <div>
+            <img src="/assets/images/ivin-loading.gif" alt="Loading Image" width="10%">
+            <p class="data-load">Data is loading. please wait!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message to display when there is no data -->
+      <div *ngIf="dataSource.data.length === 0" class="text-center">
+        <p class="f-s-18 m-t-54">
+          No Data Available
+        </p>
+      </div>
+
+      <div class="sticky-paginator">
+        <mat-paginator [pageSizeOptions]="[50, 100]" showFirstLastButtons></mat-paginator>
+      </div>
+    </section>
+</div>
+

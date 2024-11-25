@@ -1,0 +1,45 @@
+<div class="form-container m-t-24">
+
+  <form (ngSubmit)="socialmediapost()"> 
+    <div class="row d-flex m-d-8">
+      <div class="col-sm-3 d-flex align-items-center">
+          <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Add Accounts</mat-label> -->
+          <app-label text="Add Accounts" for="Add Accounts" [required]="true"></app-label>
+
+      </div>
+
+      <div class="col-md-8 Socialmedia">
+          <mat-form-field appearance="outline" class="w-100 m-t-16">
+              <mat-select required [formControl]="officeheld" placeholder="Select Social Media Type">
+                  <mat-option value="Telegram">Telegram</mat-option>
+                  <mat-option value="Twitter">Twitter</mat-option>
+                  <mat-option value="Linkedin">Linkedin</mat-option>
+                  <mat-option value="Instagram">Instagram</mat-option>
+                  <mat-option value="Facebook">Facebook</mat-option>
+                  <mat-option value="Whatsapp">Whatsapp</mat-option>
+                  <mat-option value="Youtube">YouTube</mat-option>
+              </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-100 place">
+              <input matInput [formControl]="urllink"  placeholder="Add Your Link" required>
+          </mat-form-field>
+              <div class="row">
+                  <div class="col-sm-12">
+                      <mat-form-field appearance="outline" class="w-100 custom-placeholder">
+                          <textarea matInput id="Description" [formControl]="Description" placeholder="Type Description"></textarea>
+                      </mat-form-field>
+                  </div>
+              </div>
+      </div>
+          <!-- <div class="d-flex align-items-center m-l-8">
+              <mat-icon (click)="addCard()">add</mat-icon>
+          </div> -->
+  </div>
+    <!--Button-->
+    <div align="center" class="m-t-20 m-b-10">
+        <button mat-raised-button class="blackbutton">Save</button>
+        <button mat-button mat-dialog-close class="m-l-20 cancel-border">Cancel</button>
+    </div>
+</form>
+
+</div>

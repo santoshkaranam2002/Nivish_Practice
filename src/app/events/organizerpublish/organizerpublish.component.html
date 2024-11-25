@@ -1,0 +1,446 @@
+<div class="main-content p-64">
+    <div>
+
+            <!-- Text Back To edit -->
+        <div>
+            <div class="d-flex justify-content-space"> 
+                <h2>Publish</h2>
+                <a class="add-end-date-link"  (click)="closeTab()">Back to Edit</a>
+            </div>
+
+            <ng-container>
+                <!-- This is for image and support -->
+                <div class="row m-b-24 m-l-54 m-t-64">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 d-flex">
+                                <img class="image" src="assets/images/ceo.png">
+                                <mat-label class="mat-subtitle-2 f-w-600 d-block m-l-10 m-t-24 name">Prasad rao pyala</mat-label>
+
+                                <!--Support Us Button-->
+                                <button mat-raised-button color="primary" class="blackbutton m-l-10 m-t-15" (click)="publish(publishdialgbox)">Support us</button>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="float-right f-s-20">
+                                    <mat-icon>share</mat-icon> Share
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- This is text -->
+                <div class="row m-b-24 m-l-64 m-t-24">
+                    <div class="f-s-30">{{this.eventdisplayname}}</div>
+                </div> 
+
+                <!-- This is for like and dislike -->
+                <div class="row m-b-24 m-l-64 m-t-24">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 d-flex">
+                                <mat-icon>remove_red_eye</mat-icon>
+                                <mat-icon class="m-l-54">thumb_up</mat-icon>
+                                <mat-icon class="m-l-54">thumb_down</mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- This is for address -->
+                <div class="row m-b-24 m-l-64 m-t-24">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 d-flex">
+                                <mat-icon> location_on</mat-icon>
+                                <span class="m-l-12 address-text textdecoration-underline pointercursor">{{ this.address }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- This is for calender and get update -->
+                <div class="row m-b-24 m-l-54 m-t-32">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 d-flex">
+                                <mat-icon class="m-l-10">today</mat-icon> <span class="m-l-12">{{this.startdate}}</span>
+                                <mat-icon class="m-l-54">timer</mat-icon> <span class="m-l-12">{{this.starttime}} - {{this.endtime}}</span>
+                                <mat-icon class="m-l-54">assignment</mat-icon> <span class="m-l-12">{{ this.categoryName }}</span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="float-right f-s-20">
+                                    <button mat-raised-button color="primary" class="blackbutton" (click)="publish(publishdialgbox)">Get Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- This is for link -->
+                <div class="row m-b-24 m-l-64 m-t-24">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 d-flex">
+                                <mat-icon>settings_input_antenna</mat-icon>
+                                <span class="m-l-12 address-text textdecoration-underline pointercursor">{{ this.virtuallink }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="scrollable-container" id="scrollbar">
+
+                <div class="container">
+                    <!-- <img src="assets/images/svgs/TDP.jpg" class="voteimage"> -->
+                    
+                        <!-- Conditionally render either the carousel or the default image -->
+                        <ng-container *ngIf="multipleImagesArr && multipleImagesArr.length > 0; else defaultImage">
+                            <!-- Image carousel section -->
+                            <label id="carouselLabel" style="height: 55vh; display: block;">
+                                <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false" data-bs-ride="carousel" [attr.data-bs-interval]="multipleImagesArr.length > 0 ? '3000' : '0'" [@slideAnimation]="multipleImagesArr.length">
+                                    <div class="carousel-inner">
+                                      <div *ngFor="let each of multipleImagesArr; let i = index" class="carousel-item" [class.active]="i === 0">
+                                        <img *ngIf="each?.image" [src]="each.image" class="d-block w-100 custom-image" alt="...">
+                                      </div>
+                                    </div>
+                                  </div>
+                            </label>
+                        </ng-container>
+                      
+                        <!-- Default image -->
+                        <ng-template #defaultImage>
+                            <label>
+                            <img src="/assets/images/svgs/banner-image-upload.svg" class="w-100 m-t-10 m-b-20" alt="Click to upload image">
+                            </label>
+                        </ng-template>
+                        <!-- <div *ngIf="fileTypeError" class="f-w-600 mandatory">{{ errorMessage }}</div> -->
+                      
+                </div>
+
+
+                <!-- This is for text  -->
+            
+                <div class="d-flex m-t-20 justify-content-space">
+
+                    <div class="text">{{this.description}}</div>
+
+                    <!-- This is for counterbox  -->
+                    <div class="float-right">
+                        <div class="column countboxborderbig cardWithShadow">
+                            <!--address-->
+                            <div class="col-md-12 m-t-24 p-6 d-flex align-items-center">
+                                <mat-icon> location_on</mat-icon>
+                                <span class="m-l-12 address-text textdecoration-underline pointercursor">{{ this.address }}</span>
+                            </div>
+                            <!--calender-->
+                            <div class="col-md-12 m-t-24 p-4 d-flex align-items-center">
+                                <mat-icon>today</mat-icon>
+                                <span class="m-l-12">{{this.startdate}}, {{this.enddate}}</span>
+                            </div>
+                            <!--Timer-->
+                            <div class="col-md-12 m-t-24 p-4 d-flex align-items-center">
+                                <mat-icon>timer</mat-icon>
+                                <span class="m-l-12">{{this.starttime}} - {{this.endtime}}</span>
+                            </div>
+                            <!--Assignment-->
+                            <div class="col-md-12 m-t-24 p-4 d-flex align-items-center">
+                                <mat-icon>assignment</mat-icon>
+                                <span class="m-l-12">{{ this.categoryName }}</span>
+                            </div>
+                            <!--address-->
+                            <div class="col-md-12 m-t-24 p-6 d-flex align-items-center">
+                                <mat-icon>settings_input_antenna</mat-icon>
+                                <span class="m-l-12 address-text textdecoration-underline pointercursor">{{ this.virtuallink }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+
+
+                <!-- This is for Organizer Information -->
+                <div class="m-t-32">
+                    <h2>Instruction</h2>
+                </div>
+                <div class="d-flex m-t-32 justify-content-space">
+
+                    <div class="text">{{this.instructions}}</div>
+
+                    <!-- This is for counterbox  -->
+                    <div class="float-right">
+                        <div class="column countboxborderbig cardWithShadow">
+                            <div class="row">
+                                <div class="col-md-12 f-s-20 p-10 text-center">
+                                    <h3>Schedule</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 m-t-10 text-center">
+                                    <mat-icon   [ngClass]="{'disabled-icon': currentIndex <= 0}" 
+                                    [disabled]="currentIndex <= 0" (click)="shiftDateBackward()">chevron_left</mat-icon>
+                                    <ng-container *ngFor="let dateObj of getDateRangeWithWeekdays(startDate, endDate); let i = index">
+                                        <ng-container *ngIf="i === currentIndex">
+                                            {{ dateObj.date | date:'dd' }} {{ dateObj.weekday | date: 'EEE' }}
+                                        </ng-container>
+                                    </ng-container>
+                                    <mat-icon  [ngClass]="{'disabled-icon': currentIndex >= getDateRangeWithWeekdays(startDate, endDate).length - 1}" 
+                                        [disabled]="currentIndex >= getDateRangeWithWeekdays(startDate, endDate).length - 1" (click)="shiftDateForward()">chevron_right</mat-icon>
+                                </div>
+                            </div>
+                            <!-- Display schedule items -->
+                            <div class="row">
+                                <div class="col-md-12 m-t-10 text-center">
+                                    <ng-container *ngIf="times && times.length > 0">
+                                        <ul class="no-bullets">
+                                            <li *ngFor="let item of times">
+                                                <span>{{ item.Text }}</span> - <span>{{ item.StartTime }} - {{ item.EndTime }}</span>
+                                            </li>
+                                        </ul>
+                                    </ng-container>
+                                    <ng-container *ngIf="!(times && times.length > 0)">
+                                        <p>No schedule available for the selected date.</p>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </div>  
+
+                <div class="m-t-32">
+                    <h2>Event Host</h2>
+                    <div class="text m-t-20">
+                        <mat-icon class="medium-icon m-t-10">circle</mat-icon>
+                        <span class="m-l-10">{{this.eventhost}}</span>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center m-t-15">
+                    <div *ngFor="let image of eventFloorPlanImages">
+                        <img [src]="image.EventFloorPlan_images" alt="Floor Plan Image">
+                    </div>
+                </div>
+
+                
+                <!-- This is for Guest images -->
+                <div class="container m-t-32 box-shadow d-flex align-items-center m-l-54">
+                    <div class="row">
+                        <div class="col-md-12 d-flex align-item-center justify-content-center">
+                            <div class="row">
+                                <div class="col-md-12 f-s-20 m-l-20 m-t-20">
+                                    <h3>Guests</h3>
+                                </div>
+                                <div class="col-md-4" *ngFor="let guest of guestimages">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <img [src]="guest.Gustsimage" alt="{{ guest.Gustsimage_name }}" class="imageSize">
+                                        <span class="text-center">{{ guest.Gustsimage_name }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- This is for speaker images -->
+                <div class="container m-t-32 box-shadow d-flex align-items-center m-l-54">
+                    <div class="row">
+                        <div class="col-md-12 d-flex align-item-center justify-content-center">
+                            <div class="row">
+                                <div class="col-md-12 f-s-20 m-l-20 m-t-20">
+                                    <h3>Speakers</h3>
+                                </div>
+                                <div class="col-md-4" *ngFor="let speaker of speakerimages">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <img [src]="speaker.EventSpeacker_image" alt="{{ speaker.EventSpeacker_name }}" class="imageSize">
+                                        <span class="text-center">{{ speaker.EventSpeacker_name }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <!-- This is for orgaizer images -->
+                <div class="container m-t-32 box-shadow d-flex align-items-center m-l-54">
+                    <div class="row">
+                        <div class="col-md-12 d-flex align-item-center justify-content-center">
+                            <div class="row">
+                                <div class="col-md-12 f-s-20 m-l-20 m-t-20">
+                                    <h3>Organizers</h3>
+                                </div>
+                                <div class="col-md-4" *ngFor="let organizer of organizerimages">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <img [src]="organizer.EventOrganizer_Logo" alt="{{ organizer.Title }}" class="imageSize">
+                                        <span class="text-center">{{ organizer.Title }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- This is for sponsor images -->
+                <div class="container m-t-32 box-shadow d-flex align-items-center m-l-54">
+                    <div class="row">
+                        <div class="col-md-12 d-flex align-item-center justify-content-center">
+                            <div class="row">
+                                <div class="col-md-12 f-s-20 m-l-20 m-t-20">
+                                    <h3>Sponsors</h3>
+                                </div>
+                                <div class="col-md-4" *ngFor="let sponsor of sponsorimages">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <img [src]="sponsor.EventSponsor_Logo" alt="{{ sponsor.EventSponsor_Name }}" class="imageSize">
+                                        <span class="text-center">{{ sponsor.EventSponsor_Name }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 f-s-20 m-l-40 m-t-20">
+                        <h3>Events Contacts</h3>
+                        <div class="m-t-15">{{ this.contacts }}</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 m-t-48 m-l-20">
+                      <span *ngFor="let tag of tags" class="tag-wrapper pointercursor">
+                        <span class="badge-primary m-r-5 tag">
+                          <i class="fas fa-tag"></i> {{ tag }}
+                        </span>
+                      </span>
+                    </div>
+                </div>
+
+            </div>   
+            
+                <div class="bordered-div m-t-54">
+                    <!-- https://www.payda5387.invinstrategies.com/  -->
+                    {{ this.url}}
+                    <div class="pointercursor float-right" (click)="copyUrlToClipboard()" [matTooltip]="tooltipMessage" #tooltip="matTooltip">
+                        <span class="material-symbols-outlined">
+                            content_copy
+                        </span>
+                    </div>
+                </div>
+
+                <div align="center" class="m-t-54">
+                    <!-- <button mat-button class="cancel-border m-r-10" (click)="exitAndSave()">Exit and Save</button>
+                    <button mat-raised-button class="blackbutton" (click)="publishEvent()">Publish Event</button> -->
+                </div><br><br><br><br>
+
+            </ng-container>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<!-- pop up start here -->
+
+<ng-container>
+    <ng-template #publishdialgbox>
+        <div mat-dialog-title class="text-center popupheader-black">Support us</div>
+        <form action="" [formGroup]="publishform" (submit)="joinus()">
+            <mat-dialog-content id="scrollbar">
+
+                 <!-- This is for counterbox in popup -->
+                 <ng-container *ngIf="showSuccessMessage">
+                    <div class="row m-l-20">
+                        <div class="row popupcountboxborder cardWithShadow">
+                            <!--View Release Stats-->
+                            <div class="col-md-12 m-t-16 m-l-12 align-items-center">
+                                <span>Thanks for subscribing!, As we follow Double Opt-in to crub the spamming, You will receive an email for the Confirmation.
+                                Please do Confirm your consent for receiving notifications.</span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                
+
+               <!--Full Name-->
+               <div class="row m-t-48">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Full Name<sup class="required-field">*</sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <input matInput id="fullname"  formControlName="fullname" id="fullname" name="fullname" placeholder="Enter your Full Name">
+                            <mat-error>Name is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div> 
+
+                 <!--Email Id-->
+                <div class="row">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Email Id<sup class="required-field">*</sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <input matInput id="emailid"  formControlName="emailid" id="emailid" name="emailid" placeholder="Enter your Email Id">
+                            <mat-error>Email ID is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div> 
+
+                 <!--Mobile Number-->
+                <div class="row">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Mobile Number<sup class="required-field">*</sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <input matInput id="mobilenumber"  formControlName="mobilenumber" id="mobilenumber" name="mobilenumber" placeholder="Enter your mobilenumber">
+                            <mat-error>Mobile Number is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div> 
+
+
+                <!--Description-->
+                <div class="row">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Description<sup class="required-field">*</sup></mat-label>
+                    </div>
+                    <div class="col-sm-8">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <input matInput #message maxlength="20" placeholder="Enter the Description" formControlName="description">
+                            <mat-hint align="end">{{message.value.length}} / 20</mat-hint>
+                            <mat-error>Description is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Checkbox -->
+                <div class="row">
+                    <div class="col-lg-12 m-t-24">
+                      <div>
+                        <mat-checkbox formControlName="consent">
+                            I consent to receive your newsletter, occasional offers and marketing emails from Idovin Strategies Pvt. Ltd. (ivinpro, ivinstartegies)
+                        </mat-checkbox>
+                        <mat-error *ngIf="publishform.get('consent')?.invalid">Checkbox is required</mat-error>
+                      </div>
+                    </div>
+                  </div>
+
+
+            </mat-dialog-content>
+            <mat-dialog-actions align="center">
+                <button mat-button mat-dialog-close class="cancel-border">Cancel</button>
+                <button mat-raised-button class="blackbutton">Submit</button>
+            </mat-dialog-actions>
+        </form>
+
+    </ng-template>
+</ng-container>

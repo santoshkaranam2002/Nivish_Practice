@@ -1,0 +1,47 @@
+
+@use "src/assets/scss/variables";
+
+.mdc-data-table__cell, html .mdc-data-table__header-cell{
+  padding: 0 35px;
+}
+
+tr.example-element-row {
+  height: 0;
+}
+
+// spinner  start
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh; 
+}
+
+.loading-spinner img {
+  width: 150px;
+  height: 150px; 
+}
+// end spinnerHEAD
+
+
+.disabled {
+  pointer-events: none; /* Disable pointer events */
+  opacity: 1; /* Add a semi-transparent effect to indicate disabled state */
+  /* Add any other styling to visually indicate disabled state */
+}
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8); 
+  z-index: 1000; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none; 
+}
+

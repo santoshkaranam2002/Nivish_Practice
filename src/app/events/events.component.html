@@ -1,0 +1,7 @@
+ 
+<!-- <app-eventstable></app-eventstable> -->
+
+<app-eventstable *ngIf="!showEventBanner" (createEventClicked)="showEventBanner = true"></app-eventstable>
+<app-eventsbanner *ngIf="showEventBanner"></app-eventsbanner>
+
+

@@ -1,0 +1,100 @@
+ <!-- This is for details of the participation -->
+
+<div class="m-t-40" *ngIf="constituency">
+  <mat-accordion class="example-headers-align" multi id="accordionContent">
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="row justify-content-center page-title m-t-10">
+          Participant List 
+          <div class="col-md-12 text-center f-s-12 m-t-6">
+            <span>
+              {{state}}
+              <ng-container *ngIf="state && election"> &#8594; </ng-container>
+              {{election}}
+              <ng-container *ngIf="election && year"> &#8594; </ng-container>
+              {{year}}
+              <ng-container *ngIf="year && constituency"> &#8594; </ng-container>
+              {{constituency}}
+            </span>
+            <!-- Show "No data available" message if no data -->
+            <div *ngIf="!participationdetails || participationdetails.length === 0" class="row justify-content-center m-t-2">
+              <p>No data available.</p>
+            </div>
+          </div> 
+        </mat-panel-title>
+        <!-- <button > -->
+          <img src="assets/images/downloadicon.png" class="m-t-20 m-r-32" alt="Download Icon" width="30px" height="30px" (click)="downloadAsPDF()">
+        <!-- </button> -->
+      </mat-expansion-panel-header>
+   
+        <div class="row justify-content-space m-t-20">
+          <!-- Won card details -->
+            <div class="col-md-12">
+              <div *ngFor="let details of participationdetails" class="d-flex justify-content-center">
+              <mat-card class="example-card" *ngIf="details.status === 'won'">
+                <div class="mat-card-content">
+                  <div class="status-header">
+                    <span [class.status-won]="details.status === 'won'" [class.status-lost]="details.status === 'lost'">{{ details.status | titlecase }}</span>
+                    <span [class.votes-positive]="details.voteDifference > 0" [class.votes-negative]="details.voteDifference < 0">{{ details.totalVotes }} ({{ details.voteDifference > 0 ? '+' + details.voteDifference : details.voteDifference }})</span>
+                  </div>
+                  <div class="candidate-info"
+                  (mouseenter)="showTooltip(details, $event)"
+                  (mouseleave)="hideTooltip()">
+                    <img 
+                      class="avatar m-l-10 m-b-10" 
+                      [src]="details.gender === 'MALE' ? 'assets/images/maleicon.svg' : details.gender === 'FEMALE' ? 'assets/images/femaleicon.svg' : 'assets/images/othersicon.png'"
+                      alt="Candidate Photo"
+                    >
+                    <div class="candidate-details m-l-20">
+                      <div class="candidate-name">{{ details.name }}</div>
+                      <div class="candidate-party">{{ details.party }}</div>
+                      <div class="votespolled">Votes Polled : {{ details.VotesPolledPer | number:'1.2-2'}}%</div>
+                    </div>
+                  </div>
+                </div>
+              </mat-card>
+              </div>  
+            </div>
+   
+            <!-- Lost card details -->
+            <div *ngFor="let details of participationdetails">
+              <div class="d-flex">
+                <mat-card class="example-card" *ngIf="details.status === 'lost'">
+                  <div class="mat-card-content">
+                    <div class="status-header">
+                      <span [class.status-won]="details.status === 'won'" [class.status-lost]="details.status === 'lost'">{{ details.status | titlecase }}</span>
+                      <span [class.votes-positive]="details.voteDifference > 0" [class.votes-negative]="details.voteDifference < 0">{{ details.totalVotes }} ({{ details.voteDifference > 0 ? '+' + details.voteDifference : details.voteDifference }})</span>
+                    </div>
+                    <div class="candidate-info"
+                    (mouseenter)="showTooltip(details, $event)"
+                    (mouseleave)="hideTooltip()">
+                      <img 
+                        class="avatar m-l-10 m-b-10" 
+                        [src]="details.gender === 'MALE' ? 'assets/images/maleicon.svg' : details.gender === 'FEMALE' ? 'assets/images/femaleicon.svg' : 'assets/images/othersicon.png'"
+                        alt="Candidate Photo"
+                      >
+                      <div class="candidate-details m-l-20">
+                        <div class="candidate-name">{{ details.name }}</div>
+                        <div class="candidate-party">{{ details.party }}</div>
+                        <div class="votespolled">Votes Polled : {{ details.VotesPolledPer | number:'1.2-2'}}%</div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+            </div>  
+        </div>      
+    </mat-expansion-panel>    
+  </mat-accordion>
+</div> 
+
+
+
+
+<ng-template #tooltipOverlay>  
+    <div class="custom-tooltip" *ngIf="tooltipDetails">
+      <div><b>Age:</b> {{ tooltipDetails.Age || 'N/A' }}</div>
+      <div><b>ACCategory:</b> {{ tooltipDetails.ACCategory || 'Unknown' }}</div>
+      <div><b>Symbol:</b> {{ tooltipDetails.Symbol || 'N/A' }}</div>
+    </div>
+</ng-template>

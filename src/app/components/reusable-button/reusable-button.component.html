@@ -1,0 +1,14 @@
+<button
+  [ngClass]="getButtonClasses()"
+  [type]="type"
+  [style.width]="buttonWidth"
+  [style.height]="buttonHeight"
+  [style.color]="textColor"
+  [style.background-color]="backgroundColor"
+  [color]="matColor"
+  [disabled]="disabled"
+  (click)="onClick()"
+>
+  <mat-icon aria-hidden="false" *ngIf="icon">{{ icon }}</mat-icon>
+  <span *ngIf="buttonType !== 'icon'">{{ label }}</span>
+</button>

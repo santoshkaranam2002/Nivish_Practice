@@ -1,0 +1,276 @@
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-8 m-b-20">
+            <div class="d-flex m-l-10">
+                <!-- <h2>Quick Insights (Pro-Bite)</h2> -->
+                <app-pagemaintitle   heading="Quick Insights (Pro-Bite)"></app-pagemaintitle>
+
+                <!-- <span class="f-s-24">Quick Insights (pro-bite)</span> -->
+                <span class="f-s-18 textdecoration-underline pointercursor m-l-10" routerLink="/quickinsights-pro-bite">Quick Insights (Pro-Bite)</span> 
+                <span class="f-s-18"> / </span>
+                <span class="f-s-18 textdecoration-underline">Quick Search and create</span> 
+            </div>
+        </div>
+    </div>
+
+    <div class="row m-t-40 justify-content-center">
+        <!-- <span class="f-s-20 f-w-400">Search data</span> -->
+        <app-pagemaintitle  class="" heading="Search data"></app-pagemaintitle>
+
+    </div>
+
+
+   <!-- Dropdowns start here -->
+
+      <div class="row col-md-12 m-t-40">
+        <!--State-->
+        <div class="col-md-3">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-select [formControl]="stateformControl" required placeholder="State" (selectionChange)="onStateSelectionChange($event)">
+                    <mat-form-field appearance="fill" class="search-input">
+                        <input placeholder="Search By State" [formControl]="stateCtrl" matInput />
+                    </mat-form-field>
+                  <mat-option>-- None --</mat-option>
+                  <mat-option *ngFor="let state of filteredstates | async" [value]="state">{{ state }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="stateformControl.hasError('required')">Please choose a State</mat-error>
+            </mat-form-field>
+        </div>
+
+        
+        <!--Election-->
+        <div class="col-md-3">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-select [formControl]="electionformControl" required placeholder="Election Type" (selectionChange)="onelectiontypechange($event)">
+                    <mat-form-field appearance="fill" class="search-input">
+                        <input placeholder="Search Election Type" [formControl]="electionCtrl" matInput />
+                    </mat-form-field>
+                  <mat-option>-- None --</mat-option>
+                  <mat-option *ngFor="let election of filteredElectiontype | async" [value]="election">{{election}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="electionformControl.hasError('required')">Please choose an Election Type</mat-error>
+            </mat-form-field>
+        </div>
+
+        <!--Year-->
+        <div class="col-md-3">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-select [formControl]="yearformControl" placeholder="Year"  (selectionChange)="onyearchange($event)">
+                    <mat-form-field appearance="fill" class="search-input">
+                        <input placeholder="Search Year" [formControl]="yearCtrl" matInput />
+                    </mat-form-field>
+                  <mat-option>-- None --</mat-option>
+                  <mat-option *ngFor="let year of filteredYears | async" [value]="year">{{year}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="yearformControl.hasError('required')">Please choose a Year</mat-error>
+            </mat-form-field>
+        </div>
+
+        <!--Constituency-->
+        <div class="col-md-3">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-select [formControl]="constituencyformControl" placeholder="Constituency" (selectionChange)="onconstituencychange($event)">
+                    <mat-form-field appearance="fill" class="search-input">
+                        <input placeholder="Search Constituency" [formControl]="constituencyCtrl" matInput />
+                    </mat-form-field>
+                    <mat-option>-- None --</mat-option>
+                    <mat-option *ngFor="let constituency of filteredConstituencies | async" [value]="constituency">
+                        {{ constituency }}
+                    </mat-option>                  
+                </mat-select>
+            <mat-error *ngIf="constituencyformControl.hasError('required')">Please choose a Constituency</mat-error>
+            </mat-form-field>
+        </div>
+  
+
+        <!-- <div class="d-flex m-l-10">
+            <img class="m-b-4" src="assets/images/bulb.png">
+            <span class="m-l-6">Pro Tip: </span>
+            <span class="f-s-12 m-l-4"> State is a mandatory field, if Election Type as “Assembly Elections” is selected & Non-mandatory if parliament elections are selected.</span>
+        </div> -->
+
+    </div>   
+    
+    <div class="text-center col-md-12 m-t-24">
+        <button mat-raised-button class="blackbutton rounded-pill searchbuttons m-r-20" (click)="onSearch()">SEARCH</button>
+        <button mat-raised-button class="save-cancel-button rounded-pill searchbuttons" (click)="onreset()">RESET</button>
+    </div>
+
+
+    <div class="row col-md-12 m-t-40">
+        <!-- Toggle -->
+        <div class="col-md-6 d-flex justify-content-start">
+            <mat-button-toggle-group class="searchtoggle" name="fontStyle" aria-label="Font Style" [(ngModel)]="selectedToggle" (change)="onToggleChange($event)">
+            <mat-button-toggle value="vizualizedata" class="toggle-button">Visualize Data</mat-button-toggle>
+            <mat-button-toggle value="viewdata" class="toggle-button"  [disabled]="!isFormValid()">View Data </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+
+
+        <!-- Filter Icon -->
+        <div class="col-md-6 d-flex justify-content-end">
+            <button mat-fab class="blackbutton m-r-20" (click)="probitefilterpopup(filterdialogbox)" [disabled]="!isFormValid()">
+                <mat-icon>filter_alt</mat-icon>
+            </button>
+            <button mat-raised-button class="blackbutton savebutton m-t-6" type="submit" (click)="probitedetail(quickinsightsdialogbox)" [disabled]="!isFormValid()">Save</button>
+        </div>
+    </div>
+
+    <div class="row m-t-32" *ngIf="chartcomponent && selectedToggle === 'vizualizedata'">
+        <div class="col-md-12">
+            <div>
+                <app-charts></app-charts>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-t-32" *ngIf="chartcomponent && selectedToggle === 'viewdata'">
+        <!-- <app-probite-table></app-probite-table> -->
+         <app-probite1-table></app-probite1-table>
+    </div>
+
+    <div class="row m-t-32">
+        <div class="col-md-12">
+        </div>
+    </div>
+    
+</div>
+
+    
+<!-- Save Button Pop-up -->
+<ng-container>
+    <ng-template #quickinsightsdialogbox>
+        <div mat-dialog-title class="text-center popupheader-black">Quick Insights(pro-bite)
+            <!-- <button mat-icon-button mat-dialog-close color="warn" class="float-right m-t-4">
+                <mat-icon>close</mat-icon>
+              </button> -->
+        </div>
+        <form action="" [formGroup]="saveForm" (ngSubmit)="savepost()">
+            <mat-dialog-content id="scrollbar">
+                <div class="row m-t-40">
+                    <!-- Toggle -->
+                    <div class="col-md-12 d-flex justify-content-start">
+                        <app-label text="Set Visibility" for="name" [required]="true"></app-label>
+                        <br>
+                        <mat-button-toggle-group appearance="legacy" class="custom-toggle-group" formControlName="privatetoggle" name="visibility" aria-label="Visibility">
+                            <mat-button-toggle value="Public">Public</mat-button-toggle>
+                            <mat-button-toggle value="Private">Private</mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+            
+                    <!-- Name Input -->
+                    <div class="col-lg-12 m-t-24">
+                        <div class="row m-b-10">
+                            <div class="col-12 mb-3">
+                                <app-label text="Name" for="name" [required]="true"></app-label>
+                                <mat-form-field appearance="outline" class="w-100 place">
+                                    <input type="text" matInput formControlName="quickinsightformcontrol" placeholder="Enter a name for Quick Insight Probite" required>
+                                    <mat-error>Provide a name for your Quick Insights.</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+            
+                        <!-- Description Input -->
+                        <div class="row m-b-10">
+                            <div class="col-12 mb-3">
+                                <app-label text="Description" for="description" [required]="true"></app-label>
+                                <mat-form-field appearance="outline" class="w-100 place">
+                                    <textarea matInput class="custom-textarea" id="candidateBrief" formControlName="descripationformcontrol" placeholder="Type Brief About Yourself" required></textarea>
+                                    <mat-error>Provide a description for your Quick Insights.</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-dialog-content>
+            
+            <mat-dialog-actions align="center">
+                <button mat-raised-button style="width: 150px; height: 40px; font-weight: 700;" class="f-s-18 m-r-12 blackbutton save-cancel-button">Save</button>
+                <div class="m-l-10">&nbsp;</div>
+                <!-- Cancel Button: Flat, Accent Color -->
+                <app-reusable-button mat-dialog-close
+                    label="Cancel"
+                    [matColor]="'primary'"
+                    [textColor]="'black'"
+                    [backgroundColor]="'#f0f0f0'" 
+                    [buttonWidth]="'100%'"
+                    [buttonHeight]="'40px'"
+                    [buttonType]="'flat'"
+                    classname="black-color f-s-18"
+                    (click)="cancelresetformcontrol()"
+                ></app-reusable-button>
+            </mat-dialog-actions>
+        </form>
+    </ng-template>
+</ng-container>
+
+
+
+<!-- Filter Pop-up -->
+<ng-container>
+    <ng-template #filterdialogbox>
+        <div mat-dialog-title class="text-center popupheader-black">Filters</div>
+        <form action="" [formGroup]="filterpop">
+            <mat-dialog-content id="scrollbar">
+                <div class="row m-t-20">
+                    <div class="col-md-2">
+                        <mat-checkbox [formControl]="ageFilter">AGE</mat-checkbox>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-slider class="mat-slider" min="18" max="100" discrete="true" [disabled]="!ageFilter.value">
+                            <input matSliderStartThumb [(ngModel)]="startvalue" [ngModelOptions]="{standalone: true}" [disabled]="!ageFilter.value"  (ngModelChange)="logValues()">
+                            <input matSliderEndThumb [(ngModel)]="endvalue" [ngModelOptions]="{standalone: true}" [disabled]="!ageFilter.value"  (ngModelChange)="logValues()">
+                        </mat-slider>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-center float-right">
+                        <span>{{startvalue}} - {{endvalue}} Years</span>
+                    </div>
+                </div>
+
+            <div class="card m-t-40">
+                <div class="row m-t-4">
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-select formControlName="genderformcontrol" placeholder="Select Gender" (selectionChange)="ongenderchange($event)">
+                                <mat-option>-- None --</mat-option>
+                                <mat-option *ngFor="let gender of genders" [value]="gender">{{gender}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-select formControlName="partyformcontrol" placeholder="Select Political Party" (selectionChange)="onpartychange($event)">
+                                <mat-form-field appearance="fill" class="search-input">
+                                    <input placeholder="Search By Party" [formControl]="partyCtrl" matInput />
+                                </mat-form-field>
+                              <mat-option>-- None --</mat-option>
+                              <!-- <mat-option *ngFor="let state of filteredstates | async" [value]="state">{{ state }}</mat-option> -->
+                                <mat-option *ngFor="let party of filterparties | async" [value]="party">{{ party }}
+                                    <!-- <mat-checkbox >
+                                    {{ party }}
+                                    </mat-checkbox> -->
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-select formControlName="categoryformcontrol" placeholder="Select AC Category" (selectionChange)="oncategorychange($event)">
+                                <mat-option>-- None --</mat-option>
+                                <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            </mat-dialog-content>
+            <mat-dialog-actions class="m-t-64" align="center">
+                <button mat-raised-button class="m-r-12 blackbutton save-cancel-button" (click)="onApply()">Apply</button>
+                <button mat-stroked-button mat-dialog-close class="save-cancel-button" (click)="cancelresetformcontrol()">Cancel</button>
+            </mat-dialog-actions>
+        </form>
+    </ng-template>
+</ng-container>

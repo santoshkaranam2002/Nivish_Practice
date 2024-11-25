@@ -1,0 +1,153 @@
+<div class="main-content">
+
+    <div>
+        <h1 class="page-title m-l-20 pointercursor textdecoration-underline" (click)="pagereoad()">Create Events</h1>
+    </div>
+
+    <h1 class="page-title m-l-20 m-t-30">Event Images and Photos</h1>
+
+    <!-- Tab starts here -->
+    <div class="container"> 
+        <div>
+            <!-- Conditionally render either the carousel or the default image -->
+            <ng-container *ngIf="multipleImagesArr && multipleImagesArr.length > 0; else defaultImage">
+                <!-- Image carousel section -->
+                <label id="carouselLabel" style="height: 55vh; display: block;">
+                    <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false" data-bs-ride="carousel" [attr.data-bs-interval]="multipleImagesArr.length > 0 ? '3000' : '0'" [@slideAnimation]="multipleImagesArr.length">
+                        <div class="carousel-inner">
+                          <div *ngFor="let each of multipleImagesArr; let i = index" class="carousel-item" [class.active]="i === 0">
+                            <img *ngIf="each?.image" [src]="each.image" class="d-block w-100 custom-image" alt="...">
+                          </div>
+                        </div>
+                      </div>
+                </label>
+            </ng-container>
+          
+            <!-- Default image -->
+            <ng-template #defaultImage>
+                <label>
+                <img src="/assets/images/svgs/banner-image-upload.svg" class="w-100 m-t-10 m-b-20" alt="Click to upload image">
+                </label>
+            </ng-template>
+            <div *ngIf="fileTypeError" class="f-w-600 mandatory">{{ errorMessage }}</div>
+          </div>
+  
+          
+          <div class="d-flex">
+            <!-- Display selected images -->
+            <!-- <div *ngFor="let item of multipleImages; let i = index" class="m-r-20 m-b-20">
+              <img [src]="item.multipleImages" class="selected-image w-50" alt="Selected Image" (click)="image(item.id)">
+              <button mat-icon-button class="removebutton m-t-24" (click)="removeImage(i, item.id)">
+                    <mat-icon>clear</mat-icon>
+                </button>
+            </div> -->
+
+            <div *ngFor="let item of multipleImages; let i = index" class="m-r-20 m-b-20">
+                <!-- Clickable image -->
+                <label for="fileInput{{i}}">
+                    <img [src]="item.multipleImages" class="selected-image w-50" alt="Selected Image" (click)="image(item.id)">
+                </label>
+                <!-- Input file type for uploading new images -->
+                <input type="file" accept="image/*" name="licenseDoc" (change)="onNewImageSelected($event, i)" style="display: none;" id="fileInput{{i}}">
+                <!-- Remove button -->
+                <button mat-icon-button class="removebutton m-t-24" (click)="removeImage(i, item.id)">
+                    <mat-icon>clear</mat-icon>
+                </button>
+            </div>
+
+
+
+
+          
+            <!-- Upload option -->
+            <div *ngIf="multipleImagesArr.length < 5">
+                <!-- Hidden file input -->
+                <input type="file" accept="image/" id="digitalsigninput" name="selectedUserProfile" (change)="onProfilePictureSelected($event)" style="display:none;">
+          
+                <!-- Clickable image for upload -->
+                <label  for="digitalsigninput">
+                    <img src="/assets/images/upload.png" class="default-image" alt="Default Image">
+                </label>
+            </div>
+          </div>  
+    </div>
+<!-- </div> -->
+
+
+<!-- <div class="main-content"> -->
+
+
+  <!-- Tab starts here -->
+ 
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10">
+        <mat-tab-group mat-stretch-tabs="false" #tabGroup mat-align-tabs="start" [selectedIndex]="getSelectedIndex()">
+          <ng-container [ngSwitch]="categoryid">
+
+            <mat-tab label="Event Details">
+                <app-eventdetails (moveToTab)="activateTab($event)"></app-eventdetails>
+            </mat-tab>
+            
+            <!-- Schedule -->
+            <mat-tab label="Schedule">
+                <app-schedule (moveToTab)="activateTab($event)"></app-schedule>
+            </mat-tab>
+
+            <!-- For categoryid = 1 -->
+            <ng-container *ngSwitchCase="1">
+              <!-- Assign -->
+              <mat-tab label="Assign">
+                <app-assign (moveToTab)="activateTab($event)"></app-assign>
+              </mat-tab>
+  
+              <!-- Contacts -->
+              <mat-tab label="Contacts">
+                <app-contacts (moveToTab)="activateTab($event)"></app-contacts>
+              </mat-tab>
+  
+              <!-- Release Stats -->
+              <mat-tab label="Release stats">
+                <app-releasestats></app-releasestats>
+              </mat-tab>
+  
+              <!-- Public View Page Button for pollingday -->
+              <!-- <div class="col-md-2">
+                <div class="float-right"><button mat-raised-button class="blackbutton" (click)="openNewWindow()">Public View</button></div>
+              </div> -->
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <span (click)="openNewWindow()">Publish and Communication</span>
+                </ng-template>
+                <!-- <app-publishandcommunication></app-publishandcommunication> -->
+              </mat-tab>
+            </ng-container>
+  
+            <!-- For categoryid = 2 -->
+            <ng-container *ngSwitchCase="2">
+              <!-- Organizer Information -->
+              <mat-tab label="Organizer information">
+                <app-organizerinformation (moveToTab)="activateTab($event)"></app-organizerinformation>
+              </mat-tab>
+  
+              <!-- Public View Page Button for General -->
+              <!-- <div class="col-md-2">
+                <div class="float-right"><button mat-raised-button class="blackbutton" (click)="openNewWindow2()">Public View</button></div>
+              </div> -->
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <span (click)="openNewWindow2()">Publish and Communication</span>
+                </ng-template>
+                <!-- <app-organizerpublish></app-organizerpublish> -->
+              </mat-tab>
+
+            </ng-container>
+          </ng-container>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+  
+
+
+</div>

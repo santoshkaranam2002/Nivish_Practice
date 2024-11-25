@@ -1,0 +1,59 @@
+@use '../grid/variables';
+@use '../grid/mixins';
+.data-analytics-inputfield{
+    height: auto;
+}
+   .table-row {
+    background-color: #17202C !important;
+
+    .table-headings {
+        color: white;
+    }
+  }
+
+.expand-detail-row {
+    height: 0 !important;
+}
+
+.border-divider{
+    border-top-color: rgba(23, 32, 44, 1) !important;
+}
+
+.expand-data {
+    overflow: hidden;
+    display: block;
+    background-color: rgba(237, 237, 237, 0.3);
+    border-radius: 10px;
+    width: 100%;
+  
+    .expanddata-heading{
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+    }
+
+    .expanded-details {
+        display: flex;
+        /* flex-direction: column; */
+        gap: 16px;
+        margin-top: 18px;
+        margin-bottom: 18px;
+        padding: 0 100px;
+    }
+      
+    .buttons {
+        display: flex;
+        gap: 20px;
+    }
+}
+
+.font-style {
+    font-style: italic;
+}
+
+.viewclose {
+    bottom: 3px;
+    left: 23px;
+}

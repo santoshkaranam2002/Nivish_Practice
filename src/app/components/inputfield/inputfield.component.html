@@ -1,0 +1,15 @@
+<div [formGroup]="parentForm">
+  <mat-form-field appearance="outline" class="w-100"  [style.border-radius.px]="borderRadius" [ngClass]="{'error-border': showError()}">
+    <input
+      matInput
+      [type]="type"
+      [formControlName]="controlName"
+      [placeholder]="placeholder"
+      [ngClass]="{ 'is-invalid': showError() }"
+      class="w-100"
+    />
+    <mat-error *ngIf="showError()">{{ getErrorMessage() }}</mat-error>
+  </mat-form-field>
+</div>
+
+

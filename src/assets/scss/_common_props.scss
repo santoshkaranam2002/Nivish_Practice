@@ -1,0 +1,242 @@
+@use "variables";
+
+.input-label{
+    color : $light-grey-color;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    margin-bottom: 4px;
+}
+
+.save-back-button{
+    border-radius: 24px !important;
+    min-width: 30% !important;
+  }
+
+.light-grey-color{
+    color: $light-grey-color;
+}
+
+.height-zero{
+    height: 0px !important;
+}
+
+.black-color{
+    background-color: #17202c;
+}
+
+//Overwritting Material Default Values
+
+.mdc-text-field{
+    // border: 2px solid rgb(229, 234, 239);
+    // border: 1px solid $input-border-color;
+    // border-radius: 26px !important;
+    overflow: hidden !important;
+}
+
+.mat-horizontal-stepper-header{
+    padding: 0 40px !important;
+}
+
+.mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background{
+    background-color: $black !important;
+}
+
+html .mdc-checkbox__background{
+    border: 1px solid $black !important;
+}
+
+.main-content{
+    min-height: calc(100vh - 123px);
+  }  
+
+.orangebutton{
+    background-color: $orange !important;
+    color: $white !important;
+}
+
+.blackbutton{
+    background-color: $black !important;
+    color: $white !important;
+}
+
+.popupheader-black {
+    background-color: rgba(23, 32, 44, 1) !important;
+    color: $white !important;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.float-right{
+    float: right;
+}
+
+.float-left{
+    float: left;
+}
+
+.justify-content-space{
+    justify-content: space-between;
+}
+.justify-content-end{
+    justify-content: end;
+
+}
+
+.custom-textarea {
+    resize: none !important; /* Disables manual resizing from the user */
+    overflow: auto !important;
+    word-wrap: break-word;
+    white-space: pre-wrap; /* Ensures text wraps within the textarea */
+    padding: 10px; /* Adjust padding as needed */
+    height: 150px !important;
+    line-height: 1.5em !important;
+  }
+
+.font-style-italic{
+    font-style: italic;
+}
+
+.pointercursor{
+    cursor: pointer;
+}
+
+.page-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.textdecoration-n{
+    text-decoration: none;
+}
+
+.textdecoration-underline{
+    text-decoration: underline;
+}
+
+.votedcount{
+    color: $voted;
+    font-family: Verdana;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: center;
+  }
+
+.pendingcount{
+    color: $pending;
+    font-family: Verdana;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: center;
+}
+
+.statuscount{
+    color: $status;
+    font-family: Verdana;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: center;
+}
+
+.pollingboothexpanddatafont{
+    font-family: Verdana;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+}
+
+.total_voters{
+    font-family: Verdana;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: center;
+}
+
+.buttons-align{
+    align-items: center;
+}
+
+.border-none{
+    border: none !important;
+}
+
+.overflowhidden{
+    overflow: hidden;
+}
+
+.required-field{
+    color: $mandatory;
+}
+
+.mat-mdc-form-field-error{
+    color: $mandatory;
+    font-weight: 700;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    background-color: $theme-main-color;
+    width: 100%;
+    color: $white-color;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+::ng-deep .mdc-text-field {
+    background-color: red !important;
+    border-radius: 5px;
+}
+
+.textarea-height {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    height: auto;
+    min-height: 50px;
+    max-height: 300px;
+    overflow-y: auto; /* Scroll if content exceeds max height */
+  }  
+
+#scrollbar::-webkit-scrollbar-track
+ {
+   //-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+ }
+
+ #scrollbar::-webkit-scrollbar
+ {
+   width: 4px;
+   border-radius: 10px;
+ }
+
+ #scrollbar::-webkit-scrollbar-thumb
+ {
+   background-color: rgba(186, 186, 186, 1);
+ }
+
+.cancel-border {
+    border: 1px solid !important;
+}
+
+
+.account-info {
+    flex: 1; /* Take up remaining space */
+  }
+  
+.button-container {
+    margin-top: auto; /* Pushes the button to the bottom */
+    margin-bottom: 20px; /* Adjust spacing as needed */
+    display: flex;
+    justify-content: center;
+}

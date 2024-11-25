@@ -1,0 +1,173 @@
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label{
+    color: red !important;
+    font-weight: 700;
+}
+
+.remove-button {
+    color: red; /* Adjust the color as needed */
+}
+
+::ng-deep .mat-tab-group {
+    .mat-tab-labels {
+      display: flex;
+      justify-content: space-around;
+    }
+  
+    .mat-tab-label {
+      flex: 1;
+      text-align: center;
+      padding: 16px 0;
+      background-color: #e0eafc; /* Background color for inactive tabs */
+      color: black; /* Text color for inactive tabs */
+      transition: background-color 0.3s, color 0.3s;
+    }
+  
+    .mat-tab-label-active {
+      background-color: #cfd8dc; /* Background color for active tab */
+      color: black; /* Text color for active tab */
+      font-weight: bold; /* Optional: Make the active tab's text bold */
+    }
+  
+    .mat-ink-bar {
+      background-color: transparent; /* Optional: Hide the ink bar */
+    }
+  }
+
+.profile-page {
+    display: flex;
+    flex-direction: column;
+  
+    .header-image {
+      position: relative;
+      border-radius: 10px; /* Apply border-radius to the header image container */
+      overflow: hidden; /* Ensure the image does not overflow the rounded corners */
+  
+      img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+      }
+  
+      .btn-change-cover {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+      }
+    }
+  
+    .profile-container {
+      display: flex;
+      margin-top: -75px; /* Adjusted to move the sidebar up under the header image */
+      padding: 20px;
+      justify-content: space-between;
+      z-index: 9999;
+  
+      .profile-sidebar {
+        width: 250px;
+        background-color: rgb(255, 255, 255);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+  
+        .profile-pic img {
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+        }
+  
+        .profile-info {
+          margin-top: 20px;
+  
+          h3 {
+            margin: 0;
+            font-size: 24px;
+          }
+  
+          p {
+            margin: 5px 0;
+            color: gray;
+          }
+        }
+  
+        .profile-links {
+          margin-top: 20px;
+          margin-top: auto; /* This pushes the links to the bottom */
+  
+          .btn-view-profile {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+          }
+  
+          a {
+            color: #007bff;
+            text-decoration: none;
+            word-break: break-all;
+          }
+        }
+      }
+  
+      .profile-content {
+        flex: 1;
+        margin-left: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        // padding: 20px;
+      }
+    }
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .profile-container {
+      flex-direction: column;
+  
+      .profile-sidebar {
+        margin-bottom: 20px;
+        width: 100%;
+      }
+  
+      .profile-content {
+        margin-left: 0;
+      }
+    }
+  }
+  
+  .generate-url-button, .post-url-button {
+    margin-top: 10px;
+  }
+  
+  .generated-url, .error-message {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  .error-message {
+    color: red;
+  }
+  
+  .bannerimage {
+    max-width: 3840px;
+    max-height: 2160px; /* Adjust the value to your desired maximum height */
+    // margin-left: 50px;
+    // margin-top: 10px;
+    cursor:pointer;
+    }
+
+
+  
+   

@@ -1,0 +1,94 @@
+<!-- Spinner component: Automatically starts loading -->
+<app-loading-spinner [autoStartLoading]="true" [loadingDuration]="2000"></app-loading-spinner>
+
+<!-- Other content -->
+ <div class="container">
+  <mat-toolbar class="header w-100 p-t-40 p-b-36">
+    <div class="d-flex align-items-center justify-content-between w-100">
+      <!-- Left side content -->
+      <div class="d-flex align-items-center">
+        <!-- Menu icon is hidden by removing the button -->
+        <label for="profilePicture">
+          <img *ngIf="aboutpic" class="profileimage avatar-image" [src]="aboutpic">
+          <img *ngIf="!aboutpic" mat-card-image alt="Upload Icon">
+        </label>
+        <div class="d-flex flex-column m-l-10">
+          <div class="user-name">
+            {{ aboutlastname || 'N/A' }} {{ aboutfirstname || 'N/A' }}
+          </div>
+          <div class="last-updated">
+            Last Updated on: {{ createdon | date: 'dd/MM/yyyy | hh:mm a' || 'N/A' }}
+          </div>
+        </div>
+      </div>
+  
+      <!-- Right side icons (heart and share) aligned to the right -->
+      <div class="d-flex justify-content-end align-items-center">
+        <button mat-icon-button>
+          <mat-icon>favorite</mat-icon>
+        </button>
+  
+        <!-- Share button with mat-menu for options -->
+        <button mat-icon-button [matMenuTriggerFor]="shareMenu">
+          <mat-icon>share</mat-icon>
+        </button>
+  
+        <!-- Menu for share options -->
+        <mat-menu #shareMenu="matMenu" class="share-menu">
+          <div class="share-box">
+            <input type="text" [value]="shareUrl" id="share-url" readonly class="share-url-box" />
+            <!-- Copy icon instead of button -->
+            <button mat-icon-button (click)="copyToClipboard()">
+              <mat-icon style="color: black;">content_copy</mat-icon>
+            </button>
+          </div>
+        </mat-menu>
+      </div>
+    </div>
+  </mat-toolbar>
+
+<div class="content-wrapper m-b-40">
+  <div class="content-center">
+    <div class="header-image">
+      <!-- <img [src]="bannerImageUrl || 'assets/images/profile/banner.jpg'" alt="Header Image" class="bannerimage"> -->
+  
+      <input type="file" accept="image/*" id="bannerpicture" name="selectedUserProfile" hidden>
+      <!-- <div *ngIf="fileTypeError" class="f-w-600 mandatory">{{ errorMessage }}</div> -->
+    </div>
+    <div class="text-left m-t-20 d-flex align-items-center pointercursor" (click)="goBack()">
+      <span class="material-symbols-outlined">
+        arrow_back_ios
+        </span>
+        Back to home page
+    </div>
+    <div>
+      <div class="d-flex align-items-center">
+        <h2 class="text-left m-t-20">Title of Quick Insights Saved</h2>
+        <mat-icon
+          matTooltip="This is a tooltip with additional information. 
+          Here you can provide more details in a paragraph format."
+          matTooltipPosition="above"
+          aria-label="Information"
+          class="info-icon m-l-10"
+        >
+          info
+        </mat-icon>
+      </div>
+      <div class="icon-section d-flex m-t-20 m-b-20">
+        <div class="d-flex align-items-center m-r-20">
+          <span class="material-icons m-r-4">visibility</span>
+          <span class="icon-number">720</span>
+        </div>
+        <div class="d-flex align-items-center m-r-20">
+          <span class="material-icons m-r-4">thumb_up</span>
+          <span class="icon-number">400</span>
+        </div>
+        <div class="d-flex align-items-center m-r-20">
+          <span class="material-icons m-r-4">thumb_down</span>
+          <span class="icon-number">28</span>
+        </div>
+      </div>     
+      <app-morecharts></app-morecharts>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+.vid-img {
+  max-width: 15%;
+  height: auto;
+  margin: 10px;
+}
+
+.table-line-height{
+  line-height: 50px;
+}
+
+.box-shadow{
+box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25); 
+border-radius: 10px;
+}
+
+.carousel-item {
+  height:250px;
+}
+
+#carouselExampleControlsNoTouching {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  margin-top: 20px;
+
+}
+
+.carousel-inner {
+  white-space: nowrap;
+  transition: transform 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.slide .carousel-item {
+  transform: translateX(-100%);
+}
+
+.slide .carousel-item.active {
+  transform: translateX(0);
+}

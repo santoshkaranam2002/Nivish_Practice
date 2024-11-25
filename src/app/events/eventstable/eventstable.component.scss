@@ -1,0 +1,29 @@
+
+  .example-container {
+    // height: 600px;
+    width: 100%;
+    max-width: 100%;
+    overflow: auto;
+    border-radius: 10px;
+  }
+
+  .sticky-paginator {
+    position: sticky;
+    bottom: 0;
+    background-color: #fff;
+    z-index: 1;
+  }
+
+ .exportselection{
+  width: 160px;
+  height: 50px;
+  cursor: pointer;
+ } 
+
+
+ .error-message {
+  color: red;
+  font-size: 14px;
+  font-style: italic;
+}
+

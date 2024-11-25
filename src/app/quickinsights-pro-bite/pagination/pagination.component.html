@@ -1,0 +1,36 @@
+<div class="pagination-container">
+  <!-- Show total probites of the page -->
+  <!-- <p class="m-l-64 probites-info">Probites: {{ totalCount }}</p> -->
+
+  <ul class="pagination">
+    <!-- Disable 'first page' button if on the first page -->
+    <li (click)="navigateToPage(1)" class="arrow" [class.disabled]="index === 1">
+      <a>&laquo;</a>
+    </li>
+
+    <!-- Add the new 'previous page' arrow -->
+    <!-- <li (click)="navigateToPage(index - 1)" class="arrow" [class.disabled]="index === 1">
+      <a>&lsaquo;</a>
+    </li> -->
+
+    <!-- Iterate over pagination.pages to display the page numbers -->
+    <ng-container *ngIf="totalCount > 0">
+      <li *ngFor="let page of pagination.pages" [class.active]="page === index" (click)="navigateToPage(page)">
+        <a>{{ page }}</a>
+      </li>
+    </ng-container>
+
+    <!-- Add the new 'next page' arrow -->
+    <!-- <li (click)="navigateToPage(index + 1)" class="arrow" [class.disabled]="index === maxPages">
+      <a>&rsaquo;</a>
+    </li> -->
+
+    <!-- Disable 'last page' button if on the last page -->
+    <li (click)="navigateToPage(maxPages)" class="arrow" [class.disabled]="index === maxPages">
+      <a>&raquo;</a>
+    </li>
+  </ul>
+
+  <!-- Show current page and total pages -->
+  <p class="m-r-64 page-info">{{ index }} / {{ totalCount }}</p>
+</div>

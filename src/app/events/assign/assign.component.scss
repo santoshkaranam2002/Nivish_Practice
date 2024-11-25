@@ -1,0 +1,54 @@
+.add-end-date-link {
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.bigbox {
+    width: 600px;
+    height: 300px;
+    border: 2px solid #100e0e;
+    border-radius: 5px;
+}
+
+.search-input{
+    width: 550px;
+    height: 60px;
+}
+
+.scrollable-container {
+    // max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  .scrollable-container::-webkit-scrollbar {
+    display: none;
+  }
+
+
+.polling-stations-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.polling-station {
+    width: calc(33.33% - 16px);
+    text-align: center;
+    box-sizing: border-box; 
+    // display: flex;
+    // align-items: center; 
+    // padding: 8px;
+}
+
+// .mat-checkbox {
+//     margin: 0 auto; 
+// }
+
+
+
+.assignname{
+    height: 58px;
+    width: 350px;
+    border: 2px solid #100e0e;
+    border-radius: 10px;
+}

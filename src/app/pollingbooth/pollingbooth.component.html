@@ -1,0 +1,246 @@
+<ng-template [ngIf]="activetab === 'PollingBoothDetails'">
+  <div class="main-content" [class.disabled]="syncspinner">
+    <h1 class="page-title">Polling Booth</h1>
+    <div class="d-flex float-right">
+      <div class="m-r-64">
+        <button mat-raised-button class="blackbutton" (click)="SummaryDownload()" matTooltip="Summary Download" matTooltipPosition="above">
+          <mat-icon>file_download</mat-icon>
+          Summary
+        </button>
+      </div>
+
+      <div (click)="Sync(EmailId)">
+        <button mat-raised-button class="blackbutton" matTooltip="Sync The Data" matTooltipPosition="above">
+          <mat-icon>sync</mat-icon>
+          Sync Data
+        </button>
+        <span *ngIf="syncspinner" class="spinner"></span>
+      </div>
+    </div>
+
+    <div *ngIf="syncspinner" class="loading-spinner overlay">
+      <img src="assets/images/ivin-loading.gif" alt="Loading">
+    </div>
+
+    <!--Table Starts here-->
+    <div class="mat-elevation-z8 m-t-48">
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+        <ng-container  class="d-flex flex-row justify-content-center">
+          <div matColumnDef="BoothNoandName">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Booth No & Name </th>
+            <td mat-cell *matCellDef="let element" class="border-none"> {{element.Polling_Station_Name_Num}}
+            </td>
+          </div>
+    
+          <div matColumnDef="BoothIncharge" class="d-flex">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Booth Incharge </th>
+            <td *matCellDef="let element" class="justifycontent m-t-6 border-none"> 
+              {{element.Booth_Incharge}}<br>
+              ({{element.Booth_Incharge_Number}}) 
+            </td>
+          </div>
+    
+          <div matColumnDef="MandalIncharge">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Mandal Incharge </th>
+            <td mat-cell *matCellDef="let element" class="border-none">
+              {{element.Mandal_Incharge}} <br> 
+              ({{element.Mandal_Incharge_Number}}) 
+            </td>
+          </div>
+
+          <div matColumnDef="ClusterIncharge">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Cluster Incharge </th>
+            <td mat-cell *matCellDef="let element" class="border-none">
+              {{element.Cluster_Incharge}} <br> 
+              ({{element.Cluster_Incharge_Number}}) 
+            </td>
+          </div>
+    
+          <div matColumnDef="Voted">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Voted </th>
+            <td mat-cell *matCellDef="let element" class="votedcount border-none"> {{element.Voted}} </td>
+          </div>
+    
+          <div matColumnDef="+">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> + </th>
+            <td mat-cell *matCellDef="let element" class="border-none"> + </td>
+          </div>
+    
+          <div matColumnDef="Pending">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Pending </th>
+            <td mat-cell *matCellDef="let element" class="pendinggeneralcount border-none"> {{element.pendingVoters}} </td>
+          </div>
+    
+          <div matColumnDef="=">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> = </th>
+            <td mat-cell *matCellDef="let element" class="border-none"> = </td>
+          </div>
+    
+          <div matColumnDef="TotalVoters">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Total Voters </th>
+            <td mat-cell *matCellDef="let element" class="total_voters border-none"> {{element.Total_Voters}} </td>
+          </div>
+    
+          <div matColumnDef="Stats">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Stats </th>
+            <td mat-cell *matCellDef="let element" class="statuscount border-none">
+              {{element.stats}} / {{element.PartyInclination_tdp}}
+              <div *ngIf="element.trend === 'Leading'">
+                <mat-icon class="maticon-upward" >arrow_upward</mat-icon>
+              </div>
+              <div *ngIf="element.trend === 'Trailing'">
+                <mat-icon class="maticon-downward" >arrow_downward</mat-icon>
+              </div>
+            </td>
+          </div>
+        </ng-container>
+  
+        <!-- Expanded Content Column -->
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length" class="p-10">
+            <div class="expand-data-polling" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              <div class="expanded-details">
+                <div class="m-l-20">
+                  <mat-label class="f-w-600">Mandal Party Sec</mat-label>
+                  <p>{{element.Mandal_Party_Secretary}}</p>
+                  <p>{{element.Mandal_Party_Secretary_Contact}}</p>
+                </div>
+                <div class="m-l-10">
+                  <mat-label class="f-w-600">Unit Incharge</mat-label>
+                  <p>{{element.Unit_Incharge}}</p>
+                  <p>{{element.Unit_Incharge_Number}}</p>
+                </div>
+                <div class="m-l-10">
+                  <mat-label class="f-w-600">Booth Communicator</mat-label>
+                  <p>{{element.Booth_Communicator}}</p>
+                  <p>{{element.Booth_Communicator_Contact}}</p>
+                </div>
+                <div class="m-l-10">
+                  <mat-label class="f-w-600">Follow Up</mat-label>
+                  <p>{{element.Follow_up_Person}}</p>
+                  <p>{{element.Follow_up_Person_Contact}}</p>
+                </div>
+                <div class="votedgeneralcount d-flex">
+                  <div>
+                    <p>Male: {{element.Male_Voted}}</p>
+                    <p>Female: {{element.Female_Voted}}</p>
+                    <p>Others: {{element.others_voted}}</p>
+                  </div>
+                </div>
+                <div class="m-t-16"> + </div>
+                <div class="pendinggeneralcount d-flex">
+                  <div>
+                    <p>Male: {{element.pending_voter_data_Male}}</p>
+                    <p>Female: {{element.pending_voter_data_Female}}</p>
+                    <p>Others: {{element.pending_voter_data_others}}</p>
+                  </div>
+                </div>
+                <div class="m-t-16"> = </div>
+                <div class="f-w-700 m-l-10">
+                  <p>Male: {{element.Total_Male}}</p>
+                  <p >Female: {{element.Total_Female}}</p>
+                  <p>Others: {{element.Total_others}}</p>
+                </div>
+                <td class="text-center m-l-10">
+                  <span class="f-w-700">Not-Inclined Votes</span>
+                  <p class="notinclinedcount">{{element.non_inclination_data}}</p>
+                </td>
+              </div>
+              <div class="expanded-details m-t-64">
+                <div class="m-l-20">
+                  <mat-label class="f-w-600">Data Entry</mat-label>
+                  <p>{{element.Data_Entry}}</p>
+                  <p>{{element.Data_Entry_Contact}}</p>
+                </div>
+                <div class="m-l-20">
+                  <mat-label class="f-w-600">Food Incharge</mat-label>
+                  <p>{{element.Food_Incharge}}</p>
+                  <p>{{element.Food_Incharge_Contact}}</p>
+                </div>
+                <div class="m-l-20">
+                  <mat-label class="f-w-600">Voter Motivation</mat-label>
+                  <p>{{element.Voter_Motivation}}</p>
+                  <p>{{element.Voter_Motivation_Contact}}</p>
+                </div>
+                <div class="m-l-20">
+                  <mat-label class="f-w-600">Tent 1</mat-label>
+                  <p>{{element.Tent_Inchage1}}</p>
+                  <p>{{element.Tent_Incharge1_Contact}}</p>
+                </div>
+                <div class="m-l-20">
+                  <mat-label class="f-w-600">Tent 2</mat-label>
+                  <p>{{element.Tent_Inchage2}}</p>
+                  <p>{{element.Tent_Incharge2_Contact}}</p>
+                </div>
+                <div class="m-l-20">
+                  <mat-label class="f-w-600">Transport 1</mat-label>
+                  <p>{{element.Transportation1_Incharge}}</p>
+                  <p>{{element.Transportation_Incharge1_Contact}}</p>
+                </div>
+                <div class="m-l-20">
+                  <mat-label class="f-w-600">Transport 2</mat-label>
+                  <p>{{element.Transportation2_Incharge}}</p>
+                  <p>{{element.Transportation_Incharge2_Contact}}</p>
+                </div>
+              </div>
+              <div class="text-center m-t-24 m-b-10">
+                <button mat-stroked-button class="m-r-30 cancel-border" (click)="boothdownload()"><mat-icon>file_download</mat-icon>Download</button>
+                <button class="blackbutton" mat-raised-button color="warn" (click)="pollingbooth(element)"><mat-icon>ballot_box</mat-icon>Polling Booth</button>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+        <!-- Header row -->
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay" class="table-row"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row pointercursor"
+          [class.example-expanded-row]="expandedElement === element"
+          (click)="expandclick(element)">
+        </tr>
+        <!-- Data rows -->
+        <tr mat-row *matRowDef="let element; columns: ['expandedDetail']" class="example-element-row"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[50, 100]" showFirstLastButtons></mat-paginator>
+    </div>
+    <!--Table Ends here-->
+
+    <!--Bottom-->
+    <div class="row m-t-12">
+      <div class="col-md-3">
+        <span class="material-symbols-outlined votedgeneralcount">arrow_upward</span>
+        <span class="text m-l-4">Leading = voted/Expected to vote% > 50%</span>
+      </div>
+  
+      <div class="col-md-3">
+        <span class="material-symbols-outlined arrowdownward">arrow_downward</span>
+        <span class="text m-l-4">Trailing = voted/Expected to vote% < 50% </span>
+      </div>
+  
+      <div class="col-md-1 d-flex">
+        <span class="material-symbols-outlined votedgeneralcount">stop</span>
+        <span class="text m-l-4">Voted</span>
+      </div>
+  
+      <div class="col-md-1 d-flex">
+        <span class="material-symbols-outlined downarrowimage">stop</span>
+        <span class="text m-l-4">Yet to Vote</span>
+      </div>
+  
+      <div class="col-md-4 d-flex">
+        <span class="material-symbols-outlined">download</span>
+        <span class="text m-l-4">*On Download, you can download only pending Vote list</span>
+      </div>
+
+      <div class="d-flex">
+        <div class="col-md-9">
+          <span class="text m-l-4 "><span class="f-w-700">States</span> = Voted / Expected Votes (pending to be voted from the expected vote)</span>
+        </div>
+
+        <div class="col-md-4">
+          <span class="Not-Inclined m-l-4">Not-Inclined Votes = --</span>
+        </div>
+      </div>
+    </div>
+     <!--Bottom-->
+  </div>
+  <!--Main Content-->
+</ng-template>

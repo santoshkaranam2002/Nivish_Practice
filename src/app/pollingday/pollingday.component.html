@@ -1,0 +1,417 @@
+<div class="main-content" [class.disabled]="pollingdaychangespinner || outsidetogglespinner || markasvotedspinner || popupSpinner || insidetogglespinner">
+  <div class="row">
+    <div class="col-md-8">
+      <h1 class="page-title">
+        <a class="textdecoration-n orangecolor" href="./pollingbooth">Polling Booth</a> > Polling Day
+      </h1>
+    </div>
+  </div>
+
+  <div class="w-100 m-t-32">
+    <div class="row">
+      <!-- Pollingstation Dropdown -->
+      <div class="col-md-6">
+        <mat-form-field class="pollingstation-dropdown m-l-10" appearance="outline">
+          <mat-select (selectionChange)="onPollingStationSelected($event)" placeholder="Select a Polling Station" value="mar" [(ngModel)]="SelectPollingStation">
+            <mat-option *ngFor="let stationnames of pollingdropdown" [value]="stationnames.Polling_Station_Name_Num">
+              {{stationnames.Polling_Station_Name_Num}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      </div>
+
+      <!-- This is for Timer -->
+      <div class="col-md-6 m-l-auto">
+        <div class="row countdowncountboxborder cardWithShadow countborder" style="float: right;">
+          <div class="col-md-12 m-t-2">
+            <div class="progress-container">
+              <div class="progress-bar-container">
+                <div class="progress-bar" [style.width]="progressWidth()"></div>
+              </div>
+            </div>
+          </div>
+          <!--Start Time-->
+          <div class="col-md-4 m-t-16 countbox">
+            Start<br>
+            <span class="countboxnumber">{{ getStartTime() | date:'h:mm a' }}</span>
+          </div>
+          <!--Remaining Time-->
+          <div class="col-md-5 m-t-16 countbox">
+            Remaining<br>
+            <span class="countboxnumber" id="remainingTime">{{ formatTime(getRemainingTime()) }}</span>
+          </div>
+          <!--End Time-->
+          <div class="col-md-3 m-t-16 countbox">
+            End<br>
+            <span class="countboxnumber">{{ getEndTime() | date:'h:mm a' }}</span>
+          </div>
+        </div>
+      </div>
+      <!-- Timer End -->
+    </div>
+  </div>
+
+  <div class="row m-b-48 m-t-24">
+      <div class="col-md-2"></div>
+      <!-- Outside And Inside Toggle Buttons -->
+      <div class="col-md-8">
+        <div class="m-l-auto">
+          <div class="tabs d-flex justify-content-center">
+          <mat-button-toggle-group class="toggle-button toggle-button-radius toggle-button-boxshadow" name="fontStyle" aria-label="Font Style" (change)="onToggleChange()" [(ngModel)]="selectedToggle">
+            <mat-button-toggle value="outside" class="toggle-button">Outside  </mat-button-toggle>
+            <mat-button-toggle value="inside" class="toggle-button">Inside </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+        </div>
+        <div class="col-sm-4 col-lg-4 ">
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+  </div>
+    
+  <div>
+    <div class="d-flex m-b-24">
+      <!--Voted, Download, Filter button starts here-->
+      <div class="row buttons-align">
+        <!--Voted-->
+        <div class="col-md-2">
+          <div *ngIf="selectedToggle === 'outside'">
+            <button mat-button class="pollingdayvotedbutton" (click)="outcorrections(outsidedialogbox)">Voted </button>
+          </div>
+          <div *ngIf="selectedToggle === 'inside'">
+            <button mat-button class="pollingdayvotedbutton" (click)="insidecorrections(insidedialogbox)">Voted</button>
+          </div>
+        </div>
+
+
+      <!--Download-->
+        <div class="col-md-2">
+          <button
+            mat-stroked-button
+            class="pollingdayfilterdownloadbutton cancel-border"
+            matTooltip="Download only pending vote list"
+            (click)="votersdatadownload()"
+          >
+            <mat-icon>download</mat-icon>
+            Download
+          </button>
+        </div>
+        
+
+      <!--Filter-->
+      <div class="col-md-4">
+        <mat-form-field mat-stroked-button class="partyfilter-dropdown theme-select" appearance="outline" matTooltip="Filter as per party">
+          <mat-label>Filter by Party</mat-label>
+          <mat-select class="p-t-12" [(ngModel)]="selectedParty">
+            <!-- <mat-option value="All">All</mat-option> -->
+            <!-- <mat-option *ngFor="let partyName of uniquePartyNames" [value]="partyName">
+              {{ partyName }}
+            </mat-option> -->
+            <mat-option *ngFor="let party of partyNamesforfilter" [value]="party">
+              <mat-checkbox [(ngModel)]="isChecked[party]" (change)="onCheckboxChange(party)">
+                <span class="color-circle" [style.background-color]="getPartyColor(party)"></span>{{party}}
+              </mat-checkbox>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+        
+
+        <div class="col-md-3">
+          <mat-form-field mat-stroked-button class="theme-select" appearance="outline" matTooltip="Filter as per local">
+            <mat-label>Filter by local</mat-label>
+            <mat-select class="p-t-12"  [(ngModel)]="selectedFilter" (ngModelChange)="onLocalFilterChange($event)">
+              <mat-option value="All">All</mat-option>
+              <mat-option value="false"><mat-icon class="nonlocaladdressbgcolor"> how_to_vote</mat-icon>Local</mat-option>
+              <mat-option value="true"><mat-icon class="nonlocaladdressbgcolor">flight</mat-icon>Non-Local</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <!--Counter Box-->
+      <div class="m-l-auto">
+        <div class="row countboxborder cardWithShadow" style="float: right;">
+          <!--Voted Count-->
+          <div class="col-md-3 countbox">
+            Voted
+            <span class="countboxnumber">{{ VotedCount }}</span>
+          </div>
+          <!--Yet to Vote Count-->
+          <div class="col-md-5 countbox">
+            Yet to Vote<br>
+            <span class="countboxnumber">{{ yetToVoteCount }}</span>
+          </div>
+          <!--Total Count-->
+          <div class="col-md-3 countbox">
+            Total
+            <span class="countboxnumber">{{ noofvoters }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      
+
+
+  <ng-container *ngIf="onPollingStationSelected">
+    <!-- Outside Screen Starts Here -->
+    <ng-container *ngIf="selectedToggle === 'outside'">
+        <mat-card-content>
+          <!-- Your loading spinner -->
+          <div *ngIf="pollingdaychangespinner || outsidetogglespinner || markasvotedspinner || morespinner" class="loading-spinner overlay">
+            <img src="assets/images/ivin-loading.gif" alt="Loading">
+          </div>
+          <form *ngIf="!outsidetogglespinner && !pollingdaychangespinner && !markasvotedspinner && !morespinner">
+            <div class="checkbox-rows">
+              <ng-container *ngFor="let number of voterserialnumbers.split(','); let i = index">
+                <!-- Start a new row after every 10 checkboxes -->
+                <!-- <div *ngIf="i % 10 === 0 && i !== 0" class="new-row"></div> -->
+                
+                <!-- Check if the number is not an empty string before rendering the checkbox -->
+                <ng-container *ngIf="number.trim() !== ''">
+                  <label class="icon-box" [matTooltip]="getTooltipContent(number)" matTooltipTrigger="click" (click)="numberssaved(number)">
+                    <span class="label pointercursor"  [ngClass]="{'selected-checkbox': selectedNumbers.includes(number)}">
+                      <!-- Pill for background color -->
+                      <label class="partypill m-l-24" [style.background-color]="getPartyColor(partynames.split(',')[i])"></label>
+                      <div style="text-align: center; position: relative;">
+                        <div class="m-t-10">
+                          <img *ngIf="nonlocaladdress.split(',')[i] === 'false'" src="assets/images/voter-icon.svg" alt="Voter Image">
+                          <img *ngIf="nonlocaladdress.split(',')[i] === 'true'" class="vectorimage" src="assets/images/Vector.svg"  alt="Vector Image">
+                          <div class="number-overlay">
+                            <span class="number">{{ number }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </span>
+                  </label>
+                </ng-container>
+              </ng-container>
+                <!-- Dummy checkbox for "More" -->
+                <label *ngIf="pagenumber < pagecount && SelectPollingStation" class="icon-box" (click)="pagecountincrease()">
+                  <span class="label">
+                    <!-- Customize the appearance of the "More" checkbox as needed -->
+                    <div style="text-align: center; position: relative;">
+                      <div class="m-t-10">
+                        <!-- <img src="assets/images/voter-icon.svg" alt="More Icon"> -->
+                        <mat-icon>data_usage</mat-icon>
+                        <div class="number-overlay">
+                          <span class="number">More</span>
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                </label>
+               <!-- Dummy checkbox for "More" -->
+            </div>
+          </form>
+        </mat-card-content>
+    </ng-container>
+    <!-- Outside Screen Ends Here -->
+
+    <!-- Inside Screen Starts Here -->
+    <ng-container *ngIf="selectedToggle === 'inside'">
+      <div class="voterscontentinsidebg">
+        <div class="m-l-12">
+          <mat-card-content>
+            <!-- Your loading spinner -->
+            <div *ngIf="pollingdaychangespinner || insidetogglespinner || markasvotedspinner || morespinner" class="loading-spinner overlay">
+             <img src="assets/images/ivin-loading.gif" alt="Loading">
+           </div>
+           <form *ngIf="!insidetogglespinner && !pollingdaychangespinner && !markasvotedspinner && !morespinner">
+             <div class="checkbox-rows">
+               <ng-container *ngFor="let number of voterserialnumbers.split(','); let i = index">
+                 <!-- Start a new row after every 10 checkboxes -->
+                 <!-- <div *ngIf="i % 10 === 0 && i !== 0" class="new-row"></div> -->
+                 
+                 <!-- Check if the number is not an empty string before rendering the checkbox -->
+                 <ng-container *ngIf="number.trim() !== ''">
+                   <label class="icon-box" [matTooltip]="getTooltipContent(number)" matTooltipTrigger="click" (click)="numberssaved(number)">
+                     <span class="label pointercursor"  [ngClass]="{'selected-checkbox': selectedNumbers.includes(number)}">
+                       <!-- Pill for background color -->
+                       <label class="partypill m-l-24" [style.background-color]="getPartyColor(partynames.split(',')[i])"></label>
+                       <div style="text-align: center; position: relative;">
+                         <div class="m-t-10">
+                           <img *ngIf="nonlocaladdress.split(',')[i] === 'false'" src="assets/images/voter-icon.svg" alt="Voter Image">
+                           <img *ngIf="nonlocaladdress.split(',')[i] === 'true'" class="vectorimage" src="assets/images/Vector.svg"  alt="Vector Image">
+                           <div class="number-overlay">
+                           <span class="number">{{ number }}</span>
+                           </div>
+                         </div>
+                       </div>
+                     </span>
+                   </label>
+                 </ng-container>
+               </ng-container>
+               <!-- Dummy checkbox for "More" -->
+               <label *ngIf="pagenumber < pagecount && SelectPollingStation" class="icon-box" (click)="pagecountincrease()">
+                 <span class="label">
+                   <!-- Customize the appearance of the "More" checkbox as needed -->
+                   <div style="text-align: center; position: relative;">
+                     <div class="m-t-10">
+                       <!-- <img src="assets/images/voter-icon.svg" alt="More Icon"> -->
+                       <mat-icon>data_usage</mat-icon>
+                       <div class="number-overlay">
+                         <span class="number">More</span>
+                       </div>
+                     </div>
+                   </div>
+                 </span>
+               </label>
+              <!-- Dummy checkbox for "More" -->
+             </div>
+           </form>
+         </mat-card-content>
+        </div>
+      </div>
+    </ng-container>
+    <!-- Inside Screen Ends Here -->
+  </ng-container>
+  
+
+  <!-- popups started here -->
+  <ng-container>
+    <!-- Outside Dialog -->
+    <ng-template #outsidedialogbox>
+      <div class="popup-container" *ngIf="showPopupContentOutside">
+        <h2 class="text-center">Outside Corrections</h2>
+        <button mat-icon-button mat-dialog-close color="warn" class="float-right">
+          <mat-icon>close</mat-icon>
+        </button>
+          <ng-container *ngIf="selectedToggle === 'outside'">
+              <mat-card-content>
+                <!-- Your loading spinner -->
+              <div *ngIf="popupSpinner" class="loading-spinner overlay">
+                <img src="assets/images/ivin-loading.gif" alt="Loading">
+                </div>
+                <form *ngIf="!popupSpinner">
+                  <div class="checkbox-rows">
+                    <ng-container *ngFor="let voternumber of popupserialnumbers; let i = index">
+                      <!-- <div *ngIf="i % 10 === 0 && i !== 0" class="new-row"></div> -->
+                        <label class="icon-box" [matTooltip]="getTooltipContentpopup(voternumber)" matTooltipTrigger="hover" (click)="serialnumbersupdatepopup(voternumber)">
+                          <span class="label number-color pointercursor">
+                            <label class="partypill m-l-24" [style.background-color]="getPartyColor(popuppartynames.split(',')[i])"></label>
+                            <div style="text-align: center; position: relative;">
+                              <div class="m-t-10">
+                                <img *ngIf="popupnonlocaladdress.split(',')[i] === 'false'" src="assets/images/voter-icon.svg" alt="Voter Image">
+                                <img *ngIf="popupnonlocaladdress.split(',')[i] === 'true'" class="vectorimage" src="assets/images/Vector.svg"  alt="Vector Image">
+                                <div class="number-overlay">
+                                  <span class="number">{{ voternumber }}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </span>
+                        </label>
+                    </ng-container>
+                  </div>
+                </form>
+              </mat-card-content>
+          </ng-container>
+      </div>
+    </ng-template>
+
+    <!-- Inside Dialog -->
+    <ng-template #insidedialogbox>
+      <div class="popup-container" *ngIf="showPopupContentInside">
+        <h2 class="text-center">Inside Corrections</h2>
+        <div class="voterscontentinsidebg">
+          <div class="m-l-10">
+          <button mat-icon-button mat-dialog-close color="warn" class="float-right">
+            <mat-icon>close</mat-icon>
+          </button>
+          <ng-container *ngIf="selectedToggle === 'inside'">
+            <mat-card-content>
+            <!-- Your loading spinner -->
+              <div *ngIf="popupSpinner" class="loading-spinner overlay">
+              <img src="assets/images/ivin-loading.gif" alt="Loading">
+              </div>
+              <form *ngIf="!popupSpinner">
+                <div class="checkbox-rows">
+                  <ng-container *ngFor="let voternumber of popupserialnumbers; let i=index">
+                    <!-- <div *ngIf="i % 10 === 0 && i !== 0" class="new-row"></div> -->
+                      <label class="icon-box" [matTooltip]="getTooltipContentpopup(voternumber)" matTooltipTrigger="hover" (click)="serialnumbersupdatepopup(voternumber)">
+                        <span class="label number-color pointercursor">
+                          <label class="partypill m-l-24" [style.background-color]="getPartyColor(popuppartynames.split(',')[i])"></label>
+                          <div style="text-align: center; position: relative;">
+                            <div class="m-t-10">
+                              <img *ngIf="popupnonlocaladdress.split(',')[i] === 'false'" src="assets/images/voter-icon.svg" alt="Voter Image">
+                              <img *ngIf="popupnonlocaladdress.split(',')[i] === 'true'" class="vectorimage" src="assets/images/Vector.svg"  alt="Vector Image">
+                              <div class="number-overlay">
+                                <span class="number">{{ voternumber }}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </span>
+                      </label>
+                  </ng-container>
+                </div>
+              </form>
+            </mat-card-content>
+        </ng-container>
+        </div>
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
+  <!-- popup end here -->
+
+  <footer class="footer">
+    <div class="copyright d-flex">
+      <div class="d-flex m-l-4">
+        <span class="pill ysrcppillbgcolor m-t-10"></span>
+        <div class="m-l-4 m-t-9 partyname">YSRCP</div>
+      </div>
+  
+      <div class="d-flex m-l-24">
+        <span class="pill tdppillbgcolor m-t-10"></span>
+        <div class="m-t-9 m-l-4 partyname">TDP</div>
+      </div>
+  
+      <div class="d-flex m-l-24">
+        <span class="pill janasenappillbgcolor m-t-10"></span>
+        <div class="m-t-9 m-l-4 partyname">Janasena</div>
+      </div>
+  
+      <div class="d-flex m-l-24">
+        <span class="pill bjppillbgcolor m-t-10"></span>
+        <div class="m-t-9 m-l-4 partyname">BJP</div>
+      </div>
+  
+      <div class="d-flex m-l-24">
+        <span class="pill neutralpillbgcolor m-t-10"></span>
+        <div class="m-t-9 m-l-4 partyname">Neutral</div>
+      </div>
+  
+      <div class="d-flex m-l-24">
+        <span class="pill otherspillbgcolor m-t-10"></span>
+        <div class="m-t-9 m-l-4 partyname">Others</div>
+      </div>
+  
+      <div class="d-flex m-l-24">
+        <mat-icon class="nonlocaladdressbgcolor"> flight</mat-icon>
+        <div class="m-t-9 m-l-4 partyname">Non Local Address</div>
+      </div>
+  
+      <div class="d-flex m-l-24">
+        <mat-icon class="nonlocaladdressbgcolor"> how_to_vote</mat-icon>
+        <div class="m-t-9 m-l-4 partyname"> Local Address</div>
+      </div>
+
+      <div class="col-md-2">
+        <button mat-raised-button class="markasvoted"
+          [class.disabled-button]="isMarkAsVotedButtonDisabled"
+          [class.blackbutton]="!isMarkAsVotedButtonDisabled"
+          (click)="serialnumbersupdatemain()" 
+          [disabled]="isMarkAsVotedButtonDisabled">
+          Mark as Voted
+        </button>
+        <span *ngIf="markasvotedspinner" class="spinner overlay"></span>
+      </div>
+  
+  </div>
+  </footer>
+</div>
+

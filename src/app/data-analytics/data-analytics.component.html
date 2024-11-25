@@ -1,0 +1,756 @@
+<div class="main-content">
+  <div>
+    <h1 class="page-title m-l-20 m-b-15">Data Analytics</h1>
+  </div>
+  <!-- Accordion start here -->
+  <mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="page-title">
+          Search Filter
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+  
+      <div class="row m-t-24">
+        <!--Constituency-->
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select [formControl]="constituencyformControl" required placeholder="Constituency" (ngModelChange)="ConstituencyChange($event)">
+              <mat-option>-- None --</mat-option>
+              <mat-option value="Anakapalli">Anakapalli</mat-option>
+              <mat-option value="Madugula">Madugula</mat-option>
+            </mat-select>
+            <mat-error *ngIf="constituencyformControl.hasError('required')">Please choose an Constituency</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <!--Mandal-->
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select [formControl]="mandalformControl" required placeholder="Mandal" (ngModelChange)="MandalChange($event)">
+              <mat-option>-- None --</mat-option>
+              <mat-option [value]="each" *ngFor="let each of mandalnames">{{each}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="mandalformControl.hasError('required')">Please choose an Mandal</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <!--Polling Station-->
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select [formControl]="pollingstationformControl" required placeholder="Polling Station" (ngModelChange)="SectionChange($event)">
+              <mat-option>-- None --</mat-option>
+              <mat-option [value]="each" *ngFor="let each of pollingstationnames">{{each}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="pollingstationformControl.hasError('required')">Please choose an PollingStation</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <!--Section Number and Name-->
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select [formControl]="sectionnumberandnameformControl" required placeholder="Section Number and Name">
+              <mat-option>-- None --</mat-option>
+              <mat-option [value]="each" *ngFor="let each of sectionnames">{{each}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+        <div></div>
+        <!--Gender-->
+        <div class="col-md-3 m-t-24">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select [formControl]="genderformControl" placeholder="Gender">
+              <mat-option>-- None --</mat-option>
+              <mat-option value="Male">Male</mat-option>
+              <mat-option value="Female">Female</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+  
+        <!--Name-->
+        <div class="col-md-3 m-t-24">
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput [formControl]="nameformControl" placeholder="Name">
+            <mat-hint>Note: (min 3 letters)</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <!--Last Name-->
+        <div class="col-md-3 m-t-24">
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput [formControl]="lastnameformControl"  placeholder="Last Name">
+          </mat-form-field>
+        </div>
+  
+        <!--Last Name(Like Search)-->
+        <div class="col-md-3 m-t-24">
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput [formControl]="lastnamelikesearchformControl"  placeholder="Last Name (Like Search)">
+          </mat-form-field>
+        </div>
+  
+        <!--House Number-->
+        <div class="col-md-3 m-t-24">
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput [formControl]="housenumberformControl"  placeholder="House number">
+          </mat-form-field>
+        </div>
+  
+        <!--Voter ID-->
+        <div class="col-md-3 m-t-24">
+          <mat-form-field appearance="outline" class="w-100 byclass">
+            <input matInput [formControl]="voterIdformControl"  placeholder="Voter Id">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Search Button And Reset Button -->
+      <p class="m-b-22 text-center">
+        <button mat-raised-button class="blackbutton rounded-pill m-r-16" (click)="OnSearch()">SEARCH</button>
+        <button mat-raised-button class="blackbutton rounded-pill" (click)="OnReset()">RESET</button>
+      </p>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <!-- Accordion ends here -->
+
+  <!-- Bulk Edit -->
+  <div class="d-flex m-t-32 m-b-32">
+    <div class="col-md-8 d-flex align-items-center">
+      <div class="m-r-16">
+        <button mat-raised-button class="blackbutton" (click)="BulkEdit()" [disabled]="selectedIds.length < 2">
+          <mat-icon>edit</mat-icon>
+          Bulk Edit
+        </button>
+      </div>
+      <div class="align-items-center d-flex">
+        <p>{{ selectedIds.length }} Selected</p>
+      </div>
+    </div>
+   <div class="col-md-4">
+    <div class="float-right">
+      <button mat-fab class="blackbutton" (click)="FilterPopup()" [disabled]="isFilterButtonDisabled">
+        <mat-icon>filter_alt</mat-icon>
+      </button>
+    </div>
+   </div>
+  </div>
+
+ 
+  <div>
+    <!-- Table starts here -->
+    <div *ngIf="!isLoadingsearch">
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" matSort>
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="toggleAllCheckboxes($event)"></mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            <mat-checkbox (click)="$event.stopPropagation()" 
+              (change)="toggleCheckbox(element.ivinid)" 
+              [checked]="selectedIds.includes(element.ivinid)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+        <ng-container  class="d-flex flex-row justify-content-center">
+            <div matColumnDef="Voter_SerialNumber" class="pointercursor">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings"> S# </th>
+              <td class="p-22 border-none" mat-cell *matCellDef="let element"> {{element.VoterSerialNumber}}
+              </td>
+            </div>
+      
+            <div matColumnDef="VoterId" class="d-flex pointercursor">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings"> Voter ID </th>
+              <td mat-cell *matCellDef="let element" class="m-t-10 border-none"> {{element.VoterId}} </td>
+            </div>
+      
+            <div matColumnDef="Name" class="pointercursor">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings"> Name </th>
+              <td mat-cell *matCellDef="let element" class="border-none"> {{element.Name}} </td>
+            </div>
+      
+            <div matColumnDef="LastName" class="pointercursor">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings"> Last Name </th>
+              <td mat-cell *matCellDef="let element" class="border-none"> {{element.LastName}} </td>
+            </div>
+      
+            <div matColumnDef="Guardian">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings"> Dependent </th>
+              <td mat-cell *matCellDef="let element" class="border-none"> {{element.Guardian}} </td>
+            </div>
+      
+            <div matColumnDef="Home" class="pointercursor">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings"> House </th>
+              <td mat-cell *matCellDef="let element" class="border-none"> {{element.Home}} </td>
+            </div>
+      
+            <div matColumnDef="Age">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings"> Age </th>
+              <td mat-cell *matCellDef="let element" class="border-none"> {{element.Age}} </td>
+            </div>
+      
+            <div matColumnDef="Gender" class="pointercursor">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-headings"> Gender </th>
+              <td mat-cell *matCellDef="let element" class="border-none"> {{element.Gender}} </td>
+            </div>
+      
+            <div matColumnDef="Action" class="pointercursor">
+              <th mat-header-cell *matHeaderCellDef class="table-headings"> Actions </th>
+              <td mat-cell *matCellDef="let element" class="border-none">
+                <button mat-icon-button (click)="$event.stopPropagation();" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="VoterEdit(element)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit Data</span>
+                  </button>
+                  <button mat-menu-item (click)="ViewCard()">
+                    <div class="d-flex">
+                      <span class="material-symbols-outlined">
+                        id_card
+                      </span>
+                      <span class="m-l-16">View Card</span>
+                    </div>
+                  </button>
+                  <button mat-menu-item (click)="RelationPopUp(element)">
+                    <div class="d-flex">
+                      <span class="material-symbols-outlined">
+                        family_history
+                      </span>
+                      <span class="m-l-16">Relation</span>
+                    </div>
+                  </button>
+                </mat-menu>
+              </td>
+            </div>
+            </ng-container>
+      
+            <!-- Expanded Content Column -->
+            <ng-container matColumnDef="expandedDetail">
+              <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length" class="p-0">
+                <div class="expand-data" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                  <div class="expanded-details d-flex">
+                    <div class="col-md-1"></div>
+                    <div>
+                      <h4>State</h4>
+                      <p>{{element.State}}</p>
+                    </div>
+
+                    <div>
+                      <h4>District</h4>
+                      <p>{{element.District}}</p>
+                    </div>
+
+                    <div>
+                      <h4>Constituency</h4>
+                      <p>{{element.Constituency}}</p>
+                    </div>
+
+                    <div>
+                      <h4>Polling Station Number</h4>
+                      <p>{{element.PollingStationNumber}}</p>
+                    </div>
+
+                    <div>
+                      <h4>Polling Station Name</h4>
+                      <p>{{element.PollingStationName}}</p>
+                    </div>
+
+                    <div>
+                      <h4>Polling Station Location</h4>
+                      <p>{{element.PollingStationLocation}}</p>
+                    </div>
+
+                    <div>
+                      <h4>Section.No and Name</h4>
+                      <p>{{element.SectionNoandName}}</p>
+                    </div>
+                  </div> 
+                  <hr>
+                  <div >
+                    <h3 class="text-center">Campaign Details</h3>
+                    <div class="float-right p-30">
+                      <mat-slide-toggle labelPosition="before" [(ngModel)]="isPersonAlive">
+                        Person is Alive
+                      </mat-slide-toggle>
+                    </div>
+                    <div>
+                      <!-- Campaign Details start here -->
+                      <form class="p-64" (ngSubmit)="CampaignEdit()">
+                        <div class="row m-t-48">
+                          <div class="col-md-3">
+                            <h5>Caste</h5>
+                            <mat-form-field class="w-100" appearance="outline">
+                              <input matInput [formControl]="campaigncaste" placeholder="Enter Your Caste">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                            <h5>Contact Number</h5>
+                            <mat-form-field appearance="outline" class="w-100" >
+                              <input matInput [formControl]="campaignContactNumber" placeholder="Enter Your Contact Number">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                            <h5>Profession</h5>
+                            <mat-form-field appearance="outline" class="w-100">
+                              <mat-select [formControl]="campaignProfession" placeholder="Profession">
+                              <mat-option value="PoliticalDesignation">Political Designation</mat-option>
+                              <mat-option value="Non-PoliticalDesignation">Non-Political Designation</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                            <h5>Party Inclination</h5>
+                            <mat-form-field appearance="outline" class="w-100">
+                              <mat-select [formControl]="campaignPartyInclination" placeholder="Party Inclination">
+                              <mat-option [value]="party.PID" *ngFor="let party of allParty">{{ party.PartyName }}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                  
+                          <div class="col-md-6">
+                            <h5>Strength<span class="float-right">0/5000</span></h5>
+                            <mat-form-field class="w-100" appearance="outline">
+                              <textarea matInput [formControl]="campaignStrength" placeholder="Type here..."></textarea>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-6">
+                            <div>
+                              <h5>Weakness<span class="float-right">0/5000</span></h5>
+                            </div>
+                            <mat-form-field class="w-100" appearance="outline">
+                              <textarea matInput [formControl]="campaignWeakness" placeholder="Type here..."></textarea>
+                            </mat-form-field>
+                          </div>
+                  
+                          <div class="col-md-4">
+                            <h5>Contact Mode</h5>
+                            <mat-form-field appearance="outline" class="w-100">
+                              <mat-select [formControl]="campaignContactMode" placeholder="Contact Mode">
+                              <mat-option value="PersonalContacted">Personal Contacted</mat-option>
+                              <mat-option value="TeamContacted">Team Contacted</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-4">
+                            <h5>Contacted By</h5>
+                            <mat-form-field appearance="outline" class="w-100">
+                              <input matInput [(ngModel)]="campaignContactBy" name="campaignContactBy"  placeholder="Contacted By" [disabled]="campaignContactMode.value !== 'TeamContacted'">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-4">
+                            <h5>Comments</h5>
+                            <mat-form-field appearance="outline" class="w-100">
+                              <input matInput [(ngModel)]="campaignContactedcomments" name="campaignContactedcomments" placeholder="Comments For Team Contacted" [disabled]="campaignContactMode.value !== 'TeamContacted'">
+                            </mat-form-field>
+                          </div>
+                  
+                          <div class="col-md-3">
+                            <mat-checkbox [formControl]="campaignnonLocalAddress">Non-local address</mat-checkbox>
+                          </div>
+                          <div class="col-md-3">
+                            <mat-form-field appearance="outline" class="w-100">
+                              <input matInput [(ngModel)]="campaignCurrentAddress" name="campaignCurrentAddress" placeholder="CurrentAddress" [disabled]="!campaignnonLocalAddress.value">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                            <mat-checkbox [formControl]="campaignInfluencer">Influencer</mat-checkbox>
+                          </div>
+                          <div class="col-md-3">
+                            <mat-form-field appearance="outline" class="w-100">
+                              <input matInput [(ngModel)]="campaignvotersinfluencer" name="campaignvotersinfluencer" placeholder="no.of voters can be influencer" [disabled]="!campaignInfluencer.value">
+                            </mat-form-field>
+                          </div>
+                  
+                          <div class="col-md-2">
+                            <mat-checkbox [formControl]="campaignDissident">Dissident</mat-checkbox>
+                          </div>
+                          <div class="col-md-2">
+                            <mat-form-field appearance="outline" class="w-100" >
+                              <input matInput [(ngModel)]="campaignInformedPersonDissident" name="campaignInformedPersonDissident" placeholder="InformedPerson For Dissident" [disabled]="!campaignDissident.value">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-2">
+                            <h5>Comments</h5>
+                            <mat-form-field appearance="outline" class="w-100" >
+                              <input matInput [(ngModel)]="campaigncommentdissident" name="campaigncommentdissident" placeholder="Comments for Dissident" [disabled]="!campaignDissident.value">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-2">
+                            <mat-checkbox [formControl]="campaiagnPhysicallyChallenged">Physically Challenged</mat-checkbox>
+                          </div>
+                          <div class="col-md-2">
+                            <mat-checkbox [formControl]="campaignDeleted">Deleted</mat-checkbox>
+                          </div>
+                          <div class="col-md-2"></div>
+                  
+                          <div class="col-md-2">
+                            <mat-checkbox [formControl]="campaignInterestedparty">Interested to join party</mat-checkbox>
+                          </div>
+                          <div class="col-md-2">
+                            <mat-form-field appearance="outline" class="w-100" >
+                              <input matInput [(ngModel)]="campaignInterestedperson" name="campaignInterestedperson" placeholder="Informed by person name" [disabled]="!campaignInterestedparty.value">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-2">
+                            <h5>Comments</h5>
+                            <mat-form-field appearance="outline" class="w-100" >
+                              <input matInput [(ngModel)]="campaignInterestedcomments" name="campaignInterestedcomments" placeholder="Comments For Join Party" [disabled]="!campaignInterestedparty.value">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-2">
+                            <mat-checkbox [formControl]="campaignIsVoted">Is voted</mat-checkbox>
+                          </div>
+                          <div class="col-md-2">
+                            <mat-checkbox [formControl]="campaignDuplicated">Duplicate</mat-checkbox>
+                          </div>
+                  
+                          <div class="col-md-4">
+                            <h5>Habitations</h5>
+                            <mat-form-field appearance="outline" class="w-100">
+                              <mat-select [formControl]="campaignHabitations" placeholder="----Select----">
+                              <mat-option [value]="habit.hbId" *ngFor="let habit of allhabitationnames">{{habit.HabitationName}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-4">
+                            <h5>Schemes</h5>
+                            <mat-form-field appearance="outline" class="w-100">
+                              <mat-select [formControl]="campaignSchemes" placeholder="Schemes" multiple>
+                                <mat-option [value]="Scheme.SchId" *ngFor="let Scheme of allSchemename">{{ Scheme.SchemeName }}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          
+                          <div class="col-md-4">
+                            <mat-chip-list>
+                              <mat-chip *ngFor="let selectedSchemeId of campaignSchemes.value" 
+                                        [removable]="true" (removed)="removedchip(selectedSchemeId)">
+                                {{ getSchemeNameById(selectedSchemeId) }}
+                                <mat-icon matChipRemove>cancel</mat-icon>
+                              </mat-chip>
+                            </mat-chip-list>
+                          </div>
+                  
+                          <div class="row m-t-32">
+                            <div class="col-sm-12">
+                              <button mat-raised-button class="blackbutton" type="submit">Submit</button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                      <!-- Campaign Details end here -->
+                    </div>
+                  </div> 
+                </div>
+              </td>
+            </ng-container>
+      
+            <!-- Header row -->
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay" class="table-row"></tr>
+            
+            <!-- Expanded row -->
+            <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row pointercursor"
+              [class.example-expanded-row]="expandedElement === element" (click)="CampaignGet(element)">
+            </tr>
+      
+            <!-- Data rows -->
+            <tr mat-row *matRowDef="let element; columns: ['expandedDetail']" class="expand-detail-row"></tr>
+    </table>
+    </div>
+      <!-- Table ends Here -->
+
+      <!-- Loading search -->
+      <div *ngIf="isLoadingsearch">
+        <div class="justify-content-center text-center">
+          <div>
+            <img src="/assets/images/ivin-loading.gif" alt="Loading Image" width="10%">
+            <p class="data-load">Data is loading. please wait!</p>
+          </div>
+        </div>
+      </div>
+
+      <mat-paginator [pageSizeOptions]="[10, 50, 100, 200]" showFirstLastButtons ></mat-paginator>
+  </div>
+
+  <!--Correction Popups with start here-->
+  <ng-container>
+    <!-- Bulk Edit Dialog -->
+    <ng-template #bulkeditpopup>
+      <div mat-dialog-title class="popupheader-black text-center">Campaign Details (Bulk Edit)
+        <span class="float-right m-t-20 f-w-400 f-s-12 font-style">{{ selectedIds.length }} Selected</span>
+      </div>
+      <form (ngSubmit)="UpdateBulkEdit()">
+        <mat-dialog-content id="scrollbar">
+          <div *ngIf="bulkloading" class="text-center">
+              <img src="/assets/images/ivin-loading.gif" alt="Loading Image" width="10%">
+              <p class="f-s-18 f-w-900">Please Wait!</p>
+          </div>
+          <div class="p-22">
+          <div class="row">
+            <div class="col-md-3">
+              <h5>Caste</h5>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [formControl]="bulkcaste" placeholder="Caste">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <h5>Profession</h5>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-select [formControl]="bulkProfession" placeholder="Profession">
+                <mat-option value="PoliticalDesignation">Political Designation</mat-option>
+                <mat-option value="Non-PoliticalDesignation">Non-Political Designation</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <h5>Contact number</h5>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [formControl]="bulkContactnumber" placeholder="+91 Number field">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <h5>Party Inclination</h5>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-select [formControl]="bulkPartyinclination" placeholder="Party Inclination">
+                <mat-option [value]="bulkparty.PID" *ngFor="let bulkparty of allParty">{{ bulkparty.PartyName }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-3 align-items-center d-flex">
+              <mat-checkbox [formControl]="bulkDissident">Dissident</mat-checkbox>
+            </div>
+            <div class="col-md-3">
+              <h5>Person Informed</h5>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [(ngModel)]="bulkPersonInformed" name="bulkPersonInformed" placeholder="Enter your field" [disabled]="!bulkDissident.value">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <h5>Comments</h5>
+              <mat-form-field appearance="outline"  class="w-100">
+                <input matInput [(ngModel)]="bulkDissidentComments" name="bulkDissidentComments" placeholder="Enter your field" [disabled]="!bulkDissident.value">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3"></div>
+
+            <div class="col-md-3 align-items-center d-flex">
+              <mat-checkbox [formControl]="bulkInterestedJoinParty">Interested Join Party</mat-checkbox>
+            </div>
+            <div class="col-md-3">
+              <h5>Person Informed</h5>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [(ngModel)]="bulkInterestedPerson" name="bulkInterestedPerson" placeholder="Enter your field" [disabled]="!bulkInterestedJoinParty.value">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <h5>Comments</h5>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [(ngModel)]="bulkCommentsParty" name="bulkCommentsParty" placeholder="Enter your field" [disabled]="!bulkInterestedJoinParty.value">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3"></div>
+
+            <div class="col-md-12 align-items-center d-flex m-b-15">
+              <mat-checkbox [formControl]="bulkisVoted">IS Voted</mat-checkbox>
+            </div>
+
+            <div class="col-md-4">
+              <h5>Contact mode</h5>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-select [formControl]="bulkContactmode" placeholder="Select">
+                <mat-option value="PersonalContacted">Personal Contacted</mat-option>
+                <mat-option value="TeamContacted">Team Contacted</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <h5>Contacted BY</h5>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [(ngModel)]="bulkContactBy" name="bulkContactBy" placeholder="Contacted By" [disabled]="bulkContactmode.value !== 'TeamContacted'">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <h5>Comments</h5>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [(ngModel)]="bulkContactComment" name="bulkContactComment"  placeholder="Enter your field" [disabled]="bulkContactmode.value !== 'TeamContacted'">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        </mat-dialog-content>
+        <mat-dialog-actions align="center">
+          <button mat-raised-button class="blackbutton m-r-24">Update</button>
+          <button mat-button mat-dialog-close class="cancel-border">Cancel</button>
+        </mat-dialog-actions>
+      </form>
+    </ng-template>
+    <!-- End Bulk Edit Dialog -->
+
+    <!-- Voter details Dialog -->
+    <ng-template #VoterDetailspopup>
+      <div mat-dialog-title class="text-center popupheader-black">Voter Details</div>
+      <form (ngSubmit)="UpdateVoterEdit()">
+        <mat-dialog-content id="scrollbar">
+          <div class="p-22">
+            <div class="row">
+              <div class="col-md-3">
+                <h5>Name</h5>
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput [formControl]="votername"  placeholder="Name">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <h5>Last Name</h5>
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput [formControl]="voterlastname"  placeholder="Last Name">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <h5>Dependent</h5>
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput [formControl]="voterDependent"  placeholder="Dependent">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <h5>Relationship</h5>
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput [formControl]="voterRelationship"  placeholder="Relationship">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-3">
+                <h5>Voter ID</h5>
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput [formControl]="voterVoterID"  placeholder="Voter ID">
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <h5>House Number</h5>
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput [formControl]="voterHouseNumber"  placeholder="House Number">
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <h5>Age</h5>
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput [formControl]="voterAge"  placeholder="Age">
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <h5>Gender</h5>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select [formControl]="votergender" placeholder="Gender">
+                  <mat-option value="Male">Male</mat-option>
+                  <mat-option value="Female">Female</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <h5>Serial Number</h5>
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput [formControl]="voterSerialNumber" placeholder="Serial Number">
+                </mat-form-field>
+              </div>
+              <hr class="w-100 m-b-15 border-divider">
+
+              <div class="col-md-4">
+                <h5>State</h5>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select [formControl]="voterState" placeholder="State" (ngModelChange)="StateChange($event)">
+                  <mat-option value="AP">Andhra Pradesh</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <h5>District</h5>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select [formControl]="voterDistrict" placeholder="District" (ngModelChange)="DistrictChange($event)">
+                  <mat-option [value]="district" *ngFor="let district of districtnames">{{ district }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <h5>Constituency</h5>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select [formControl]="voterConstituency" placeholder="Constituency" (ngModelChange)="MandalNames($event)">
+                  <mat-option [value]="constituency" *ngFor="let constituency of constituencynames">{{ constituency }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <h5>Mandal</h5>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select [formControl]="voterMandal" placeholder="Mandal" (ngModelChange)="VoterConstituencyChange($event)">
+                  <mat-option [value]="mandal" *ngFor="let mandal of Mandalnames">{{ mandal }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <h5>Polling Station Name</h5>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select [formControl]="voterPollingStationName" placeholder="Polling Station Name" (ngModelChange)="PollingNameChange($event)">
+                  <mat-option [value]="polling" *ngFor="let polling of pollingnames">{{ polling }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <h5>Polling Station Number</h5>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select [formControl]="voterPollingStationNumber" placeholder="Polling Station Number" (ngModelChange)="PollingLocationChange($event)">
+                  <mat-option [value]="pollingnumber" *ngFor="let pollingnumber of pollingnumbers">{{ pollingnumber }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <h5>Polling Station Location</h5>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select [formControl]="voterPollingStationLocation" placeholder="Polling Station Location" (ngModelChange)="SectionLocationChange($event)">
+                  <mat-option [value]="pollinglocation" *ngFor="let pollinglocation of pollinglocations">{{ pollinglocation }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <h5>Section Number & Name</h5>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select [formControl]="voterSectionNumberandName" placeholder="Section Number & Name">
+                  <mat-option [value]="sectionlocation" *ngFor="let sectionlocation of sectionlocations">{{ sectionlocation }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </mat-dialog-content>
+        <mat-dialog-actions align="center">
+          <button mat-raised-button class="blackbutton m-r-20" type="submit">Update</button>
+          <button mat-button mat-dialog-close class="cancel-border">Cancel</button>
+        </mat-dialog-actions>
+      </form>
+    </ng-template>
+    <!-- End Voter details Dialog -->
+
+    <!-- View Card Dialog -->
+    <ng-template #ViewCardpopup>
+      <div mat-dialog-title class="d-flex justify-content-space align-items-center">
+        Card View
+        <button mat-icon-button mat-dialog-close class="viewclose" (click)="ViewCardClose()">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
+
+      <mat-dialog-content id="scrollbar">
+        <p>No Card Available</p>
+      </mat-dialog-content>
+
+      <mat-dialog-actions align="center">
+        <button mat-raised-button class="m-r-20 cancel-border">Print</button>
+        <button mat-raised-button class="blackbutton">Download</button>
+      </mat-dialog-actions>
+    </ng-template>
+    <!-- End View Card Dialog -->
+  </ng-container>
+</div>

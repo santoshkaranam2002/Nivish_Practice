@@ -1,0 +1,86 @@
+<!-- <div class="float-right"><button mat-raised-button class="blackbutton" (click)="openNewWindow()">Public View</button></div> -->
+
+<!-- src/app/profile/profile.component.html -->
+<div class="profile-page">
+    <div class="header-image">
+      <img [src]="bannerImageUrl || 'assets/images/profile/banner.jpg'" alt="Header Image" class="bannerimage">
+
+      <input type="file" accept="image/*" id="bannerpicture" name="selectedUserProfile" 
+            (change)="bannerpicture($event)" hidden>
+      
+      <label for="bannerpicture" class="btn-change-cover">
+          Change Cover
+      </label>
+      
+      <div *ngIf="fileTypeError" class="f-w-600 mandatory">{{ errorMessage }}</div>
+    </div>
+
+    <div class="profile-container">
+      <div class="profile-sidebar">
+        <div class="profile-pic d-flex justify-content-center">
+          <label for="profilePicture">
+            <img *ngIf="digitalSignImageUrl" class="profileimage" [src]="digitalSignImageUrl">
+            <img *ngIf="!digitalSignImageUrl" mat-card-image  alt="Upload Icon">
+          </label>
+        </div>
+        <div class="profile-info">
+          <!-- <h2 class="text-center">{{ name }}</h2> -->
+          <p class="text-center">{{lastname}} {{firstname}}</p>
+        </div>
+        <div class="profile-links">
+          <!-- Generate and Post URL Buttons -->
+          <!-- <button>Generate and Post URL</button> -->
+
+          <!-- Display generated URL and error message -->
+          
+          <div *ngIf="urlError" class="error-message">{{ urlError }}</div>
+          <app-reusable-button
+            label="View Public Profiles"
+            [textColor]="'white'"
+            [buttonWidth]="'100%'"
+            classname="black-color"
+            (click)="openNewWindow()"
+          ></app-reusable-button>
+        </div>
+      </div>
+      <div class="profile-content">
+        <mat-tab-group 
+            #tabGroup 
+            mat-stretch-tabs="true" 
+            mat-align-tabs="start" 
+            [selectedIndex]="activeTabIndex"
+            class="custom-tab-group">
+
+            <mat-tab label="About Yourself">
+                <app-aboutyourself (moveToTab)="activateTab($event)"></app-aboutyourself>
+            </mat-tab>
+        
+
+            Candidature information starts
+            <mat-tab label="Candidature Information">
+                <app-candidatureinformation (moveToTab)="activateTab($event)"></app-candidatureinformation>
+            </mat-tab>
+  
+            <!-- PoliticalHistory -->
+            <mat-tab label="Political History">
+                <app-politicalhistory (moveToTab)="activateTab($event)"></app-politicalhistory>
+            </mat-tab>
+
+            Social Media
+            <mat-tab label="Social Media">
+                <app-social-media></app-social-media>
+            </mat-tab>
+        
+            <!-- EC Status & updates -->
+            <mat-tab label="EC Status & Updates">
+                <app-ecstatusandupdates></app-ecstatusandupdates>
+            </mat-tab>
+
+            <div>
+                <button mat-button mat-dialog-close class="m-r-20  cancel-border">Cancel</button>
+            </div>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+  

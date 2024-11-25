@@ -1,0 +1,104 @@
+@use "src/assets/scss/variables";
+
+.table-row {
+    background-color: #17202C !important;
+
+    .table-headings {
+        color: white;
+    }
+  }
+
+.expand-data-polling {
+    overflow: hidden;
+    display: block;
+    background-color: rgba(237, 237, 237, 1);
+    border-radius: 10px;
+    width: 100%;
+  
+    .expanddata-heading{
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+    }
+
+    .expanded-details {
+        display: flex;
+        /* flex-direction: column; */
+        gap: 16px;
+        margin-top: 18px;
+        margin-bottom: 18px;
+        // padding: 0 100px;
+    }
+      
+    .buttons {
+        display: flex;
+        gap: 20px;
+    }
+  }
+
+.downarrowimage{
+    width: 20px;
+    height: 20px;
+    color: rgba(240, 157, 0, 1);
+}
+.maticon-upward{
+    color: #009933;
+}
+.maticon-downward{
+    color: variables.$black;
+}
+
+.Not-Inclined{
+  font-family: Verdana;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 15px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+
+.pollingboothbtn{
+  background:variables.$black;
+}
+
+.mat-mdc-raised-button.mat-warn {
+  --mdc-protected-button-container-color: variables.$black;
+  --mdc-protected-button-label-text-color: #000;
+}
+
+.justifycontent{
+  justify-content: center;
+  display: grid;
+}
+
+.notinclinedcount{
+  color: rgba(1, 64, 254, 1)
+}
+
+.pendinggeneralcount{
+  color: rgba(240, 157, 0, 1);
+ }
+
+ .votedgeneralcount{
+  color: rgba(0, 153, 51, 1);
+}
+
+
+
+.text{
+  font-size: 10px;
+  }
+  .header-top{
+  background-color: #17202c;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+.stats {
+  margin-left: 155px;
+}
+
+.arrowdownward {
+  color: rgba(253, 33, 33, 1);
+}

@@ -1,0 +1,78 @@
+
+  // .detailscard {
+  //   margin: 16px;
+  // }
+  
+  .example-card {
+    // display: flex;
+    // flex-direction: column;
+    width: 400px;
+    // padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+  
+  .status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e3effd;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .status-won {
+    color: #02a560;
+  }
+  
+  .status-lost {
+    color: #FF0000;
+  }
+  
+  .votes-positive {
+    color: #02a560;
+  }
+  
+  .votes-negative {
+    color: #FF0000;
+  }
+
+  ::ng-deep .mat-tooltip {
+    white-space: pre-line;
+  }
+  
+  .candidate-info {
+    display: flex;
+    align-items: center;
+  }
+
+  .custom-tooltip {
+    background-color: #ffffff;
+    border: 1px solid #070707;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  
+  // .avatar {
+  //   width: 80px;
+  //   height: 80px;
+  //   border-radius: 50%;
+  //   margin-right: 16px;
+  // }
+  
+  .candidate-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .candidate-name {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  .candidate-party {
+    color: blue;
+  }
+  

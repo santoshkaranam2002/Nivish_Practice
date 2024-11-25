@@ -1,0 +1,9 @@
+<p>
+    {{ isExpanded ? fullText : truncatedText }}
+    <span *ngIf="fullText.split(' ').length > wordLimit">
+      <a href="javascript:void(0)" (click)="toggleView()">
+        {{ isExpanded ? 'View Less' : 'View More' }}
+      </a>
+    </span>
+  </p>
+  

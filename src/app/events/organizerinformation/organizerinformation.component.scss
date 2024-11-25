@@ -1,0 +1,67 @@
+.EventOrganizercard{
+    border: 1px solid #000;
+    border-radius: 10px;
+    border-color: rgba(237, 237, 237, 1);
+  }
+
+.click{
+    display: none;
+}
+
+.guest-text{
+  width: 150px;
+}
+
+
+// spinner  start
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh; 
+}
+
+.loading-spinner img {
+  width: 50px;
+  height: 50px; 
+}
+
+.eventorganizeradding{
+  margin-left: 253px;
+}
+
+.disabled {
+  pointer-events: none; /* Disable pointer events */
+  opacity: 0.5; /* Add a semi-transparent effect to indicate disabled state */
+  /* Add any other styling to visually indicate disabled state */
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8); 
+  z-index: 1000; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none; 
+}
+// end spinnerHEAD
+
+
+.guest-images-container {
+  display: flex;
+  flex-wrap: nowrap; /* Prevent wrapping to keep images in one row */
+}
+
+.guest-image {
+  margin-right: 10px; /* Add some space between images */
+}
+
+.imagesizes {
+  width: 100px;
+  height: 100px;
+}

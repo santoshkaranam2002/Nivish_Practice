@@ -1,0 +1,132 @@
+<div class="main-content">
+    <div>
+        <h1 class="page-title m-l-20">Events</h1>
+    </div>
+
+
+<div class="d-flex justify-content-space m-t-64"> 
+  <button mat-raised-button color="primary" class="blackbutton m-t-10" (click)="createevent()">
+    <mat-icon>create</mat-icon>Create Event
+  </button>
+    <div class="col-sm-8">
+      <mat-form-field appearance="outline" class="float-right">
+          <mat-select required placeholder="View All">
+            <mat-option value="viewall">View All</mat-option>
+            <mat-option value="past">Past</mat-option>
+            <mat-option value="upcoming">Upcoming</mat-option>
+            <mat-option value="customization">Customization</mat-option>
+          </mat-select>
+      </mat-form-field>
+    </div>
+</div>
+
+
+
+    <div class="row">
+        <section class="example-container m-l-20 mat-elevation-z8" tabindex="0"  id="scrollbar">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+              
+                <!-- Position Column -->
+                <ng-container matColumnDef="position">
+                  <th mat-header-cell *matHeaderCellDef class="table-headings">
+                    <!-- Add a checkbox for select all -->
+                    <mat-checkbox (change)="toggleAllCheckboxes($event)"></mat-checkbox> S#
+                  </th>
+                  <td mat-cell *matCellDef="let element; let i = index"> 
+                    <!-- Add a checkbox for individual rows -->
+                    <mat-checkbox (change)="toggleCheckbox(element.id)" [checked]="selectedIds.includes(element.id)"></mat-checkbox>
+                    {{i + 1 + paginator.pageIndex * paginator.pageSize}} 
+                  </td>
+                </ng-container>
+              
+                <!-- Name Column -->
+                <ng-container matColumnDef="Title">
+                  <th mat-header-cell *matHeaderCellDef class="table-headings"> Title </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{element.Event_Title}}
+                    <mat-icon matTooltip="{{element.Event_Description}}">info_outline</mat-icon>
+                  </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="Type">
+                  <th mat-header-cell *matHeaderCellDef class="table-headings"> Type </th>
+                  <!-- <td mat-cell *matCellDef="let element"> {{element.Location}} </td> -->
+                  <td mat-cell *matCellDef="let element">
+                    <ng-container *ngIf="element.Location === 'Online'">
+                      <mat-icon>public</mat-icon>
+                    </ng-container>
+                    <ng-container *ngIf="element.Location === 'Offline'">
+                      <mat-icon>place</mat-icon>
+                    </ng-container>
+                    {{element.Location}}
+                  </td>
+                </ng-container>
+              
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="Created">
+                  <th mat-header-cell *matHeaderCellDef class="table-headings"> Created </th>
+                  <td mat-cell *matCellDef="let element"> {{element.CreatedOn | dateFormat}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="Updated_on">
+                    <th mat-header-cell *matHeaderCellDef class="table-headings"> Updated on </th>
+                    <td mat-cell *matCellDef="let element"> {{element.UpdatedOn | dateFormat}} </td>
+                  </ng-container>
+
+                  <!-- Symbol Column -->
+                <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef class="table-headings"> Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                  </ng-container>
+
+                 <!-- Star Column -->
+                <ng-container matColumnDef="star">
+                    <th mat-header-cell *matHeaderCellDef aria-label="row actions" class="table-headings">Options</th>
+                    <td mat-cell *matCellDef="let element">
+                      <button mat-icon-button [matMenuTriggerFor]="optionsMenu">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #optionsMenu="matMenu">
+                        <button mat-menu-item [disabled]="true" matTooltip="Coming Soon"><mat-icon>bar_chart</mat-icon>Analysis</button>
+                        <button mat-menu-item (click)="editAndView(element.id)"><mat-icon>edit</mat-icon>Edit & View</button>
+                        <button mat-menu-item (click)="copyandedit(element.id)"><mat-icon>content_copy</mat-icon>Copy and Edit</button>
+                        <button mat-menu-item [disabled]="true" matTooltip="Coming Soon"><mat-icon>message</mat-icon>Communication</button>
+                      </mat-menu>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="table-row"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+              <!-- Message to display when there is no data -->
+            <div *ngIf="dataSource.data.length === 0" class="text-center m-t-64">
+              To add, click on Create Events Button
+            </div>
+              <div class="sticky-paginator">
+                <mat-paginator [pageSizeOptions]="[50, 100]" showFirstLastButtons></mat-paginator>
+              </div>
+        </section>
+    </div> 
+</div>    
+
+
+<div class="row d-flex m-t-64 justify-content-center m-l-48">
+  <div class="col-md-6 d-flex">
+    <mat-label class="mat-subtitle-2 f-w-600 d-block">File Type</mat-label>
+    <mat-form-field appearance="outline">
+        <mat-select required placeholder="File" [(ngModel)]="selectedFileType" #fileSelect="ngModel">
+          <mat-option value="pdf">PDF</mat-option>
+          <!-- <mat-option value="csv">Excel</mat-option> -->
+        </mat-select>
+    </mat-form-field>
+
+    <div class="col-md-8 m-t-2">
+        <button mat-raised-button color="primary" class="blackbutton exportselection"  (click)="fileSelect.valid ? download() : fileSelect.control.markAsTouched()" (click)="exportSelection()">
+          Export Selection({{this.selectedidslenght}})
+        </button>
+        <p class="error-message" *ngIf="fileSelect.invalid && (fileSelect.touched || fileSelect.control.dirty)">{{ errorMessage }}</p>
+    </div>
+  </div>
+</div>

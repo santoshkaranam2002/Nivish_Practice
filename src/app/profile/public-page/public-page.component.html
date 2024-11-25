@@ -1,0 +1,289 @@
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-2 m-t-20"></div>
+        <div class="col-md-4 m-t-20"><h1 class="page-title m-l-20">Profile</h1></div>
+        <div class="col-md-4 m-t-20"><a class="page-title m-l-20 float-right" href="./profile">Back to Edit</a></div>
+        <div class="col-md-2 m-t-20"></div>
+
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="row">
+                  <ng-container *ngIf="multipleImagesArr && multipleImagesArr.length > 0;">
+                    <!-- Image carousel section -->
+                    <label id="carouselLabel" style="height: 55vh; display: block; width: 100%;">
+                        <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false" data-bs-ride="carousel" [attr.data-bs-interval]="multipleImagesArr.length > 0 ? '3000' : '0'" [@slideAnimation]="multipleImagesArr.length">
+                            <div class="carousel-inner">
+                              <div *ngFor="let each of multipleImagesArr; let i = index" class="carousel-item" [class.active]="i === 0">
+                                <img *ngIf="each" [src]="each" class="d-block w-100 custom-image" alt="...">
+                              </div>
+                            </div>
+                          </div>
+                    </label>
+                </ng-container>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12 justify-content-center d-flex">"Babu Malli Meere Raavail"</div>
+            </div>
+
+            <div class="row box-shadow">
+                <div class="col-md-12 m-t-32 m-b-48">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <img class="vote" src="/assets/images/vote.png">
+                        <a mat-fab extended class="blackbutton" routerLink=".">Support Us</a>
+                    </div>
+                </div>
+
+                <div class="col-md-12 m-t-32 m-b-48">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img class="round-image" [src]="profilePicture || 'https://via.placeholder.com/250x250?text=No+Profile+Image'" alt="Profile Picture" />
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                Telugu Desam Party
+                                <div class="col-md-4">
+                                    <img class="party-logo round-image" [src]="logo || 'https://via.placeholder.com/250x250?text=No+Profile+Image'" alt="Party Logo" />
+                                </div>
+                                <div class="col-md-4">
+                                    <img class="party-symbol round-image" [src]="partySymbol || 'https://via.placeholder.com/250x250?text=No+Profile+Image'" alt="Party Symbol" />
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngFor = 'let each of profileData'>
+                            <p class="p-64">{{each.Candidate_Brief || '--'}}</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center"  *ngFor="let item of aboutdata">
+                        <table>
+                            <tr class="table-line-height">
+                                <td class="f-w-600 f-s-24">Name</td>
+                                <td class="f-s-24"><p>{{this.name || 'N/A'}}</p></td>
+                                
+                            </tr>
+                            <tr class="table-line-height">
+                                <td class="f-w-600 f-s-24">Palce of Birth</td>
+                                <td class="f-s-24"><p>{{item.PlaceOfBirth || 'N/A'}}</p></td>
+                            </tr>
+                            <tr class="table-line-height">
+                                <td class="f-w-600 f-s-24">Age</td>
+                                <td class="f-s-24"> <p>{{item.Age || 'N/A'}}</p></td>
+                            </tr>
+                            <tr class="table-line-height">
+                                <td class="f-w-600 f-s-24">Gender</td>
+                                <td class="f-s-24"><p>{{item.Gender || 'N/A'}}</p></td>
+                            </tr>
+                            
+                            <tr class="table-line-height">
+                                <td class="f-w-600 f-s-24">Address</td>
+                                <td class="f-s-24"> <p>{{item.Address || 'N/A'}}</p></td>
+                            </tr>
+                          </table>
+                    </div>
+                </div>
+            </div>
+
+            <!--Manifesto Block-->
+
+            <div class="row m-t-24 box-shadow">
+                <div class="col-md-12 m-t-32 d-flex align-item-center justify-content-center">
+                    <h3>Mainfesto</h3>
+                </div>
+                <div class="col-md-12 m-t-32 d-flex align-item-center justify-content-center">
+                    <img  src="{{manifestoImg}}">
+                </div>
+            </div>
+
+            <!--Activists, Achivevments, Priorities, Political History-->
+            <div class="m-t-24 box-shadow" >
+                <!-- Activists -->
+                <div *ngFor="let items of candidateinfo">
+                    <div class="row p-t-20">
+                        <div class="col-md-2 m-t-24"></div>
+                        <div class="col-md-3 d-flex align-items-center">
+                            <h3 class="f-w-700 f-s-24">Activists</h3></div>
+                        <div class="col-md-5">
+                            <p> {{items.Activists || 'N/A'}}</p>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                    
+                    <!-- Achievements -->
+                    <div class="row m-t-20">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-3 d-flex align-items-center">
+                            <h3 class="f-w-700 f-s-24">Achievements</h3></div>
+                        <div class="col-md-5">
+                            <p> {{items.Achievements || 'N/A'}}</p>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                    
+                    <!-- Priorities -->
+                    <div class="row m-t-20">
+                        <div class="col-md-2"></div>
+                    <div class="col-md-3 d-flex align-items-center">
+                        <h3 class="f-w-700 f-s-24">Priorities</h3></div>
+                    <div class="col-md-5">
+                        <p>{{items.Priorities || 'N/A' }}</p>
+                    </div>
+                    <div class="col-md-2"></div>
+                    </div>
+                </div>
+                
+                <!-- Political history -->
+                <div class="row m-t-20 p-b-32">
+                    <div class="col-md-2"></div>
+                <div class="col-md-3 d-flex align-items-center">
+                    <h3 class="f-w-700 f-s-24">Political history</h3></div>
+                <div class="col-md-5"  *ngFor="let political of politicaldata">
+                        <ng-container *ngIf="political.partyname !== undefined">
+                            <p>{{political.partyname || 'N/A'}}</p>
+                          </ng-container>
+                        <p>{{political.OfficeHeld || 'N/A'}}</p>
+                        <div class="d-flex">
+                          <p>{{political.FromDate || 'N/A'}}</p>
+                          <p>{{political.ToDate || 'N/A'}}</p>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+                </div>
+            </div>
+
+            <div class="row m-t-24 box-shadow">
+                <div class="col-md-12 m-t-32 d-flex align-item-center justify-content-center">
+                    <h3>Event Gallery</h3>
+                </div>
+                <div class="col-md-4 m-t-24">
+                    <img class="vid-img" src="/assets/images/event.png" alt="Video Image" />
+                </div>
+                <div class="col-md-4 m-t-24">
+                    <img class="vid-img" src="/assets/images/event.png" alt="Video Image" />
+                </div>
+                <div class="col-md-4 m-t-24">
+                    <img class="vid-img" src="/assets/images/event.png" alt="Video Image" />
+                </div>
+                <!-- <div class="col-md-4 m-t-24">
+                    <img src="/assets/images/video-thumbnail.png" alt="Video Thumbnail">
+                </div> -->
+            </div>
+
+            <!-- Social Media -->
+            <div class="row m-t-24 box-shadow">
+                <div class="col-md-12 m-t-32 m-b-48">
+                    <div class="d-flex float-right align-items-center">
+                        <a mat-fab extended class="blackbutton">Join us</a>
+                    </div>
+                    <div class="col-md-12 justify-content-center d-flex"><h3>"Join for Support"</h3></div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <!--Telegram-->
+                            <div class="row m-b-24">
+                                <div class="col-sm-3 d-flex align-items-center">
+                                    <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Telegram</mat-label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div *ngFor="let each of socialdata">
+                                        <div *ngIf="each.SocialMediaType === 'Telegram'">
+                                            <a href="{{each.SocialMediaLink}}" target="_blank">{{each.SocialMediaLink}}</a>
+                                            <mat-icon matTooltip="{{each.SocialMediaDescription}}">info_outline</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!--Twitter--> 
+                            <div class="row m-b-24">
+                                <div class="col-sm-3 d-flex align-items-center">
+                                    <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Twitter</mat-label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div *ngFor="let each of socialdata">
+                                        <div *ngIf="each.SocialMediaType === 'Twitter'">
+                                            <a href="{{each.SocialMediaLink}}" target="_blank">{{each.SocialMediaLink}}</a>
+                                            <mat-icon matTooltip="{{each.SocialMediaDescription}}">info_outline</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!--Linkedin-->
+                            <div class="row m-b-24">
+                                <div class="col-sm-3 d-flex align-items-center">
+                                    <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Linkedin</mat-label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div *ngFor="let each of socialdata">
+                                        <div *ngIf="each.SocialMediaType === 'Linkedin'">
+                                            <a href="{{each.SocialMediaLink}}" target="_blank">{{each.SocialMediaLink}}</a>
+                                            <mat-icon matTooltip="{{each.SocialMediaDescription}}">info_outline</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!--Instragram-->
+                            <div class="row m-b-24">
+                                <div class="col-sm-3 d-flex align-items-center">
+                                    <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Instragram</mat-label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div *ngFor="let each of socialdata">
+                                        <div *ngIf="each.SocialMediaType === 'Instagram'">
+                                            <a href="{{each.SocialMediaLink}}" target="_blank">{{each.SocialMediaLink}}</a>
+                                            <mat-icon matTooltip="{{each.SocialMediaDescription}}">info_outline</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-sm-3 d-flex align-items-center">
+                                    <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Fecebook</mat-label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div *ngFor="let each of socialdata">
+                                        <div *ngIf="each.SocialMediaType === 'Facebook'">
+                                            <a href="{{each.SocialMediaLink}}" target="_blank">{{each.SocialMediaLink}}</a>
+                                            <mat-icon matTooltip="{{each.SocialMediaDescription}}">info_outline</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="row">
+                                <div class="col-sm-3 d-flex align-items-center">
+                                    <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">WhatsApp</mat-label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div *ngFor="let each of socialdata">
+                                        <div *ngIf="each.SocialMediaType === 'Whatsapp'">
+                                            <a href="{{each.SocialMediaLink}}" target="_blank">{{each.SocialMediaLink}}</a>
+                                                <mat-icon matTooltip="{{each.SocialMediaDescription}}">info_outline</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="row">
+                                <div class="col-sm-3 d-flex align-items-center">
+                                    <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">YouTube</mat-label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div *ngFor="let each of socialdata">
+                                        <div *ngIf="each.SocialMediaType === 'Youtube'">
+                                            <a href="{{each.SocialMediaLink}}" target="_blank">{{each.SocialMediaLink}}</a>
+                                            <mat-icon matTooltip="{{each.SocialMediaDescription}}">info_outline</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>   
+                            </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+     

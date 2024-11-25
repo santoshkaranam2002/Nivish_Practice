@@ -1,0 +1,193 @@
+ 
+
+ <!-- data -->
+ <div class="form-container overflowhidden m-t-24">
+    <form action="" [formGroup]="contacts">
+        <div class="col-md-12 d-flex m-t-32">
+            <div class="col-sm-3 m-t-4">
+                <mat-label class="mat-subtitle-2 f-w-800 d-block">View<sup class="required-field">*</sup></mat-label>
+            </div>
+            <div class="col-md-6">
+                <mat-radio-group matInput required formControlName="view" class="d-flex">
+                    <mat-radio-button value="Table" checked>Table</mat-radio-button>
+                    <mat-radio-button class="m-l-64" value="list" [disabled]="true">list</mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+    </form>
+
+
+    <!--Table Starts here-->
+    <div class="example-container m-l-64 mat-elevation-z8 m-t-48" id="scrollbar">
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+          <ng-container  class="d-flex flex-row justify-content-center">
+
+           <!-- S.No Column -->
+          <!-- <ng-container matColumnDef="SNo" class="pointercursor">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> S.No </th>
+            <td mat-cell *matCellDef="let element; let i = index" class="border-none"> {{ i + 1 }} </td>
+          </ng-container> -->
+            
+          <div matColumnDef="BoothNoandName" class="pointercursor">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Booth No & Name </th>
+            <td class="p-22" mat-cell *matCellDef="let element" class="border-none"> {{element.Polling_Station_Name_Num}}
+            </td>
+          </div>
+    
+          <div matColumnDef="BoothIncharge" class="d-flex pointercursor">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Booth Incharge </th>
+            <td *matCellDef="let element" class="justifycontent m-t-6 border-none"> 
+              {{element.Booth_Incharge}}<br>
+              ({{element.Booth_Incharge_Number}}) 
+            </td>
+          </div>
+    
+          <div matColumnDef="MandalIncharge" class="pointercursor">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Mandal Incharge </th>
+            <td mat-cell *matCellDef="let element" class="border-none"> 
+              {{element.Mandal_Incharge}} <br> 
+              ({{element.Mandal_Incharge_Number}}) 
+            </td>
+          </div>
+
+          <div matColumnDef="DataEntry" class="pointercursor">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Data Entry Incharge </th>
+            <td mat-cell *matCellDef="let element" class="border-none"> 
+              {{element.Data_Entry}} <br> 
+              ({{element.Data_Entry_Contact}}) 
+            </td>
+          </div>
+    
+          <div matColumnDef="Cluster" class="pointercursor">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Cluster </th>
+            <td mat-cell *matCellDef="let element" class="border-none"> {{element.ClusterNo}} </td>
+          </div>
+    
+          <div matColumnDef="FollowupPerson" class="pointercursor">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Followup Incharge </th>
+            <td mat-cell *matCellDef="let element" class="border-none"> 
+              {{element.Follow_up_Person}} <br> 
+              ({{element.Follow_up_Person_Contact}}) 
+            </td>
+          </div>
+    
+          <div matColumnDef="FoodIncharge" class="pointercursor">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Food Incharge </th>
+            <td mat-cell *matCellDef="let element" class="border-none"> 
+              {{element.Food_Incharge}} <br> 
+              ({{element.Food_Incharge_Contact}}) 
+            </td>
+          </div>
+    
+          <div matColumnDef="Route" class="pointercursor">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Route </th>
+            <td mat-cell *matCellDef="let element" class="border-none"> 
+              {{element.Route1}} <br> 
+              ({{element.Route2}}) 
+            </td>
+          </div>
+    
+          <div matColumnDef="VoterMotivation" class="pointercursor">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> VoterMotivation Incharge </th>
+            <td mat-cell *matCellDef="let element" class="border-none"> 
+              {{element.Voter_Motivation}} <br> 
+              ({{element.Voter_Motivation_Contact}}) 
+            </td>
+          </div>
+
+          <div matColumnDef="UnitNo" class="pointercursor">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Unit No </th>
+            <td mat-cell *matCellDef="let element" class="border-none"> 
+              {{element.Unit_No}} 
+            </td>
+          </div>
+
+          <div matColumnDef="TentInchage1" class="pointercursor">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Tent Incharge 1 </th>
+            <td mat-cell *matCellDef="let element" class="border-none"> 
+              {{element.Tent_Inchage1}} <br>
+              {{element.Tent_Incharge1_Contact}}
+            </td>
+          </div>
+
+          <div matColumnDef="TentInchage2" class="pointercursor">
+            <th mat-header-cell *matHeaderCellDef class="table-headings"> Tent Incharge 2 </th>
+            <td mat-cell *matCellDef="let element" class="border-none"> 
+              {{element.Tent_Inchage2}} <br>
+              {{element.Tent_Incharge2_Contact}}
+            </td>
+          </div>
+
+          </ng-container>
+    
+          <!-- Expanded Content Column -->
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length" class="p-b-20">
+              <div class="expand-data" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <div class="expanded-details d-flex">
+                  <!-- <div class="col-md-1"></div> -->
+    
+                  <div class="col-md-2">
+                    <span class="expanddata-heading">Cluster Incharge</span>
+                    <p class="element-value">{{element.Cluster_Incharge}}</p>
+                    <p class="element-value">{{element.Cluster_Incharge_Number}}</p>
+                  </div>
+    
+                  <div class="col-md-2">
+                    <span class="expanddata-heading">Unit Incharge </span>
+                    <p>{{element.Unit_Incharge}}</p>
+                    <p>{{element.Unit_Incharge_Number}}</p>
+                  </div>
+
+
+                  <div class="col-md-2">
+                    <span class="expanddata-heading"> Mandal Secretary </span>
+                    <p>{{element.Mandal}}</p>
+                    <p>{{element.Mandal_Party_Secretary}}</p>
+                    <p>{{element.Mandal_Party_Secretary_Contact}}</p>
+                  </div>
+
+                  <div class="col-md-2">
+                    <span class="expanddata-heading">Booth Communicator</span>
+                    <p>{{element.Booth_Communicator}}</p>
+                    <p>{{element.Booth_Communicator_Contact}}</p>
+                  </div>
+                  
+    
+                  <div class="col-md-2">
+                    <span class="expanddata-heading">Transportation Incharge 1</span>
+                    <p>{{element.Transportation1_Incharge}}</p>
+                    <p>{{element.Transportation_Incharge1_Contact}}</p>
+                  </div>
+    
+                  <div class="col-md-2">
+                    <span class="expanddata-heading">Transportation Incharge 2</span>
+                    <p>{{element.Transportation2_Incharge}}</p>
+                    <p>{{element.Transportation_Incharge2_Contact}}</p>
+                  </div>
+              </div>
+
+            </div>
+            </td>
+          </ng-container>
+    
+          <!-- Header row -->
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true" class="table-row"></tr>
+    
+          <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element">
+          </tr>
+    
+          <!-- Data rows -->
+          <tr mat-row *matRowDef="let element; columns: ['expandedDetail']" class="example-element-row"></tr>
+        </table>
+      </div>
+      <!--Table Ends here-->
+
+    <div class="m-t-48 text-center">
+        <button mat-raised-button class="blackbutton" (click)="contactsclose()">Save Next</button>
+    </div>
+    <br>
+
+</div>  

@@ -1,0 +1,152 @@
+<ng-container>
+  <app-heading [heading]="heading"></app-heading>
+
+  <!-- Search & Filter -->
+  <div class="container m-t-20">
+    <div class="row m-r-0">
+      <div class="col-md-6 p-l-32">
+        <ng-container *ngIf="isFilterable" [matColumnDef]="this.rowActionIcon">
+          <mat-form-field appearance="outline">
+            <div class="d-flex align-items-center">
+              <input #inputField matInput (keyup)="applyFilter($event)" placeholder="Search">
+              <span class="material-symbols-outlined">search</span>
+            </div>
+          </mat-form-field>
+        </ng-container>
+      </div>
+      <!-- <div class="col-md-4 d-flex justify-content-end align-items-center p-r-30">
+        <div class="button-container" *ngIf="showButton">
+          <button mat-fab extended class="w-50 f-w-600 button rounded-button button-min-width f-s-18" [class]="icon ? 'button-with-icon' : 'button-without-icon'" [style.background-color]="buttonColor" (click)="onButtonClick()">
+            <mat-icon aria-hidden="false">{{ buttonIcon }}</mat-icon>
+            <span>{{ buttonLabel }}</span>
+          </button>
+        </div>
+      </div> -->
+      <!-- Start Date Picker -->
+        <div class="col-md-3 d-flex" *ngIf="showDateFilters">
+          <mat-form-field appearance="outline" class="w-100 place">
+            <input matInput [matDatepicker]="startPicker" placeholder="Start Date" (dateChange)="updateStartDate($event)">
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <!-- End Date Picker -->
+        <div class="col-md-3 d-flex" *ngIf="showDateFilters">
+          <mat-form-field appearance="outline" class="w-100 place">
+            <input matInput [matDatepicker]="endPicker" placeholder="End Date" (dateChange)="updateEndDate($event)">
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+    </div>
+  </div>
+
+  <!-- Scrollable Table Container -->
+  <div style="overflow-x: scroll;">
+    <table mat-table [dataSource]="tableDataSource" matSort (matSortChange)="sortTable($event)">
+      <!-- Select Checkboxes -->
+      <ng-container *ngIf="showCheckboxes" matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            (change)="$event ? onCheckboxChange(row) : null"
+            [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- Other Columns -->
+      <ng-container *ngFor="let tableColumn of tableColumns" [matColumnDef]="tableColumn.name">
+        <!-- Sortable Column Header -->
+        <ng-container *ngIf="tableColumn.isSortable; else notSortable">
+          <th mat-header-cell *matHeaderCellDef [mat-sort-header]="tableColumn.name"
+              [ngClass]="tableColumn.position === 'right' ? 'text-right color-red' : 'color-red'">
+            <ng-container *ngIf="tableColumn.iconName">
+              <!-- Optional Icon -->
+            </ng-container>
+            <ng-container *ngIf="!tableColumn.iconName">{{ tableColumn.name }}</ng-container>
+          </th>
+        </ng-container>
+
+        <!-- Non-Sortable Column Header -->
+        <ng-template #notSortable>
+          <th [class]="tableColumn.position == 'right' ? 'text-right color-red' : 'color-red'" mat-header-cell *matHeaderCellDef [mat-sort-header]="tableColumn.name" [arrowPosition]="tableColumn.position === 'right' ? 'before' : 'after'">
+            <ng-container *ngIf="tableColumn.iconName">
+              <mat-icon>{{ tableColumn.iconName }}</mat-icon>
+            </ng-container>
+            <ng-container>{{ tableColumn.name }}</ng-container>
+          </th>
+        </ng-template>
+
+        <!-- Column Data -->
+        <td mat-cell *matCellDef="let element; let i = index" [class.text-right]="tableColumn.position == 'right'"
+            [ngClass]="{ 'even-row': i % 2 === 0 }" [style.color]="getColorForData(element[tableColumn.dataKey])" (click)="onRowClick(element)">
+          <ng-container *ngIf="tableColumn.name === 'IssueDocuments'">
+            <!-- Render HTML content (like links) in IssueDocuments column -->
+            <div [innerHTML]="getSanitizedHtml(element[tableColumn.dataKey])"></div>
+          </ng-container>
+
+          <ng-container *ngIf="tableColumn.name !== 'IssueDocuments'">
+            <!-- Normal rendering for other columns -->
+            {{ element[tableColumn.dataKey] }}
+          </ng-container>
+
+          <ng-container *ngIf="tableColumn.name === 'Actions'">
+            <div class="d-flex float-right align-items-center">
+              <div class="vertical-line left"></div>
+              <button class="m-r-24 threedotsbutton" mat-icon-button [matMenuTriggerFor]="actionMenu" (click)="$event.stopPropagation()">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </div>
+            <mat-menu #actionMenu="matMenu">
+              <button mat-menu-item *ngFor="let option of element.actions" (click)="handleMenuItemClick(option.label, option.icon, element)">
+                <mat-icon mat-icon>{{ option.icon }}</mat-icon>
+                {{ option.label }}
+              </button>
+            </mat-menu>
+          </ng-container>
+        </td>
+      </ng-container>
+
+      <!-- Add the new column definition for issueDocuments -->
+      <ng-container matColumnDef="issueDocuments">
+        <th mat-header-cell *matHeaderCellDef> Issue Documents </th>
+        <td mat-cell *matCellDef="let row">
+          <div class="clickable-wrapper">
+            <a *ngIf="row.issueDocuments" [href]="row.issueDocuments" target="_blank">
+              View Document
+            </a>
+            <span *ngIf="!row.issueDocuments">No Document Available</span>
+          </div>
+        </td>
+      </ng-container>           
+
+      <!-- Header Row -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+      <!-- Data Rows -->
+      <tr class="cursor-pointer" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <!-- No Results Message -->
+  <div *ngIf="showNoResultsMessage" class="f-s-30 f-w-800 justify-content-center d-flex m-t-40">
+    No results found.
+  </div>
+
+  <!-- Pagination -->
+  <mat-paginator *ngIf="isPageable"
+                 [pageSizeOptions]="paginationSizes"
+                 [pageSize]="defaultPageSize"
+                 showFirstLastButtons>
+  </mat-paginator>
+</ng-container>

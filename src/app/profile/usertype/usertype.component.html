@@ -1,0 +1,425 @@
+<div class="profile-page">
+  <!-- <h1 class="m-b-20">Profile</h1> -->
+  <!-- <app-pagemaintitle heading="Krishna Kanth"></app-pagemaintitle> -->
+  <app-pagemaintitle  class="m-b-20" heading="Profile"></app-pagemaintitle>
+
+
+    <div class="header-image">
+      <img [src]="bannerImageUrl || 'assets/images/profile/banner.jpg'" alt="Header Image" class="bannerimage">
+
+      <input type="file" accept="image/*" id="bannerpicture" name="selectedUserProfile" 
+            (change)="bannerpicture($event)" hidden>
+      
+      <label for="bannerpicture" class="btn-change-cover">
+          Change Cover
+      </label>
+      
+      <div *ngIf="fileTypeError" class="f-w-600 mandatory">{{ errorMessage }}</div>
+    </div>
+    <div class="profile-container">
+      <div class="profile-sidebar">
+        <div class="profile-pic d-flex justify-content-center">
+            <!-- <img src="/assets/images/ceo.png" alt="Profile Picture"> -->
+            <img *ngIf="digitalSignImageUrl" class="profileimage" [src]="digitalSignImageUrl">
+            <img *ngIf="!digitalSignImageUrl" mat-card-image  alt="Upload Icon">
+        </div>
+        <div class="profile-info">
+          <h3 class="text-center">{{ Username || "No User Name" }}</h3>
+          <!-- <p class="text-center">Admin</p> -->
+        </div>
+        <div class="profile-links">
+
+          <!-- Generate and Post URL Buttons -->
+          <!-- <button>Generate and Post URL</button> -->
+
+          <!-- Display generated URL and error message -->
+          
+          <!-- <div *ngIf="urlError" class="error-message">{{ urlError }}</div> -->
+          <app-reusable-button
+            label="View Public Profile"
+            [textColor]="'white'"
+            [buttonWidth]="'100%'"
+            [buttonHeight] = "'40px'"
+            classname="black-color f-s-16"
+            (click)="openNewWindow()"
+          ></app-reusable-button>
+          <!-- <a href="#" target="_blank"><div *ngIf="generatedUrl" class="generated-url">{{ generatedUrl }}</div></a> -->
+        </div>
+      </div>
+
+      <div class="profile-content">
+   
+        <div class="form-container m-t-24">
+            <!-- <h2 class="m-l-20">About Yourself</h2> -->
+            <app-pagemaintitle  class="m-l-20 "heading="About Yourself"></app-pagemaintitle>
+
+            <!-- Profile Form starts here -->
+            <form [formGroup]="profileFormGroup">
+              <div class="account-info" *ngFor="let item of aboutdata">
+                  <div *ngIf="!isMobile" class="tabs-container p-30">
+                      
+                      <!-- Username -->
+                      <div class="row m-r-0 m-b-20">
+                        <div class="col-6">
+                          <app-label text="User Name" for="Username"></app-label>
+                          <noneditablefield text="{{ this.Username || 'N/A' }}" Class="font-small"></noneditablefield>
+                        </div>
+                      </div>
+                      
+
+                      <!-- First Name and Last Name -->
+                      <div class="row m-b-20">
+                          <div class="col-6">
+                              <app-label text="First Name" for="firstname"></app-label>
+                              <noneditablefield text="{{ item.FirstName || 'N/A' }}"></noneditablefield>
+                          </div>
+                          <div class="col-6">
+                              <app-label text="Last Name" for="lastname"></app-label>
+                              <noneditablefield text="{{ item.LastName || 'N/A' }}"></noneditablefield>
+                          </div>
+                      </div>
+
+                      <!-- Email and Phone Number -->
+                      <div class="row m-b-20">
+                          <div class="col-6">
+                              <app-label text="Email" for="email"></app-label>
+                              <noneditablefield text="{{ item.Email || 'N/A' }}"></noneditablefield>
+                          </div>
+                          <div class="col-6">
+                              <div class="row">
+                                  <div class="col-4">
+                                      <app-label text="Country Code" for="countrycode"></app-label>
+                                      <noneditablefield text="{{ item.CountryCode || 'N/A' }}"></noneditablefield>
+                                  </div>
+                                  <div class="col-8">
+                                      <app-label text="Phone Number" for="phoneNumber"></app-label>
+                                      <noneditablefield text="{{ item.PhoneNumber || 'N/A' }}"></noneditablefield>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <!-- Gender and Date of Birth -->
+                      <div class="row">
+                          <div class="col-6">
+                              <app-label text="Gender" for="gender"></app-label>
+                              <noneditablefield text="{{ item.Gender || 'N/A' }}"></noneditablefield>
+                          </div>
+                          <div class="col-6">
+                              <div class="row">
+                                  <div class="col-9">
+                                      <app-label text="Date Of Birth" for="dateofbirth"></app-label>
+                                      <noneditablefield text="{{ item.DateOfBirth | date: 'dd-MM-yyyy' || 'N/A' }}"></noneditablefield>
+                                  </div>
+                                  <div class="col-3">
+                                      <app-label text="Age" for="age"></app-label>
+                                      <noneditablefield text="{{ item.Age || 'N/A' }}"></noneditablefield>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <!-- Address -->
+                      <div class="row m-t-20">
+                          <div class="col-12">
+                              <app-label text="Address" for="address"></app-label>
+                              <noneditablefield text="{{ item.Address || 'N/A' }}" cssClass="text-capitalize textarea-height"></noneditablefield>
+                          </div>
+                      </div>
+
+                      <!-- State, City, and Country -->
+                      <div class="row m-t-20">
+                          <div class="col-4">
+                              <app-label text="City" for="city"></app-label>
+                              <noneditablefield text="{{ item.City || 'N/A' }}" cssClass="text-capitalize"></noneditablefield>
+                          </div>
+                          <div class="col-4">
+                              <app-label text="State" for="state"></app-label>
+                              <noneditablefield text="{{ item.State || 'N/A' }}"></noneditablefield>
+                          </div>
+                          <div class="col-4">
+                              <app-label text="Country" for="country"></app-label>
+                              <noneditablefield text="{{ item.Country || 'N/A' }}"></noneditablefield>
+                          </div>
+                      </div>
+
+                      <!-- pincode -->
+                      <div class="row m-t-20">
+                        <div class="col-12">
+                            <app-label text="PIN Code" for="pincode"></app-label>
+                            <noneditablefield text="{{ item.PinCode || 'N/A' }}"></noneditablefield>
+                        </div>
+                    </div>
+
+                      <!-- Short Description -->
+                      <div class="row m-t-20">
+                          <div class="col-12">
+                              <app-label text="Short Description" for="shortDescription"></app-label>
+                              <noneditablefield text="{{ item.Description || 'N/A' }}"></noneditablefield>
+                          </div>
+                      </div>
+
+                      <!-- Long Description -->
+                      <div class="row m-t-20">
+                          <div class="col-12">
+                              <app-label text="Brief About Yourself" for="description"></app-label>
+                              <noneditablefield text="{{ item.Candidate_Brief || 'N/A' }}" cssClass="textarea-height"></noneditablefield>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="accordion-container" *ngIf="isMobile">
+                      <mat-accordion>
+                          <mat-expansion-panel>
+                              <mat-expansion-panel-header>
+                                  <mat-panel-title>Tab 1</mat-panel-title>
+                              </mat-expansion-panel-header>
+                              Content for Tab 1
+                          </mat-expansion-panel>
+                          <mat-expansion-panel>
+                              <mat-expansion-panel-header>
+                                  <mat-panel-title>Tab 2</mat-panel-title>
+                              </mat-expansion-panel-header>
+                              Content for Tab 2
+                          </mat-expansion-panel>
+                          <mat-expansion-panel>
+                              <mat-expansion-panel-header>
+                                  <mat-panel-title>Tab 3</mat-panel-title>
+                              </mat-expansion-panel-header>
+                              Content for Tab 3
+                          </mat-expansion-panel>
+                      </mat-accordion>
+                  </div>
+              </div>
+
+              <!-- Button -->
+              <div class="button-container">
+                <app-reusable-button
+                    label="Add or Update"
+                    [textColor]="'white'"
+                    [buttonWidth]="'220px'"
+                    [buttonHeight]="'40px'"
+                    classname="black-color f-s-16"
+                    (click)="outcorrections(aboutYourselfDialogBox)"
+                ></app-reusable-button>
+            </div>
+            </form>
+            <!-- Profile Form ends here -->
+        </div>
+          
+        <!-- popup starts here -->
+        <ng-container>
+          <ng-template #aboutYourselfDialogBox>
+            <div mat-dialog-title class="text-center popupheader-black">About Yourself</div>
+        
+            <!-- Profile Form Starts -->
+            <form [formGroup]="profileFormGroup" (ngSubmit)="submit()">
+              <mat-dialog-content id="scrollbar">
+                <div class="row m-r-0">
+                  <!-- Profile Picture -->
+                  <div class="col-12 m-b-10 d-flex align-items-center">
+                    <div class="col-4 col-md-3">
+                      <app-label text="Profile Picture" for="profilePicture" [required]="true"></app-label>
+                    </div>
+                    <div class="col-8 col-md-9">
+                      <input type="file" accept="image/*" id="profilePicture" name="selectedUserProfile" 
+                              (change)="profilePicture($event)" hidden>
+                      <label for="profilePicture">
+                        <img *ngIf="digitalSignImageUrl" class="profileimage w-10" [src]="digitalSignImageUrl">
+                        <img *ngIf="!digitalSignImageUrl" mat-card-image [src]="selectedImage" alt="Upload Icon">
+                      </label>
+                      <div *ngIf="fileTypeError" class="f-w-600 mandatory">{{ errorMessage }}</div>
+                      <div *ngIf="!fileTypeError && selectedFileName" class="file-info">
+                        <span>File Name: {{ selectedFileName }}</span>
+                        <span>File Size: {{ selectedFileSize }}</span>
+                      </div>
+                      <mat-icon *ngIf="digitalSignImageUrl" (click)="removeImage()">close</mat-icon>
+                    </div>
+                  </div>
+                  
+                  <!-- User Name -->
+                  <div class="col-12 col-md-6 mb-3">
+                    <app-label text="User Name" for="Username" [required]="true"></app-label>
+                    <mat-form-field appearance="outline" class="w-100 place">
+                      <input type="text" matInput formControlName="Username" placeholder="Enter Your User Name" required>
+                      <mat-error *ngIf="checkError('Username', 'required')">User Name is required</mat-error>
+                    </mat-form-field>
+                  </div>
+        
+                  <div class="col-md-"></div>
+        
+                  <!-- First Name -->
+                  <div class="col-12 col-md-6 mb-3">
+                    <app-label text="First Name" for="Firstname" [required]="true"></app-label>
+                    <mat-form-field appearance="outline" class="w-100 place">
+                      <input type="text" matInput formControlName="Firstname" placeholder="Enter Your First Name" required>
+                      <mat-error *ngIf="checkError('Firstname', 'required')">First Name is required</mat-error>
+                    </mat-form-field>
+                  </div>
+        
+                  <!-- Last Name -->
+                  <div class="col-12 col-md-6 mb-3">
+                    <app-label text="Last Name" for="Lastname" [required]="true"></app-label>
+                    <mat-form-field appearance="outline" class="w-100 place">
+                      <input type="text" matInput formControlName="lastname" placeholder="Enter Your Last Name" required>
+                      <mat-error *ngIf="checkError('lastname', 'required')">Last Name is required</mat-error>
+                    </mat-form-field>
+                  </div>
+        
+                  <!-- Date of Birth -->
+                  <div class="col-12 col-md-6 mb-3">
+                    <app-label text="Date of Birth" for="DateOfBirth" [required]="true"></app-label>
+                    <mat-form-field appearance="outline" class="w-100 place">
+                      <input matInput [matDatepicker]="picker" formControlName="dob" placeholder="Select DOB" [max]="maxDate" required>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <mat-error *ngIf="checkError('dob', 'required')">Date of Birth is required</mat-error>
+                    </mat-form-field>
+                  </div>
+        
+                  <!-- Gender -->
+                  <div class="col-12 col-md-6 mb-3">
+                    <app-label text="Gender" for="Gender" [required]="true"></app-label>
+                    <mat-form-field appearance="outline" class="w-100 place">
+                      <mat-select formControlName="gender" required placeholder="Gender">
+                        <mat-option value="Male">Male</mat-option>
+                        <mat-option value="Female">Female</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="checkError('gender', 'required')">Gender is required</mat-error>
+                    </mat-form-field>
+                  </div>
+        
+                  <!-- Email -->
+                  <div class="col-12 col-md-6 mb-3">
+                    <app-label text="Email" for="Email" [required]="true"></app-label>
+                    <mat-form-field appearance="outline" class="w-100 place">
+                      <input type="email" matInput formControlName="email" placeholder="Ex. xyz@ivin.com" required>
+                      <mat-error *ngIf="checkError('email', 'required')">Email is required</mat-error>
+                      <mat-error *ngIf="checkError('email', 'email')">Invalid email address</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                    <!-- AGE -->
+                    <div class="col-12 col-md-2 mb-3">
+                      <app-label text="Age" for="age" [required]="true"></app-label>
+                      <mat-form-field appearance="outline" class="w-100 place">
+                        <input type="number" matInput formControlName="age" placeholder="Enter Your Age" required>
+                        <mat-error *ngIf="checkError('age', 'required')">Age is required</mat-error>
+                      </mat-form-field>
+                    </div>
+          
+                    <!-- Country Code -->
+                    <div class="col-12 col-md-4 mb-3">
+                      <app-label text="Country Code" for="CountryCode" [required]="true"></app-label>
+                      <mat-form-field appearance="outline" class="w-100 place">
+                        <mat-select formControlName="Countrycode" required placeholder="Select your Country Code">
+                          <mat-option value="+91(IND)">+91 (IND)</mat-option>
+                          <mat-option value="+1(USA)" selected="true">+1 (USA)</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="checkError('Countrycode', 'required')">Country Code is required</mat-error>
+                      </mat-form-field>
+                    </div>
+          
+                    <!-- Phone Number -->
+                    <div class="col-12 col-md-6 mb-3">
+                      <app-label text="Phone Number" for="PhoneNumber" [required]="true"></app-label>
+                      <mat-form-field appearance="outline" class="w-100 place">
+                        <input matInput type="number" formControlName="phoneNumber" placeholder="Enter Your Phone Number" required>
+                        <mat-error *ngIf="checkError('phoneNumber', 'required')">Phone Number is required</mat-error>
+                      </mat-form-field>
+                    </div>
+          
+                    <!-- Address -->
+                    <div class="col-12 col-md-12 mb-3">
+                      <app-label text="Address" for="Address" [required]="true"></app-label>
+                      <mat-form-field appearance="outline" class="w-100 custom-placeholder">
+                        <textarea matInput formControlName="address" placeholder="Enter Your Address" required></textarea>
+                        <mat-error *ngIf="checkError('address', 'required')">Address is required</mat-error>
+                      </mat-form-field>
+                    </div>
+          
+                    <!-- Country -->
+                    <div class="col-12 col-md-6 mb-3">
+                      <app-label text="Country" for="Country" [required]="true"></app-label>
+                      <mat-form-field appearance="outline" class="w-100 place">
+                        <mat-select formControlName="Country" required placeholder="Country">
+                          <mat-option value="India">India</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="checkError('Country', 'required')">Country is required</mat-error>
+                      </mat-form-field>
+                    </div>
+          
+                    <!-- State -->
+                    <div class="col-12 col-md-6 mb-3">
+                      <app-label text="State" for="State" [required]="true"></app-label>
+                      <mat-form-field appearance="outline" class="w-100 place">
+                        <mat-select formControlName="state" required placeholder="State">
+                          <mat-option *ngFor="let state of allstates" [value]="state">{{state}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="checkError('state', 'required')">State is required</mat-error>
+                      </mat-form-field>
+                    </div>
+          
+                    <!-- City -->
+                    <div class="col-12 col-md-6 mb-3">
+                      <app-label text="City" for="City" [required]="true"></app-label>
+                      <mat-form-field appearance="outline" class="w-100 place">
+                        <input matInput formControlName="city" placeholder="Enter Your City" required>
+                        <mat-error *ngIf="checkError('city', 'required')">City is required</mat-error>
+                      </mat-form-field>
+                    </div>
+          
+                    <!-- Pincode -->
+                    <div class="col-12 col-md-6 mb-3">
+                      <app-label text="PIN Code" for="Pincode" [required]="true"></app-label>
+                      <mat-form-field appearance="outline" class="w-100 place">
+                        <input matInput type="number" formControlName="pincode" placeholder="Enter Your Pincode" required>
+                        <mat-error *ngIf="checkError('pincode', 'required')">Pincode is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                              
+                     <!-- Short Description -->
+                     <!-- <div class="col-12 mb-3">
+                      <app-label text="Short Description" for="ShortDescription" [required]="true"></app-label>
+                      <mat-form-field appearance="outline" class="w-100 custom-placeholder">
+                        <textarea matInput formControlName="shortdescription" placeholder="Type your Description" required></textarea>
+                        <mat-error *ngIf="checkError('shortdescription', 'required')">Short Description is required</mat-error>
+                      </mat-form-field>
+                    </div> -->
+          
+                    <!-- About Yourself -->
+                    <div class="col-12 mb-3">
+                    <app-label text="Short Description" for="ShortDescription" [required]="true"></app-label>
+                    <mat-form-field appearance="outline" class="w-100 custom-placeholder">
+                      <textarea matInput formControlName="shortdescription" placeholder="Type your Description" required></textarea>
+                      <mat-error *ngIf="checkError('shortdescription', 'required')">Short Description is required</mat-error>
+                    </mat-form-field>
+                  </div>
+        
+                  <!-- About Yourself -->
+                  <div class="col-12 mb-3">
+                    <app-label text="Brief About Yourself" for="AboutYourSelf" [required]="true"></app-label>
+                    <mat-form-field appearance="outline" class="w-100 custom-placeholder">
+                      <textarea matInput class="custom-textarea" formControlName="aboutyourself" placeholder="Type Brief About Yourself" required></textarea>
+                      <mat-error *ngIf="checkError('aboutyourself', 'required')">Brief About Yourself is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                  
+                </div>
+        
+                <!-- Action Buttons -->
+                <mat-dialog-actions align="center">
+                  <button mat-raised-button class="save-cancel-button blackbutton" type="submit">Save</button>
+                  <button mat-button mat-dialog-close class="save-cancel-button cancel-border" type="button">Cancel</button>
+                </mat-dialog-actions>
+              </mat-dialog-content>
+            </form>
+            <!-- Profile Form Ends -->
+        
+          </ng-template>
+        </ng-container>
+          
+      </div>
+    </div>
+  </div>
+  

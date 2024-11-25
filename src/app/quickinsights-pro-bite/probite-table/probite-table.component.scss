@@ -1,0 +1,18 @@
+.communicationlink {
+    color: cornflowerblue;
+    font-style: italic;
+}
+
+.example-container {
+    height: 700px;
+    // width: 100%;
+    // max-width: 100%;
+    overflow: auto;
+    border-radius: 10px;
+}
+
+.table-headings {
+    white-space: nowrap;
+    overflow: hidden;
+    // text-overflow: ellipsis;
+}

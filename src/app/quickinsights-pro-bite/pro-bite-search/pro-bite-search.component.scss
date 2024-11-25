@@ -1,0 +1,85 @@
+.examplecontainer {
+    // height: 455px;
+    width: 100%;
+    // max-width: 100%;
+    overflow: auto;
+    // border-radius: 10px;
+}
+
+.textdecoration-underline{
+    text-decoration: underline;
+}
+
+.save-button{
+  width: 150px; 
+  height: 40px; 
+  font-weight: 700;
+}
+
+.searchtoggle{
+    border-radius: 10px;
+}
+
+mat-slider {
+    width: 350px;
+}
+
+.searchbuttons{
+    width: 160px;
+    height: 44px;
+    border: 1px solid black;
+}
+
+.savebutton{
+    width: 101px;
+    height: 44px;
+    border-radius: 50px;
+    border: 1px;
+}
+
+.card{
+    width: 700px;
+    height: 300px;
+    // background: rgba(231, 231, 232, 1);
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+}
+
+.search-input {
+    padding: 0 10px;
+    margin: 5px 0;
+    width: 100%;
+    height: 70px;
+  }
+
+  .custom-toggle-group {
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    overflow: hidden;
+    display: inline-flex;
+  }
+  
+  .custom-toggle-group .mat-button-toggle {
+    border-radius: 30px;
+    // padding: 8px 16px;
+    color: black;
+  }
+  
+  .custom-toggle-group .mat-button-toggle.mat-button-toggle-checked {
+    background-color: black; /* Black background for selected */
+    color: white; /* White text for selected */
+  }
+  
+  .custom-toggle-group .mat-button-toggle:not(.mat-button-toggle-checked) {
+    background-color: white; /* White background for unselected */
+    color: black; /* Black text for unselected */
+  }
+  
+  .custom-toggle-group .mat-button-toggle-checked {
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+  }
+  
+  
+  
+
+

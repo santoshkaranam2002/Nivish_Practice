@@ -1,0 +1,57 @@
+mat-form-field {
+    margin-right: 12px;
+  }
+
+.profileimage {
+  max-width: 150px;
+  max-height: 200px; /* Adjust the value to your desired maximum height */
+  margin-left: 50px;
+  margin-top: 10px;
+  cursor:pointer;
+  }
+
+.upload-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.upload-box {
+  width: 300px;
+  height: 200px;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+}
+
+.upload-box p {
+  font-size: 16px;
+  font-weight: bold;
+  color: #555;
+}
+
+.upload-box span {
+  margin: 10px 0;
+  color: #999;
+}
+
+.browse-button {
+  background-color: #d9534f;
+  color: white;
+  padding: 10px 20px; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.browse-button:hover {
+  background-color: #c9302c;
+}
+.place input::placeholder {
+  font-size: 15px; 
+}

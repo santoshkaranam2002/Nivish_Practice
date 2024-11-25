@@ -1,0 +1,100 @@
+<!-- Menu Button -->
+<button class="menu-button" *ngIf="mobile && !sidenavVisible" (click)="toggleSidenav()">
+    <span class="material-symbols-outlined">menu</span> 
+</button>
+
+<!-- Sidebar Container -->
+<div class="sidenav" *ngIf="!mobile || sidenavVisible" (mouseenter)="toggleCollapse(true)" (mouseleave)="toggleCollapse(false)" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
+    <!-- Logo and close button section -->
+    <div class="logo-container">
+        <div class="pointercursor" (click)="toggleCollapse()">
+            <img src="/assets/images/svgs/ivin-portal-icon.svg">
+        </div>
+        <div class="logo-text" @fadeInOut *ngIf="collapsed">IVIN Pro</div>
+        <button class="btn-close"  *ngIf="collapsed" (click)="closeSidenav()">
+            <i class="fal fa-times close-icon"></i>
+        </button>
+    </div>
+
+    <!-- Navigation items section -->
+    <div class="scrollwrap scrollwrap_delayed">
+        <ul class="sidenav-nav">
+            <!-- Loop through navbarData -->
+            <li class="sidenav-nav-item" *ngFor="let data of navData">
+                <a class="sidenav-nav-link"
+                   [routerLink]="[data.routeLink]"
+                   routerLinkActive="active"
+                   [routerLinkActiveOptions]="{exact: true}"
+                   (click)="handleClick(data)">
+                  <ng-container *ngIf="data.imageUrl; else iconTemplate">
+                    <img [src]="data.imageUrl" alt="{{ data.label }}" class="avatar-image m-l-4">
+                  </ng-container>
+                  <ng-template #iconTemplate>
+                    <i class="sidenav-link-icon" [class]="data.icon"></i>
+                  </ng-template>
+                  <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">{{ data.label }}</span>
+                  <i class="fas m-l-10" [ngClass]="data.expanded ? 'fa-chevron-up' : 'fa-chevron-down'" *ngIf="data.children?.length"></i>
+                </a>
+                
+                <!-- Render child items if expanded -->
+                <ul class="sidenav-subnav" *ngIf="data.expanded">
+                  <!-- Show only the first 2 children -->
+                  <li class="sidenav-nav-item" *ngFor="let child of data.children | slice:0:visibleCount; let i = index">
+                    <a class="sidenav-nav-link m-t-10 m-l-12"
+                      [routerLink]="[child.routeLink]"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{exact: true}"
+                      (click)="handleChildClick(i)">
+                      <i class="sidenav-link-icon" [class]="child.icon"></i>
+                      <span class="sidenav-link-text" *ngIf="collapsed">{{ child.label }}</span>
+                    </a>
+                  </li>
+
+                  <!-- Show the ellipsis if there are more than 2 children -->
+                  <li class="sidenav-nav-item" *ngIf="data && data.children && data.children.length > visibleCount">
+                    <a class="sidenav-nav-link m-t-10 m-l-12" (click)="handleEllipsisClick(data)">
+                      <i class="fa fa-ellipsis-h m-l-20"></i>
+                      <span class="sidenav-link-text" *ngIf="collapsed" (click)="userspopup(usersdialogbox)">More</span>
+                    </a>
+                  </li>
+                </ul>
+            </li>
+           
+            
+
+            <!-- Logout section -->
+            <div class="logout-container m-t-28" (click)="logout()">
+                <span class="material-symbols-outlined">logout</span>
+            </div>
+        </ul>
+    </div>
+</div>
+
+
+
+<!-- Users Pop-up -->
+
+<ng-container>
+  <ng-template #usersdialogbox>
+    <div mat-dialog-title class="text-center popupheader-black">
+      Remaining Portfolio Names
+    </div>
+    <form>
+      <mat-dialog-content id="scrollbar">
+        <div class="popup-content pointercursor">
+          <ul class="child-list">
+            <li *ngFor="let child of remainingChildren; let i = index">
+              <a class="child-item" (click)="handleChildClick(i + 2)">
+                <i class="fa fa-user"></i> <!-- User icon added here -->
+                {{ child.label }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </mat-dialog-content>
+      <div class="text-center">
+        <button mat-button (click)="userspopupclose()" class="close-button">Close</button>
+      </div>
+    </form>
+  </ng-template>
+</ng-container>

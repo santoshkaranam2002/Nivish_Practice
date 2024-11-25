@@ -1,0 +1,328 @@
+<div class="form-container overflowhidden p-l-4">
+    <form>
+        <div class="row m-t-20 m-r-20">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div *ngFor="let each of Ecdata" style="min-width: 40%; width: 45%;">
+                        <div class="col-md-12 d-flex m-b-24">
+                            <div class="col-sm-12 m-r-32 borderradius">
+                                <table>
+                                    <tr>
+                                        <td><span class="f-w-600">Affidavit &nbsp;</span></td>
+                                        <td>: <img mat-card-image [src]="each.ECDocuments || 'https://via.placeholder.com/250x250?text=No+Profile+Image'"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="f-w-600">Contested For &nbsp;</span>
+                                        </td>
+                                        <td>
+                                            : {{each.TypeOfCandidate || '--'}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="f-w-600">Candidate ECNumber &nbsp;</span></td>
+                                        <td>: {{each.CandidateECNumber || '--'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="f-w-600">Assembly Constituency &nbsp;</span></td>
+                                        <td>: {{each.ConstituencyName || '--'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="f-w-600">Candidate Status &nbsp;</span></td>
+                                        <td>: {{each.CandidateStatus || '--'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="f-w-600">Father/Husband Name &nbsp;</span></td>
+                                        <td>: {{each.CandidateRelationName || '--'}}</td>
+                                    </tr>
+                                    
+                                </table>
+                            </div>
+                            <!-- <button class="card-edit-button" (click)="outcorrections(candidatureinformationdialogbox)"><span class="material-symbols-outlined" style="color: black; font-size: 18px;">edit</span></button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <!-- Message for no data available -->
+        <div *ngIf="!Ecdata || Ecdata.length === 0" class="text-center">
+            <p>No data available</p>
+        </div>
+
+        <!--Button-->
+        <div class="row justify-content-end m-b-64 m-t-32">
+            <div class="col-sm-8">
+                <button mat-raised-button class="m-r-12 m-b-12 blackbutton save-cancel-button" (click)="outcorrections(candidatureinformationdialogbox)">Add or Update</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- popup starts here -->
+<ng-container>
+    <ng-template #candidatureinformationdialogbox> 
+        <div mat-dialog-title class="text-center popupheader-black">EC Status & Updates</div>
+            <form (ngSubmit)="Ecstatuspost()" class="p-r-64 p-l-64">
+                <mat-dialog-content id="scrollbar">
+                    <div class="row m-t-20 m-r-20">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div (click)="openupdatename(each)" *ngFor="let each of Ecdata; let i = index">
+                                    <div class="col-md-12 d-flex m-b-24">
+                                        <div class="col-sm-12 m-r-32 borderradius">
+                                            <table>
+                                                <tr>
+                                                    <td><span class="f-w-600">Affidavit &nbsp;</span></td>
+                                                    <td>: <img mat-card-image [src]="each.ECDocuments || 'https://via.placeholder.com/250x250?text=No+Profile+Image'"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="f-w-600">Contested For&nbsp;</span>
+                                                    </td>
+                                                    <td>
+                                                        : {{each.TypeOfCandidate || '--'}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="f-w-600">Candidate EC number &nbsp;</span></td>
+                                                    <td>: {{each.CandidateECNumber || '--'}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="f-w-600">Assembly Constituency  &nbsp;</span></td>
+                                                    <td>: {{each.ConstituencyName || '--'}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="f-w-600">Candidate Status &nbsp;</span></td>
+                                                    <td>: {{each.CandidateStatus || '--'}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="f-w-600">Father/Husband Name  &nbsp;</span></td>
+                                                    <td>: {{each.CandidateRelationName || '--'}}</td>
+                                                </tr>
+                                                
+                                            </table>
+                                        </div>
+                                        <button type="button" class="card-edit-button" (click)="removeCardEc(each)"><span class="material-symbols-outlined" style="color: black; font-size: 18px;">close</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ng-template [ngIf]="displayName==='post'">
+                        <div class="d-flex" class="scrollbar w-90">
+                            <div class="col-md-12 m-l-12 m-t-12 borderradius align-items-center">
+
+                                <div class="row">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Upload Affidavit</mat-label> -->
+                                        <app-label text="Upload Affidavit" for="Upload Affidavit" [required]="true"></app-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="file" class="click" accept="image/*,application/pdf" id="ecdigitalsigninput" name="selectedECDocument" (change)="onProfilePictureSelecte($event)">
+                                            <label for="ecdigitalsigninput" >
+                                                <img *ngIf="digitalSignImageUrl" [src]="digitalSignImageUrl" >
+                                                <div  *ngIf="!digitalSignImageUrl">
+                                                    <img mat-card-image src="/assets/images/svgs/upload-document.svg" alt="Upload Icon"/>
+                                                </div>
+                                            </label>
+                                        <div *ngIf="fileTypeError" class="f-w-600 mandatory">{{ errorMessage }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="row m-t-16">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Assembly Constituency </mat-label> -->
+                                        <app-label text="Assembly Constituency " for="Assembly Constituency" [required]="true"></app-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <mat-form-field appearance="outline" class="w-100 place">
+                                            <input [formControl]="constituencyname" id="constituencyname" matInput placeholder="Type Your Constituency Name">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row m-t-16">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block">Contested For</mat-label> -->
+                                        <app-label text="Contested For" for="Contested For" [required]="true"></app-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <mat-form-field appearance="outline"  class="w-100 m-t-16 place">
+                                            <mat-select [formControl]="typecandidate" id="typecandidate" required placeholder="Select Your Role">
+                                                <mat-option>-- None --</mat-option>
+                                                <mat-option value="MLA">MLA</mat-option>
+                                                <mat-option value="MP">MP</mat-option>
+                                                <mat-option value="MLC">MLC</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row m-t-16">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Candidate EC number</mat-label> -->
+                                        <app-label text="Candidate EC number" for="Candidate EC number" [required]="true"></app-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <mat-form-field appearance="outline" class="w-100 place">
+                                            <input [formControl]="Ecnumber" id="Ecnumber" matInput placeholder="Type Your EC Number">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row m-t-16">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block">Candidate Status</mat-label> -->
+                                        <app-label text="Candidate Status" for="Candidate Status" [required]="true"></app-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <mat-form-field appearance="outline"  class="w-100 m-t-16 place">
+                                            <mat-select [formControl]="candidatestatus" id="candidatestatus" required placeholder="Select Your Candidate Status">
+                                                <mat-option>-- None --</mat-option>
+                                                <mat-option value="WIN">WIN</mat-option>
+                                                <mat-option value="Loss">LOSS</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+
+                                <div class="row m-t-16">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Father/Husband Name </mat-label> -->
+                                        <app-label text="Father/Husband Name" for="Father/Husband Name" [required]="true"></app-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <mat-form-field appearance="outline" class="w-100 place">
+                                            <input [formControl]="candidaterealtion" id="candidaterealtion" matInput placeholder="Type Your Relation Name">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                           
+                            </div>
+                            <!-- <div class="d-flex align-items-center m-l-8">
+                                <mat-icon (click)="addCard()">add</mat-icon>
+                            </div> -->
+                        </div>
+                    </ng-template>
+
+                    <ng-template [ngIf]="displayName==='update'">
+                        <div class="d-flex" >
+                            <div class="col-md-12 m-l-12 m-t-12 borderradius align-items-center">
+
+                                <div class="row">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Upload Affidavit</mat-label> -->
+                                        <app-label text="Upload Affidavit" for="Upload Affidavit" [required]="true"></app-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <!-- <input type="file" class="click" accept="image/" id="ecdigitalsigninput" name="selectedECDocumentupdate" (change)="onProfilePictureSelecteupdate($event)">
+                                            <label for="ecdigitalsigninput" ><img *ngIf="Ecimageurl" [src]="Ecimageurl" >
+                                                <div  *ngIf="!Ecimageurl">
+                                                    <img mat-card-image src="/assets/images/svgs/upload-document.svg"   alt="Upload Icon"/>
+                                                </div>
+                                            </label>
+                                        <div *ngIf="fileTypeError" class="f-w-600 mandatory">{{ errorMessage }}</div> -->
+                                        <input type="file" class="click" accept="image/*,application/pdf" id="ecdigitalsigninput" name="selectedECDocument" (change)="onProfilePictureSelecte($event)">
+                                            <label for="ecdigitalsigninput" >
+                                                <img *ngIf="digitalSignImageUrl" [src]="digitalSignImageUrl" >
+                                                <div  *ngIf="!digitalSignImageUrl">
+                                                    <img mat-card-image src="/assets/images/svgs/upload-document.svg" alt="Upload Icon"/>
+                                                </div>
+                                            </label>
+                                        <div *ngIf="fileTypeError" class="f-w-600 mandatory">{{ errorMessage }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Assembly Constituency </mat-label> -->
+                                        <app-label text="Assembly Constituency" for="Assembly Constituency" [required]="true"></app-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <mat-form-field appearance="outline" class="w-100 place">
+                                            <input [formControl]="constituencynameupdate" id="constituencyname" matInput placeholder="Type Your Constituency Name">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block">Contested For</mat-label> -->
+                                        <app-label text="Contested For" for="Contested For" [required]="true"></app-label>
+                                        <!-- <p>test</p> -->
+                                    </div>
+                                    <div class="col-sm-8 m-t-24">
+                                        <mat-form-field appearance="outline"  class="w-100 m-t-16 place">
+                                            <mat-select [formControl]="typecandidateupdate" id="typecandidate" required placeholder="Select Your Party Name">
+                                                <mat-option>-- None --</mat-option>
+                                                <mat-option value="MLA">MLA</mat-option>
+                                                <mat-option value="MP">MP</mat-option>
+                                                <mat-option value="MLC">MLC</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Candidate EC number</mat-label> -->
+                                        <app-label text="Candidate EC number" for="Candidate EC number" [required]="true"></app-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <mat-form-field appearance="outline" class="w-100 place">
+                                            <input [formControl]="Ecnumberupdate" id="Ecnumber" matInput placeholder="Type Your Candidate EC Number ">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block">Candidate Status</mat-label> -->
+                                        <app-label text="Candidate Status" for="Candidate Status" [required]="true"></app-label>
+                                    </div>
+                                    <div class="col-sm-8 m-t-24">
+                                        <mat-form-field appearance="outline"  class="w-100 m-t-16 place">
+                                            <mat-select [formControl]="candidatestatusupdate" id="candidatestatus" required placeholder="Select Your Candidate Status">
+                                                <mat-option>-- None --</mat-option>
+                                                <mat-option value="WIN">WIN</mat-option>
+                                                <mat-option value="Loss">LOSS</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3 d-flex align-items-center">
+                                        <!-- <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Father/Husband Name</mat-label> -->
+                                        <app-label text="Father/Husband Name" for="Father/Husband Name" [required]="true"></app-label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <mat-form-field appearance="outline" class="w-100 place">
+                                            <input [formControl]="candidaterealtionupdate" id="candidaterealtion" matInput placeholder="Type Your Relation Name">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                            <!-- <div class="d-flex align-items-center m-l-8">
+                                <mat-icon (click)="addCardupdate()">add</mat-icon>
+                            </div> -->
+                        </div>
+                    </ng-template>
+
+                </mat-dialog-content>
+                    
+                <!--Button-->
+                <mat-dialog-actions align="center">
+                    <button mat-raised-button class="blackbutton" >Save</button>
+                    <button mat-button mat-dialog-close class="m-r-20 cancel-border">Cancel</button>
+                </mat-dialog-actions>
+            </form>
+
+        <!-- Message for no data available -->
+    </ng-template>
+</ng-container>

@@ -1,0 +1,70 @@
+<!-- <div class="float-right"><button mat-raised-button class="blackbutton" (click)="openNewWindow()">Public View</button></div> -->
+
+<!-- src/app/profile/profile.component.html -->
+<div class="profile-page">
+    <div class="header-image">
+        <img src="assets/images/profile/banner.jpg" alt="Header Image">
+      <!-- <button class="btn-change-cover">Change Cover</button> -->
+    </div>
+    <div class="profile-container">
+      <div class="profile-sidebar">
+        <div class="profile-pic d-flex justify-content-center">
+            <img src="/assets/images/maleicon.svg" alt="Profile Picture">
+        </div>
+        <div class="profile-info">
+          <!-- <h2 class="text-center">{{ name }}</h2> -->
+          <!-- <p class="text-center">Admin</p> -->
+        </div>
+        <div class="profile-links">
+          <!-- Generate and Post URL Buttons -->
+          <!-- <button>Generate and Post URL</button> -->
+
+          <!-- Display generated URL and error message -->
+          
+          <!-- <div *ngIf="urlError" class="error-message">{{ urlError }}</div> -->
+
+          <!-- <button class="btn-view-profile">View Public Profile</button> -->
+          <!-- <a href="#" target="_blank"><div *ngIf="generatedUrl" class="generated-url">{{ generatedUrl }}</div></a> -->
+        </div>
+      </div>
+      <div class="profile-content">
+        <mat-tab-group 
+            #tabGroup 
+            mat-stretch-tabs="true" 
+            mat-align-tabs="start" 
+            [selectedIndex]="activeTabIndex"
+            class="custom-tab-group">
+
+            <mat-tab label="About Yourself">
+                <app-yourself (moveToTab)="activateTab($event)"></app-yourself>
+            </mat-tab>
+        
+
+            Candidature information starts
+            <mat-tab label="Candidature Information">
+                <app-candidatureinfo (moveToTab)="activateTab($event)"></app-candidatureinfo>
+            </mat-tab>
+
+            <!-- PoliticalHistory -->
+            <mat-tab label="Political History">
+                <app-politicalhist (moveToTab)="activateTab($event)"></app-politicalhist>
+            </mat-tab>
+
+            Social Media
+            <mat-tab label="Social Media">
+                <app-socialmedia></app-socialmedia>
+            </mat-tab>
+        
+            <!-- EC Status & updates -->
+            <mat-tab label="EC Status & updates">
+                <app-ecstatus></app-ecstatus>
+            </mat-tab>
+
+            <div>
+                <!-- <button mat-button mat-dialog-close class="m-r-20  cancel-border">Cancel</button> -->
+            </div>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,16 @@
+<div class="wrapper">
+    <div class="sidenav" data-color="danger" data-background-color="white" data-image="">
+        <app-sidenav class="side" (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
+        <app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-body>
+        <div class="sidenav-background"></div>
+
+    </div>
+    <div class="main-panel">
+
+
+        <!-- <app-navbar></app-navbar> -->
+        <div>
+            <!-- <app-footer></app-footer> -->
+        </div>
+    </div>
+</div>

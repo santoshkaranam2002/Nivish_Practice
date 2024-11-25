@@ -1,0 +1,64 @@
+table {
+  width: 100%;
+}
+
+td{
+  font-weight: 600;
+  font-size: 18px !important;
+}
+
+th, td {
+  padding: 5px 0px 0px 40px !important;
+  height: 66px !important;
+}
+
+.mat-header-cell{
+  color: #8F1402 !important;
+}
+
+mat-form-field {
+  width: 40%;
+}
+
+.text-right {
+  text-align: left !important;
+}
+
+.color-red {
+  background-color:  rgb(5, 5, 4) !important;
+  ;
+}
+.even-row {
+  background-color: rgba(242, 245, 255, 1) !important;
+}
+
+th{
+  color: rgb(246, 245, 245);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 31.79px;
+  text-align: left;
+  // display: flex;
+  }
+
+.button{
+    background-color: #8F1402 !important;
+    // color: #fff !important;
+    // width:35%;
+    border-radius: 5px;
+    border: 1px solid #8F1402 !important;
+}
+
+.threedotsbutton{
+  background: white;
+  box-shadow: 0px 1px 3px 0px #000000;
+}
+
+div.vertical-line {
+  height: 40px;
+  margin: 10px;
+}
+
+div.vertical-line.left {
+    border-left: 1px solid rgba(207, 207, 207, 1);
+}

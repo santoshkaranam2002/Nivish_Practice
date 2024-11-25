@@ -1,0 +1,114 @@
+<div mat-dialog-title class="align-items-center d-flex p-20">
+    <mat-icon>filter_alt</mat-icon>Included Data</div>
+<mat-dialog-content>
+    <div class="row">
+        <div class="col-md-3">
+            <!-- <mat-checkbox value="caste" [formControl]="castfilter">Cast</mat-checkbox> -->
+            <div>
+                <mat-checkbox [(ngModel)]="showcastDropdown">Cast</mat-checkbox>
+                <div *ngIf="showcastDropdown" class="m-l-8">
+                    <mat-form-field appearance="outline">
+                        <mat-select [formControl]="selectedOptionsCast" multiple placeholder="Cast">
+                            <mat-option *ngFor="let option of castdropdown" [value]="option">{{ option }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <mat-checkbox [formControl]="Numberfilter">Number</mat-checkbox>
+        </div>
+        <div class="col-md-3">
+            <!-- <mat-checkbox [formControl]="Professionfilter">Profession</mat-checkbox> -->
+            <div>
+                <mat-checkbox [(ngModel)]="showProfessionDropdown">Profession</mat-checkbox>
+                <div *ngIf="showProfessionDropdown" class="m-l-8">
+                    <mat-form-field appearance="outline">
+                        <mat-select [formControl]="selectedOptionsProfession" placeholder="Profession">
+                            <mat-option value="PoliticalDesignation">Political Designation</mat-option>
+                            <mat-option value="Non-PoliticalDesignation">Non-Political Designation</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <!-- <mat-checkbox [formControl]="PartyInclinationfilter">Party Inclination</mat-checkbox> -->
+            <div>
+                <mat-checkbox [(ngModel)]="showPartyInclinationDropdown">Party Inclination</mat-checkbox>
+                <div *ngIf="showPartyInclinationDropdown" class="m-l-8">
+                    <mat-form-field appearance="outline">
+                        <mat-select [formControl]="selectedOptionsPartyInclination" multiple placeholder="Party Inclination">
+                            <mat-option *ngFor="let option of partynames" [value]="option"> {{ option }} </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <!-- <mat-checkbox [formControl]="ContactModefilter">Contact Mode</mat-checkbox> -->
+            <div>
+                <mat-checkbox [(ngModel)]="showContactModeDropdown">Contact Mode</mat-checkbox>
+                <div *ngIf="showContactModeDropdown" class="m-l-8">
+                    <mat-form-field appearance="outline">
+                        <mat-select [formControl]="selectedOptionsContactMode" placeholder="Contact Mode">
+                            <mat-option value="PersonalContacted">Personal Contacted</mat-option>
+                            <mat-option value="TeamContacted">Team Contacted</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <mat-checkbox [formControl]="NonLocalAddressfilter">Non Local Address</mat-checkbox>
+        </div>
+        <div class="col-md-3">
+            <mat-checkbox [formControl]="Dissidentfilter">Dissident</mat-checkbox>
+        </div>
+        <div class="col-md-3">
+            <mat-checkbox [formControl]="JoinPartyfilter">Interested to Join Party</mat-checkbox>
+        </div>
+        <div class="col-md-3">
+            <mat-checkbox [formControl]="Physicallychallengedfilter">Physically challenged</mat-checkbox>
+        </div>
+        <div class="col-md-3">
+            <!-- <mat-checkbox [formControl]="Habitationsfilter">Habitations</mat-checkbox> -->
+            <div>
+                <mat-checkbox [(ngModel)]="showHabitationsDropdown">Habitations</mat-checkbox>
+                <div *ngIf="showHabitationsDropdown" class="m-l-8">
+                    <mat-form-field appearance="outline">
+                        <mat-select [formControl]="selectedOptionsHabitations" multiple placeholder="Habitations">
+                            <mat-option *ngFor="let option of habitations" [value]="option"> {{ option }} </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <!-- <mat-checkbox [formControl]="Schemesfilter">Schemes</mat-checkbox> -->
+            <div>
+                <mat-checkbox [(ngModel)]="showSchemesDropdown">Schemes</mat-checkbox>
+                <div *ngIf="showSchemesDropdown" class="m-l-8">
+                    <mat-form-field appearance="outline">
+                        <mat-select [formControl]="selectedOptionsSchemes" multiple placeholder="Schemes">
+                            <mat-option>Schemes</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <mat-checkbox [formControl]="ageFilter">AGE</mat-checkbox>
+        </div>
+        <div class="col-md-6 m-t-24 m-l-12">
+            <mat-slider class="mat-slider" min="18" max="100" discrete="true" [disabled]="!ageFilter.value">
+                <input matSliderStartThumb [(ngModel)]="startvalue">
+                <input matSliderEndThumb [(ngModel)]="endvalue">
+            </mat-slider>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button type="button" mat-button mat-dialog-close class="m-r-24 cancel-border">Cancel</button>
+    <button mat-raised-button class="blackbutton" (click)="applyfilter()">APPLY</button>
+</mat-dialog-actions>
